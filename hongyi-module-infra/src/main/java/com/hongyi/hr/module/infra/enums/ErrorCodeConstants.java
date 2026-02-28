@@ -68,5 +68,6 @@ public interface ErrorCodeConstants {
     ErrorCode DEMO03_COURSE_NOT_EXISTS = new ErrorCode(1_001_201_008, "学生课程不存在");
     ErrorCode DEMO03_GRADE_NOT_EXISTS = new ErrorCode(1_001_201_009, "学生班级不存在");
     ErrorCode DEMO03_GRADE_EXISTS = new ErrorCode(1_001_201_010, "学生班级已存在");
+    ErrorCode NOTE_NOT_EXISTS = new ErrorCode(1_001_600_001, "我的日记不存在");
 
 }

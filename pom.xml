@@ -15,6 +15,7 @@
         <!-- 各种 module 拓展 -->
         <module>hongyi-module-system</module>
         <module>hongyi-module-infra</module>
+        <module>hongyi-module-hy</module>
 <!--        <module>hongyi-module-member</module>-->
 <!--        <module>hongyi-module-bpm</module>-->
 <!--        <module>hongyi-module-report</module>-->

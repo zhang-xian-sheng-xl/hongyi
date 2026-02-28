@@ -31,6 +31,11 @@
             <artifactId>hongyi-module-infra</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.hongyi.hy</groupId>
+            <artifactId>hongyi-module-hy</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         <!-- 会员中心。默认注释，保证编译速度 -->
 <!--        <dependency>-->

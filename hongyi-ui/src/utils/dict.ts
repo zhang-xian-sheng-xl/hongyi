@@ -250,5 +250,6 @@ export enum DICT_TYPE {
   IOT_OTA_TASK_STATUS = 'iot_ota_task_status', // IoT OTA 任务状态
   IOT_OTA_TASK_RECORD_STATUS = 'iot_ota_task_record_status', // IoT OTA 记录状态
   IOT_MODBUS_MODE = 'iot_modbus_mode', // IoT Modbus 工作模式
-  IOT_MODBUS_FRAME_FORMAT = 'iot_modbus_frame_format' // IoT Modbus 帧格式
+  IOT_MODBUS_FRAME_FORMAT = 'iot_modbus_frame_format', // IoT Modbus 帧格式
+  PROJECT_LIST = 'project_list'
 }
