@@ -1,0 +1,3 @@
+com.hongyi.hr.framework.security.config.HongyiSecurityAutoConfiguration
+com.hongyi.hr.framework.security.config.HongyiWebSecurityConfigurerAdapter
+com.hongyi.hr.framework.operatelog.config.HongyiOperateLogConfiguration

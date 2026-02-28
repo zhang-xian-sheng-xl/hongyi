@@ -1,0 +1,2 @@
+com.hongyi.hr.framework.quartz.config.HongyiQuartzAutoConfiguration
+com.hongyi.hr.framework.quartz.config.HongyiAsyncAutoConfiguration

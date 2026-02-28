@@ -1,0 +1,2 @@
+com.hongyi.hr.framework.tracer.config.HongyiTracerAutoConfiguration
+com.hongyi.hr.framework.tracer.config.HongyiMetricsAutoConfiguration

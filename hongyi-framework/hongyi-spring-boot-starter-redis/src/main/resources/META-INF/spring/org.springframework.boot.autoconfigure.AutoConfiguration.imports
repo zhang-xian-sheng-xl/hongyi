@@ -1,0 +1,2 @@
+com.hongyi.hr.framework.redis.config.HongyiRedisAutoConfiguration
+com.hongyi.hr.framework.redis.config.HongyiCacheAutoConfiguration

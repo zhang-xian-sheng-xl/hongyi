@@ -1,0 +1,3 @@
+com.hongyi.hr.framework.datasource.config.HongyiDataSourceAutoConfiguration
+com.hongyi.hr.framework.mybatis.config.HongyiMybatisAutoConfiguration
+com.hongyi.hr.framework.translate.config.HongyiTranslateAutoConfiguration

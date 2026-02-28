@@ -1,0 +1,3 @@
+com.hongyi.hr.framework.mq.redis.config.HongyiRedisMQProducerAutoConfiguration
+com.hongyi.hr.framework.mq.redis.config.HongyiRedisMQConsumerAutoConfiguration
+com.hongyi.hr.framework.mq.rabbitmq.config.HongyiRabbitMQAutoConfiguration

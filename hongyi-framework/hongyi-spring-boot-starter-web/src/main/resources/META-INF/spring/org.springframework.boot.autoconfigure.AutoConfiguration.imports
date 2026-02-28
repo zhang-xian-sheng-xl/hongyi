@@ -1,0 +1,7 @@
+com.hongyi.hr.framework.apilog.config.HongyiApiLogAutoConfiguration
+com.hongyi.hr.framework.jackson.config.HongyiJacksonAutoConfiguration
+com.hongyi.hr.framework.swagger.config.HongyiSwaggerAutoConfiguration
+com.hongyi.hr.framework.web.config.HongyiWebAutoConfiguration
+com.hongyi.hr.framework.xss.config.HongyiXssAutoConfiguration
+com.hongyi.hr.framework.banner.config.HongyiBannerAutoConfiguration
+com.hongyi.hr.framework.encrypt.config.HongyiApiEncryptAutoConfiguration

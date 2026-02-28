@@ -1,0 +1,4 @@
+com.hongyi.hr.framework.idempotent.config.HongyiIdempotentConfiguration
+com.hongyi.hr.framework.lock4j.config.HongyiLock4jConfiguration
+com.hongyi.hr.framework.ratelimiter.config.HongyiRateLimiterConfiguration
+com.hongyi.hr.framework.signature.config.HongyiApiSignatureAutoConfiguration
