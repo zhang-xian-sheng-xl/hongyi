@@ -1,5 +1,4 @@
 import request from '@/config/axios'
-import type { Dayjs } from 'dayjs';
 
 /** 我的日记信息 */
 export interface Note {
@@ -46,4 +45,4 @@ export const NoteApi = {
   exportNote: async (params) => {
     return await request.download({ url: `/hy/note/export-excel`, params })
   },
-}
+}

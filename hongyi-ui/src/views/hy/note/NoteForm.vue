@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import { getStrDictOptions, DICT_TYPE } from '@/utils/dict'
 import { NoteApi, Note } from '@/api/hy/note'
+import { listToString } from '@/api/hy/ehscommon'
 
 /** 我的日记 表单 */
 defineOptions({ name: 'NoteForm' })
@@ -83,6 +84,7 @@ const submitForm = async () => {
   // 提交请求
   formLoading.value = true
   try {
+    formData.value.annexUrl=listToString(formData.value.annexUrl)
     const data = formData.value as unknown as Note
     if (formType.value === 'create') {
       await NoteApi.createNote(data)

@@ -80,7 +80,18 @@ const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
   modelValue: propTypes.oneOfType<string | string[]>([String, Array<String>]).isRequired,
-  fileType: propTypes.array.def(['doc', 'xls', 'ppt', 'txt', 'pdf']), // 文件类型, 例如['png', 'jpg', 'jpeg']
+  fileType: propTypes.array.def([
+    'doc',
+    'xls',
+    'ppt',
+    'txt',
+    'pdf',
+    'bat',
+    'sql',
+    'docx',
+    'sxlx',
+    'json'
+  ]), // 文件类型, 例如['png', 'jpg', 'jpeg']
   fileSize: propTypes.number.def(5), // 大小限制(MB)
   limit: propTypes.number.def(5), // 数量限制
   autoUpload: propTypes.bool.def(true), // 自动上传
