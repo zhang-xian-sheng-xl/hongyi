@@ -1,4 +1,5 @@
 import { Layout } from '@/utils/routerHelper'
+import ehsRouter from '@/router/modules/ehsbpm'
 
 const { t } = useI18n()
 /**
@@ -342,7 +343,8 @@ const remainingRouter: AppRouteRecordRaw[] = [
           title: '修改流程',
           activeMenu: '/bpm/manager/model'
         }
-      }
+      },
+      ...ehsRouter
     ]
   },
   {
