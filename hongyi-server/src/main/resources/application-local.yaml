@@ -48,7 +48,8 @@ spring:
       primary: master
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:5036/hongyi?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true # MySQL Connector/J 8.X 连接的示例
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:p6spy:mysql://127.0.0.1:5036/hongyi?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true # MySQL Connector/J 8.X 连接的示例
           #          url: jdbc:mysql://127.0.0.1:3306/ruoyi-vue-pro?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true # MySQL Connector/J 5.X 连接的示例
           #          url: jdbc:postgresql://127.0.0.1:5432/ruoyi-vue-pro # PostgreSQL 连接的示例
           #          url: jdbc:oracle:thin:@127.0.0.1:1521:xe # Oracle 连接的示例
@@ -170,26 +171,26 @@ logging:
     name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径
   level:
     # 配置自己写的 MyBatis Mapper 打印日志
-    com.hongyi.hr.module.bpm.dal.mysql: debug
-    com.hongyi.hr.module.infra.dal.mysql: debug
+    com.hongyi.hr.module.bpm.dal.mysql: warn
+    com.hongyi.hr.module.infra.dal.mysql: warn
     com.hongyi.hr.module.infra.dal.mysql.logger.ApiErrorLogMapper: INFO # 配置 ApiErrorLogMapper 的日志级别为 info，避免和 GlobalExceptionHandler 重复打印
     com.hongyi.hr.module.infra.dal.mysql.job.JobLogMapper: INFO # 配置 JobLogMapper 的日志级别为 info
     com.hongyi.hr.module.infra.dal.mysql.file.FileConfigMapper: INFO # 配置 FileConfigMapper 的日志级别为 info
-    com.hongyi.hr.module.pay.dal.mysql: debug
+    com.hongyi.hr.module.pay.dal.mysql: warn
     com.hongyi.hr.module.pay.dal.mysql.notify.PayNotifyTaskMapper: INFO # 配置 PayNotifyTaskMapper 的日志级别为 info
-    com.hongyi.hr.module.system.dal.mysql: debug
+    com.hongyi.hr.module.system.dal.mysql: warn
     com.hongyi.hr.module.system.dal.mysql.sms.SmsChannelMapper: INFO # 配置 SmsChannelMapper 的日志级别为 info
-    com.hongyi.hr.module.tool.dal.mysql: debug
-    com.hongyi.hr.module.member.dal.mysql: debug
-    com.hongyi.hr.module.trade.dal.mysql: debug
-    com.hongyi.hr.module.promotion.dal.mysql: debug
-    com.hongyi.hr.module.statistics.dal.mysql: debug
-    com.hongyi.hr.module.crm.dal.mysql: debug
-    com.hongyi.hr.module.erp.dal.mysql: debug
-    com.hongyi.hr.module.iot.dal.mysql: debug
-    com.hongyi.hr.module.iot.dal.tdengine: DEBUG
-    com.hongyi.hr.module.iot.service.rule: debug
-    com.hongyi.hr.module.ai.dal.mysql: debug
+    com.hongyi.hr.module.tool.dal.mysql: warn
+    com.hongyi.hr.module.member.dal.mysql: warn
+    com.hongyi.hr.module.trade.dal.mysql: warn
+    com.hongyi.hr.module.promotion.dal.mysql: warn
+    com.hongyi.hr.module.statistics.dal.mysql: warn
+    com.hongyi.hr.module.crm.dal.mysql: warn
+    com.hongyi.hr.module.erp.dal.mysql: warn
+    com.hongyi.hr.module.iot.dal.mysql: warn
+    com.hongyi.hr.module.iot.dal.tdengine: warn
+    com.hongyi.hr.module.iot.service.rule: warn
+    com.hongyi.hr.module.ai.dal.mysql: warn
     org.springframework.context.support.PostProcessorRegistrationDelegate: ERROR # TODO 芋艿：先禁用，Spring Boot 3.X 存在部分错误的 WARN 提示
 
 debug: false

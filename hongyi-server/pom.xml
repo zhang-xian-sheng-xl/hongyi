@@ -36,6 +36,11 @@
             <artifactId>hongyi-module-hy</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+        </dependency>
+
 
         <!-- 会员中心。默认注释，保证编译速度 -->
 <!--        <dependency>-->

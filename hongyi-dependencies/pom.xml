@@ -36,6 +36,7 @@
         <kingbase.jdbc.version>8.6.0</kingbase.jdbc.version>
         <opengauss.jdbc.version>5.1.0</opengauss.jdbc.version>
         <taos.version>3.7.9</taos.version>
+        <p6spy.version>3.8.7</p6spy.version>
         <!-- 消息队列 -->
         <rocketmq-spring.version>2.3.5</rocketmq-spring.version>
         <!-- 服务保障相关 -->
@@ -683,6 +684,11 @@
                         <artifactId>hutool-core</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version> <!-- 请根据需要选择合适的版本 -->
             </dependency>
         </dependencies>
     </dependencyManagement>
