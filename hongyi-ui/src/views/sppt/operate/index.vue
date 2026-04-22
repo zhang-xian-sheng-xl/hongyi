@@ -238,7 +238,7 @@
           <el-col :span="6">
             <el-input v-model="scjb" placeholder="请输入签字框名称" />
             路径送出校验脚本：<span class="sppt">jinru('{{ scjb }}');</span>
-            <el-button @click="copyToClipboard(`jinru(('${scjb}')`)" type="primary" size="small">
+            <el-button @click="copyToClipboard(`jinru('${scjb}')`)" type="primary" size="small">
               复制</el-button
             >
           </el-col>
