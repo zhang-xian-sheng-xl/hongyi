@@ -34,7 +34,9 @@
       </template>
       <template #file="row">
         <div class="flex items-center">
-          <span>{{ row.file.name }}</span>
+          <span :class="{ 'preview-link': canPreview(row.file) }" @click="previewFile(row.file)">
+            {{ row.file.name }}
+          </span>
           <div class="ml-10px">
             <el-link
               :href="row.file.url"
@@ -58,6 +60,7 @@
   <div v-if="disabled" class="upload-file">
     <div v-for="(file, index) in fileList" :key="index" class="flex items-center file-list-item">
       <span>{{ file.name }}</span>
+
       <div class="ml-10px">
         <el-link :href="file.url" :underline="false" download target="_blank" type="primary">
           下载
@@ -65,6 +68,11 @@
       </div>
     </div>
   </div>
+  <el-dialog v-model="fileLoading" title="预览" width="80%">
+    <vue-office-docx v-if="docxFlag" :src="fileUrl" style="height: 90vh" />
+    <vue-office-excel v-if="excelFlag" :src="fileUrl" style="height: 90vh" />
+    <vue-office-pdf v-if="pdfFlag" :src="fileUrl" style="height: 90vh" />
+  </el-dialog>
 </template>
 <script lang="ts" setup>
 import { propTypes } from '@/utils/propTypes'
@@ -72,7 +80,15 @@ import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 
 import { isString } from '@/utils/is'
 import { useUpload } from '@/components/UploadFile/src/useUpload'
 import { UploadFile } from 'element-plus/es/components/upload/src/upload'
-
+//引入VueOfficeDocx组件 相关样式
+import VueOfficeDocx from '@vue-office/docx'
+import '@vue-office/docx/lib/index.css'
+//引入VueOfficeExcel组件
+import VueOfficeExcel from '@vue-office/excel'
+//引入相关样式
+import '@vue-office/excel/lib/index.css'
+//引入VueOfficePdf组件
+import VueOfficePdf from '@vue-office/pdf'
 defineOptions({ name: 'UploadFile' })
 
 const message = useMessage() // 消息弹窗
@@ -106,6 +122,11 @@ const uploadRef = ref<UploadInstance>()
 const uploadList = ref<UploadUserFile[]>([])
 const fileList = ref<UploadUserFile[]>([])
 const uploadNumber = ref<number>(0)
+const fileLoading = ref(false)
+const pdfFlag = ref(false)
+const docxFlag = ref(false)
+const excelFlag = ref(false)
+const fileUrl = ref('')
 
 const { uploadUrl, httpRequest } = useUpload(props.directory)
 
@@ -174,7 +195,7 @@ const handleRemove = (file: UploadFile) => {
   }
 }
 const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
-  console.log(uploadFile)
+  // console.log(uploadFile)
 }
 
 // 监听模型绑定值变动
@@ -211,6 +232,43 @@ const emitUpdateModelValue = () => {
   }
   emit('update:modelValue', result)
 }
+const previewFile = (file) => {
+  // console.log(file)
+  // 获取文件名
+  // 支持预览的文件类型
+  const supportedTypes = ['pdf', 'doc', 'docx', 'xls', 'xlsx']
+
+  // 从文件名中提取后缀
+  let fileExtension = ''
+  if (file.name && file.name.lastIndexOf('.') > -1) {
+    fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase()
+  }
+
+  if (!supportedTypes.includes(fileExtension)) {
+    return
+  }
+  fileLoading.value = true
+  pdfFlag.value = false
+  docxFlag.value = false
+  excelFlag.value = false
+  fileUrl.value = file.url
+  if (fileExtension == 'pdf') {
+    pdfFlag.value = true
+  } else if (fileExtension == 'doc' || fileExtension == 'docx') {
+    docxFlag.value = true
+  } else if (fileExtension == 'xls' || fileExtension == 'xlsx') {
+    excelFlag.value = true
+  }
+}
+// 判断文件是否可以预览
+const canPreview = (file: UploadUserFile) => {
+  const supportedTypes = ['pdf', 'doc', 'docx', 'xls', 'xlsx']
+  let fileExtension = ''
+  if (file.name && file.name.lastIndexOf('.') > -1) {
+    fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase()
+  }
+  return supportedTypes.includes(fileExtension)
+}
 </script>
 <style lang="scss" scoped>
 .upload-file-uploader {
@@ -242,5 +300,14 @@ const emitUpdateModelValue = () => {
 .file-list-item {
   border: 1px dashed var(--el-border-color-darker);
   border-radius: 8px;
+}
+.preview-link {
+  color: var(--el-color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 </style>
