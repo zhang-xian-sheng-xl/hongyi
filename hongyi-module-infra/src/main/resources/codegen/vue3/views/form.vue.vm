@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
 #foreach($column in $columns)
     #if ($column.createOperation || $column.updateOperation)
         #set ($dictType = $column.dictType)
@@ -24,9 +18,7 @@
         #end
         #if ( $table.templateType == 2 && $column.id == $treeParentColumn.id )
       <el-form-item label="${comment}" prop="${javaField}">
-        <el-tree-select
-          v-model="formData.${javaField}"
-          :data="${classNameVar}Tree"
+        <el-tree-select v-model="formData.${javaField}" :data="${classNameVar}Tree"
           #if ($treeNameColumn.javaField == "name")
           :props="defaultProps"
           #else
@@ -57,12 +49,7 @@
       <el-form-item label="${comment}" prop="${javaField}">
         <el-select v-model="formData.${javaField}" placeholder="请选择${comment}">
                 #if ("" != $dictType)## 有数据字典
-          <el-option
-            v-for="dict in $dictMethod(DICT_TYPE.$dictType.toUpperCase())"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in $dictMethod(DICT_TYPE.$dictType.toUpperCase())" :key="dict.value" :label="dict.label" :value="dict.value"/>
                 #else##没数据字典
           <el-option label="请选择字典生成" value="" />
                 #end
@@ -72,12 +59,7 @@
       <el-form-item label="${comment}" prop="${javaField}">
         <el-checkbox-group v-model="formData.${javaField}">
                 #if ("" != $dictType)## 有数据字典
-          <el-checkbox
-            v-for="dict in $dictMethod(DICT_TYPE.$dictType.toUpperCase())"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-checkbox v-for="dict in $dictMethod(DICT_TYPE.$dictType.toUpperCase())" :key="dict.value" :label="dict.label" :value="dict.value"/>
                 #else##没数据字典
           <el-checkbox label="请选择字典生成" />
                 #end
@@ -101,12 +83,7 @@
       </el-form-item>
         #elseif($column.htmlType == "datetime")## 时间框
       <el-form-item label="${comment}" prop="${javaField}">
-        <el-date-picker
-          v-model="formData.${javaField}"
-          type="date"
-          value-format="x"
-          placeholder="选择${comment}"
-        />
+        <el-date-picker v-model="formData.${javaField}" type="date" value-format="x" placeholder="选择${comment}"/>
       </el-form-item>
         #elseif($column.htmlType == "textarea")## 文本框
       <el-form-item label="${comment}" prop="${javaField}">
