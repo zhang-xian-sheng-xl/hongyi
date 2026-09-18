@@ -1,0 +1,1095 @@
+caf-security:
+  authn:
+    rules:
+    - matchers:
+      - /api/runtime/dip/v1.0/skills/**
+      flows:
+      - API_KEY
+    - matchers:
+      - /actuator/**
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/runtime/sys/v1.0/routerRedirect
+      flows:
+      - PASSPORT
+    - matchers:
+      - /api/runtime/sys/v1.0/liccache/clear/**
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/ba/bair/v1.0/login
+      flows:
+      - HTTP_BASIC
+    - matchers:
+      - /api/erm/ermfm/v1.0/borrowout/login
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/mdm/mdc/DataReceiveService/v1.0/mdc-api/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/mdm/mdc/AccessToDictionaryDataService/v1.0/mdc-api/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/mdm/mda/DataPushService/v1.0/mda-datapush/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/mdm/mda/DataPublishService/v1.0/mda-api/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/mdm/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/BP/EIS/v1.0/imageapi/getImageFileListByBillId
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/runtime/sys/v1.0/assignresults/assdataSource/byaucontrol
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/runtime/sys/v1.0/user-position-org/users/**
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/arap/arapm/v1.0/rpcinterface/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/arap/arapm/v1.0/wycz/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/BP/EIS/v1.0/imageapi/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/tax/v1.0/invoice/input/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/tax/v1.0/stamp/**
+      flows:
+      - API_KEY
+    - matchers:
+      - /api/**
+      flows:
+      - FORM_LOGIN
+    - matchers:
+      - /tax/v1.0/inputInvoice/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /tower/v1.0/*/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /GS/webapi/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /sso/taskrouterct
+      flows:
+      - OAUTH20_CODE
+    - matchers:
+      - /sso/taskrouterct/**
+      flows:
+      - OAUTH20_CODE
+    - matchers:
+      - /ywzz/**
+      flows:
+      - API_KEY
+    - matchers:
+      - /ExpenseRefactor/v1.0/*/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /TowerExpenseHelper/v1.0/*
+      flows:
+      - API_KEY
+    - matchers:
+      - /ExpenseRefactorEstate/v1.0/*/*
+      flows:
+      - API_KEY
+    flows:
+      api-key:
+        enabled: true
+        signature:
+          enabled: false
+      form-login:
+        enabled: true
+        login-page-uri: /login123.html
+        login-processing-uri: /sign-in
+        login-success-uri: /platform/runtime/sys/web/index.html#/ssologin
+        login-failure-uri: /login123.html#error=
+      passport:
+        enabled: true
+        authorization-uri: https://id.inspuronline.com/oauth2.0/authorize
+        redirect-uri: /oauth2.0/sign-in
+        accessToken-uri: https://id.inspuronline.com/oauth2.0/token
+        user-info-uri: https://id.inspuronline.com/oauth2.0/user-info
+        login-success-uri: /api/runtime/sys/v1.0/routerRedirect
+        login-failure-uri: /login-info.html#error=
+        client-id: xxxx
+        client-secret: xxxx
+      http-basic:
+        enabled: true
+    providers:
+      jpa-api-key:
+        enabled: true
+      username-password-jdbc:
+        enabled: true
+        datasource:
+          type: com.zaxxer.hikari.HikariDataSource
+          url: ENC(dZ058oGaOP45F00C0rnf6RN8zlX2rvik3ft4K7wd2jwOdaqHPWcDu4miogRpWbizN87jNqGbI4cdyf0giBLYAonxN08Xa03fi7jkLK9+fnVqY1GYOGcJSSoKeslqe+m8)
+          driver-class-name: dm.jdbc.driver.DmDriver
+          username: ENC(fgRdzUhBQ6Lc9VQJDv27jUadNxeUsqF+k8ZySMvJ1GZjEZeqHR1l3A==)
+          password: ENC(MVahCiEaBwG0MObZExJ/nhWwOh7Sb5g7OuUeItilftTjv0exi3grMg==)
+        secret-column: password
+        secret-key-column: userid
+        secret-key-algorithm: DES
+        attributes-mapping:
+          id: userid
+          username: usercode
+          fullName: username
+          accountState: islock
+          external-attributes:
+            SysOrgId: sysorgid
+            SysOrgCode: sysorgcode
+            SysOrgName: sysorgname
+        password-strength-rules:
+        - password-rule: (?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,}
+          description: 密码中必须包含大小写字母、数字、特殊符号，至少8个字符
+    rate-limit:
+      enabled: true
+      duration-in-minute: 10
+      limit: 5
+      apikey:
+        enabled: true
+        duration-in-minute: 5
+        limit: 100
+  general:
+    white-list:
+    - /api/runtime/sys/v1.0/liccache/clear/*
+    - /
+    - /actuator/info
+    - /actuator/health
+    - /**/*.js
+    - /**/*.css
+    - /**/*.html
+    - /**/*.png
+    - /**/*.jpg
+    - /**/*.svg
+    - /**/*.ttf
+    - /platform/runtime/sys/web/login_module/i18n/*.properties
+    - /api/runtime/sys/v1.0/authenstrategies/*/*
+    - /api/runtime/sys/v1.0/loginInfo
+    - /api/runtime/sys/v1.0/oauth2configs
+    - /api/runtime/sys/v1.0/authenitems/reset
+    - /api/runtime/sys/v1.0/logout
+    - /api/runtime/sys/v1.0/rtf-configuration/loginresource/*/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.msu.api.server.MsuServiceRegistry.register/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.msu.api.server.MsuServiceRegistry.deRegister/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.msu.api.server.MsuServiceDiscovery.discover/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.rpc.api.service.RpcDefinitionQuery.queryList/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.rpc.api.service.RpcDefinitionQuery.detail/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.rpc.api.service.RpcDefinitionRegistry.register/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.rpc.registry.api.RpcDefinitionQuery.queryList/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.rpc.registry.api.RpcDefinitionQuery.detail/*
+    - /api/runtime/communication/v1.0/rpc/io.iec.edp.caf.rpc.registry.api.RpcDefinitionRegistry.register/*
+    - /api/runtime/sys/v1.0/authenitems/before
+    - /api/runtime/sys/v1.0/certificates/*
+    - /api/runtime/sys/v1.0/myauthenconfigs
+    - /api/runtime/sys/v1.0/authenitems/vCode
+    - /api/runtime/sys/v1.0/email/emailcode/*/*
+    - /api/runtime/sys/v1.0/email/emailcode
+    - /**/*.apk
+    - /api/runtime/sys/v1.0/authenitems/rule/passwordstrategy/*
+    - /api/runtime/sys/v1.0/ldap/state/*/*
+    - /api/runtime/sys/v1.0/loginInfos
+    - /api/runtime/sys/v1.0/rtf-configuration/i18nresource/*/*
+    - /api/runtime/sys/v1.0/sms/smscode/*/*
+    - /api/runtime/sys/v1.0/fp/**
+    - /api/runtime/sys/v1.0/rtf-contact-channel
+    - /api/runtime/sys/v1.0/sms/smscode
+    - /platform/runtime/sys/web/rtf.common.manifest.json
+    - /platform/runtime/common/web/runtime.common.manifest.json
+    - /Check/CheckruleInfo
+    - /sso/taskrouter
+    - /sso/taskrouter/*
+    - /chinatowerapi/*/*
+    - /PublicPushData/*
+    - /chntbb/*/*
+    - /towerTest/interface
+    - /mdm/v1.0/*/*
+    - /PUSHDATA/*
+    - /hwgsc/v1/*/*
+    - /api/ykek/gscloud/tm/brpc/pub/paybill/paybillsave
+    - /api/ykek/gscloud/tm/brpc/**
+    - /api/commonService/v1.0/getNextWorkDayIfNonWorkDay
+    - /api/commonService/v1.0/batchGetNextWorkDayIfNotWorkDay
+    - /api/tm/bm/billReceipt/v1.0/markBillAsOverdue
+    - /api/tm/bm/billReceipt/v1.0/unmarkBillAsOverdue
+    - /mobile/v1.0/*/*
+    - /api/commonService/v1.0/getExecuteRecordType
+    - /api/commonService/v1.0/getExecuteRecord
+    - /api/commonService/v1.0/getExecuteRecordContent
+    - /arapinterface/v1.0/rentalCostsRefund/*
+    - /ExpenseRefactor/v1.0/*
+    - /ExpenseRefactor/v1.0/*/*
+    - /ExpenseRefactor/*/*
+    - /chinatowerapi/audit/*
+    - /Expenses/*/*
+    - /api/tw/twfsbz/v1.0/*
+    - /api/tm/sdm/v1.0/ext/zcbzj/save
+    - /yjbzj/zcbzjSave
+    logout-uri: /logout
+    logout-success-uri: /login.html
+bef:
+  session-state:
+    mode: InProc
+  encryption-strategies:
+  - code: default
+    name: SM4加密
+    className: com.inspur.edp.cef.core.crypt.BefBuiltInEncrypt
+qdp:
+  license:
+    perpetualspreadjs: NVNTVlZZWWxrUVJoZDRVSFpoTm5RNUx5MzBRNVJZUldwQk9WUjBTRTNSWTY1aFdreHZRbGh5YmxrNldFRm1TbHBwZFZVNFZWZDRiNHhvTW5seEw1ZHFRVXhuY0V0clNUY3hjV3BEYmpsdU1VeFJVV2hoVUVad1p6ZFBOa0p1VEdNNU9FSldkWGRKYW1KclY1bFFZelJPWno0M0lpd2lSQ0kwZXlKQmJtd2lPbnNpWkhOeUlqcG1ZV3h6WlN3aVpteG5JanBiWFg0c0lrbGtJam9pTXprek9EazRNek03TWpZeE16RTlJaXdpUTQ5aElqb2k5cldxOXI2dTBZQ2E5OVNvMEw2djlMdTY5cHlKMFptUTlZV3M5WSUyQjhJaXdpUTdKNElqb2lNakF5TXpBeE1EVWdNRGd5TWpBd0lpd2lVSEprSWpwYmV5Sk9Jam9pVTdCeVpXRmtJRXBUSUhZdU1USWlMQ0pESWpvaVFqbEdTU0ozWFg1M2V5SmZjaUkwTVRNOE56QXdNelU1T0N3aVNDSTBJakl6TWtFelE0TXpJaXdpVXlJMElsb3pValV2ZWpCSWJqbFlURmt4U0d0RVRrZFNiNnRqZEhoR1VWQkRPRmxaU2tKSE1Ea3ZRVTR3UWtsR1Q3TTdZVk5UZURkSVN6RklSemhTTDdseVpqRnBRNjVoU1RGaU5ETXJVbEV4ZURjOFZXNU9ZNk5HWVhGN1pFVnJhRWhxTjR0YVU2eG9UekF6T0hJdlJ6ZzhXa050V0Vkd1NGTk5iRWQwUlRSTlE3a3lZVTk5WjZ0bEs2aGlibWM1VldRdmJuVnViNVF4UnpCeGNFRkdWelJRZFN0UGFYVnVhazNZZFhoeU40eGpjblU0VDRaV1RWRjVNSGM5UzZKWVlUWm9jNmRqVEZGUFZ5MnhOVU5uY1d4bmVHUmlONjVZTUdGUGNGQkplVkV4WlhCcFQ1aHdRa2xZWVZWU1M1MEkwQiUyMzkxMzE2MjczMzQ5ODM5M3lwQ19nbmFMQnpSeFZuYnZRVw==
+    perpetualspreadjsV15: NVNTVlZZWWxrUVlaa3hVRk54VkZGTVNXRjBTNWhSWmpNOFpUSjZVNVptYlV3dk16RjRla1U4UjZwbFVrcGthSFpYVFRGamFVZDhUazNIWkhOa1ZqZEdlbmhyVm1KUmVqQlJjRFZZVFZkTVM2OVdhbGxDYWxsNVVqaDhiNmxXUkN0bk42ODVTa3hGVkVSU05UbE1WWFY3UFQ0aUxDSkVJanAxSWtGdWJDSTBleUprYzdJaU9tWmhiSE5sTENKbWJHY2lPbHRkZlN3aVNXUWlPaUl5TkRjOU56VXpNalE2TlRjOE1USWlMQ0pEVG1FaU9pTG10YXJtdmExcGdKcm5sS2pvdmElMkZrdTFibW5JbnBtWkRsaGF6bGoxZ2lMQ0pEY25RaU9pSXlNREl6TURJd015QXdPVFU2TXpBaUxDSlFjbVFpT2x0MUlrOGlPaUpUY0hKbFlXUWdTbE1nZGk4eE5TSXNJa01pT2lKVFVVRk1JbjVkZlg0JTIzZXlKZmNpSTBNakF5TnprN05qQTVOQ3dpU0NJMElrWkVPVGhCTTRJaUxDSlRJam9pWXpCTVpHRkhTbVp5TDZsTVFXM1ZWNUowVVdSNlJFVnlUV1l3VDdVdlNUTnpiWFZPTHpKbWJ5M3liNmxOY21zeU9XOHZNa2t3UnpSSlJGSjZWbVpPYUczaGQ2bGxUVkl5WVdSdVU3RlBkNVk5T1N0UU03SktlVEYwWmpROWJFdG5kNHQ0WVVoWGJEZ3ljRXBFUkdWdFU0cFlVek5PVkRBNUs1WjVUR0k1UkRGTlRFWXhUSEl5VGtweFJYaFJSVTU1U2xwOGJFVm5TNkY3UjZSV01UbHRPRzloVURsWmE1WlJNWEU0YlV4NmFuSlFRblJuUm5vclVuaDljbmt6VW05Q2FUaHpTbk15T1U5UU5saDVhREZRZFZaSk5VcGxZbXRsY1daaU1rOVFNVk15ZDdOb1F6TlBRa1Z6TU1sZjBCJTIzMjE4NzU2NDIzNTc5NzQyeXBDX2duYWlsQnpSeFZuYnZRVw==
+docs-viewer:
+  limits:
+    pdf:
+      size: 50m
+    word:
+      size: 50m
+    excel:
+      size: 20m
+      row: 10000
+      column: 1000
+    ppt:
+      size: 20m
+  layout:
+    download: false
+    header: false
+print:
+  changeDataLanguage: false
+  port: 8281
+  showCloseButton: false
+  showTag: false
+  fontName: SimSun
+event-configurations:
+  eventManagers:
+  - name: NoCodeServiceEventManager
+    listeners:
+    - name: NocodeDesignSchemaChangeListener
+      implClassName: com.inspur.edp.web.designschema.synchronization.NocodeDesignSchemaChangeListener
+  - name: MetadataRtEventManager
+    listeners:
+    - name: VoRtEventListener
+      implClassName: com.inspur.edp.customize.impl.VoRtEventListener
+    - name: BeRtEventListener
+      implClassName: com.inspur.edp.customize.impl.BeRtEventListener
+    - name: BeCoincidenceEventListener
+      implClassName: com.inspur.edp.bef.bemanager.metadatartevent.BeMetadataRtEventListener
+    - name: BffMetadataRtEventListener
+      implClassName: com.inspur.edp.formserver.vmmanager.metadataeventlistener.BffMetadataRtEventListener
+  - name: MdpkgChangedEventManager
+    listeners:
+    - name: SgfMdPkgChangedEventListener
+      implClassName: com.inspur.edp.sgf.runtime.customize.core.listener.SgfMdPkgChangedEventListener
+    - name: QOMetadataChangedEventListener
+      implClassName: com.inspur.edp.qdp.lcp.interpretation.eventlistener.QOMetadataChangedEventListener
+  - name: MetadataCreateEventManager
+    listeners:
+    - name: MetadataCreateEventListener
+      implClassName: com.inspur.edp.lcm.metadata.core.event.MetadataCreateEventListenerImpl
+    - name: FrontMetadataCreateListener
+      implClassName: com.inspur.edp.web.pageflow.metadata.listener.PageFlowMetadataEventListener
+  - name: MetadataEventManager
+    listeners:
+    - name: MetadataEventListener
+      implClassName: com.inspur.edp.lcm.metadata.core.event.MetadataEventListenerImpl
+    - name: WebCodeListener
+      implClassName: com.inspur.edp.web.sourcecode.metadata.listener.SourceCodeMetadataEventListener
+    - name: PageFlowListener
+      implClassName: com.inspur.edp.web.pageflow.metadata.listener.PageFlowMetadataEventListener
+    - name: DesignSchemaChangeListener
+      implClassName: com.inspur.edp.web.designschema.synchronization.DesignSchemaChangeListener
+    - name: FormMetadataSaveEventListener
+      implClassName: com.inspur.edp.web.formmetadata.event.FormMetadataSaveEventListener
+    - name: BeMetadataEventListener
+      implClassName: com.inspur.edp.bef.bemanager.BeMetadataEventListener
+    - name: BffMetadataEventListener
+      implClassName: com.inspur.edp.formserver.vmmanager.BffMetadataEventListener
+  - name: DirEventManager
+    listeners:
+    - name: DirEventListener
+      implClassName: com.inspur.edp.lcm.metadata.core.event.DirEventListenerImpl
+  - name: ActivityInstanceEventManager
+    listeners:
+    - name: IActivityInstanceEventListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.ToolHandlingListener
+    - name: ActivityMessageNoticeListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.MessageNoticeListener
+  - name: ProcessInstanceEventManager
+    listeners:
+    - name: IProcessInstanceEventListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.ToolHandlingListener
+    - name: ProcessMessageNoticeListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.MessageNoticeListener
+    - name: TaskLogListenerForPF
+      implClassName: com.inspur.edp.wf.extend.listener.TaskLogListenerForPF
+  - name: ProcessDefinitonEventManager
+    listeners:
+    - name: IProcessDefinitionEventListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.ProcessDefinitonListener
+  - name: BefDtConsistencyCheckEventManager
+    listeners:
+    - name: BizEntityDTConsistencyCheckListener
+      implClassName: com.inspur.edp.bef.bizentitydtconsistencychecklistener.BizEntityDTConsistencyCheckListener
+    - name: BizEntityFieldDTConsistencyCheckListener
+      implClassName: com.inspur.edp.bef.bizentitydtconsistencychecklistener.BizEntityFieldDTConsistencyCheckListener
+    - name: BizEntityActionDTConsistencyCheckListener
+      implClassName: com.inspur.edp.formserver.vmmanager.vodtconsistencychecklistener.BizEntityActionDTConsistencyCheckListener
+    - name: VoDTConsistencyCheckListener
+      implClassName: com.inspur.edp.formserver.vmmanager.vodtconsistencychecklistener.VoDTConsistencyCheckListener
+    - name: VoFieldDTConsistencyCheckListener
+      implClassName: com.inspur.edp.formserver.vmmanager.vodtconsistencychecklistener.VoFieldDTConsistencyCheckListener
+    - name: UdtDtConsistencyCheckListener
+      implClassName: com.inspur.edp.udt.designtime.manager.udtdtconsistencychecklistener.UdtDtConsistencyCheckListener
+    - name: UdtFieldDtConsistencyCheckListener
+      implClassName: com.inspur.edp.udt.designtime.manager.udtdtconsistencychecklistener.UdtFieldDtConsistencyCheckListener
+  - name: PushChangeSetEventManager
+    listeners:
+    - name: PushChangeSet
+      implClassName: com.inspur.edp.formserver.vmmanager.PushChangeSetListener
+  - name: BefSaveEventManager
+    listeners:
+    - name: bpm
+      implClassName: com.inspur.edp.bpm.runtime.impl.BefSaveEventListener
+    - name: Rri
+      implClassName: com.inspur.edp.rri.publisher.service.BaseOnBEListener
+    - name: Aif
+      implClassName: com.inspur.edp.aif.runtime.client.impl.BefSaveEventListener
+    - name: BefAuditLog
+      implClassName: com.inspur.edp.common.component.auditlog.BefAuditLogEventListener
+    - name: Chgdr
+      implClassName: com.inspur.edp.chgdr.adapter.bef.ChgdrBefSaveEventListener
+  - name: StreamSubscriptionEventManager
+    listeners:
+    - name: Rri
+      implClassName: com.inspur.edp.rri.subscriber.eventlistener.SuFilterListener
+  - name: FilterInvokeEventManager
+    listeners:
+    - name: BqlExecuterFilter
+      implClassName: com.inspur.edp.qdp.bql.execute.listener.BqlExecuterCacheFilterListener
+    - name: FrameworkFilter
+      implClassName: io.iec.edp.caf.runtime.core.manager.FrameworkFilterListener
+  - name: FrameworkEventManager
+    listeners:
+    - name: frameworkEventListener
+      implClassName: com.inspur.edp.bef.core.session.ResponseSession
+  - name: WorkItemEventManager
+    listeners:
+    - name: IWorkItemEventListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.TaskCenterListener
+    - name: WorkItemMessageNoticeListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.MessageNoticeListener
+    - name: WorkItemToolHandlingListener
+      implClassName: com.inspur.edp.wf.engine.event.listener.ToolHandlingListener
+    - name: WorkItemJtdWorkFlowListener
+      implClassName: com.inspur.towermdm.schedule.JtdWorkFlowListener
+    - name: WorkItemEventListener
+      implClassName: com.inspur.dispatch.listener.WorkItemEventListener
+    - name: WorkItemWbPtWorkFlowListener
+      implClassName: com.inspur.towerbxcommon.schedule.WbPtWorkFlowListener
+paas:
+  enabled: false
+rtf-scheduler-configurations:
+  scheduler:
+    persistenceEnable: false
+    clustered: false
+    distributionMaster: false
+    tenants: null
+  dataSource:
+    driver: null
+    url: null
+    user: null
+    password: null
+caf-boot:
+  server:
+    static-resources:
+      external-static-resources:
+      - file:///$EDP_HOME/../components/
+      - file:///$EDP_HOME/../web/
+      enable-cache:
+        mode: InProc
+    ip-version: ipv4
+    home-page: /index.html
+    mime-mapping:
+    - extension: ngfactory
+      mime-type: text/javascript
+  bsession:
+    timeout: 2592000
+  websession:
+    type: Default
+    apikeyPersistence: false
+  persistence:
+    repository:
+      lazy: false
+      caf-lazy: false
+    gsp-cloud:
+      compatibility-mode:
+        mode: InProc
+  serialization:
+    json:
+      max-string-length: 100M
+      max-nesting-depth: 1K
+      max-num-length: 1K
+      max-name-length: 50K
+      max-doc-length: -1L
+rtf-configurations:
+  login:
+    ssoRedirectUri: /platform/runtime/sys/web/index.html#/ssologin
+    ssoEnType: RSA
+    absolutePath: false
+    dualStack: false
+    nStackHost: null
+    logoutServiceUri: /logout.html
+  func-query-extension:
+    name: rtcMenuExtension
+  framework:
+    dashboardDisplay:
+      mode: InProc
+expression-settings:
+  functionCategories:
+  - functionList:
+    - name: getEncryptedUriByMap
+      semanticName: 单点登录整体加密
+      instanceName: getEncryptedUriByMap
+      className: io.iec.edp.caf.runtime.sso.core.manager.SsoEncryptManagerImpl
+      description: 单点登录整体加密
+      funParameterList:
+      - name: param
+        description: String类型的Query参数
+    - name: getEncodeParam
+      semanticName: Param参数加密
+      instanceName: getEncodeParam
+      className: io.iec.edp.caf.runtime.sso.core.manager.SsoEncryptManagerImpl
+      description: Entityparam或Queryparam加密
+      funParameterList:
+      - name: param
+        description: JSON类型的Entityparam或Queryparam参数
+  defaultEngineName: js
+  engineItems:
+  - name: js
+  functions:
+  - token: getEmployeeByUserID
+    su: df
+    serviceId: com.inspur.gs.bf.df.commonservice.core.data.BFExpressions.getEmployeeByUserID
+    name: 根据用户ID获取行政人员信息。
+    description: |-
+      根据用户ID获取行政人员信息。返回的对象有以下属性：
+      ID：行政人员的ID。
+      OrganizationID：行政人员所在组织的ID。
+
+      以下是取行政人员ID的示例：
+      内置扩展调用("getEmployeeByUserID",用户ID).get("ID")
+    params:
+    - paramName: userID
+      paramDesc: 用户ID
+  - token: getAdminCompanyByUserID
+    su: df
+    serviceId: com.inspur.gs.bf.df.commonservice.core.data.BFExpressions.getAdminCompanyByUserID
+    name: 根据用户ID获取所属行政单位ID
+    description: 根据用户ID获取所属行政单位ID
+    params:
+    - paramName: userID
+      paramDesc: 用户ID
+  - token: getContext
+    su: df
+    serviceId: com.inspur.gs.bf.df.commonservice.core.data.BFExpressions.getContext
+    name: 获取上下文属性
+    description: 获取上下文属性
+    params:
+    - paramName: key
+      paramDesc: 要获取的属性的key
+  - token: getExFieldValue
+    su: df
+    serviceId: com.inspur.gs.bf.df.commonservice.core.data.BFExpressions.getExFieldValue
+    name: 获取扩展字段值
+    description: "使用示例：比如在物料类型上添加了自定义字段 EXTC_STR1 ，希望将其内容追加在流程标题中，则可以在流程标题的表达式中拼接：\
+      \n内置扩展调用(\"getExFieldValue\", \"bfmaterialtype\", \"exec_str1\", \"id='\"+获取\
+      上下文变量(\"单据内码\")+\"'\") "
+    params:
+    - paramName: tableName
+      paramDesc: 表名
+    - paramName: fieldName
+      paramDesc: 字段名
+    - paramName: filter
+      paramDesc: 过滤条件
+rtf-authen:
+  login:
+    vcode: false
+    algorithm: DES
+    successUri: /platform/runtime/sys/web/index.html#/ssologin
+    failureUri: /login.html?error=
+    securityRule:
+      mode: InProc
+rtf-system-integration:
+  emm:
+    enable: false
+    emmHost: xxxx
+    serverId: xxxx
+    serverSecret: xxxx
+caf-rpc:
+  localInvoke:
+    corePoolSize: 32
+    maxPoolsize: 200
+  v1:
+    enableClientCache: false
+caf-lock:
+  enableAlone: false
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+management:
+  endpoints:
+    web:
+      exposure:
+        include: null
+csp:
+  collector:
+    enabled: false
+    client-base-url: null
+    client-health-check-uri: /actuator/info
+    client-apikey: null
+    registry-base-url: null
+    collecting-cycle:
+    - name: every30second
+      corn-express: 0/30 * * * * ?
+    rules:
+    - msu-name: sys
+      enabled: false
+      collectors:
+      - name: cpu-collector
+        corn-name: every30second
+        scope: INSTANCE
+      - name: mem-collector
+        corn-name: every30second
+        scope: INSTANCE
+      - name: sys-collector
+        corn-name: every30second
+        scope: INSTANCE
+      - name: disk-collector
+        corn-name: every30second
+        scope: INSTANCE
+cxf:
+  path: /api
+  servlet:
+    init:
+      hide-service-list-page:
+        mode: InProc
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 0
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ENC(dZ058oGaOP45F00C0rnf6RN8zlX2rvik3ft4K7wd2jwOdaqHPWcDu4miogRpWbizN87jNqGbI4cdyf0giBLYAonxN08Xa03fi7jkLK9+fnVqY1GYOGcJSSoKeslqe+m8)
+    driver-class-name: dm.jdbc.driver.DmDriver
+    username: ENC(fgRdzUhBQ6Lc9VQJDv27jUadNxeUsqF+k8ZySMvJ1GZjEZeqHR1l3A==)
+    password: ENC(MVahCiEaBwG0MObZExJ/nhWwOh7Sb5g7OuUeItilftTjv0exi3grMg==)
+    hikari:
+      pool-name: hikari-cp
+      connection-test-query: SELECT 1
+      maximum-pool-size: 100
+      minimum-idle: 1
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 10
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.DmDialect
+        show_sql: false
+        format_sql: false
+        generate_statistics: false
+        multiTenancy: database
+        multi_tenant_connection_provider: io.iec.edp.caf.tenancy.core.extensions.MultiTenantConnectionProviderImpl
+        tenant_identifier_resolver: io.iec.edp.caf.tenancy.core.extensions.MultiTenantIdentifierResolver
+        implicit_naming_stategy: io.iec.edp.caf.data.orm.jpa.CAFImplicitNamingStrategy
+        physical_naming_stategy: io.iec.edp.caf.data.orm.jpa.CAFPhysicalNamingStrategy
+        ejb:
+          interceptor: io.iec.edp.caf.data.orm.jpa.CAFHibernateInterceptor
+        bytecode:
+          use_reflection_optimizer:
+            mode: InProc
+    open-in-view: false
+  main:
+    lazy-initialization: false
+    allow-circular-references:
+      mode: InProc
+  application:
+    edition: Standard-File
+  session:
+    store-type: redis
+    timeout: 1800
+  redis:
+    database: 0
+    host: 10.180.27.224
+    port: 6379
+    password: ENC(v4drt91gvty3VEpgaQ/nVVMD1Ofp8Xf5WFQptn6i0JHaONdikb2rBA==)
+  profiles:
+    active: prod
+  cloud:
+    stream:
+      defaultBinder: rabbit
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: null
+                port: 5672
+                username: null
+                password: null
+                virtual-host: /
+  banner:
+    location: banner-gscloud.txt
+  data:
+    redis:
+      repositories:
+        enabled:
+          mode: InProc
+  kafka:
+    bootstrap-servers: 10.180.22.140:9092,10.180.22.141:9092,10.180.22.142:9092
+    topic:
+      defaultListener: false
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.StringOrBytesSerializer
+      batch-size: 16384
+      buffer-memory: 33554432
+      acks: all
+      properties:
+        enable:
+          idempotence: true
+    consumer:
+      group-id: CHNTGLMS_CWGX_BFPARTNER
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+nacos:
+  discovery:
+    server-addr: 127.0.0.1:8848
+msu:
+  enable: false
+  serviceName: MicroServiceUnit
+  applicationName: iGIX-Server
+  deployMode: Custom
+  ip:
+    prefix: '10.180'
+server:
+  port: 5300
+  servlet:
+    context-path: /
+  compression:
+    mime-types:
+    - text/html
+    - text/xml
+    - text/plain
+    - text/css
+    - text/javascript
+    - application/javascript
+    - application/json
+    - application
+    - image/svg+xml
+    - image/png
+    - image/jpeg
+    min-response-size: 1024
+    enabled:
+      mode: InProc
+  tomcat:
+    threads:
+      max: 500
+    accept-count: 1000
+    max-connections: 20000
+    connection-timeout: 60000
+jasypt:
+  encryptor:
+    bean: cafConfigEncryptor
+    proxyPropertySources:
+      mode: InProc
+multi-tenant:
+  mode: exclusive
+parallel:
+  base:
+    paths:
+    - platform/common
+    - platform/runtime/common
+    - platform/runtime/sys
+    - apps/fast
+    - apps/bf
+    - apps/bp
+  module:
+    principle: keyApp
+    includes:
+    - apps
+    - platform/runtime
+    - platform/dev
+    special-modules:
+    - name: mdmsoeo
+      includes:
+      - apps/mdm
+      - apps/sasa
+      - apps/tiol
+    - name: tmhb
+      includes:
+      - apps/tm
+      - apps/ihc
+    - name: pphb
+      includes:
+      - apps/pp
+      - apps/pd
+      - apps/mom
+    excludes:
+    - apps/bcp
+caf-error-page:
+  enabled: false
+  pages:
+  - status: 403
+    path: /platform/common/web/message/403.html
+  - status: 404
+    path: /platform/common/web/message/404.html
+  - status: 500
+    path: /platform/common/web/message/500.html
+logging:
+  config: ${spring.config.location}/logback-spring.xml
+  level:
+    root: error
+    org:
+      springframework:
+        amqp:
+          rabbit:
+            connection:
+              CachingConnectionFactory: error
+            listener:
+              SimpleMessageListenerContainer: error
+    io:
+      seata:
+        core:
+          rpc:
+            netty:
+              NettyClientChannelManager: error
+              AbstractRpcRemoting: error
+              NettyPoolableFactory: error
+              RmRpcClient: error
+        common:
+          exception:
+            FrameworkException: error
+      iec:
+        edp:
+          caf:
+            commons:
+              configclient:
+                ConfigServicePropertySourceLocator: info
+    i:
+      s:
+        c:
+          r:
+            netty:
+              NettyClientChannelManager: fatal
+    com:
+      inspur:
+        gs:
+          bf:
+            df:
+              externaltools:
+                core:
+                  service:
+                    BFUtils: error
+  collection:
+    enabled: false
+    host: 127.0.0.1
+    port: 8084
+    clientKey: iGIX
+message-settings:
+  defaultChannel: default
+  channels:
+  - channelName: default
+    senderTypes: sms,email,cloudplus
+    msgSendParamInfos:
+    - sendType: email
+      params:
+        server: null
+        port: null
+        account: null
+        password: null
+  userMappers:
+  - name: default
+    type: com.inspur.edp.svc.message.extension.mapper.GspUserMapper
+  msgSenders:
+  - name: cloudplus
+    type: com.inspur.edp.svc.message.extension.cloudplus.CloudPlusSender
+  - name: email
+    type: com.inspur.edp.svc.message.extension.email.EmailMsgSender
+  - name: sms
+    type: com.inspur.edp.svc.message.extension.sms.SmsMsgSender
+  msgContentBuilders:
+  - name: cloudplus
+    type: com.inspur.edp.svc.message.extension.builder.CloudPlusBuilder
+  - name: email
+    type: com.inspur.edp.svc.message.extension.builder.EmailContentBuilder
+  - name: sms
+    type: com.inspur.edp.svc.message.extension.builder.SmsContentBuilder
+ebs:
+  stream:
+    enabled: false
+rri:
+  enabled: false
+  black-list:
+  - io.iec.edp.caf.audit.api.data.GspAudit
+  - io.iec.edp.caf.scheduler.api.data.GspScheduleLog
+  - com.inspur.edp.rri.common.entity.RriDataSubscription
+  - com.inspur.edp.rri.common.entity.RriDataService
+  - com.inspur.edp.rri.common.entity.RriDataProcessor
+  - com.inspur.edp.rri.common.entity.RriDataPublisher
+  - com.inspur.edp.rri.common.entity.RriDataConsumer
+  - com.inspur.edp.rri.common.entity.RriHandlerLog
+  - com.inspur.edp.rri.common.entity.RriDataRelation
+  - com.inspur.edp.rri.center.entity.parameter.RriParamConfig
+  - com.inspur.edp.rri.common.entity.RriPublishLog
+  - com.inspur.edp.rri.common.entity.RriPublishData
+  - com.inspur.edp.rri.common.entity.RriStrategyConfig
+  - com.inspur.edp.rri.common.entity.RriConfig
+  - com.inspur.edp.event.stream.center.api.entity.BizEvent
+  - com.inspur.edp.event.stream.center.api.entity.EventSubscriber
+  - com.inspur.edp.event.stream.center.api.entity.EventPubSub
+  - com.inspur.edp.event.stream.center.api.entity.EventProcessor
+  - com.inspur.edp.event.stream.center.api.entity.EventConsumer
+  - com.inspur.edp.event.stream.center.api.entity.EventPublisher
+  - com.inspur.edp.event.stream.entity.eventlog.EventLog
+  - com.inspur.edp.event.stream.entity.eventlog.EventHandleLog
+  - com.inspur.edp.stream.center.api.MessageChannel
+  - com.inspur.edp.event.stream.center.routing.EventDimension
+  - com.inspur.edp.event.stream.center.routing.RoutingRecord
+  - com.inspur.edp.event.stream.center.routing.EventRouteGroup
+  - com.inspur.edp.event.stream.entity.paramconfig.EventParamConfig
+  - io.iec.edp.caf.permission.api.data.designtime.Permission.UserOpCache
+dtx:
+  enabled: false
+  registry:
+    type: file
+  config:
+    type: file
+  service:
+    vgroupMapping:
+      GSCloud-seata-service-group: default
+    grouplist:
+      default: 127.0.0.1:8091
+preload:
+  suList:
+  - su: pfcommon
+    packages: com.inspur.edp
+  - su: arapm
+    packages: com.inspur.gs.arap
+  - su: ctm
+    packages: com.inspur.gs.ct.ctm
+  - su: ctp
+    packages: com.inspur.gs.ct.ctp
+  - su: ctb
+    packages: com.inspur.gs.ct.ctb
+  - su: ctc
+    packages: com.inspur.gs.ct.ctc
+  - su: cts
+    packages: com.inspur.gs.ct.cts
+  - su: df
+    packages: com.inspur.gs.bf
+  enable:
+    mode: InProc
+fastdweb:
+  dispatch: false
+  appsu: null
+startup:
+  messages:
+  - The GSCloud server has started successfully in {uptime} seconds，Now listening
+    on:{port}
+redis:
+  enabled:
+    mode: InProc
+caching-configuration:
+  enableRedis:
+    mode: InProc
+  redisManagers:
+  - name: default
+    mode: standalone
+    host: 10.180.27.224
+    port: 6379
+    password: ENC(Vth8WZMOcWClMwQNpkzG7WfkZs5vjSzFB0kc+8zMSDIrXSPeZeYsGQ==)
+datasource-auto-proxy:
+  enabled:
+    mode: InProc
+qa:
+  offline:
+    delanswer:
+      mode: InProc
+ctabu-configurations:
+  authentication:
+    local: http://eridc.tower0788.cn:5200
+    mainRedirectUrl: http://eridc.tower0788.cn:5200/platform/runtime/sys/web/index.html#/main
+    mainzlRedirectUrl: http://eridc.tower0788.cn:5200/platform/runtime/sys/web/index.html#/main
+    mainnyRedirectUrl: http://eridc.tower0788.cn:5200/platform/runtime/sys/web/index.html#/main
+    prefixUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?language=zh-CHS&tenant-id=10000&callparam=
+    prefixzlUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?language=zh-CHS&tenant-id=10000&callparam=
+    prefixnyUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?language=zh-CHS&tenant-id=10000&callparam=
+    redirectPrefixUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?ssoEntpi=
+    redirectPrefixzlUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?ssoEntpi=
+    redirectPrefixnyUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?ssoEntpi=
+    redirectPrefixcbjtUrl: http://eridc.tower0788.cn:5200/api/runtime/sys/v1.0/routerRedirect?
+    routerUrl: http://eridc.tower0788.cn:5200/sso/taskrouterct
+    nacosUrl: http://10.180.22.122:8848
+    nacosSuUrl: /server/config/SuServerMapping.json
+    serverName: chntfinance-cwgx
+    nacosToken: b6cb5764242934b82d20002d30a478c2
+    sysCodezzgl: CHNTGLMS
+    sysCodekjgd: CHNTCWGL_CWGLXT_009
+    sysCode: CHNTGLMS
+lsvo-configurations:
+  pathSchema: http
+  pathHost: 172.21.182.111:8080/index.html
+  userErrorSchema: http
+  userErrorHost: 172.21.182.111
+  userErrorHtmlPath: /apps/page_1.html
+  userErrorSkipPath: http://172.21.182.111/login.html
+  tenantId: 0
+  redirectUri: http://172.21.182.111/api
+  successUrl: http://localhost:5200/platform/runtime/sys/web/index.html
+  failureUrl: http://localhost:5200/login.html
+  hostUrl: http://10.230.69.164
+  checkticketUrl: http://localhost:8085/fms/v1.0/unifieduser/checkTicket
+  checksessiondataUrl: http://10.230.69.164:8080/fms/v1.0/unifieduser/checkSessionData
+  authorizeKey: secretKey
+  secretAlgorithm: DES
+  moaType: 2
+  checkPageUrl: /login.html
+  ssoexlist:
+  - key: tyyh
+    implClassName: com.inspur.checkticketsso.SsoCheckTicketService
+  - key: sc
+    implClassName: com.inspur.checkticketsso.SsoCheckTicketService
+  pushtodoapikey: c965b54b-ae09-022a-8744-d46626465822
+  wfapikey: 631f131f-c39c-6dee-709a-d76de2797b7e
+  leadertentant: 100
+  cttohost: localhost:5200
+lsvo-servers:
+  softtest:
+    host: 10.110.85.49
+    talentid:
+    - 200
+    - 201
+    - 204
+  dev:
+    host: 10.110.83.213
+    talentid:
+    - 101
+  devtest:
+    host: 10.110.86.40
+    talentid:
+    - 100
+    - 101
+    - 104
+lsvo-fpub:
+  kingbase:
+    mainserviceid: c65e6f94-c59c-2d17-a8d5-68efeeaf886f
+  fcoe-sftp:
+    host: 10.110.85.136
+    port: 27
+    username: xuhao
+    passWord: aaaaaa
+  wtjs-sftp:
+    host: 10.110.85.136
+    port: 27
+    username: hq_fms
+    passWord: k9P!G2fJP
+    rootpath: /home/shenzhen/EXCEL/
+    localpath: web/apps/lsvo/files/Viewer/fcoe
+  ftp:
+    host: 10.110.85.136
+    port: 27
+    username: xuhao
+    passWord: aaaaaa
+    ftpPath: /home/shenzhen/EXCEL/
+lsvo:
+  cmca:
+    getcadataurl: https://IP:8090/lsvo/fitf/mdm/InquiryCurrencySrv/inquirycurrency
+    verifycadataurl: https://IP:8090/lsvo/fitf/mdm/InquiryCurrencySrv/inquirycurrency
+    verifytime: 5
+    isopentime: 1
+  sim:
+    moasimcheckUrl: https://IP:8090/lsvo/fitf/mdm/InquiryCurrencySrv/inquirycurrency
+    moasimsignUrl: https://IP:8090/lsvo/fitf/mdm/InquiryCurrencySrv/inquirycurrency
+  rabbitmq:
+    host: 10.110.84.28
+    username: admin
+    password: admin
+  cms:
+    pageinquirycontractbaseconfigsrv: http://10.110.85.135:8091/lsvo/fitf/cms/pageinquirycontractbaseconfigsrv/execute
+  fitf:
+    interface:
+      enable: 0
+      log4x-sdk:
+        enable: 0
+      zhgl:
+        ImportBankAccountSrv: http://127.0.0.1:8090/lsvo/fitf/mdm/ImportBankAccountSrv/importbankaccount
+        InquiryCurrencySrv: https://127.0.0.1:8090/lsvo/fitf/mdm/InquiryCurrencySrv/inquirycurrency
+        PageInquiryDivisionSrv: https://127.0.0.1:8090/lsvo/fitf/mdm/PageInquiryDivisionSrv/pageinquirydivision
+        pageinquirymdmpersonnelsrv: https://127.0.0.1:8090//lsvo/fitf/mdm/pageinquirymdmpersonnelsrv/execute
+        ImportOpeningBankSrv: https://127.0.0.1:8090/lsvo/fitf/mdm/ImportOpeningBankSrv
+        ImportCooperativeBankSrv: https://127.0.0.1:8090/lsvo/fitf/mdm/ImportCooperativeBankSrv/importcooperativebank
+        ImportBankAccotCorrCCIDSrv: https://127.0.0.1:8090/lsvo/fitf/mdm/ImportBankAccotCorrCCID/importbankaccotcorrccid
+        pageinquirybusinessactivitysrv: https://127.0.0.1:8090/lsvo/fitf/mdm/pageinquirybusinessactivitysrv/execute
+        ImportAccountSubjectSrv: https://127.0.0.1:8090/lsvo/fitf/mdm/ImportBankAccotCorrCCID/
+        importcooperativebank: http://localhost:8090/importcooperativebank?wsdl
+      seal:
+        InquirySealSrv: http://localhost:8098//lsvo/fitf/isms/ImportSealApplyController/ImportSealApplySrvImpl
+        dxUrlCcid: http://localhost:8098//lsvo/fitf/isms/ImportSealApplyController/ImportSealApplySrvImpl
+      zsgl:
+        SimApply: https://IP:8090/sim/v1.0/simapi/SimApply
+        SimReApply: https://IP:8090/sim/v1.0/simapi/SimReApply
+        beforeSimCheck: https://IP:8090/sim/v1.0/simapi/beforeSimCheck
+        SimCertRevoke: https://IP:8090/sim/v1.0/simapi/SimCertRevoke
+        SignPwdReset: https://IP:8090/sim/v1.0/simapi/signPwdReset
+        CmcaApply: https://IP:8090/cmca/v1.0/cmcaapi/cmcaApply
+        cmcaRevoke: https://IP:8090/cmca/v1.0/cmcaapi/cmcaRevoke
+      zf:
+        drcpxx: https://IP:8090/cmca/v1.0/cmcaapi/cmcaRevoke
+  fiim:
+    zhzjdjjd:
+      dj:
+        log-del-flag: T
+      jd:
+        log-del-flag: T
+extensionauth:
+  tenantid: 101
+  statics:
+    verfyurl: ''
+  trends:
+    sendcodeurl: ''
+    verfyurl: ''
+msu-config:
+  strategy: whiteList
+  serviceunits: Fbse,Fpub,Msu,aa,aif,aip,am,arapm,arf,audit,bair,bam,bap,bc,bcc,bd,bebc,bffnd,bis,bl,bm,brpc,cbc,cbp,cbs,cfm,cfs,chgdr,cm,cmt,comment,cps,cred,cs,csb,ctb,ctc,ctm,ctp,cts,df,dfs,dip,dlc,ebs,eis,eitf,em,epp,eptm,ev,ewp,fa,faf,fl,fsd,gl,gm,hbp,ia,iaf,ias,icc,idp,ihcfnd,il,inbot,iotfnd,jhpt,lc,lcm,lem,mafnd,main,mapa,mcf,msg,mt,nocode,otf,pal,pf,pfcommon,portal,prt,qa,qc,rc,rri,rs,rtcommon,runtime4j,schd,sdm,searchm,sg,ssp,sys,ta,tacc,task,tbs,tf,tftc,tibm,tim,tiw,tmfnd,tmsd,toim,tr,trace,tsaa,tv,twfsbz,twtax,vatf,vmsa,wf,xbz,xbzs
