@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WinSW v3 XML configuration
+  Document: https://github.com/winsw/winsw/blob/v3/docs/xml-config-file.md
+  Backend service: Spring Boot, port 49090
+-->
+<service>
+  <id>hongyi-server</id>
+  <name>Hongyi Backend Server</name>
+  <description>Hongyi Spring Boot Backend Service (port 49090)</description>
+
+  <!-- Java executable -->
+  <executable>%JAVA_HOME%\bin\java.exe</executable>
+
+  <!-- JVM arguments -->
+  <arguments>-Xms256m -Xmx1024m -Dfile.encoding=UTF-8 -jar "%BASE%\hongyi-server.jar"</arguments>
+
+  <!-- Working directory -->
+  <workingdirectory>%BASE%</workingdirectory>
+
+  <!-- Start mode: Automatic -->
+  <startmode>Automatic</startmode>
+
+  <!-- Failure recovery: restart after 10s on 1st failure, 20s on 2nd, no action on 3rd+ -->
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="20 sec"/>
+  <onfailure action="none"/>
+
+  <!-- Log configuration -->
+  <logpath>%BASE%\logs\server</logpath>
+  <log mode="append"/>
+</service>

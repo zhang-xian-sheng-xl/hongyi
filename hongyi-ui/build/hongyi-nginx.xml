@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WinSW v3 XML configuration
+  Document: https://github.com/winsw/winsw/blob/v3/docs/xml-config-file.md
+  Frontend service: Nginx, port 80
+-->
+<service>
+  <id>hongyi-nginx</id>
+  <name>Hongyi Nginx Frontend</name>
+  <description>Hongyi Nginx Frontend Service (port 80)</description>
+
+  <!-- Nginx executable -->
+  <executable>%BASE%\nginx-1.24.0\nginx.exe</executable>
+
+  <!-- Nginx arguments: set prefix to nginx home -->
+  <arguments>-p "%BASE%\nginx-1.24.0"</arguments>
+
+  <!-- Working directory -->
+  <workingdirectory>%BASE%\nginx-1.24.0</workingdirectory>
+
+  <!-- Start mode: Automatic (Delayed) to wait for backend -->
+  <startmode>Automatic</startmode>
+  <delayedAutoStart>true</delayedAutoStart>
+
+  <!-- Failure recovery: restart after 10s on 1st failure, 20s on 2nd, no action on 3rd+ -->
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="20 sec"/>
+  <onfailure action="none"/>
+
+  <!-- Log configuration -->
+  <logpath>%BASE%\logs\nginx</logpath>
+  <log mode="append"/>
+</service>
