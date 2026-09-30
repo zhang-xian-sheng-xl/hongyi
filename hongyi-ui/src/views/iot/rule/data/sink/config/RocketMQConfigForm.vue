@@ -1,20 +1,12 @@
 <template>
   <el-form-item label="NameServer" prop="config.nameServer">
-    <el-input
-      v-model="config.nameServer"
-      placeholder="请输入 NameServer 地址，如：127.0.0.1:9876"
-    />
+    <el-input v-model="config.nameServer" placeholder="请输入 NameServer 地址，如：127.0.0.1:9876" />
   </el-form-item>
   <el-form-item label="AccessKey" prop="config.accessKey">
     <el-input v-model="config.accessKey" placeholder="请输入 AccessKey" />
   </el-form-item>
   <el-form-item label="SecretKey" prop="config.secretKey">
-    <el-input
-      v-model="config.secretKey"
-      placeholder="请输入 SecretKey"
-      show-password
-      type="password"
-    />
+    <el-input v-model="config.secretKey" placeholder="请输入 SecretKey" show-password type="password" />
   </el-form-item>
   <el-form-item label="消费组" prop="config.group">
     <el-input v-model="config.group" placeholder="请输入消费组" />

@@ -3,30 +3,12 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="用户昵称" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          class="!w-240px"
-          clearable
-          placeholder="请输入用户昵称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.nickname" class="!w-240px" clearable placeholder="请输入用户昵称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="手机号" prop="mobile">
-        <el-input
-          v-model="queryParams.mobile"
-          class="!w-240px"
-          clearable
-          placeholder="请输入手机号"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.mobile" class="!w-240px" clearable placeholder="请输入手机号" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="注册时间" prop="createTime">
         <el-date-picker
@@ -75,13 +57,7 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      :show-overflow-tooltip="true"
-      :stripe="true"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" />
       <el-table-column align="center" label="用户编号" prop="id" width="120px" />
       <el-table-column align="center" label="头像" prop="avatar" width="80px">
@@ -93,12 +69,7 @@
       <el-table-column align="center" label="昵称" prop="nickname" width="80px" />
       <el-table-column align="center" label="等级" prop="levelName" width="100px" />
       <el-table-column align="center" label="分组" prop="groupName" width="100px" />
-      <el-table-column
-        :show-overflow-tooltip="false"
-        align="center"
-        label="用户标签"
-        prop="tagNames"
-      >
+      <el-table-column :show-overflow-tooltip="false" align="center" label="用户标签" prop="tagNames">
         <template #default="scope">
           <el-tag v-for="(tagName, index) in scope.row.tagNames" :key="index" class="mr-5px">
             {{ tagName }}
@@ -111,37 +82,14 @@
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="登录时间"
-        prop="loginDate"
-        width="180px"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="注册时间"
-        prop="createTime"
-        width="180px"
-      />
-      <el-table-column
-        :show-overflow-tooltip="false"
-        align="center"
-        fixed="right"
-        label="操作"
-        width="100px"
-      >
+      <el-table-column :formatter="dateFormatter" align="center" label="登录时间" prop="loginDate" width="180px" />
+      <el-table-column :formatter="dateFormatter" align="center" label="注册时间" prop="createTime" width="180px" />
+      <el-table-column :show-overflow-tooltip="false" align="center" fixed="right" label="操作" width="100px">
         <template #default="scope">
           <div class="flex items-center justify-center">
             <el-button link type="primary" @click="openDetail(scope.row.id)">详情</el-button>
             <el-dropdown
-              v-hasPermi="[
-                'member:user:update',
-                'member:user:update-level',
-                'member:user:update-point',
-                'pay:wallet:update-balance'
-              ]"
+              v-hasPermi="['member:user:update', 'member:user:update-level', 'member:user:update-point', 'pay:wallet:update-balance']"
               @command="(command) => handleCommand(command, scope.row)"
             >
               <el-button link type="primary">
@@ -150,30 +98,10 @@
               </el-button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item
-                    v-if="checkPermi(['member:user:update'])"
-                    command="handleUpdate"
-                  >
-                    编辑
-                  </el-dropdown-item>
-                  <el-dropdown-item
-                    v-if="checkPermi(['member:user:update-level'])"
-                    command="handleUpdateLevel"
-                  >
-                    修改等级
-                  </el-dropdown-item>
-                  <el-dropdown-item
-                    v-if="checkPermi(['member:user:update-point'])"
-                    command="handleUpdatePoint"
-                  >
-                    修改积分
-                  </el-dropdown-item>
-                  <el-dropdown-item
-                    v-if="checkPermi(['pay:wallet:update-balance'])"
-                    command="handleUpdateBlance"
-                  >
-                    修改余额
-                  </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermi(['member:user:update'])" command="handleUpdate"> 编辑 </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermi(['member:user:update-level'])" command="handleUpdateLevel"> 修改等级 </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermi(['member:user:update-point'])" command="handleUpdatePoint"> 修改积分 </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermi(['pay:wallet:update-balance'])" command="handleUpdateBlance"> 修改余额 </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -182,12 +110,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

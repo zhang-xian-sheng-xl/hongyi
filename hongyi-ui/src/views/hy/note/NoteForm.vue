@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="80%">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="标题" prop="name">
         <el-input v-model="formData.name" placeholder="请输入标题" />
       </el-form-item>

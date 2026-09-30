@@ -1,13 +1,6 @@
 <template>
   <ContentWrap :bodyStyle="{ padding: '20px 16px' }">
-    <SimpleProcessDesigner
-      :model-form-id="modelFormId"
-      :model-form-type="modelFormType"
-      :start-user-ids="startUserIds"
-      :start-dept-ids="startDeptIds"
-      @success="handleSuccess"
-      ref="designerRef"
-    />
+    <SimpleProcessDesigner :model-form-id="modelFormId" :model-form-type="modelFormType" :start-user-ids="startUserIds" :start-dept-ids="startDeptIds" @success="handleSuccess" ref="designerRef" />
   </ContentWrap>
 </template>
 <script setup lang="ts">

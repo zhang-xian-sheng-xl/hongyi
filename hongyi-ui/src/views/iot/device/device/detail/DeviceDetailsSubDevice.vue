@@ -3,28 +3,12 @@
   <ContentWrap>
     <!-- 操作按钮 -->
     <div class="mb-4">
-      <el-button type="primary" plain @click="openBindDialog" v-hasPermi="['iot:device:update']">
-        <Icon icon="ep:plus" class="mr-5px" /> 添加子设备
-      </el-button>
-      <el-button
-        type="danger"
-        plain
-        @click="handleUnbindBatch"
-        :disabled="selectedIds.length === 0"
-        v-hasPermi="['iot:device:update']"
-      >
-        <Icon icon="ep:delete" class="mr-5px" /> 批量解绑
-      </el-button>
+      <el-button type="primary" plain @click="openBindDialog" v-hasPermi="['iot:device:update']"> <Icon icon="ep:plus" class="mr-5px" /> 添加子设备 </el-button>
+      <el-button type="danger" plain @click="handleUnbindBatch" :disabled="selectedIds.length === 0" v-hasPermi="['iot:device:update']"> <Icon icon="ep:delete" class="mr-5px" /> 批量解绑 </el-button>
     </div>
 
     <!-- 子设备列表 -->
-    <el-table
-      v-loading="loading"
-      :data="subDeviceList"
-      :stripe="true"
-      :show-overflow-tooltip="true"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="subDeviceList" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" />
       <el-table-column label="DeviceName" align="center" prop="deviceName">
         <template #default="{ row }">
@@ -38,24 +22,11 @@
           <dict-tag :type="DICT_TYPE.IOT_DEVICE_STATE" :value="row.state" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="最后上线时间"
-        align="center"
-        prop="onlineTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="最后上线时间" align="center" prop="onlineTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center" width="120px">
         <template #default="{ row }">
           <el-button link type="primary" @click="openDeviceDetail(row.id)"> 查看 </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleUnbind(row.id)"
-            v-hasPermi="['iot:device:update']"
-          >
-            解绑
-          </el-button>
+          <el-button link type="danger" @click="handleUnbind(row.id)" v-hasPermi="['iot:device:update']"> 解绑 </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -67,42 +38,21 @@
       <!-- 搜索区域 -->
       <el-form :model="bindQueryParams" ref="bindQueryFormRef" :inline="true" class="-mb-15px">
         <el-form-item label="产品" prop="productId">
-          <ProductSelect
-            v-model="bindQueryParams.productId"
-            :device-type="DeviceTypeEnum.GATEWAY_SUB"
-            class="!w-200px"
-          />
+          <ProductSelect v-model="bindQueryParams.productId" :device-type="DeviceTypeEnum.GATEWAY_SUB" class="!w-200px" />
         </el-form-item>
         <el-form-item label="设备名称" prop="deviceName">
-          <el-input
-            v-model="bindQueryParams.deviceName"
-            placeholder="请输入设备名称"
-            clearable
-            class="!w-200px"
-          />
+          <el-input v-model="bindQueryParams.deviceName" placeholder="请输入设备名称" clearable class="!w-200px" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="getBindableDevicePage">
-            <Icon icon="ep:search" class="mr-5px" /> 搜索
-          </el-button>
-          <el-button @click="resetBindQuery">
-            <Icon icon="ep:refresh" class="mr-5px" /> 重置
-          </el-button>
+          <el-button type="primary" @click="getBindableDevicePage"> <Icon icon="ep:search" class="mr-5px" /> 搜索 </el-button>
+          <el-button @click="resetBindQuery"> <Icon icon="ep:refresh" class="mr-5px" /> 重置 </el-button>
         </el-form-item>
       </el-form>
     </ContentWrap>
 
     <ContentWrap>
       <!-- 分页表格 -->
-      <el-table
-        ref="bindTableRef"
-        v-loading="bindFormLoading"
-        :data="bindableDevices"
-        :stripe="true"
-        :show-overflow-tooltip="true"
-        @selection-change="handleBindSelectionChange"
-        max-height="400px"
-      >
+      <el-table ref="bindTableRef" v-loading="bindFormLoading" :data="bindableDevices" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleBindSelectionChange" max-height="400px">
         <el-table-column type="selection" width="55" />
         <el-table-column label="DeviceName" align="center" prop="deviceName" />
         <el-table-column label="备注名称" align="center" prop="nickname" />
@@ -115,18 +65,11 @@
       </el-table>
 
       <!-- 分页组件 -->
-      <Pagination
-        v-model:page="bindQueryParams.pageNo"
-        v-model:limit="bindQueryParams.pageSize"
-        :total="bindTotal"
-        @pagination="getBindableDevicePage"
-      />
+      <Pagination v-model:page="bindQueryParams.pageNo" v-model:limit="bindQueryParams.pageSize" :total="bindTotal" @pagination="getBindableDevicePage" />
     </ContentWrap>
 
     <template #footer>
-      <el-button type="primary" @click="handleBindSubmit" :loading="bindFormLoading">
-        确定（已选 {{ bindSelectedIds.length }} 个）
-      </el-button>
+      <el-button type="primary" @click="handleBindSubmit" :loading="bindFormLoading"> 确定（已选 {{ bindSelectedIds.length }} 个） </el-button>
       <el-button @click="bindDialogVisible = false">取消</el-button>
     </template>
   </Dialog>

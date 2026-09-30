@@ -1,9 +1,7 @@
 <template>
   <ContentWrap :body-style="{ padding: '0px' }" class="!mb-0">
     <!-- 表单设计器 -->
-    <div
-      class="h-[calc(100vh-var(--top-tool-height)-var(--tags-view-height)-var(--app-content-padding)-var(--app-content-padding)-2px)]"
-    >
+    <div class="h-[calc(100vh-var(--top-tool-height)-var(--tags-view-height)-var(--app-content-padding)-var(--app-content-padding)-2px)]">
       <fc-designer class="my-designer" ref="designer" :config="designerConfig">
         <template #handle>
           <el-button size="small" type="primary" plain @click="showJson">生成JSON</el-button>

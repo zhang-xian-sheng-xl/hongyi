@@ -1,11 +1,7 @@
 <template>
   <ContactDetailsHeader v-loading="loading" :contact="contact">
-    <el-button v-if="permissionListRef?.validateWrite" @click="openForm('update', contact.id)">
-      编辑
-    </el-button>
-    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer">
-      转移
-    </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" @click="openForm('update', contact.id)"> 编辑 </el-button>
+    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer"> 转移 </el-button>
   </ContactDetailsHeader>
   <el-col>
     <el-tabs>
@@ -19,21 +15,10 @@
         <OperateLogV2 :log-list="logList" />
       </el-tab-pane>
       <el-tab-pane label="团队成员">
-        <PermissionList
-          ref="permissionListRef"
-          :biz-id="contact.id!"
-          :biz-type="BizTypeEnum.CRM_CONTACT"
-          :show-action="true"
-          @quit-team="close"
-        />
+        <PermissionList ref="permissionListRef" :biz-id="contact.id!" :biz-type="BizTypeEnum.CRM_CONTACT" :show-action="true" @quit-team="close" />
       </el-tab-pane>
       <el-tab-pane label="商机" lazy>
-        <BusinessList
-          :biz-id="contact.id!"
-          :biz-type="BizTypeEnum.CRM_CONTACT"
-          :contact-id="contact.id"
-          :customer-id="contact.customerId"
-        />
+        <BusinessList :biz-id="contact.id!" :biz-type="BizTypeEnum.CRM_CONTACT" :contact-id="contact.id" :customer-id="contact.customerId" />
       </el-tab-pane>
     </el-tabs>
   </el-col>

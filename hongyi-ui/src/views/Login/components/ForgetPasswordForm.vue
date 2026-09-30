@@ -1,14 +1,5 @@
 <template>
-  <el-form
-    v-show="getShow"
-    ref="formSmsResetPassword"
-    :model="resetPasswordData"
-    :rules="rules"
-    class="login-form"
-    label-position="top"
-    label-width="120px"
-    size="large"
-  >
+  <el-form v-show="getShow" ref="formSmsResetPassword" :model="resetPasswordData" :rules="rules" class="login-form" label-position="top" label-width="120px" size="large">
     <el-row class="mx-[-10px]">
       <!-- 租户名 -->
       <el-col :span="24" class="px-10px">
@@ -18,55 +9,27 @@
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item v-if="resetPasswordData.tenantEnable === 'true'" prop="tenantName">
-          <el-input
-            v-model="resetPasswordData.tenantName"
-            :placeholder="t('login.tenantNamePlaceholder')"
-            :prefix-icon="iconHouse"
-            type="primary"
-            link
-          />
+          <el-input v-model="resetPasswordData.tenantName" :placeholder="t('login.tenantNamePlaceholder')" :prefix-icon="iconHouse" type="primary" link />
         </el-form-item>
       </el-col>
       <!-- 手机号 -->
       <el-col :span="24" class="px-10px">
         <el-form-item prop="mobile">
-          <el-input
-            v-model="resetPasswordData.mobile"
-            :placeholder="t('login.mobileNumberPlaceholder')"
-            :prefix-icon="iconCellphone"
-          />
+          <el-input v-model="resetPasswordData.mobile" :placeholder="t('login.mobileNumberPlaceholder')" :prefix-icon="iconCellphone" />
         </el-form-item>
       </el-col>
-      <Verify
-        ref="verify"
-        v-if="resetPasswordData.captchaEnable === 'true'"
-        :captchaType="captchaType"
-        :imgSize="{ width: '400px', height: '200px' }"
-        mode="pop"
-        @success="getSmsCode"
-      />
+      <Verify ref="verify" v-if="resetPasswordData.captchaEnable === 'true'" :captchaType="captchaType" :imgSize="{ width: '400px', height: '200px' }" mode="pop" @success="getSmsCode" />
       <!-- 验证码 -->
       <el-col :span="24" class="px-10px">
         <el-form-item prop="code">
           <el-row :gutter="5" justify="space-between" style="width: 100%">
             <el-col :span="24">
-              <el-input
-                v-model="resetPasswordData.code"
-                :placeholder="t('login.codePlaceholder')"
-                :prefix-icon="iconCircleCheck"
-              >
+              <el-input v-model="resetPasswordData.code" :placeholder="t('login.codePlaceholder')" :prefix-icon="iconCircleCheck">
                 <template #append>
-                  <span
-                    v-if="mobileCodeTimer <= 0"
-                    class="getMobileCode"
-                    style="cursor: pointer"
-                    @click="getCode"
-                  >
+                  <span v-if="mobileCodeTimer <= 0" class="getMobileCode" style="cursor: pointer" @click="getCode">
                     {{ t('login.getSmsCode') }}
                   </span>
-                  <span v-if="mobileCodeTimer > 0" class="getMobileCode" style="cursor: pointer">
-                    {{ mobileCodeTimer }}秒后可重新获取
-                  </span>
+                  <span v-if="mobileCodeTimer > 0" class="getMobileCode" style="cursor: pointer"> {{ mobileCodeTimer }}秒后可重新获取 </span>
                 </template>
               </el-input>
               <!-- </el-button> -->
@@ -76,44 +39,23 @@
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item prop="password">
-          <InputPassword
-            v-model="resetPasswordData.password"
-            :placeholder="t('login.passwordPlaceholder')"
-            class="w-full"
-            :strength="true"
-          />
+          <InputPassword v-model="resetPasswordData.password" :placeholder="t('login.passwordPlaceholder')" class="w-full" :strength="true" />
         </el-form-item>
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item prop="check_password">
-          <InputPassword
-            v-model="resetPasswordData.check_password"
-            :placeholder="t('login.checkPassword')"
-            class="w-full"
-            :strength="true"
-          />
+          <InputPassword v-model="resetPasswordData.check_password" :placeholder="t('login.checkPassword')" class="w-full" :strength="true" />
         </el-form-item>
       </el-col>
       <!-- 登录按钮 / 返回按钮 -->
       <el-col :span="24" class="px-10px">
         <el-form-item>
-          <XButton
-            :loading="loginLoading"
-            :title="t('login.resetPassword')"
-            class="w-full"
-            type="primary"
-            @click="resetPassword()"
-          />
+          <XButton :loading="loginLoading" :title="t('login.resetPassword')" class="w-full" type="primary" @click="resetPassword()" />
         </el-form-item>
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item>
-          <XButton
-            :loading="loginLoading"
-            :title="t('login.backLogin')"
-            class="w-full"
-            @click="handleBackLogin()"
-          />
+          <XButton :loading="loginLoading" :title="t('login.backLogin')" class="w-full" @click="handleBackLogin()" />
         </el-form-item>
       </el-col>
     </el-row>

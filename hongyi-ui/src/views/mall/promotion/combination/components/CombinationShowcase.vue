@@ -1,19 +1,10 @@
 <template>
   <div class="flex flex-wrap items-center gap-8px">
-    <div
-      v-for="(combinationActivity, index) in Activitys"
-      :key="combinationActivity.id"
-      class="select-box spu-pic"
-    >
+    <div v-for="(combinationActivity, index) in Activitys" :key="combinationActivity.id" class="select-box spu-pic">
       <el-tooltip :content="combinationActivity.name">
         <div class="relative h-full w-full">
           <el-image :src="combinationActivity.picUrl" class="h-full w-full" />
-          <Icon
-            v-show="!disabled"
-            class="del-icon"
-            icon="ep:circle-close-filled"
-            @click="handleRemoveActivity(index)"
-          />
+          <Icon v-show="!disabled" class="del-icon" icon="ep:circle-close-filled" @click="handleRemoveActivity(index)" />
         </div>
       </el-tooltip>
     </div>
@@ -24,11 +15,7 @@
     </el-tooltip>
   </div>
   <!-- 拼团活动选择对话框（表格形式） -->
-  <CombinationTableSelect
-    ref="combinationActivityTableSelectRef"
-    :multiple="limit != 1"
-    @change="handleActivitySelected"
-  />
+  <CombinationTableSelect ref="combinationActivityTableSelectRef" :multiple="limit != 1" @change="handleActivitySelected" />
 </template>
 <script lang="ts" setup>
 import * as CombinationActivityApi from '@/api/mall/promotion/combination/combinationActivity'
@@ -77,10 +64,7 @@ watch(
       return
     }
     // 只有活动发生变化之后，才会查询活动
-    if (
-      Activitys.value.length === 0 ||
-      Activitys.value.some((combinationActivity) => !ids.includes(combinationActivity.id!))
-    ) {
+    if (Activitys.value.length === 0 || Activitys.value.some((combinationActivity) => !ids.includes(combinationActivity.id!))) {
       Activitys.value = await CombinationActivityApi.getCombinationActivityListByIds(ids)
     }
   },
@@ -98,11 +82,7 @@ const openCombinationActivityTableSelect = () => {
  * 选择活动后触发
  * @param activityVOs 选中的活动列表
  */
-const handleActivitySelected = (
-  activityVOs:
-    | CombinationActivityApi.CombinationActivityVO
-    | CombinationActivityApi.CombinationActivityVO[]
-) => {
+const handleActivitySelected = (activityVOs: CombinationActivityApi.CombinationActivityVO | CombinationActivityApi.CombinationActivityVO[]) => {
   Activitys.value = isArray(activityVOs) ? activityVOs : [activityVOs]
   emitActivityChange()
 }

@@ -3,50 +3,18 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="82px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="82px">
       <el-form-item label="优惠券名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入优惠劵名"
-          @keyup="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入优惠劵名" @keyup="handleQuery" />
       </el-form-item>
       <el-form-item label="优惠类型" prop="discountType">
-        <el-select
-          v-model="queryParams.discountType"
-          class="!w-240px"
-          clearable
-          placeholder="请选择优惠券类型"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_DISCOUNT_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.discountType" class="!w-240px" clearable placeholder="请选择优惠券类型">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_DISCOUNT_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="优惠券状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          class="!w-240px"
-          clearable
-          placeholder="请选择优惠券状态"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择优惠券状态">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -69,12 +37,7 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['promotion:coupon-template:create']"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="['promotion:coupon-template:create']" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
@@ -102,82 +65,25 @@
           <dict-tag :type="DICT_TYPE.PROMOTION_COUPON_TAKE_TYPE" :value="scope.row.takeType" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="validityTypeFormat"
-        align="center"
-        label="使用时间"
-        prop="validityType"
-        width="185"
-      />
-      <el-table-column
-        :formatter="totalCountFormat"
-        align="center"
-        label="发放数量"
-        prop="totalCount"
-      />
-      <el-table-column
-        :formatter="remainedCountFormat"
-        align="center"
-        label="剩余数量"
-        prop="totalCount"
-      />
-      <el-table-column
-        :formatter="takeLimitCountFormat"
-        align="center"
-        label="领取上限"
-        prop="takeLimitCount"
-      />
+      <el-table-column :formatter="validityTypeFormat" align="center" label="使用时间" prop="validityType" width="185" />
+      <el-table-column :formatter="totalCountFormat" align="center" label="发放数量" prop="totalCount" />
+      <el-table-column :formatter="remainedCountFormat" align="center" label="剩余数量" prop="totalCount" />
+      <el-table-column :formatter="takeLimitCountFormat" align="center" label="领取上限" prop="takeLimitCount" />
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
-          <el-switch
-            v-model="scope.row.status"
-            :active-value="0"
-            :inactive-value="1"
-            @change="handleStatusChange(scope.row)"
-          />
+          <el-switch v-model="scope.row.status" :active-value="0" :inactive-value="1" @change="handleStatusChange(scope.row)" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180"
-      />
-      <el-table-column
-        align="center"
-        class-name="small-padding fixed-width"
-        fixed="right"
-        label="操作"
-        width="120"
-      >
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180" />
+      <el-table-column align="center" class-name="small-padding fixed-width" fixed="right" label="操作" width="120">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['promotion:coupon-template:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            修改
-          </el-button>
-          <el-button
-            v-hasPermi="['promotion:coupon-template:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['promotion:coupon-template:update']" link type="primary" @click="openForm('update', scope.row.id)"> 修改 </el-button>
+          <el-button v-hasPermi="['promotion:coupon-template:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
@@ -190,13 +96,7 @@ import { CommonStatusEnum } from '@/utils/constants'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import { dateFormatter } from '@/utils/formatTime'
 import CouponTemplateForm from './CouponTemplateForm.vue'
-import {
-  discountFormat,
-  remainedCountFormat,
-  takeLimitCountFormat,
-  totalCountFormat,
-  validityTypeFormat
-} from '@/views/mall/promotion/coupon/formatter'
+import { discountFormat, remainedCountFormat, takeLimitCountFormat, totalCountFormat, validityTypeFormat } from '@/views/mall/promotion/coupon/formatter'
 
 defineOptions({ name: 'PromotionCouponTemplate' })
 
@@ -259,8 +159,7 @@ const handleStatusChange = async (row: any) => {
     message.success(text + '成功')
   } catch {
     // 异常时，需要将 row.status 状态重置回之前的
-    row.status =
-      row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
+    row.status = row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
   }
 }
 

@@ -1,39 +1,21 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-form-item label="秒杀时段名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入秒杀时段名称" />
       </el-form-item>
       <el-form-item label="开始时间点" prop="startTime">
-        <el-time-picker
-          v-model="formData.startTime"
-          value-format="HH:mm:ss"
-          placeholder="选择开始时间点"
-        />
+        <el-time-picker v-model="formData.startTime" value-format="HH:mm:ss" placeholder="选择开始时间点" />
       </el-form-item>
       <el-form-item label="结束时间点" prop="endTime">
-        <el-time-picker
-          v-model="formData.endTime"
-          value-format="HH:mm:ss"
-          placeholder="选择结束时间点"
-        />
+        <el-time-picker v-model="formData.endTime" value-format="HH:mm:ss" placeholder="选择结束时间点" />
       </el-form-item>
       <el-form-item label="秒杀轮播图" prop="sliderPicUrls">
         <UploadImgs v-model="formData.sliderPicUrls" placeholder="请输入秒杀轮播图" />
       </el-form-item>
       <el-form-item label="活动状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

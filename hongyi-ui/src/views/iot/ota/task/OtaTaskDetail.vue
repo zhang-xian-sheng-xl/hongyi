@@ -91,12 +91,7 @@
       <!-- Tab 内容 -->
       <div v-for="tab in statusTabs" :key="tab.key" v-show="activeTab === tab.key">
         <!-- 设备列表 -->
-        <el-table
-          v-loading="recordLoading"
-          :data="recordList"
-          :stripe="true"
-          :show-overflow-tooltip="true"
-        >
+        <el-table v-loading="recordLoading" :data="recordList" :stripe="true" :show-overflow-tooltip="true">
           <el-table-column label="设备名称" align="center" prop="deviceName" />
           <el-table-column label="当前版本" align="center" prop="fromFirmwareVersion" />
           <el-table-column label="升级状态" align="center" prop="status" width="120">
@@ -116,13 +111,7 @@
           <el-table-column label="操作" align="center" width="80">
             <template #default="scope">
               <el-button
-                v-if="
-                  [
-                    IoTOtaTaskRecordStatusEnum.PENDING.value,
-                    IoTOtaTaskRecordStatusEnum.PUSHED.value,
-                    IoTOtaTaskRecordStatusEnum.UPGRADING.value
-                  ].includes(scope.row.status)
-                "
+                v-if="[IoTOtaTaskRecordStatusEnum.PENDING.value, IoTOtaTaskRecordStatusEnum.PUSHED.value, IoTOtaTaskRecordStatusEnum.UPGRADING.value].includes(scope.row.status)"
                 link
                 type="danger"
                 @click="handleCancelUpgrade(scope.row)"
@@ -134,12 +123,7 @@
           </el-table-column>
         </el-table>
         <!-- 分页 -->
-        <Pagination
-          :total="recordTotal"
-          v-model:page="queryParams.pageNo"
-          v-model:limit="queryParams.pageSize"
-          @pagination="getRecordList"
-        />
+        <Pagination :total="recordTotal" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getRecordList" />
       </div>
     </ContentWrap>
   </Dialog>
@@ -213,10 +197,7 @@ const getStatistics = async () => {
   }
   taskStatisticsLoading.value = true
   try {
-    taskStatistics.value = await IoTOtaTaskRecordApi.getOtaTaskRecordStatusStatistics(
-      undefined,
-      taskId.value
-    )
+    taskStatistics.value = await IoTOtaTaskRecordApi.getOtaTaskRecordStatusStatistics(undefined, taskId.value)
   } finally {
     taskStatisticsLoading.value = false
   }

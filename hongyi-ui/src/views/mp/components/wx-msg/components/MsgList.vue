@@ -1,9 +1,6 @@
 <template>
   <div class="execution" v-for="item in props.list" :key="item.id">
-    <div
-      class="avue-comment"
-      :class="{ 'avue-comment--reverse': item.sendFrom === SendFrom.MpBot }"
-    >
+    <div class="avue-comment" :class="{ 'avue-comment--reverse': item.sendFrom === SendFrom.MpBot }">
       <div class="avatar-div">
         <img :src="getAvatar(item.sendFrom)" class="avue-comment__avatar" />
         <div class="avue-comment__author">
@@ -14,10 +11,7 @@
         <div class="avue-comment__header">
           <div class="avue-comment__create_time">{{ formatDate(item.createTime) }}</div>
         </div>
-        <div
-          class="avue-comment__body"
-          :style="item.sendFrom === SendFrom.MpBot ? 'background: #6BED72;' : ''"
-        >
+        <div class="avue-comment__body" :style="item.sendFrom === SendFrom.MpBot ? 'background: #6BED72;' : ''">
           <Msg :item="item" />
         </div>
       </div>
@@ -43,11 +37,9 @@ enum SendFrom {
   MpBot = 2
 }
 
-const getAvatar = (sendFrom: SendFrom) =>
-  sendFrom === SendFrom.User ? props.user.avatar : avatarWechat
+const getAvatar = (sendFrom: SendFrom) => (sendFrom === SendFrom.User ? props.user.avatar : avatarWechat)
 
-const getNickname = (sendFrom: SendFrom) =>
-  sendFrom === SendFrom.User ? props.user.nickname : '公众号'
+const getNickname = (sendFrom: SendFrom) => (sendFrom === SendFrom.User ? props.user.nickname : '公众号')
 </script>
 
 <style lang="scss" scoped>

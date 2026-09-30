@@ -5,19 +5,11 @@
       <Icon class="mr-5px" icon="system-uicons:contacts" />
       创建联系人
     </el-button>
-    <el-button
-      v-if="queryParams.businessId"
-      v-hasPermi="['crm:contact:create-business']"
-      @click="openBusinessModal"
-    >
+    <el-button v-if="queryParams.businessId" v-hasPermi="['crm:contact:create-business']" @click="openBusinessModal">
       <Icon class="mr-5px" icon="ep:circle-plus" />
       关联
     </el-button>
-    <el-button
-      v-if="queryParams.businessId"
-      v-hasPermi="['crm:contact:delete-business']"
-      @click="deleteContactBusinessList"
-    >
+    <el-button v-if="queryParams.businessId" v-hasPermi="['crm:contact:delete-business']" @click="deleteContactBusinessList">
       <Icon class="mr-5px" icon="ep:remove" />
       解除关联
     </el-button>
@@ -25,13 +17,7 @@
 
   <!-- 列表 -->
   <ContentWrap class="mt-10px">
-    <el-table
-      ref="contactRef"
-      v-loading="loading"
-      :data="list"
-      :show-overflow-tooltip="true"
-      :stripe="true"
-    >
+    <el-table ref="contactRef" v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true">
       <el-table-column v-if="queryParams.businessId" type="selection" width="55" />
       <el-table-column align="center" fixed="left" label="姓名" prop="name">
         <template #default="scope">
@@ -50,23 +36,13 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加 -->
   <ContactForm ref="formRef" @success="getList" />
   <!-- 关联商机选择弹框 -->
-  <ContactListModal
-    v-if="customerId"
-    ref="contactModalRef"
-    :customer-id="customerId"
-    @success="createContactBusinessList"
-  />
+  <ContactListModal v-if="customerId" ref="contactModalRef" :customer-id="customerId" @success="createContactBusinessList" />
 </template>
 <script lang="ts" setup>
 import * as ContactApi from '@/api/crm/contact'

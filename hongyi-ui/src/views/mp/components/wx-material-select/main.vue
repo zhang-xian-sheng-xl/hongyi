@@ -21,12 +21,7 @@
         </div>
       </div>
       <!-- 分页组件 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getMaterialPageFun"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getMaterialPageFun" />
     </div>
     <!-- 类型：voice -->
     <div v-else-if="props.type === 'voice'">
@@ -39,13 +34,7 @@
             <WxVoicePlayer :url="scope.row.url" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="上传时间"
-          align="center"
-          prop="createTime"
-          width="180"
-          :formatter="dateFormatter"
-        />
+        <el-table-column label="上传时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
         <el-table-column label="操作" align="center" fixed="right">
           <template #default="scope">
             <el-button type="primary" link @click="selectMaterialFun(scope.row)"
@@ -56,12 +45,7 @@
         </el-table-column>
       </el-table>
       <!-- 分页组件 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getPage"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getPage" />
     </div>
     <!-- 类型：video -->
     <div v-else-if="props.type === 'video'">
@@ -76,19 +60,8 @@
             <WxVideoPlayer :url="scope.row.url" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="上传时间"
-          align="center"
-          prop="createTime"
-          width="180"
-          :formatter="dateFormatter"
-        />
-        <el-table-column
-          label="操作"
-          align="center"
-          fixed="right"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="上传时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
+        <el-table-column label="操作" align="center" fixed="right" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-button type="primary" link @click="selectMaterialFun(scope.row)"
               >选择
@@ -98,12 +71,7 @@
         </el-table-column>
       </el-table>
       <!-- 分页组件 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getMaterialPageFun"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getMaterialPageFun" />
     </div>
     <!-- 类型：news -->
     <div v-else-if="props.type === 'news'">
@@ -121,12 +89,7 @@
         </div>
       </div>
       <!-- 分页组件 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getMaterialPageFun"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getMaterialPageFun" />
     </div>
   </div>
 </template>

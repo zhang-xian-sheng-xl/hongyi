@@ -10,21 +10,10 @@
       <el-table-column align="center" label="钱包余额" prop="balance">
         <template #default="{ row }"> {{ fenToYuan(row.balance) }} 元</template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="交易时间"
-        prop="createTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="交易时间" prop="createTime" width="180px" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 

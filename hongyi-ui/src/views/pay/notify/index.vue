@@ -3,89 +3,33 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="100px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
       <el-form-item label="应用编号" prop="appId">
-        <el-select
-          v-model="queryParams.appId"
-          placeholder="请选择应用信息"
-          clearable
-          filterable
-          class="!w-240px"
-        >
+        <el-select v-model="queryParams.appId" placeholder="请选择应用信息" clearable filterable class="!w-240px">
           <el-option v-for="item in appList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="通知类型" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          placeholder="请选择通知类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.PAY_NOTIFY_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" placeholder="请选择通知类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.PAY_NOTIFY_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="关联编号" prop="dataId">
-        <el-input
-          v-model="queryParams.dataId"
-          placeholder="请输入关联编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.dataId" placeholder="请输入关联编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="通知状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择通知状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.PAY_NOTIFY_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择通知状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.PAY_NOTIFY_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="商户订单编号" prop="merchantOrderId">
-        <el-input
-          v-model="queryParams.merchantOrderId"
-          placeholder="请输入商户订单编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.merchantOrderId" placeholder="请输入商户订单编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="商户退款编号" prop="merchantRefundId">
-        <el-input
-          v-model="queryParams.merchantRefundId"
-          placeholder="请输入商户退款编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.merchantRefundId" placeholder="请输入商户退款编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="商户转账编号" prop="merchantTransferId">
-        <el-input
-          v-model="queryParams.merchantTransferId"
-          placeholder="请输入商户转账编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.merchantTransferId" placeholder="请输入商户转账编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -136,47 +80,21 @@
           <dict-tag :type="DICT_TYPE.PAY_NOTIFY_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="最后通知时间"
-        align="center"
-        prop="lastExecuteTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
-      <el-table-column
-        label="下次通知时间"
-        align="center"
-        prop="nextNotifyTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="最后通知时间" align="center" prop="lastExecuteTime" width="180" :formatter="dateFormatter" />
+      <el-table-column label="下次通知时间" align="center" prop="nextNotifyTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="通知次数" align="center" prop="notifyTimes">
         <template #default="scope">
-          <el-tag size="small" type="success">
-            {{ scope.row.notifyTimes }} / {{ scope.row.maxNotifyTimes }}
-          </el-tag>
+          <el-tag size="small" type="success"> {{ scope.row.notifyTimes }} / {{ scope.row.maxNotifyTimes }} </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openDetail(scope.row.id)"
-            v-hasPermi="['pay:notify:query']"
-          >
-            查看详情
-          </el-button>
+          <el-button link type="primary" @click="openDetail(scope.row.id)" v-hasPermi="['pay:notify:query']"> 查看详情 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：预览 -->

@@ -4,18 +4,8 @@
       <CardTitle title="运营数据" />
     </template>
     <div class="flex flex-row flex-wrap items-center gap-8 p-4">
-      <div
-        v-for="item in data"
-        :key="item.name"
-        class="h-20 w-20% flex flex-col cursor-pointer items-center justify-center gap-2"
-        @click="handleClick(item.routerName)"
-      >
-        <CountTo
-          :decimals="item.decimals"
-          :end-val="item.value"
-          :prefix="item.prefix"
-          class="text-3xl"
-        />
+      <div v-for="item in data" :key="item.name" class="h-20 w-20% flex flex-col cursor-pointer items-center justify-center gap-2" @click="handleClick(item.routerName)">
+        <CountTo :decimals="item.decimals" :end-val="item.value" :prefix="item.prefix" class="text-3xl" />
         <span class="text-center">{{ item.name }}</span>
       </div>
     </div>

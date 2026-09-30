@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="800px">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-form-item label="提现标题" prop="subject">
         <el-input v-model="formData.subject" placeholder="请输入提现标题" />
       </el-form-item>
@@ -18,14 +12,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="提现金额" prop="price">
-        <el-input-number
-          v-model="formData.price"
-          :min="0.01"
-          :precision="2"
-          :step="0.01"
-          placeholder="请输入提现金额"
-          style="width: 200px"
-        />
+        <el-input-number v-model="formData.price" :min="0.01" :precision="2" :step="0.01" placeholder="请输入提现金额" style="width: 200px" />
       </el-form-item>
       <el-form-item label="收款人账号" prop="userAccount">
         <el-input v-model="formData.userAccount" :placeholder="getAccountPlaceholder()" />
@@ -61,7 +48,7 @@ const formRules = reactive({
   subject: [{ required: true, message: '提现标题不能为空', trigger: 'blur' }],
   price: [{ required: true, message: '提现金额不能为空', trigger: 'blur' }],
   type: [{ required: true, message: '提现类型不能为空', trigger: 'change' }],
-  userAccount: [{ required: true, message: '收款人账号不能为空', trigger: 'blur' }],
+  userAccount: [{ required: true, message: '收款人账号不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 

@@ -3,33 +3,14 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="分类名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入分类名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入分类名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['product:category:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['product:category:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -49,40 +30,12 @@
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="操作" align="center" min-width="180">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['product:category:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="primary"
-            v-if="scope.row.parentId > 0"
-            @click="handleViewSpu(scope.row.id)"
-            v-hasPermi="['product:spu:query']"
-          >
-            查看商品
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['product:category:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['product:category:update']"> 编辑 </el-button>
+          <el-button link type="primary" v-if="scope.row.parentId > 0" @click="handleViewSpu(scope.row.id)" v-hasPermi="['product:spu:query']"> 查看商品 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['product:category:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>

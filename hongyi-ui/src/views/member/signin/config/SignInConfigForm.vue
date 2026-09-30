@@ -1,17 +1,9 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="签到天数" prop="day">
         <el-input-number v-model="formData.day" :min="1" :max="7" :precision="0" />
-        <el-text class="mx-1" style="margin-left: 10px" type="danger">
-          只允许设置 1-7，默认签到 7 天为一个周期
-        </el-text>
+        <el-text class="mx-1" style="margin-left: 10px" type="danger"> 只允许设置 1-7，默认签到 7 天为一个周期 </el-text>
       </el-form-item>
       <el-form-item label="奖励积分" prop="point">
         <el-input-number v-model="formData.point" :min="0" :precision="0" />
@@ -21,11 +13,7 @@
       </el-form-item>
       <el-form-item label="开启状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

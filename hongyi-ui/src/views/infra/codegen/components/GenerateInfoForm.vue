@@ -4,24 +4,14 @@
       <el-col :span="12">
         <el-form-item label="生成模板" prop="templateType">
           <el-select v-model="formData.templateType">
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_CODEGEN_TEMPLATE_TYPE)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_CODEGEN_TEMPLATE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="前端类型" prop="frontType">
           <el-select v-model="formData.frontType">
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_CODEGEN_FRONT_TYPE)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_CODEGEN_FRONT_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -29,12 +19,7 @@
       <el-col :span="12">
         <el-form-item label="生成场景" prop="scene">
           <el-select v-model="formData.scene">
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_CODEGEN_SCENE)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_CODEGEN_SCENE)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -48,14 +33,7 @@
               </el-tooltip>
             </span>
           </template>
-          <el-tree-select
-            v-model="formData.parentMenuId"
-            :data="menus"
-            :props="menuTreeProps"
-            check-strictly
-            node-key="id"
-            placeholder="请选择系统菜单"
-          />
+          <el-tree-select v-model="formData.parentMenuId" :data="menus" :props="menuTreeProps" check-strictly node-key="id" placeholder="请选择系统菜单" />
         </el-form-item>
       </el-col>
 
@@ -76,10 +54,7 @@
           <template #label>
             <span>
               模块名
-              <el-tooltip
-                content="模块名，即一级目录，例如 system、infra、tool 等等"
-                placement="top"
-              >
+              <el-tooltip content="模块名，即一级目录，例如 system、infra、tool 等等" placement="top">
                 <Icon icon="ep:question-filled" />
               </el-tooltip>
             </span>
@@ -93,10 +68,7 @@
           <template #label>
             <span>
               业务名
-              <el-tooltip
-                content="业务名，即二级目录，例如 user、permission、dict 等等"
-                placement="top"
-              >
+              <el-tooltip content="业务名，即二级目录，例如 user、permission、dict 等等" placement="top">
                 <Icon icon="ep:question-filled" />
               </el-tooltip>
             </span>
@@ -122,10 +94,7 @@
           <template #label>
             <span>
               类名称
-              <el-tooltip
-                content="类名称（首字母大写），例如SysUser、SysMenu、SysDictData 等等"
-                placement="top"
-              >
+              <el-tooltip content="类名称（首字母大写），例如SysUser、SysMenu、SysDictData 等等" placement="top">
                 <Icon icon="ep:question-filled" />
               </el-tooltip>
             </span>
@@ -153,10 +122,7 @@
           <template #label>
             <span>
               自定义路径
-              <el-tooltip
-                content="填写磁盘绝对路径，若不填写，则生成到当前Web项目下"
-                placement="top"
-              >
+              <el-tooltip content="填写磁盘绝对路径，若不填写，则生成到当前Web项目下" placement="top">
                 <Icon icon="ep:question-filled" />
               </el-tooltip>
             </span>
@@ -170,9 +136,7 @@
                 </el-button>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click="formData.genPath = '/'">
-                      恢复默认的生成基础路径
-                    </el-dropdown-item>
+                    <el-dropdown-item @click="formData.genPath = '/'"> 恢复默认的生成基础路径 </el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -198,12 +162,7 @@
             </span>
           </template>
           <el-select v-model="formData.treeParentColumnId" placeholder="请选择">
-            <el-option
-              v-for="(column, index) in props.columns"
-              :key="index"
-              :label="column.columnName + '：' + column.columnComment"
-              :value="column.id"
-            />
+            <el-option v-for="(column, index) in props.columns" :key="index" :label="column.columnName + '：' + column.columnComment" :value="column.id" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -218,12 +177,7 @@
             </span>
           </template>
           <el-select v-model="formData.treeNameColumnId" placeholder="请选择">
-            <el-option
-              v-for="(column, index) in props.columns"
-              :key="index"
-              :label="column.columnName + '：' + column.columnComment"
-              :value="column.id"
-            />
+            <el-option v-for="(column, index) in props.columns" :key="index" :label="column.columnName + '：' + column.columnComment" :value="column.id" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -245,12 +199,7 @@
             </span>
           </template>
           <el-select v-model="formData.masterTableId" placeholder="请选择">
-            <el-option
-              v-for="(table0, index) in tables"
-              :key="index"
-              :label="table0.tableName + '：' + table0.tableComment"
-              :value="table0.id"
-            />
+            <el-option v-for="(table0, index) in tables" :key="index" :label="table0.tableName + '：' + table0.tableComment" :value="table0.id" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -265,12 +214,7 @@
             </span>
           </template>
           <el-select v-model="formData.subJoinColumnId" placeholder="请选择">
-            <el-option
-              v-for="(column, index) in props.columns"
-              :key="index"
-              :label="column.columnName + '：' + column.columnComment"
-              :value="column.id"
-            />
+            <el-option v-for="(column, index) in props.columns" :key="index" :label="column.columnName + '：' + column.columnComment" :value="column.id" />
           </el-select>
         </el-form-item>
       </el-col>

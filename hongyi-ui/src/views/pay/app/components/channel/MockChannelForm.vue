@@ -1,20 +1,10 @@
 <template>
   <div>
     <Dialog v-model="dialogVisible" :title="dialogTitle" width="800px">
-      <el-form
-        ref="formRef"
-        v-loading="formLoading"
-        :model="formData"
-        :rules="formRules"
-        label-width="100px"
-      >
+      <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
         <el-form-item label="渠道状态" label-width="180px" prop="status">
           <el-radio-group v-model="formData.status">
-            <el-radio
-              v-for="dict in getDictOptions(DICT_TYPE.COMMON_STATUS)"
-              :key="parseInt(dict.value)"
-              :value="parseInt(dict.value)"
-            >
+            <el-radio v-for="dict in getDictOptions(DICT_TYPE.COMMON_STATUS)" :key="parseInt(dict.value)" :value="parseInt(dict.value)">
               {{ dict.label }}
             </el-radio>
           </el-radio-group>

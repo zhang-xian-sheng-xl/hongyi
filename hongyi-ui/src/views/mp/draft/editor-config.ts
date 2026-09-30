@@ -5,10 +5,7 @@ const message = useMessage()
 
 type InsertFnType = (url: string, alt: string, href: string) => void
 
-export const createEditorConfig = (
-  server: string,
-  accountId: number | undefined
-): Partial<IEditorConfig> => {
+export const createEditorConfig = (server: string, accountId: number | undefined): Partial<IEditorConfig> => {
   return {
     MENU_CONF: {
       ['uploadImage']: {

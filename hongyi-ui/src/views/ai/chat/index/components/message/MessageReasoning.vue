@@ -11,25 +11,14 @@
         </el-icon>
         <span>{{ titleText }}</span>
       </div>
-      <el-icon
-        :size="14"
-        class="text-gray-500 transition-transform duration-200"
-        :class="{ 'transform rotate-180': isExpanded }"
-      >
+      <el-icon :size="14" class="text-gray-500 transition-transform duration-200" :class="{ 'transform rotate-180': isExpanded }">
         <ArrowDown />
       </el-icon>
     </div>
 
     <!-- 推理内容区域 -->
-    <div
-      v-show="isExpanded"
-      class="max-h-300px overflow-y-auto p-12px bg-white/70 backdrop-blur-sm border border-t-0 border-gray-200/60 rounded-b-8px shadow-sm"
-    >
-      <MarkdownView
-        v-if="props.reasoningContent"
-        class="text-gray-700 text-13px leading-relaxed"
-        :content="props.reasoningContent"
-      />
+    <div v-show="isExpanded" class="max-h-300px overflow-y-auto p-12px bg-white/70 backdrop-blur-sm border border-t-0 border-gray-200/60 rounded-b-8px shadow-sm">
+      <MarkdownView v-if="props.reasoningContent" class="text-gray-700 text-13px leading-relaxed" :content="props.reasoningContent" />
     </div>
   </div>
 </template>

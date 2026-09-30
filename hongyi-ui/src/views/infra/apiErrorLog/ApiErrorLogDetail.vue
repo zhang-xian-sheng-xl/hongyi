@@ -20,9 +20,7 @@
       <el-descriptions-item label="用户 UA">
         {{ detailData.userAgent }}
       </el-descriptions-item>
-      <el-descriptions-item label="请求信息">
-        {{ detailData.requestMethod }} {{ detailData.requestUrl }}
-      </el-descriptions-item>
+      <el-descriptions-item label="请求信息"> {{ detailData.requestMethod }} {{ detailData.requestUrl }} </el-descriptions-item>
       <el-descriptions-item label="请求参数">
         {{ detailData.requestParams }}
       </el-descriptions-item>
@@ -33,18 +31,10 @@
         {{ detailData.exceptionName }}
       </el-descriptions-item>
       <el-descriptions-item v-if="detailData.exceptionStackTrace" label="异常堆栈">
-        <el-input
-          v-model="detailData.exceptionStackTrace"
-          :autosize="{ maxRows: 20 }"
-          :readonly="true"
-          type="textarea"
-        />
+        <el-input v-model="detailData.exceptionStackTrace" :autosize="{ maxRows: 20 }" :readonly="true" type="textarea" />
       </el-descriptions-item>
       <el-descriptions-item label="处理状态">
-        <dict-tag
-          :type="DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS"
-          :value="detailData.processStatus"
-        />
+        <dict-tag :type="DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS" :value="detailData.processStatus" />
       </el-descriptions-item>
       <el-descriptions-item v-if="detailData.processUserId" label="处理人">
         {{ detailData.processUserId }}

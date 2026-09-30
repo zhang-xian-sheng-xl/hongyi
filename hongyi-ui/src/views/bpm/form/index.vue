@@ -3,21 +3,9 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="表单名" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入表单名"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入表单名" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery">
@@ -47,51 +35,18 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="备注" prop="remark" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" />
       <el-table-column align="center" label="操作">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['bpm:form:update']"
-            link
-            type="primary"
-            @click="openForm('copy', scope.row.id)"
-          >
-            复制
-          </el-button>
-          <el-button
-            v-hasPermi="['bpm:form:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button v-hasPermi="['bpm:form:query']" link @click="openDetail(scope.row.id)">
-            详情
-          </el-button>
-          <el-button
-            v-hasPermi="['bpm:form:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['bpm:form:update']" link type="primary" @click="openForm('copy', scope.row.id)"> 复制 </el-button>
+          <el-button v-hasPermi="['bpm:form:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['bpm:form:query']" link @click="openDetail(scope.row.id)"> 详情 </el-button>
+          <el-button v-hasPermi="['bpm:form:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单详情的弹窗 -->

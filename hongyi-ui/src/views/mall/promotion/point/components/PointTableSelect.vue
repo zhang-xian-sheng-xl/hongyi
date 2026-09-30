@@ -2,26 +2,10 @@
   <Dialog v-model="dialogVisible" :appendToBody="true" title="选择活动" width="70%">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="68px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
         <el-form-item label="活动状态" prop="status">
-          <el-select
-            v-model="queryParams.status"
-            class="!w-240px"
-            clearable
-            placeholder="请选择活动状态"
-          >
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+          <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择活动状态">
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -39,27 +23,16 @@
         <!-- 1. 多选模式（不能使用type="selection"，Element会忽略Header插槽） -->
         <el-table-column v-if="multiple" width="55">
           <template #header>
-            <el-checkbox
-              v-model="isCheckAll"
-              :indeterminate="isIndeterminate"
-              @change="handleCheckAll"
-            />
+            <el-checkbox v-model="isCheckAll" :indeterminate="isIndeterminate" @change="handleCheckAll" />
           </template>
           <template #default="{ row }">
-            <el-checkbox
-              v-model="checkedStatus[row.id]"
-              @change="(checked: boolean) => handleCheckOne(checked, row, true)"
-            />
+            <el-checkbox v-model="checkedStatus[row.id]" @change="(checked: boolean) => handleCheckOne(checked, row, true)" />
           </template>
         </el-table-column>
         <!-- 2. 单选模式 -->
         <el-table-column v-else label="#" width="55">
           <template #default="{ row }">
-            <el-radio
-              v-model="selectedActivityId"
-              :value="row.id"
-              @change="handleSingleSelected(row)"
-            >
+            <el-radio v-model="selectedActivityId" :value="row.id" @change="handleSingleSelected(row)">
               <!-- 空格不能省略，是为了让单选框不显示label，如果不指定label不会有选中的效果 -->
               &nbsp;
             </el-radio>
@@ -68,21 +41,11 @@
         <el-table-column label="活动编号" min-width="80" prop="id" />
         <el-table-column label="商品图片" min-width="80" prop="spuName">
           <template #default="scope">
-            <el-image
-              :preview-src-list="[scope.row.picUrl]"
-              :src="scope.row.picUrl"
-              class="h-40px w-40px"
-              preview-teleported
-            />
+            <el-image :preview-src-list="[scope.row.picUrl]" :src="scope.row.picUrl" class="h-40px w-40px" preview-teleported />
           </template>
         </el-table-column>
         <el-table-column label="商品标题" min-width="300" prop="spuName" />
-        <el-table-column
-          :formatter="fenToYuanFormat"
-          label="原价"
-          min-width="100"
-          prop="marketPrice"
-        />
+        <el-table-column :formatter="fenToYuanFormat" label="原价" min-width="100" prop="marketPrice" />
         <el-table-column label="原价" min-width="100" prop="marketPrice" />
         <el-table-column align="center" label="活动状态" min-width="100" prop="status">
           <template #default="scope">
@@ -96,21 +59,10 @@
             {{ getRedeemedQuantity(row) }}
           </template>
         </el-table-column>
-        <el-table-column
-          :formatter="dateFormatter"
-          align="center"
-          label="创建时间"
-          prop="createTime"
-          width="180px"
-        />
+        <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template v-if="multiple" #footer>
       <el-button type="primary" @click="handleEmitChange">确 定</el-button>
@@ -189,10 +141,7 @@ const getList = async () => {
     list.value = data.list
     total.value = data.total
     // checkbox绑定undefined会有问题，需要给一个bool值
-    list.value.forEach(
-      (activityVO) =>
-        (checkedStatus.value[activityVO.id] = checkedStatus.value[activityVO.id] || false)
-    )
+    list.value.forEach((activityVO) => (checkedStatus.value[activityVO.id] = checkedStatus.value[activityVO.id] || false))
     // 计算全选框状态
     calculateIsCheckAll()
   } finally {
@@ -263,11 +212,7 @@ const handleCheckAll = (checked: boolean) => {
  * @param pointActivity 活动
  * @param isCalcCheckAll 是否计算全选
  */
-const handleCheckOne = (
-  checked: boolean,
-  pointActivity: PointActivityVO,
-  isCalcCheckAll: boolean
-) => {
+const handleCheckOne = (checked: boolean, pointActivity: PointActivityVO, isCalcCheckAll: boolean) => {
   if (checked) {
     checkedActivities.value.push(pointActivity)
     checkedStatus.value[pointActivity.id] = true
@@ -287,14 +232,12 @@ const handleCheckOne = (
 }
 
 // 查找活动在已选中活动列表中的索引
-const findCheckedIndex = (activityVO: PointActivityVO) =>
-  checkedActivities.value.findIndex((item) => item.id === activityVO.id)
+const findCheckedIndex = (activityVO: PointActivityVO) => checkedActivities.value.findIndex((item) => item.id === activityVO.id)
 
 // 计算全选框状态
 const calculateIsCheckAll = () => {
   isCheckAll.value = list.value.every((activityVO) => checkedStatus.value[activityVO.id])
   // 计算中间状态：不是全部选中 && 任意一个选中
-  isIndeterminate.value =
-    !isCheckAll.value && list.value.some((activityVO) => checkedStatus.value[activityVO.id])
+  isIndeterminate.value = !isCheckAll.value && list.value.some((activityVO) => checkedStatus.value[activityVO.id])
 }
 </script>

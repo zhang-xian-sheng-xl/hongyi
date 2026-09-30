@@ -3,55 +3,20 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="操作人" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          clearable
-          filterable
-          placeholder="请输入操作人员"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="user in userList"
-            :key="user.id"
-            :label="user.nickname"
-            :value="user.id"
-          />
+        <el-select v-model="queryParams.userId" clearable filterable placeholder="请输入操作人员" class="!w-240px">
+          <el-option v-for="user in userList" :key="user.id" :label="user.nickname" :value="user.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="操作模块" prop="type">
-        <el-input
-          v-model="queryParams.type"
-          placeholder="请输入操作模块"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.type" placeholder="请输入操作模块" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="操作名" prop="subType">
-        <el-input
-          v-model="queryParams.subType"
-          placeholder="请输入操作名"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.subType" placeholder="请输入操作名" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="操作内容" prop="action">
-        <el-input
-          v-model="queryParams.action"
-          placeholder="请输入操作名"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.action" placeholder="请输入操作名" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="操作时间" prop="createTime">
         <el-date-picker
@@ -65,26 +30,12 @@
         />
       </el-form-item>
       <el-form-item label="业务编号" prop="bizId">
-        <el-input
-          v-model="queryParams.bizId"
-          placeholder="请输入业务编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.bizId" placeholder="请输入业务编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['system:operate-log:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['system:operate-log:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -97,35 +48,17 @@
       <el-table-column label="操作模块" align="center" prop="type" width="120" />
       <el-table-column label="操作名" align="center" prop="subType" width="160" />
       <el-table-column label="操作内容" align="center" prop="action" />
-      <el-table-column
-        label="操作时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="操作时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="业务编号" align="center" prop="bizId" width="120" />
       <el-table-column label="操作 IP" align="center" prop="userIp" width="120" />
       <el-table-column label="操作" align="center" fixed="right" width="60">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openDetail(scope.row)"
-            v-hasPermi="['system:operate-log:query']"
-          >
-            详情
-          </el-button>
+          <el-button link type="primary" @click="openDetail(scope.row)" v-hasPermi="['system:operate-log:query']"> 详情 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：详情 -->

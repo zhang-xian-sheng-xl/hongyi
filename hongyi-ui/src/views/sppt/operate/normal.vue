@@ -7,10 +7,7 @@
       <div> 用户密码表： sppt T_ACCOUNT</div>
       <div>
         <span class="changeline">修改某菜单名称（软件修改不成功需要到对应的文件中去改） 例：</span>
-        <span class="changeline">
-          D:\myapps\storage\workspace\华能山东如意巴基斯坦审批平台.application\安全生产类 Safety
-          Product.menu\安反措计划实施验收单（停用).menu
-        </span>
+        <span class="changeline"> D:\myapps\storage\workspace\华能山东如意巴基斯坦审批平台.application\安全生产类 Safety Product.menu\安反措计划实施验收单（停用).menu </span>
         <span class="changeline"> 修改完要重构索引</span>
       </div>
     </el-col>

@@ -25,41 +25,16 @@
       </template>
       <div class="flex flex-col">
         <div>
-          <el-input
-            v-model="modelData.processIdRule.prefix"
-            class="w-130px!"
-            placeholder="前缀"
-            :disabled="!modelData.processIdRule.enable"
-          >
+          <el-input v-model="modelData.processIdRule.prefix" class="w-130px!" placeholder="前缀" :disabled="!modelData.processIdRule.enable">
             <template #prepend>
               <el-checkbox v-model="modelData.processIdRule.enable" />
             </template>
           </el-input>
-          <el-select
-            v-model="modelData.processIdRule.infix"
-            class="w-130px! ml-5px"
-            placeholder="中缀"
-            :disabled="!modelData.processIdRule.enable"
-          >
-            <el-option
-              v-for="item in timeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
+          <el-select v-model="modelData.processIdRule.infix" class="w-130px! ml-5px" placeholder="中缀" :disabled="!modelData.processIdRule.enable">
+            <el-option v-for="item in timeOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
-          <el-input
-            v-model="modelData.processIdRule.postfix"
-            class="w-80px! ml-5px"
-            placeholder="后缀"
-            :disabled="!modelData.processIdRule.enable"
-          />
-          <el-input-number
-            v-model="modelData.processIdRule.length"
-            class="w-120px! ml-5px"
-            :min="5"
-            :disabled="!modelData.processIdRule.enable"
-          />
+          <el-input v-model="modelData.processIdRule.postfix" class="w-80px! ml-5px" placeholder="后缀" :disabled="!modelData.processIdRule.enable" />
+          <el-input-number v-model="modelData.processIdRule.length" class="w-120px! ml-5px" :min="5" :disabled="!modelData.processIdRule.enable" />
         </div>
         <div class="ml-22px" v-if="modelData.processIdRule.enable">
           <el-text type="info"> 编码示例：{{ numberExample }} </el-text>
@@ -90,9 +65,7 @@
       <div class="flex flex-col">
         <el-radio-group v-model="modelData.titleSetting.enable">
           <div class="flex flex-col">
-            <el-radio :value="false"
-              >系统默认 <el-text type="info"> 展示流程名称 </el-text></el-radio
-            >
+            <el-radio :value="false">系统默认 <el-text type="info"> 展示流程名称 </el-text></el-radio>
             <el-radio :value="true">
               自定义标题
               <el-text>
@@ -116,35 +89,19 @@
         />
       </div>
     </el-form-item>
-    <el-form-item
-      v-if="modelData.summarySetting && modelData.formType === BpmModelFormType.NORMAL"
-      class="mb-20px"
-    >
+    <el-form-item v-if="modelData.summarySetting && modelData.formType === BpmModelFormType.NORMAL" class="mb-20px">
       <template #label>
         <el-text size="large" tag="b">摘要设置</el-text>
       </template>
       <div class="flex flex-col">
         <el-radio-group v-model="modelData.summarySetting.enable">
           <div class="flex flex-col">
-            <el-radio :value="false">
-              系统默认 <el-text type="info"> 展示表单前 3 个字段 </el-text>
-            </el-radio>
+            <el-radio :value="false"> 系统默认 <el-text type="info"> 展示表单前 3 个字段 </el-text> </el-radio>
             <el-radio :value="true"> 自定义摘要 </el-radio>
           </div>
         </el-radio-group>
-        <el-select
-          class="w-500px!"
-          v-if="modelData.summarySetting.enable"
-          v-model="modelData.summarySetting.summary"
-          multiple
-          placeholder="请选择要展示的表单字段"
-        >
-          <el-option
-            v-for="item in formFieldOptions4Summary"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+        <el-select class="w-500px!" v-if="modelData.summarySetting.enable" v-model="modelData.summarySetting.summary" multiple placeholder="请选择要展示的表单字段">
+          <el-option v-for="item in formFieldOptions4Summary" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </div>
     </el-form-item>
@@ -154,18 +111,10 @@
       </template>
       <div class="flex flex-col w-100%">
         <div class="flex">
-          <el-switch
-            v-model="processBeforeTriggerEnable"
-            @change="handleProcessBeforeTriggerEnableChange"
-          />
+          <el-switch v-model="processBeforeTriggerEnable" @change="handleProcessBeforeTriggerEnableChange" />
           <div class="ml-80px">流程启动后通知</div>
         </div>
-        <HttpRequestSetting
-          v-if="processBeforeTriggerEnable"
-          v-model:setting="modelData.processBeforeTriggerSetting"
-          :responseEnable="true"
-          :formItemPrefix="'processBeforeTriggerSetting'"
-        />
+        <HttpRequestSetting v-if="processBeforeTriggerEnable" v-model:setting="modelData.processBeforeTriggerSetting" :responseEnable="true" :formItemPrefix="'processBeforeTriggerSetting'" />
       </div>
     </el-form-item>
     <el-form-item class="mb-20px">
@@ -174,18 +123,10 @@
       </template>
       <div class="flex flex-col w-100%">
         <div class="flex">
-          <el-switch
-            v-model="processAfterTriggerEnable"
-            @change="handleProcessAfterTriggerEnableChange"
-          />
+          <el-switch v-model="processAfterTriggerEnable" @change="handleProcessAfterTriggerEnableChange" />
           <div class="ml-80px">流程结束后通知</div>
         </div>
-        <HttpRequestSetting
-          v-if="processAfterTriggerEnable"
-          v-model:setting="modelData.processAfterTriggerSetting"
-          :responseEnable="true"
-          :formItemPrefix="'processAfterTriggerSetting'"
-        />
+        <HttpRequestSetting v-if="processAfterTriggerEnable" v-model:setting="modelData.processAfterTriggerSetting" :responseEnable="true" :formItemPrefix="'processAfterTriggerSetting'" />
       </div>
     </el-form-item>
     <el-form-item class="mb-20px">
@@ -194,18 +135,10 @@
       </template>
       <div class="flex flex-col w-100%">
         <div class="flex">
-          <el-switch
-            v-model="taskBeforeTriggerEnable"
-            @change="handleTaskBeforeTriggerEnableChange"
-          />
+          <el-switch v-model="taskBeforeTriggerEnable" @change="handleTaskBeforeTriggerEnableChange" />
           <div class="ml-80px">任务执行时通知</div>
         </div>
-        <HttpRequestSetting
-          v-if="taskBeforeTriggerEnable"
-          v-model:setting="modelData.taskBeforeTriggerSetting"
-          :responseEnable="true"
-          :formItemPrefix="'taskBeforeTriggerSetting'"
-        />
+        <HttpRequestSetting v-if="taskBeforeTriggerEnable" v-model:setting="modelData.taskBeforeTriggerSetting" :responseEnable="true" :formItemPrefix="'taskBeforeTriggerSetting'" />
       </div>
     </el-form-item>
     <el-form-item class="mb-20px">
@@ -214,18 +147,10 @@
       </template>
       <div class="flex flex-col w-100%">
         <div class="flex">
-          <el-switch
-            v-model="taskAfterTriggerEnable"
-            @change="handleTaskAfterTriggerEnableChange"
-          />
+          <el-switch v-model="taskAfterTriggerEnable" @change="handleTaskAfterTriggerEnableChange" />
           <div class="ml-80px">任务结束后通知</div>
         </div>
-        <HttpRequestSetting
-          v-if="taskAfterTriggerEnable"
-          v-model:setting="modelData.taskAfterTriggerSetting"
-          :responseEnable="true"
-          :formItemPrefix="'taskAfterTriggerSetting'"
-        />
+        <HttpRequestSetting v-if="taskAfterTriggerEnable" v-model:setting="modelData.taskAfterTriggerSetting" :responseEnable="true" :formItemPrefix="'taskAfterTriggerSetting'" />
       </div>
     </el-form-item>
     <el-form-item class="mb-20px">
@@ -234,19 +159,8 @@
       </template>
       <div class="flex flex-col w-100%">
         <div class="flex">
-          <el-switch
-            v-model="modelData.printTemplateSetting.enable"
-            @change="handlePrintTemplateEnableChange"
-          />
-          <el-button
-            v-if="modelData.printTemplateSetting.enable"
-            class="ml-80px"
-            type="primary"
-            link
-            @click="handleEditPrintTemplate"
-          >
-            编辑模板
-          </el-button>
+          <el-switch v-model="modelData.printTemplateSetting.enable" @change="handlePrintTemplateEnableChange" />
+          <el-button v-if="modelData.printTemplateSetting.enable" class="ml-80px" type="primary" link @click="handleEditPrintTemplate"> 编辑模板 </el-button>
         </div>
       </div>
     </el-form-item>
@@ -307,12 +221,7 @@ const numberExample = computed(() => {
       default:
         break
     }
-    return (
-      modelData.value.processIdRule.prefix +
-      infix +
-      modelData.value.processIdRule.postfix +
-      '1'.padStart(modelData.value.processIdRule.length - 1, '0')
-    )
+    return modelData.value.processIdRule.prefix + infix + modelData.value.processIdRule.postfix + '1'.padStart(modelData.value.processIdRule.length - 1, '0')
   } else {
     return ''
   }

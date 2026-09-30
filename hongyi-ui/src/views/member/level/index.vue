@@ -3,38 +3,19 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="等级名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入等级名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入等级名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable class="!w-240px">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button type="primary" @click="openForm('create')" v-hasPermi="['member:level:create']">
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
+        <el-button type="primary" @click="openForm('create')" v-hasPermi="['member:level:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -45,20 +26,12 @@
       <el-table-column label="编号" align="center" prop="id" min-width="60" />
       <el-table-column label="等级图标" align="center" prop="icon" min-width="80">
         <template #default="scope">
-          <el-image
-            :src="scope.row.icon"
-            class="h-30px w-30px"
-            :preview-src-list="[scope.row.icon]"
-          />
+          <el-image :src="scope.row.icon" class="h-30px w-30px" :preview-src-list="[scope.row.icon]" />
         </template>
       </el-table-column>
       <el-table-column label="等级背景图" align="center" prop="backgroundUrl" min-width="100">
         <template #default="scope">
-          <el-image
-            :src="scope.row.backgroundUrl"
-            class="h-30px w-30px"
-            :preview-src-list="[scope.row.backgroundUrl]"
-          />
+          <el-image :src="scope.row.backgroundUrl" class="h-30px w-30px" :preview-src-list="[scope.row.backgroundUrl]" />
         </template>
       </el-table-column>
       <el-table-column label="等级名称" align="center" prop="name" min-width="100" />
@@ -70,31 +43,11 @@
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        min-width="170"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" min-width="170" />
       <el-table-column label="操作" align="center" min-width="110px" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['member:level:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['member:level:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['member:level:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['member:level:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>

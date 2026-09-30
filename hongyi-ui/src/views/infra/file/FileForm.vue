@@ -20,9 +20,7 @@
       <i class="el-icon-upload"></i>
       <div class="el-upload__text"> 将文件拖到此处，或 <em>点击上传</em></div>
       <template #tip>
-        <div class="el-upload__tip" style="color: red">
-          提示：仅允许导入 jpg、png、gif 格式文件！
-        </div>
+        <div class="el-upload__tip" style="color: red"> 提示：仅允许导入 jpg、png、gif 格式文件！ </div>
       </template>
     </el-upload>
     <template #footer>

@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" title="IP 查询">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="IP" prop="ip">
         <el-input v-model="formData.ip" placeholder="请输入 IP 地址" />
       </el-form-item>

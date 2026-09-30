@@ -15,28 +15,13 @@
         />
       </el-col>
       <el-col :md="6" :sm="12" :xs="24" :loading="loading">
-        <ComparisonCard
-          tag="今日"
-          title="用户访问量"
-          :value="userComparison?.value?.visitUserCount || 0"
-          :reference="userComparison?.reference?.visitUserCount || 0"
-        />
+        <ComparisonCard tag="今日" title="用户访问量" :value="userComparison?.value?.visitUserCount || 0" :reference="userComparison?.reference?.visitUserCount || 0" />
       </el-col>
       <el-col :md="6" :sm="12" :xs="24" :loading="loading">
-        <ComparisonCard
-          tag="今日"
-          title="订单量"
-          :value="orderComparison?.value?.orderPayCount || 0"
-          :reference="orderComparison?.reference?.orderPayCount || 0"
-        />
+        <ComparisonCard tag="今日" title="订单量" :value="orderComparison?.value?.orderPayCount || 0" :reference="orderComparison?.reference?.orderPayCount || 0" />
       </el-col>
       <el-col :md="6" :sm="12" :xs="24" :loading="loading">
-        <ComparisonCard
-          tag="今日"
-          title="新增用户"
-          :value="userComparison?.value?.registerUserCount || 0"
-          :reference="userComparison?.reference?.registerUserCount || 0"
-        />
+        <ComparisonCard tag="今日" title="新增用户" :value="userComparison?.value?.registerUserCount || 0" :reference="userComparison?.reference?.registerUserCount || 0" />
       </el-col>
     </el-row>
     <el-row :gutter="16" class="row">

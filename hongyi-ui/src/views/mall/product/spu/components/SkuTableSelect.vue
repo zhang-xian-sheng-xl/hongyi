@@ -3,19 +3,12 @@
     <el-table v-loading="loading" :data="list" show-overflow-tooltip>
       <el-table-column label="#" width="55">
         <template #default="{ row }">
-          <el-radio :value="row.id" v-model="selectedSkuId" @change="handleSelected(row)"
-            >&nbsp;
-          </el-radio>
+          <el-radio :value="row.id" v-model="selectedSkuId" @change="handleSelected(row)">&nbsp; </el-radio>
         </template>
       </el-table-column>
       <el-table-column label="图片" min-width="80">
         <template #default="{ row }">
-          <el-image
-            :src="row.picUrl"
-            class="h-30px w-30px"
-            :preview-src-list="[row.picUrl]"
-            preview-teleported
-          />
+          <el-image :src="row.picUrl" class="h-30px w-30px" :preview-src-list="[row.picUrl]" preview-teleported />
         </template>
       </el-table-column>
       <el-table-column label="规格" align="center" min-width="80">

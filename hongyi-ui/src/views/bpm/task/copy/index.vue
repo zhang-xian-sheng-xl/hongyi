@@ -1,21 +1,12 @@
 <!-- 工作流 - 抄送我的流程 -->
 <template>
-  <doc-alert
-    title="审批转办、委派、抄送"
-    url="https://doc.iocoder.cn/bpm/task-delegation-and-cc/"
-  />
+  <doc-alert title="审批转办、委派、抄送" url="https://doc.iocoder.cn/bpm/task-delegation-and-cc/" />
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form ref="queryFormRef" :inline="true" class="-mb-15px" label-width="68px">
       <el-form-item label="流程名称" prop="name">
-        <el-input
-          v-model="queryParams.processInstanceName"
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-          clearable
-          placeholder="请输入流程名称"
-        />
+        <el-input v-model="queryParams.processInstanceName" @keyup.enter="handleQuery" class="!w-240px" clearable placeholder="请输入流程名称" />
       </el-form-item>
       <el-form-item label="抄送时间" prop="createTime">
         <el-date-picker
@@ -55,31 +46,14 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column
-        align="center"
-        label="流程发起人"
-        prop="startUser.nickname"
-        min-width="100"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="流程发起时间"
-        prop="processInstanceStartTime"
-        width="180"
-      />
+      <el-table-column align="center" label="流程发起人" prop="startUser.nickname" min-width="100" />
+      <el-table-column :formatter="dateFormatter" align="center" label="流程发起时间" prop="processInstanceStartTime" width="180" />
       <el-table-column align="center" label="抄送节点" prop="activityName" min-width="180" />
       <el-table-column align="center" label="抄送人" min-width="100">
         <template #default="scope"> {{ scope.row.createUser?.nickname || '系统' }} </template>
       </el-table-column>
       <el-table-column align="center" label="抄送意见" prop="reason" width="150" />
-      <el-table-column
-        align="center"
-        label="抄送时间"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column align="center" label="抄送时间" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column align="center" label="操作" fixed="right" width="80">
         <template #default="scope">
           <el-button link type="primary" @click="handleAudit(scope.row)">详情</el-button>
@@ -87,12 +61,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 <script lang="ts" setup>

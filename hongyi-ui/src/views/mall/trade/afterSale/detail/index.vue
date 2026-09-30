@@ -51,13 +51,7 @@
         {{ formData.applyDescription }}
       </el-descriptions-item>
       <el-descriptions-item label="凭证图片: ">
-        <el-image
-          v-for="(item, index) in formData.applyPicUrls"
-          :key="index"
-          :src="item.url"
-          class="mr-10px h-60px w-60px"
-          @click="imagePreview(formData.applyPicUrls)"
-        />
+        <el-image v-for="(item, index) in formData.applyPicUrls" :key="index" :src="item.url" class="mr-10px h-60px w-60px" @click="imagePreview(formData.applyPicUrls)" />
       </el-descriptions-item>
     </el-descriptions>
 
@@ -68,12 +62,8 @@
       </el-descriptions-item>
       <el-descriptions-item label-class-name="no-colon">
         <el-button v-if="formData.status === 10" type="primary" @click="agree">同意售后</el-button>
-        <el-button v-if="formData.status === 10" type="primary" @click="disagree">
-          拒绝售后
-        </el-button>
-        <el-button v-if="formData.status === 30" type="primary" @click="receive">
-          确认收货
-        </el-button>
+        <el-button v-if="formData.status === 10" type="primary" @click="disagree"> 拒绝售后 </el-button>
+        <el-button v-if="formData.status === 30" type="primary" @click="receive"> 确认收货 </el-button>
         <el-button v-if="formData.status === 30" type="primary" @click="refuse">拒绝收货</el-button>
         <el-button v-if="formData.status === 40" type="primary" @click="refund">确认退款</el-button>
       </el-descriptions-item>
@@ -94,13 +84,7 @@
               <el-table-column label="商品" prop="spuName" width="auto">
                 <template #default="{ row }">
                   {{ row.spuName }}
-                  <el-tag
-                    v-for="property in row.properties"
-                    :key="property.propertyId"
-                    class="mr-10px"
-                  >
-                    {{ property.propertyName }}: {{ property.valueName }}
-                  </el-tag>
+                  <el-tag v-for="property in row.properties" :key="property.propertyId" class="mr-10px"> {{ property.propertyName }}: {{ property.valueName }} </el-tag>
                 </template>
               </el-table-column>
               <el-table-column label="商品原价" prop="price" width="150">
@@ -121,20 +105,12 @@
     <el-descriptions title="售后日志">
       <el-descriptions-item labelClassName="no-colon">
         <el-timeline>
-          <el-timeline-item
-            v-for="saleLog in formData.logs"
-            :key="saleLog.id"
-            :timestamp="formatDate(saleLog.createTime)"
-            placement="top"
-          >
+          <el-timeline-item v-for="saleLog in formData.logs" :key="saleLog.id" :timestamp="formatDate(saleLog.createTime)" placement="top">
             <div class="el-timeline-right-content">
               <span>{{ saleLog.content }}</span>
             </div>
             <template #dot>
-              <span
-                :style="{ backgroundColor: getUserTypeColor(saleLog.userType) }"
-                class="dot-node-style"
-              >
+              <span :style="{ backgroundColor: getUserTypeColor(saleLog.userType) }" class="dot-node-style">
                 {{ getDictLabel(DICT_TYPE.USER_TYPE, saleLog.userType)[0] || '系' }}
               </span>
             </template>

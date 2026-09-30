@@ -68,11 +68,7 @@ onMounted(() => {
     <!-- TODO @lesan：css 可以用 unocss 哇？ -->
     <input id="mention-input" v-model="searchVal" ref="inputRef" @keyup="inputKeyupHandler" />
     <ul id="mention-list">
-      <li
-        v-for="item in searchedList"
-        :key="item.id"
-        @click="insertMentionHandler(item.id, item.name)"
-      >
+      <li v-for="item in searchedList" :key="item.id" @click="insertMentionHandler(item.id, item.name)">
         {{ item.name }}
       </li>
     </ul>

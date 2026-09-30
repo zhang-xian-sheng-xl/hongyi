@@ -35,24 +35,9 @@
   >
     <el-input v-model="dataSpecs.step" placeholder="请输入步长" />
   </el-form-item>
-  <el-form-item
-    :rules="[{ required: true, message: '请选择单位' }]"
-    label="单位"
-    prop="property.dataSpecs.unit"
-  >
-    <el-select
-      :model-value="dataSpecs.unit ? dataSpecs.unitName + '-' + dataSpecs.unit : ''"
-      filterable
-      placeholder="请选择单位"
-      class="w-1/1"
-      @change="unitChange"
-    >
-      <el-option
-        v-for="(item, index) in getStrDictOptions(DICT_TYPE.IOT_THING_MODEL_UNIT)"
-        :key="index"
-        :label="item.label + '-' + item.value"
-        :value="item.label + '-' + item.value"
-      />
+  <el-form-item :rules="[{ required: true, message: '请选择单位' }]" label="单位" prop="property.dataSpecs.unit">
+    <el-select :model-value="dataSpecs.unit ? dataSpecs.unitName + '-' + dataSpecs.unit : ''" filterable placeholder="请选择单位" class="w-1/1" @change="unitChange">
+      <el-option v-for="(item, index) in getStrDictOptions(DICT_TYPE.IOT_THING_MODEL_UNIT)" :key="index" :label="item.label + '-' + item.value" :value="item.label + '-' + item.value" />
     </el-select>
   </el-form-item>
 </template>

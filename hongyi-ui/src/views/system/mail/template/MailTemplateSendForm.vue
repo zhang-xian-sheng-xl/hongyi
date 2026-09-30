@@ -1,46 +1,20 @@
 <template>
   <Dialog v-model="dialogVisible" title="测试">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="140px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="140px">
       <el-form-item label="模板内容" prop="content">
         <Editor :model-value="formData.content" height="150px" readonly />
       </el-form-item>
       <el-form-item label="收件邮箱" prop="toMails">
-        <el-input-tag
-          v-model="formData.toMails"
-          placeholder="请输入收件邮箱，多个邮箱用回车分隔"
-          class="!w-full"
-        />
+        <el-input-tag v-model="formData.toMails" placeholder="请输入收件邮箱，多个邮箱用回车分隔" class="!w-full" />
       </el-form-item>
       <el-form-item label="抄送邮箱" prop="ccMails">
-        <el-input-tag
-          v-model="formData.ccMails"
-          placeholder="请输入抄送邮箱，多个邮箱用回车分隔"
-          class="!w-full"
-        />
+        <el-input-tag v-model="formData.ccMails" placeholder="请输入抄送邮箱，多个邮箱用回车分隔" class="!w-full" />
       </el-form-item>
       <el-form-item label="密送邮箱" prop="bccMails">
-        <el-input-tag
-          v-model="formData.bccMails"
-          placeholder="请输入密送邮箱，多个邮箱用回车分隔"
-          class="!w-full"
-        />
+        <el-input-tag v-model="formData.bccMails" placeholder="请输入密送邮箱，多个邮箱用回车分隔" class="!w-full" />
       </el-form-item>
-      <el-form-item
-        v-for="param in formData.params"
-        :key="param"
-        :label="'参数 {' + param + '}'"
-        :prop="'templateParams.' + param"
-      >
-        <el-input
-          v-model="formData.templateParams[param]"
-          :placeholder="'请输入 ' + param + ' 参数'"
-        />
+      <el-form-item v-for="param in formData.params" :key="param" :label="'参数 {' + param + '}'" :prop="'templateParams.' + param">
+        <el-input v-model="formData.templateParams[param]" :placeholder="'请输入 ' + param + ' 参数'" />
       </el-form-item>
     </el-form>
     <template #footer>

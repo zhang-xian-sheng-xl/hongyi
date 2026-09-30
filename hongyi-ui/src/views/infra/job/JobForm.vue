@@ -1,21 +1,11 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-form-item label="任务名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入任务名称" />
       </el-form-item>
       <el-form-item label="处理器的名字" prop="handlerName">
-        <el-input
-          :readonly="formData.id !== undefined"
-          v-model="formData.handlerName"
-          placeholder="请输入处理器的名字"
-        />
+        <el-input :readonly="formData.id !== undefined" v-model="formData.handlerName" placeholder="请输入处理器的名字" />
       </el-form-item>
       <el-form-item label="处理器的参数" prop="handlerParam">
         <el-input v-model="formData.handlerParam" placeholder="请输入处理器的参数" />
@@ -24,16 +14,10 @@
         <crontab v-model="formData.cronExpression" />
       </el-form-item>
       <el-form-item label="重试次数" prop="retryCount">
-        <el-input
-          v-model="formData.retryCount"
-          placeholder="请输入重试次数。设置为 0 时，不进行重试"
-        />
+        <el-input v-model="formData.retryCount" placeholder="请输入重试次数。设置为 0 时，不进行重试" />
       </el-form-item>
       <el-form-item label="重试间隔" prop="retryInterval">
-        <el-input
-          v-model="formData.retryInterval"
-          placeholder="请输入重试间隔，单位：毫秒。设置为 0 时，无需间隔"
-        />
+        <el-input v-model="formData.retryInterval" placeholder="请输入重试间隔，单位：毫秒。设置为 0 时，无需间隔" />
       </el-form-item>
       <el-form-item label="监控超时时间" prop="monitorTimeout">
         <el-input v-model="formData.monitorTimeout" placeholder="请输入监控超时时间，单位：毫秒" />

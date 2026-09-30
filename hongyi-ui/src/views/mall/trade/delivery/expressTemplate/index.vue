@@ -3,46 +3,19 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="100px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
       <el-form-item label="模板名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入模板名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入模板名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="计费方式" prop="chargeMode">
-        <el-select
-          v-model="queryParams.chargeMode"
-          placeholder="计费方式"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.EXPRESS_CHARGE_MODE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.chargeMode" placeholder="计费方式" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.EXPRESS_CHARGE_MODE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['trade:delivery:express-template:create']"
-        >
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['trade:delivery:express-template:create']">
           <Icon icon="ep:plus" class="mr-5px" />
           新增
         </el-button>
@@ -61,31 +34,11 @@
         </template>
       </el-table-column>
       <el-table-column label="排序" min-width="100" prop="sort" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['trade:delivery:express-template:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['trade:delivery:express-template:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['trade:delivery:express-template:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['trade:delivery:express-template:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -2,9 +2,7 @@
   <el-form ref="formRef" :model="modelData" label-width="0" class="mt-20px">
     <el-form-item class="mb-20px">
       <div class="w-full">
-        <div
-          class="w-full border-2 border-dashed border-[#dcdfe6] rounded-md p-20px text-center hover:border-[#409eff]"
-        >
+        <div class="w-full border-2 border-dashed border-[#dcdfe6] rounded-md p-20px text-center hover:border-[#409eff]">
           <el-upload
             ref="uploadRef"
             class="upload-demo"
@@ -28,17 +26,12 @@
                 拖拽文件至此，或者
                 <em class="text-[#409eff] not-italic cursor-pointer">选择文件</em>
               </div>
-              <div class="el-upload__tip mt-10px text-[#909399] text-[12px]">
-                已支持 {{ supportedFileTypes.join('、') }}，每个文件不超过 {{ maxFileSize }} MB。
-              </div>
+              <div class="el-upload__tip mt-10px text-[#909399] text-[12px]"> 已支持 {{ supportedFileTypes.join('、') }}，每个文件不超过 {{ maxFileSize }} MB。 </div>
             </div>
           </el-upload>
         </div>
 
-        <div
-          v-if="modelData.list && modelData.list.length > 0"
-          class="mt-15px grid grid-cols-1 gap-2"
-        >
+        <div v-if="modelData.list && modelData.list.length > 0" class="mt-15px grid grid-cols-1 gap-2">
           <div
             v-for="(file, index) in modelData.list"
             :key="index"
@@ -59,9 +52,7 @@
     <!-- 添加下一步按钮 -->
     <el-form-item>
       <div class="flex justify-end w-full">
-        <el-button type="primary" @click="handleNextStep" :disabled="!isAllUploaded">
-          下一步
-        </el-button>
+        <el-button type="primary" @click="handleNextStep" :disabled="!isAllUploaded"> 下一步 </el-button>
       </div>
     </el-form-item>
   </el-form>
@@ -92,26 +83,7 @@ const fileList = ref([]) // 文件列表
 const uploadingCount = ref(0) // 上传中的文件数量
 
 // 支持的文件类型和大小限制
-const supportedFileTypes = [
-  'TXT',
-  'MARKDOWN',
-  'MDX',
-  'PDF',
-  'HTML',
-  'XLSX',
-  'XLS',
-  'DOC',
-  'DOCX',
-  'CSV',
-  'EML',
-  'MSG',
-  'PPTX',
-  'XML',
-  'EPUB',
-  'PPT',
-  'MD',
-  'HTM'
-]
+const supportedFileTypes = ['TXT', 'MARKDOWN', 'MDX', 'PDF', 'HTML', 'XLSX', 'XLS', 'DOC', 'DOCX', 'CSV', 'EML', 'MSG', 'PPTX', 'XML', 'EPUB', 'PPT', 'MD', 'HTM']
 const allowedExtensions = supportedFileTypes.map((ext) => ext.toLowerCase()) // 小写的扩展名列表
 const maxFileSize = 15 // 最大文件大小(MB)
 

@@ -3,16 +3,8 @@
 -->
 <template>
   <div>
-    <el-link
-      type="success"
-      :underline="false"
-      target="_blank"
-      :href="hqMusicUrl ? hqMusicUrl : musicUrl"
-    >
-      <div
-        class="avue-card__body"
-        style="padding: 10px; background-color: #fff; border-radius: 5px"
-      >
+    <el-link type="success" :underline="false" target="_blank" :href="hqMusicUrl ? hqMusicUrl : musicUrl">
+      <div class="avue-card__body" style="padding: 10px; background-color: #fff; border-radius: 5px">
         <div class="avue-card__avatar">
           <img :src="thumbMediaUrl" alt="" />
         </div>

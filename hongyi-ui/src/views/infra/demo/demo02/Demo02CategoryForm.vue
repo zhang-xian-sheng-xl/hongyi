@@ -1,24 +1,11 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="名字" prop="name">
         <el-input v-model="formData.name" placeholder="请输入名字" />
       </el-form-item>
       <el-form-item label="父级编号" prop="parentId">
-        <el-tree-select
-          v-model="formData.parentId"
-          :data="demo02CategoryTree"
-          :props="defaultProps"
-          check-strictly
-          default-expand-all
-          placeholder="请选择父级编号"
-        />
+        <el-tree-select v-model="formData.parentId" :data="demo02CategoryTree" :props="defaultProps" check-strictly default-expand-all placeholder="请选择父级编号" />
       </el-form-item>
     </el-form>
     <template #footer>

@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="联系人姓名" prop="name">
@@ -15,17 +9,8 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="负责人" prop="ownerUserId">
-            <el-select
-              v-model="formData.ownerUserId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in userOptions"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
+            <el-select v-model="formData.ownerUserId" :disabled="formType !== 'create'" class="w-1/1">
+              <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -33,18 +18,8 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="客户名称" prop="customerId">
-            <el-select
-              :disabled="formData.customerDefault"
-              v-model="formData.customerId"
-              placeholder="请选择客户"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in customerList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select :disabled="formData.customerDefault" v-model="formData.customerId" placeholder="请选择客户" class="w-1/1">
+              <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -87,11 +62,7 @@
         <el-col :span="12">
           <el-form-item label="关键决策人" prop="master" style="width: 400px">
             <el-radio-group v-model="formData.master">
-              <el-radio
-                v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -102,25 +73,14 @@
         <el-col :span="12">
           <el-form-item label="性别" prop="sex">
             <el-select v-model="formData.sex" placeholder="请选择" class="w-1/1">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="直属上级" prop="parentId">
             <el-select v-model="formData.parentId" placeholder="请选择直属上级" class="w-1/1">
-              <el-option
-                v-for="item in contactList"
-                :key="item.id"
-                :disabled="item.id == formData.id"
-                :label="item.name"
-                :value="item.id"
-              />
+              <el-option v-for="item in contactList" :key="item.id" :disabled="item.id == formData.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -128,15 +88,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="地址" prop="areaId">
-            <el-cascader
-              v-model="formData.areaId"
-              :options="areaList"
-              :props="defaultProps"
-              class="w-1/1"
-              clearable
-              filterable
-              placeholder="请选择城市"
-            />
+            <el-cascader v-model="formData.areaId" :options="areaList" :props="defaultProps" class="w-1/1" clearable filterable placeholder="请选择城市" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -148,13 +100,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="下次联系时间" prop="contactNextTime">
-            <el-date-picker
-              v-model="formData.contactNextTime"
-              placeholder="选择下次联系时间"
-              type="datetime"
-              value-format="x"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.contactNextTime" placeholder="选择下次联系时间" type="datetime" value-format="x" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="800">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="公告标题" prop="title">
         <el-input v-model="formData.title" placeholder="请输入公告标题" />
       </el-form-item>
@@ -15,22 +9,12 @@
       </el-form-item>
       <el-form-item label="公告类型" prop="type">
         <el-select v-model="formData.type" clearable placeholder="请选择公告类型">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_NOTICE_TYPE)"
-            :key="parseInt(dict.value as any)"
-            :label="dict.label"
-            :value="parseInt(dict.value as any)"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_NOTICE_TYPE)" :key="parseInt(dict.value as any)" :label="dict.label" :value="parseInt(dict.value as any)" />
         </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="formData.status" clearable placeholder="请选择状态">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="parseInt(dict.value as any)"
-            :label="dict.label"
-            :value="parseInt(dict.value as any)"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="parseInt(dict.value as any)" :label="dict.label" :value="parseInt(dict.value as any)" />
         </el-select>
       </el-form-item>
       <el-form-item label="备注" prop="remark">

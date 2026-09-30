@@ -1,90 +1,30 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="告警配置" prop="configId">
-        <el-select
-          v-model="queryParams.configId"
-          placeholder="请选择告警配置"
-          clearable
-          filterable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="config in alertConfigList"
-            :key="config.id"
-            :label="config.name"
-            :value="config.id"
-          />
+        <el-select v-model="queryParams.configId" placeholder="请选择告警配置" clearable filterable class="!w-240px">
+          <el-option v-for="config in alertConfigList" :key="config.id" :label="config.name" :value="config.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="告警级别" prop="configLevel">
-        <el-select
-          v-model="queryParams.configLevel"
-          placeholder="请选择告警级别"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_ALERT_LEVEL)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.configLevel" placeholder="请选择告警级别" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_ALERT_LEVEL)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="产品" prop="productId">
-        <el-select
-          v-model="queryParams.productId"
-          placeholder="请选择产品"
-          clearable
-          filterable
-          @change="handleProductChange"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="product in productList"
-            :key="product.id"
-            :label="product.name"
-            :value="product.id"
-          />
+        <el-select v-model="queryParams.productId" placeholder="请选择产品" clearable filterable @change="handleProductChange" class="!w-240px">
+          <el-option v-for="product in productList" :key="product.id" :label="product.name" :value="product.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="设备" prop="deviceId">
-        <el-select
-          v-model="queryParams.deviceId"
-          placeholder="请选择设备"
-          clearable
-          filterable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="device in filteredDeviceList"
-            :key="device.id"
-            :label="device.deviceName"
-            :value="device.id"
-          />
+        <el-select v-model="queryParams.deviceId" placeholder="请选择设备" clearable filterable class="!w-240px">
+          <el-option v-for="device in filteredDeviceList" :key="device.id" :label="device.deviceName" :value="device.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="是否处理" prop="processStatus">
-        <el-select
-          v-model="queryParams.processStatus"
-          placeholder="请选择是否处理"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="String(dict.value)"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.processStatus" placeholder="请选择是否处理" clearable class="!w-240px">
+          <el-option v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="String(dict.value)" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -107,13 +47,7 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table
-      row-key="id"
-      v-loading="loading"
-      :data="list"
-      :stripe="true"
-      :show-overflow-tooltip="true"
-    >
+    <el-table row-key="id" v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="记录编号" align="center" prop="id" />
       <el-table-column label="告警名称" align="center" prop="configName" />
       <el-table-column label="告警级别" align="center" prop="configLevel">
@@ -133,12 +67,7 @@
       </el-table-column>
       <el-table-column label="触发的设备消息" align="center" prop="deviceMessage">
         <template #default="scope">
-          <el-popover
-            placement="top-start"
-            :width="600"
-            trigger="hover"
-            v-if="scope.row.deviceMessage"
-          >
+          <el-popover placement="top-start" :width="600" trigger="hover" v-if="scope.row.deviceMessage">
             <template #reference>
               <el-button link type="primary">
                 <Icon icon="ep:view" class="mr-5px" />
@@ -156,34 +85,15 @@
         </template>
       </el-table-column>
       <el-table-column label="处理结果" align="center" prop="processRemark" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center" min-width="120px">
         <template #default="scope">
-          <el-button
-            v-if="!scope.row.processStatus"
-            link
-            type="primary"
-            @click="handleProcess(scope.row)"
-            v-hasPermi="['iot:alert-record:process']"
-          >
-            处理
-          </el-button>
+          <el-button v-if="!scope.row.processStatus" link type="primary" @click="handleProcess(scope.row)" v-hasPermi="['iot:alert-record:process']"> 处理 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

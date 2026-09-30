@@ -1,65 +1,23 @@
 <template>
-  <doc-alert
-    title="【财务】采购付款、销售收款"
-    url="https://doc.iocoder.cn/sale/finance-payment-receipt/"
-  />
+  <doc-alert title="【财务】采购付款、销售收款" url="https://doc.iocoder.cn/sale/finance-payment-receipt/" />
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="编码" prop="no">
-        <el-input
-          v-model="queryParams.no"
-          placeholder="请输入编码"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.no" placeholder="请输入编码" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input
-          v-model="queryParams.remark"
-          placeholder="请输入备注"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.remark" placeholder="请输入备注" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['erp:account:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['erp:account:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['erp:account:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['erp:account:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -78,49 +36,19 @@
       <el-table-column label="排序" align="center" prop="sort" />
       <el-table-column label="是否默认" align="center" prop="defaultStatus">
         <template #default="scope">
-          <el-switch
-            v-model="scope.row.defaultStatus"
-            :active-value="true"
-            :inactive-value="false"
-            @change="handleDefaultStatusChange(scope.row)"
-          />
+          <el-switch v-model="scope.row.defaultStatus" :active-value="true" :inactive-value="false" @change="handleDefaultStatusChange(scope.row)" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['erp:account:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['erp:account:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['erp:account:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['erp:account:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

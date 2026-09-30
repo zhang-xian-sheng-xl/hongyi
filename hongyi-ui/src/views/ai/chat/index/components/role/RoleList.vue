@@ -1,14 +1,7 @@
 <template>
-  <div
-    class="flex flex-row flex-wrap relative h-full overflow-auto pb-140px items-start content-start justify-start"
-    ref="tabsRef"
-    @scroll="handleTabsScroll"
-  >
+  <div class="flex flex-row flex-wrap relative h-full overflow-auto pb-140px items-start content-start justify-start" ref="tabsRef" @scroll="handleTabsScroll">
     <div v-for="role in roleList" :key="role.id">
-      <el-card
-        class="inline-block mr-20px rounded-10px mb-20px relative"
-        body-class="max-w-240px w-240px pt-15px px-15px pb-10px flex flex-row justify-start relative"
-      >
+      <el-card class="inline-block mr-20px rounded-10px mb-20px relative" body-class="max-w-240px w-240px pt-15px px-15px pb-10px flex flex-row justify-start relative">
         <!-- 更多操作 -->
         <div class="absolute top-0 right-12px" v-if="showMore">
           <el-dropdown @command="handleMoreClick">
@@ -19,12 +12,8 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :command="['edit', role]">
-                  <Icon icon="ep:edit" color="var(--el-text-color-placeholder)" />编辑
-                </el-dropdown-item>
-                <el-dropdown-item :command="['delete', role]" style="color: var(--el-color-danger)">
-                  <Icon icon="ep:delete" color="var(--el-color-danger)" />删除
-                </el-dropdown-item>
+                <el-dropdown-item :command="['edit', role]"> <Icon icon="ep:edit" color="var(--el-text-color-placeholder)" />编辑 </el-dropdown-item>
+                <el-dropdown-item :command="['delete', role]" style="color: var(--el-color-danger)"> <Icon icon="ep:delete" color="var(--el-color-danger)" />删除 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>

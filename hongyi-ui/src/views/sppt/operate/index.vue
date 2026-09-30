@@ -31,33 +31,57 @@
           <el-row class="row-gutter">
             <el-col :span="5">
               <el-input v-model="srk" @blur="srkradio" placeholder="输入框名称" />
-              <div class="code-row"><span class="label">名称</span><span class="sppt">{{ srk }}</span><el-button @click="copyToClipboard(srk)" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">隐藏条件</span><span class="sppt">{{ srkyc }}</span><el-button @click="copyToClipboard(srkyc)" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">名称</span><span class="sppt">{{ srk }}</span
+                ><el-button @click="copyToClipboard(srk)" type="primary" size="small">复制</el-button></div
+              >
+              <div class="code-row"
+                ><span class="label">隐藏条件</span><span class="sppt">{{ srkyc }}</span
+                ><el-button @click="copyToClipboard(srkyc)" type="primary" size="small">复制</el-button></div
+              >
               <div class="code-row"><span class="label">只读条件</span><span class="sppt">true</span><el-button @click="copyToClipboard(true)" type="primary" size="small">复制</el-button></div>
             </el-col>
             <el-col :span="5">
               <div class="label" style="font-weight: 600; margin-bottom: 6px">计算脚本</div>
-              <div class="code-row"><span class="label">名称</span><span class="sppt">{{ jsjbmc }}</span><el-button @click="copyToClipboard(jsjbmc)" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">脚本</span><span class="sppt">{{ jsjbjb }}</span><el-button @click="copyToClipboard(jsjbjb)" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">名称</span><span class="sppt">{{ jsjbmc }}</span
+                ><el-button @click="copyToClipboard(jsjbmc)" type="primary" size="small">复制</el-button></div
+              >
+              <div class="code-row"
+                ><span class="label">脚本</span><span class="sppt">{{ jsjbjb }}</span
+                ><el-button @click="copyToClipboard(jsjbjb)" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
             <el-col :span="5">
               <div class="label" style="font-weight: 600; margin-bottom: 6px">签字按钮</div>
               <div class="label" style="font-size: 12px; color: #909399">按钮名称：签字A（不重复）<br />说明文字：签字A（不重复）</div>
-              <div class="code-row"><span class="label">隐藏条件</span><span class="sppt">{{ yctj }}</span><el-button @click="copyToClipboard(yctj)" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">动作前脚本</span><span class="sppt">{{ signdzzxqjb }}</span><el-button @click="copyToClipboard(signdzzxqjb)" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">隐藏条件</span><span class="sppt">{{ yctj }}</span
+                ><el-button @click="copyToClipboard(yctj)" type="primary" size="small">复制</el-button></div
+              >
+              <div class="code-row"
+                ><span class="label">动作前脚本</span><span class="sppt">{{ signdzzxqjb }}</span
+                ><el-button @click="copyToClipboard(signdzzxqjb)" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
             <el-col :span="5">
               <el-checkbox v-model="bhyj" @change="handleCheckboxChange">包含意见</el-checkbox>
               <div v-show="bhyj" style="margin-top: 6px">
                 <el-input @blur="handleCheckboxChange" v-model="yjmc" placeholder="意见名称" size="small" />
-                <div class="code-row"><span class="label">意见名称</span><span class="sppt">{{ yjmc }}</span><el-button @click="copyToClipboard(yjmc)" type="primary" size="small">复制</el-button></div>
+                <div class="code-row"
+                  ><span class="label">意见名称</span><span class="sppt">{{ yjmc }}</span
+                  ><el-button @click="copyToClipboard(yjmc)" type="primary" size="small">复制</el-button></div
+                >
               </div>
             </el-col>
             <el-col :span="4">
               <el-checkbox v-model="bhrq" @change="handleriqiCheckboxChange">包含日期</el-checkbox>
               <div v-show="bhrq" style="margin-top: 6px">
                 <el-input @blur="handleriqiCheckboxChange" v-model="rqmc" placeholder="日期名称" size="small" />
-                <div class="code-row"><span class="label">日期名称</span><span class="sppt">{{ rqmc }}</span><el-button @click="copyToClipboard(rqmc)" type="primary" size="small">复制</el-button></div>
+                <div class="code-row"
+                  ><span class="label">日期名称</span><span class="sppt">{{ rqmc }}</span
+                  ><el-button @click="copyToClipboard(rqmc)" type="primary" size="small">复制</el-button></div
+                >
               </div>
             </el-col>
           </el-row>
@@ -73,21 +97,33 @@
             <el-col :span="5">
               <div class="label" style="font-weight: 600; margin-bottom: 6px">编制人</div>
               <div class="code-row"><span class="label">名称</span><el-button @click="copyToClipboard('编制人')" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">默认值</span><span class="sppt">defaultbzr('编制人')</span><el-button @click="copyToClipboard(`defaultbzr('编制人')`)" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">默认值</span><span class="sppt">defaultbzr('编制人')</span
+                ><el-button @click="copyToClipboard(`defaultbzr('编制人')`)" type="primary" size="small">复制</el-button></div
+              >
               <div class="code-row"><span class="label">隐藏</span></div>
             </el-col>
             <el-col :span="6">
               <div class="label" style="font-weight: 600; margin-bottom: 6px">编制日期</div>
               <div class="code-row"><span class="label">名称</span><el-button @click="copyToClipboard('编制日期')" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">默认值</span><span class="sppt">defaultDateYMD('编制日期')</span><el-button @click="copyToClipboard(`defaultDateYMD('编制日期')`)" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">默认值</span><span class="sppt">defaultDateYMD('编制日期')</span
+                ><el-button @click="copyToClipboard(`defaultDateYMD('编制日期')`)" type="primary" size="small">复制</el-button></div
+              >
               <div class="code-row"><span class="label">隐藏</span></div>
             </el-col>
             <el-col :span="4">
-              <div class="code-row"><span class="label">中文标题</span><span class="sppt">fromname();</span><el-button @click="copyToClipboard('fromname();')" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">英文标题</span><span class="sppt">englishname();</span><el-button @click="copyToClipboard('englishname();')" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">中文标题</span><span class="sppt">fromname();</span><el-button @click="copyToClipboard('fromname();')" type="primary" size="small">复制</el-button></div
+              >
+              <div class="code-row"
+                ><span class="label">英文标题</span><span class="sppt">englishname();</span><el-button @click="copyToClipboard('englishname();')" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
             <el-col :span="4">
-              <div class="code-row"><span class="label">数字格式</span><span class="sppt">#,##0.00</span><el-button @click="copyToClipboard('#,##0.00')" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">数字格式</span><span class="sppt">#,##0.00</span><el-button @click="copyToClipboard('#,##0.00')" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
           </el-row>
         </el-card>
@@ -102,8 +138,13 @@
               </div>
               <div class="label" style="margin-top: 8px">表单简写</div>
               <el-input v-model="bdjx" placeholder="请输入表单简写" size="small" style="max-width: 200px" />
-              <div class="code-row"><span class="label">动作前脚本</span><span class="sppt">generateBianhao('编号','{{ bdjx }}')</span><el-button @click="copyToClipboard(`generateBianhao('编号','${bdjx}')`)" type="primary" size="small">复制</el-button></div>
-              <div class="code-row"><span class="label">隐藏条件</span><span class="sppt">flowStartHide()</span><el-button @click="copyToClipboard('flowStartHide();')" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">动作前脚本</span><span class="sppt">generateBianhao('编号','{{ bdjx }}')</span
+                ><el-button @click="copyToClipboard(`generateBianhao('编号','${bdjx}')`)" type="primary" size="small">复制</el-button></div
+              >
+              <div class="code-row"
+                ><span class="label">隐藏条件</span><span class="sppt">flowStartHide()</span><el-button @click="copyToClipboard('flowStartHide();')" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
             <el-col :span="4">
               <div class="code-row">
@@ -120,7 +161,9 @@
                 <el-button @click="copyToClipboard('提交 Submit')" type="primary" size="small">复制</el-button>
               </div>
               <div class="label" style="font-size: 12px; color: #909399">选择对应的作用流程</div>
-              <div class="code-row"><span class="label">隐藏条件</span><span class="sppt">submitHide()</span><el-button @click="copyToClipboard('submitHide()')" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">隐藏条件</span><span class="sppt">submitHide()</span><el-button @click="copyToClipboard('submitHide()')" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
             <el-col :span="6">
               <div class="code-row">
@@ -129,7 +172,10 @@
                 <el-button @click="copyToClipboard('打印导出 Export')" type="primary" size="small">复制</el-button>
               </div>
               <div class="label" style="font-size: 12px; color: #909399">① 动作：跳转　② 类型：跳到指定URL</div>
-              <div class="code-row"><span class="label">地址脚本</span><span class="sppt">exportPdf('{{ bdjx }}')</span><el-button @click="copyToClipboard(`exportPdf('${bdjx}')`)" type="primary" size="small">复制</el-button></div>
+              <div class="code-row"
+                ><span class="label">地址脚本</span><span class="sppt">exportPdf('{{ bdjx }}')</span
+                ><el-button @click="copyToClipboard(`exportPdf('${bdjx}')`)" type="primary" size="small">复制</el-button></div
+              >
             </el-col>
             <el-col :span="4">
               <div class="code-row">

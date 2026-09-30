@@ -8,21 +8,12 @@
       class="my-4"
       description="如需编辑文件，请点击下方编辑按钮"
     />
-    <JsonEditor
-      v-model="config"
-      :mode="isEditing ? 'code' : 'view'"
-      height="600px"
-      @error="onError"
-    />
+    <JsonEditor v-model="config" :mode="isEditing ? 'code' : 'view'" height="600px" @error="onError" />
     <div class="mt-5 text-center">
       <el-button v-if="isEditing" @click="cancelEdit">取消</el-button>
-      <el-button v-if="isEditing" type="primary" @click="saveConfig" :disabled="hasJsonError">
-        保存
-      </el-button>
+      <el-button v-if="isEditing" type="primary" @click="saveConfig" :disabled="hasJsonError"> 保存 </el-button>
       <el-button v-else @click="enableEdit">编辑</el-button>
-      <el-button v-if="!isEditing" type="success" @click="handleConfigPush" :loading="pushLoading">
-        配置推送
-      </el-button>
+      <el-button v-if="!isEditing" type="success" @click="handleConfigPush" :loading="pushLoading"> 配置推送 </el-button>
     </div>
   </div>
 </template>

@@ -4,22 +4,13 @@
       <el-form-item label="消息类型" prop="requestMessageType" v-if="msgType === MsgType.Message">
         <el-select v-model="replyForm.requestMessageType" placeholder="请选择">
           <template v-for="dict in getDictOptions(DICT_TYPE.MP_MESSAGE_TYPE)" :key="dict.value">
-            <el-option
-              v-if="RequestMessageTypes.includes(dict.value)"
-              :label="dict.label"
-              :value="dict.value"
-            />
+            <el-option v-if="RequestMessageTypes.includes(dict.value)" :label="dict.label" :value="dict.value" />
           </template>
         </el-select>
       </el-form-item>
       <el-form-item label="匹配类型" prop="requestMatch" v-if="msgType === MsgType.Keyword">
         <el-select v-model="replyForm.requestMatch" placeholder="请选择匹配类型" clearable>
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.MP_AUTO_REPLY_REQUEST_MATCH)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.MP_AUTO_REPLY_REQUEST_MATCH)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="关键词" prop="requestKeyword" v-if="msgType === MsgType.Keyword">

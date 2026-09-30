@@ -3,69 +3,26 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="发起人" prop="startUserId">
         <el-select v-model="queryParams.startUserId" placeholder="请选择发起人" class="!w-240px">
-          <el-option
-            v-for="user in userList"
-            :key="user.id"
-            :label="user.nickname"
-            :value="user.id"
-          />
+          <el-option v-for="user in userList" :key="user.id" :label="user.nickname" :value="user.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="流程名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入流程名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入流程名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="所属流程" prop="processDefinitionId">
-        <el-input
-          v-model="queryParams.processDefinitionId"
-          placeholder="请输入流程定义的编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.processDefinitionId" placeholder="请输入流程定义的编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="流程分类" prop="category">
-        <el-select
-          v-model="queryParams.category"
-          placeholder="请选择流程分类"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="category in categoryList"
-            :key="category.code"
-            :label="category.name"
-            :value="category.code"
-          />
+        <el-select v-model="queryParams.category" placeholder="请选择流程分类" clearable class="!w-240px">
+          <el-option v-for="category in categoryList" :key="category.code" :label="category.name" :value="category.code" />
         </el-select>
       </el-form-item>
       <el-form-item label="流程状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择流程状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择流程状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="发起时间" prop="createTime">
@@ -90,13 +47,7 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="流程名称" align="center" prop="name" min-width="200px" fixed="left" />
-      <el-table-column
-        label="流程分类"
-        align="center"
-        prop="categoryName"
-        min-width="100"
-        fixed="left"
-      />
+      <el-table-column label="流程分类" align="center" prop="categoryName" min-width="100" fixed="left" />
       <el-table-column label="流程发起人" align="center" prop="startUser.nickname" width="120" />
       <el-table-column label="发起部门" align="center" prop="startUser.deptName" width="120" />
       <el-table-column label="流程状态" prop="status" width="120">
@@ -104,20 +55,8 @@
           <dict-tag :type="DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="发起时间"
-        align="center"
-        prop="startTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
-      <el-table-column
-        label="结束时间"
-        align="center"
-        prop="endTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="发起时间" align="center" prop="startTime" width="180" :formatter="dateFormatter" />
+      <el-table-column label="结束时间" align="center" prop="endTime" width="180" :formatter="dateFormatter" />
       <el-table-column align="center" label="耗时" prop="durationInMillis" width="169">
         <template #default="scope">
           {{ scope.row.durationInMillis > 0 ? formatPast2(scope.row.durationInMillis) : '-' }}
@@ -133,33 +72,13 @@
       <el-table-column label="流程编号" align="center" prop="id" min-width="320px" />
       <el-table-column label="操作" align="center" fixed="right" width="180">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            v-hasPermi="['bpm:process-instance:cancel']"
-            @click="handleDetail(scope.row)"
-          >
-            详情
-          </el-button>
-          <el-button
-            link
-            type="primary"
-            v-if="scope.row.status === 1"
-            v-hasPermi="['bpm:process-instance:query']"
-            @click="handleCancel(scope.row)"
-          >
-            取消
-          </el-button>
+          <el-button link type="primary" v-hasPermi="['bpm:process-instance:cancel']" @click="handleDetail(scope.row)"> 详情 </el-button>
+          <el-button link type="primary" v-if="scope.row.status === 1" v-hasPermi="['bpm:process-instance:query']" @click="handleCancel(scope.row)"> 取消 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 <script lang="ts" setup>

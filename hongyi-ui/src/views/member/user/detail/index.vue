@@ -7,9 +7,7 @@
           <template #header>
             <div class="card-header">
               <CardTitle title="基本信息" />
-              <el-button size="small" text type="primary" @click="openForm('update')">
-                编辑
-              </el-button>
+              <el-button size="small" text type="primary" @click="openForm('update')"> 编辑 </el-button>
             </div>
           </template>
         </UserBasicInfo>

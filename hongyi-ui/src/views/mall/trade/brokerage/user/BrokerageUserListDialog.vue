@@ -2,13 +2,7 @@
   <Dialog v-model="dialogVisible" title="推广人列表" width="75%">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        class="-mb-15px"
-        :model="queryParams"
-        ref="queryFormRef"
-        :inline="true"
-        label-width="85px"
-      >
+      <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="85px">
         <el-form-item label="用户类型" prop="level">
           <el-radio-group v-model="queryParams.level" @change="handleQuery">
             <el-radio-button checked>全部</el-radio-button>
@@ -44,39 +38,18 @@
           </template>
         </el-table-column>
         <el-table-column label="昵称" align="center" prop="nickname" min-width="80px" />
-        <el-table-column
-          label="推广人数"
-          align="center"
-          prop="brokerageUserCount"
-          min-width="80px"
-        />
-        <el-table-column
-          label="推广订单数量"
-          align="center"
-          prop="brokerageOrderCount"
-          min-width="110px"
-        />
+        <el-table-column label="推广人数" align="center" prop="brokerageUserCount" min-width="80px" />
+        <el-table-column label="推广订单数量" align="center" prop="brokerageOrderCount" min-width="110px" />
         <el-table-column label="推广资格" align="center" prop="brokerageEnabled" min-width="80px">
           <template #default="scope">
             <el-tag v-if="scope.row.brokerageEnabled">有</el-tag>
             <el-tag v-else type="info">无</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          label="绑定时间"
-          align="center"
-          prop="bindUserTime"
-          :formatter="dateFormatter"
-          width="180px"
-        />
+        <el-table-column label="绑定时间" align="center" prop="bindUserTime" :formatter="dateFormatter" width="180px" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getList"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </ContentWrap>
   </Dialog>
 </template>

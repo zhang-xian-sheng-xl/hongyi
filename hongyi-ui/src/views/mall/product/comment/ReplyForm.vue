@@ -1,12 +1,6 @@
 <template>
   <Dialog title="回复" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="回复内容" prop="replyContent">
         <el-input type="textarea" v-model="formData.replyContent" />
       </el-form-item>

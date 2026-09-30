@@ -14,20 +14,10 @@
         {{ detailData.token }}
       </el-descriptions-item>
       <el-descriptions-item label="原始 Token 数据" min-width="120">
-        <el-input
-          v-model="detailData.rawTokenInfo"
-          :autosize="{ maxRows: 20 }"
-          :readonly="true"
-          type="textarea"
-        />
+        <el-input v-model="detailData.rawTokenInfo" :autosize="{ maxRows: 20 }" :readonly="true" type="textarea" />
       </el-descriptions-item>
       <el-descriptions-item label="原始 User 数据" min-width="120">
-        <el-input
-          v-model="detailData.rawUserInfo"
-          :autosize="{ maxRows: 20 }"
-          :readonly="true"
-          type="textarea"
-        />
+        <el-input v-model="detailData.rawUserInfo" :autosize="{ maxRows: 20 }" :readonly="true" type="textarea" />
       </el-descriptions-item>
       <el-descriptions-item label="最后一次的认证 code" min-width="120">
         {{ detailData.code }}

@@ -2,13 +2,7 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="时间范围" prop="orderDate">
         <el-date-picker
           v-model="queryParams.times"
@@ -22,15 +16,7 @@
         />
       </el-form-item>
       <el-form-item label="归属部门" prop="deptId">
-        <el-tree-select
-          v-model="queryParams.deptId"
-          :data="deptList"
-          :props="defaultProps"
-          check-strictly
-          node-key="id"
-          placeholder="请选择归属部门"
-          class="!w-240px"
-        />
+        <el-tree-select v-model="queryParams.deptId" :data="deptList" :props="defaultProps" check-strictly node-key="id" placeholder="请选择归属部门" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>

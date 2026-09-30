@@ -1,33 +1,19 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="120px">
       <el-form-item label="应用名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入应用名" />
       </el-form-item>
       <el-form-item label="社交平台" prop="socialType">
         <el-radio-group v-model="formData.socialType">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SOCIAL_TYPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SOCIAL_TYPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="用户类型" prop="userType">
         <el-radio-group v-model="formData.userType">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -36,10 +22,7 @@
         <el-input v-model="formData.clientId" placeholder="请输入客户端编号,对应各平台的appKey" />
       </el-form-item>
       <el-form-item label="客户端密钥" prop="clientSecret">
-        <el-input
-          v-model="formData.clientSecret"
-          placeholder="请输入客户端密钥,对应各平台的appSecret"
-        />
+        <el-input v-model="formData.clientSecret" placeholder="请输入客户端密钥,对应各平台的appSecret" />
       </el-form-item>
       <el-form-item label="agentId" prop="agentId" v-if="formData!.socialType === 30">
         <el-input v-model="formData.agentId" placeholder="授权方的网页应用 ID，有则填" />
@@ -49,11 +32,7 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

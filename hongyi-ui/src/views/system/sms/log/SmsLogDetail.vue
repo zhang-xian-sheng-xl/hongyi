@@ -37,9 +37,7 @@
       <el-descriptions-item label="发送时间">
         {{ formatDate(detailData.sendTime) }}
       </el-descriptions-item>
-      <el-descriptions-item label="API 发送结果">
-        {{ detailData.apiSendCode }} | {{ detailData.apiSendMsg }}
-      </el-descriptions-item>
+      <el-descriptions-item label="API 发送结果"> {{ detailData.apiSendCode }} | {{ detailData.apiSendMsg }} </el-descriptions-item>
       <el-descriptions-item label="API 短信编号">
         {{ detailData.apiSerialNo }}
       </el-descriptions-item>
@@ -50,9 +48,7 @@
         <dict-tag :type="DICT_TYPE.SYSTEM_SMS_RECEIVE_STATUS" :value="detailData.receiveStatus" />
         {{ formatDate(detailData.receiveTime) }}
       </el-descriptions-item>
-      <el-descriptions-item label="API 接收结果">
-        {{ detailData.apiReceiveCode }} | {{ detailData.apiReceiveMsg }}
-      </el-descriptions-item>
+      <el-descriptions-item label="API 接收结果"> {{ detailData.apiReceiveCode }} | {{ detailData.apiReceiveMsg }} </el-descriptions-item>
     </el-descriptions>
   </Dialog>
 </template>

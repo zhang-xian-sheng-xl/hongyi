@@ -1,10 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <JsonEditor
-      v-model="thingModelTSL"
-      :mode="viewMode === 'editor' ? 'code' : 'view'"
-      height="600px"
-    />
+    <JsonEditor v-model="thingModelTSL" :mode="viewMode === 'editor' ? 'code' : 'view'" height="600px" />
     <template #footer>
       <el-radio-group v-model="viewMode" size="small">
         <el-radio-button label="code">代码视图</el-radio-button>

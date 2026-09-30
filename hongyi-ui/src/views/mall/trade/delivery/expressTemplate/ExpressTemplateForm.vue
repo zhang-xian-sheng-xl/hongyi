@@ -1,22 +1,12 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="1300px">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="80px" v-loading="formLoading">
       <el-form-item label="模板名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入模板名称" />
       </el-form-item>
       <el-form-item label="计费方式" prop="chargeMode">
         <el-radio-group v-model="formData.chargeMode" @change="changeChargeMode">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.EXPRESS_CHARGE_MODE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.EXPRESS_CHARGE_MODE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -25,24 +15,10 @@
         <el-table border style="width: 100%" :data="formData.charges">
           <el-table-column align="center" label="区域" width="360">
             <template #default="{ row }">
-              <el-cascader
-                v-model="row.areaIds"
-                :options="areaTree"
-                :props="defaultProps2"
-                class="w-1/1"
-                clearable
-                placeholder="请选择地区"
-                filterable
-                collapse-tags
-              />
+              <el-cascader v-model="row.areaIds" :options="areaTree" :props="defaultProps2" class="w-1/1" clearable placeholder="请选择地区" filterable collapse-tags />
             </template>
           </el-table-column>
-          <el-table-column
-            align="center"
-            :label="columnTitle.startCountTitle"
-            width="180"
-            prop="startCount"
-          >
+          <el-table-column align="center" :label="columnTitle.startCountTitle" width="180" prop="startCount">
             <template #default="{ row }">
               <el-input-number v-model="row.startCount" :min="1" />
             </template>
@@ -52,12 +28,7 @@
               <el-input-number v-model="row.startPrice" :min="1" />
             </template>
           </el-table-column>
-          <el-table-column
-            width="180"
-            align="center"
-            :label="columnTitle.extraCountTitle"
-            prop="extraCount"
-          >
+          <el-table-column width="180" align="center" :label="columnTitle.extraCountTitle" prop="extraCount">
             <template #default="{ row }">
               <el-input-number v-model="row.extraCount" :min="1" />
             </template>
@@ -69,32 +40,19 @@
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template #default="scope">
-              <el-button link type="danger" @click="deleteChargeArea(scope.$index)">
-                删除
-              </el-button>
+              <el-button link type="danger" @click="deleteChargeArea(scope.$index)"> 删除 </el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain @click="addChargeArea()">
-          <Icon icon="ep:plus" class="mr-5px" /> 添加区域
-        </el-button>
+        <el-button type="primary" plain @click="addChargeArea()"> <Icon icon="ep:plus" class="mr-5px" /> 添加区域 </el-button>
       </el-form-item>
       <el-form-item label="包邮区域" prop="frees">
         <el-table border style="width: 100%" :data="formData.frees">
           <el-table-column align="center" label="区域" width="360">
             <template #default="{ row }">
-              <el-cascader
-                v-model="row.areaIds"
-                :options="areaTree"
-                :props="defaultProps2"
-                class="w-1/1"
-                clearable
-                placeholder="请选择商品分类"
-                filterable
-                collapse-tags
-              />
+              <el-cascader v-model="row.areaIds" :options="areaTree" :props="defaultProps2" class="w-1/1" clearable placeholder="请选择商品分类" filterable collapse-tags />
             </template>
           </el-table-column>
           <el-table-column align="center" :label="columnTitle.freeCountTitle" prop="freeCount">
@@ -115,9 +73,7 @@
         </el-table>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain @click="addFreeArea()">
-          <Icon icon="ep:plus" class="mr-5px" /> 添加区域
-        </el-button>
+        <el-button type="primary" plain @click="addFreeArea()"> <Icon icon="ep:plus" class="mr-5px" /> 添加区域 </el-button>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input-number v-model="formData.sort" controls-position="right" :min="0" />

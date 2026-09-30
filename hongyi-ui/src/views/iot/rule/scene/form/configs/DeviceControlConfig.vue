@@ -10,11 +10,7 @@
       </el-col>
       <el-col :span="12">
         <el-form-item label="设备" required>
-          <DeviceSelector
-            v-model="action.deviceId"
-            :product-id="action.productId"
-            @change="handleDeviceChange"
-          />
+          <DeviceSelector v-model="action.deviceId" :product-id="action.productId" @change="handleDeviceChange" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -22,21 +18,8 @@
     <!-- 服务选择 - 服务调用类型时显示 -->
     <div v-if="action.productId && isServiceInvokeAction" class="space-y-16px">
       <el-form-item label="服务" required>
-        <el-select
-          v-model="action.identifier"
-          placeholder="请选择服务"
-          filterable
-          clearable
-          class="w-full"
-          :loading="loadingServices"
-          @change="handleServiceChange"
-        >
-          <el-option
-            v-for="service in serviceList"
-            :key="service.identifier"
-            :label="service.name"
-            :value="service.identifier"
-          >
+        <el-select v-model="action.identifier" placeholder="请选择服务" filterable clearable class="w-full" :loading="loadingServices" @change="handleServiceChange">
+          <el-option v-for="service in serviceList" :key="service.identifier" :label="service.name" :value="service.identifier">
             <div class="flex items-center justify-between">
               <span>{{ service.name }}</span>
               <el-tag :type="service.callType === 'sync' ? 'primary' : 'success'" size="small">
@@ -50,12 +33,7 @@
       <!-- 服务参数配置 -->
       <div v-if="action.identifier" class="space-y-16px">
         <el-form-item label="服务参数" required>
-          <JsonParamsInput
-            v-model="paramsValue"
-            type="service"
-            :config="{ service: selectedService } as any"
-            placeholder="请输入 JSON 格式的服务参数"
-          />
+          <JsonParamsInput v-model="paramsValue" type="service" :config="{ service: selectedService } as any" placeholder="请输入 JSON 格式的服务参数" />
         </el-form-item>
       </div>
     </div>
@@ -64,12 +42,7 @@
     <div v-if="action.productId && isPropertySetAction" class="space-y-16px">
       <!-- 参数配置 -->
       <el-form-item label="参数" required>
-        <JsonParamsInput
-          v-model="paramsValue"
-          type="property"
-          :config="{ properties: thingModelProperties }"
-          placeholder="请输入 JSON 格式的控制参数"
-        />
+        <JsonParamsInput v-model="paramsValue" type="property" :config="{ properties: thingModelProperties }" placeholder="请输入 JSON 格式的控制参数" />
       </el-form-item>
     </div>
   </div>
@@ -82,11 +55,7 @@ import DeviceSelector from '../selectors/DeviceSelector.vue'
 import JsonParamsInput from '../inputs/JsonParamsInput.vue'
 import type { Action } from '@/api/iot/rule/scene'
 import type { ThingModelProperty, ThingModelService } from '@/api/iot/thingmodel'
-import {
-  IotRuleSceneActionTypeEnum,
-  IoTThingModelAccessModeEnum,
-  IoTDataSpecsDataTypeEnum
-} from '@/views/iot/utils/constants'
+import { IotRuleSceneActionTypeEnum, IoTThingModelAccessModeEnum, IoTDataSpecsDataTypeEnum } from '@/views/iot/utils/constants'
 import { ThingModelApi } from '@/api/iot/thingmodel'
 
 /** 设备控制配置组件 */
@@ -230,9 +199,7 @@ const loadThingModelProperties = async (productId: number) => {
     // 过滤出可写的属性（accessMode 包含 'w'）
     thingModelProperties.value = tslData.properties.filter(
       (property: ThingModelProperty) =>
-        property.accessMode &&
-        (property.accessMode === IoTThingModelAccessModeEnum.READ_WRITE.value ||
-          property.accessMode === IoTThingModelAccessModeEnum.WRITE_ONLY.value)
+        property.accessMode && (property.accessMode === IoTThingModelAccessModeEnum.READ_WRITE.value || property.accessMode === IoTThingModelAccessModeEnum.WRITE_ONLY.value)
     )
   } catch (error) {
     console.error('加载物模型属性失败:', error)
@@ -360,12 +327,7 @@ watch(
     }
 
     // 服务标识符变化时更新选中的服务
-    if (
-      newIdentifier !== oldIdentifier &&
-      newProductId &&
-      isServiceInvokeAction.value &&
-      newIdentifier
-    ) {
+    if (newIdentifier !== oldIdentifier && newProductId && isServiceInvokeAction.value && newIdentifier) {
       const service = serviceList.value.find((s: any) => s.identifier === newIdentifier)
       if (service) {
         selectedService.value = service

@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item label="组名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入组名" />
       </el-form-item>
@@ -15,21 +9,12 @@
       </el-form-item>
       <el-form-item label="成员" prop="userIds">
         <el-select v-model="formData.userIds" multiple placeholder="请选择成员">
-          <el-option
-            v-for="user in userList"
-            :key="user.id"
-            :label="user.nickname"
-            :value="user.id"
-          />
+          <el-option v-for="user in userList" :key="user.id" :label="user.nickname" :value="user.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

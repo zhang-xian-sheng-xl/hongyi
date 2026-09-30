@@ -1,22 +1,13 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="rules"
-      label-width="120px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="rules" label-width="120px">
       <el-form-item label="名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入名称" />
       </el-form-item>
       <el-form-item label="微信号" prop="account">
         <template #label>
           <span>
-            <el-tooltip
-              content="在微信公众平台（mp.weixin.qq.com）的菜单 [设置与开发 - 公众号设置 - 账号详情] 中能找到「微信号」"
-              placement="top"
-            >
+            <el-tooltip content="在微信公众平台（mp.weixin.qq.com）的菜单 [设置与开发 - 公众号设置 - 账号详情] 中能找到「微信号」" placement="top">
               <Icon icon="ep:question-filled" style="vertical-align: middle" />
             </el-tooltip>
             微信号
@@ -27,10 +18,7 @@
       <el-form-item label="appId" prop="appId">
         <template #label>
           <span>
-            <el-tooltip
-              content="在微信公众平台（mp.weixin.qq.com）的菜单 [设置与开发 - 公众号设置 - 基本设置] 中能找到「开发者ID(AppID)」"
-              placement="top"
-            >
+            <el-tooltip content="在微信公众平台（mp.weixin.qq.com）的菜单 [设置与开发 - 公众号设置 - 基本设置] 中能找到「开发者ID(AppID)」" placement="top">
               <Icon icon="ep:question-filled" style="vertical-align: middle" />
             </el-tooltip>
             appId
@@ -41,10 +29,7 @@
       <el-form-item label="appSecret" prop="appSecret">
         <template #label>
           <span>
-            <el-tooltip
-              content="在微信公众平台（mp.weixin.qq.com）的菜单 [设置与开发 - 公众号设置 - 基本设置] 中能找到「开发者密码(AppSecret)」"
-              placement="top"
-            >
+            <el-tooltip content="在微信公众平台（mp.weixin.qq.com）的菜单 [设置与开发 - 公众号设置 - 基本设置] 中能找到「开发者密码(AppSecret)」" placement="top">
               <Icon icon="ep:question-filled" style="vertical-align: middle" />
             </el-tooltip>
             appSecret

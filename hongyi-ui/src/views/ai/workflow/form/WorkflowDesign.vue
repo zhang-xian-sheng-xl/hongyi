@@ -1,17 +1,8 @@
 <template>
   <div class="relative" style="width: 100%; height: 700px">
-    <Tinyflow
-      v-if="workflowData"
-      ref="tinyflowRef"
-      :className="'custom-class'"
-      :style="{ width: '100%', height: '100%' }"
-      :data="workflowData"
-      :provider="provider"
-    />
+    <Tinyflow v-if="workflowData" ref="tinyflowRef" :className="'custom-class'" :style="{ width: '100%', height: '100%' }" :data="workflowData" :provider="provider" />
     <div class="absolute top-30px right-30px">
-      <el-button @click="testWorkflowModel" type="primary" v-hasPermi="['ai:workflow:test']">
-        测试
-      </el-button>
+      <el-button @click="testWorkflowModel" type="primary" v-hasPermi="['ai:workflow:test']"> 测试 </el-button>
     </div>
 
     <!-- 测试窗口 -->
@@ -19,19 +10,9 @@
       <fieldset>
         <legend class="ml-15px"><h3>运行参数配置</h3></legend>
         <div class="p-20px">
-          <div
-            class="flex justify-around mb-10px"
-            v-for="(param, index) in params4Test"
-            :key="index"
-          >
+          <div class="flex justify-around mb-10px" v-for="(param, index) in params4Test" :key="index">
             <el-select class="w-200px!" v-model="param.key" placeholder="参数名">
-              <el-option
-                v-for="(value, key) in paramsOfStartNode"
-                :key="key"
-                :label="value?.description || key"
-                :value="key"
-                :disabled="!!value?.disabled"
-              />
+              <el-option v-for="(value, key) in paramsOfStartNode" :key="key" :label="value?.description || key" :value="key" :disabled="!!value?.disabled" />
             </el-select>
             <el-input class="w-200px!" v-model="param.value" placeholder="参数值" />
             <el-button type="danger" plain :icon="Delete" circle @click="removeParam(index)" />
@@ -53,9 +34,7 @@
           <div v-else> <el-text type="info">点击运行查看结果</el-text> </div>
         </div>
       </fieldset>
-      <el-button class="mt-20px w-100%" size="large" type="success" @click="goRun">
-        运行流程
-      </el-button>
+      <el-button class="mt-20px w-100%" size="large" type="success" @click="goRun"> 运行流程 </el-button>
     </el-drawer>
   </div>
 </template>

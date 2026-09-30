@@ -61,9 +61,7 @@ export const useEmoji = () => {
 
   /** 加载本地图片 */
   const initStaticEmoji = async () => {
-    const pathList = import.meta.glob(
-      '@/views/mall/promotion/kefu/components/asserts/*.{png,jpg,jpeg,svg}'
-    )
+    const pathList = import.meta.glob('@/views/mall/promotion/kefu/components/asserts/*.{png,jpg,jpeg,svg}')
     for (const path in pathList) {
       const imageModule: any = await pathList[path]()
       emojiPathList.value.push({ path: path, src: imageModule.default })
@@ -91,10 +89,7 @@ export const useEmoji = () => {
       if (zhEmojiName) {
         zhEmojiName.forEach((item) => {
           const emojiFile = getEmojiFileByName(item)
-          newData = newData.replace(
-            item,
-            `<img style="width: 20px;height: 20px;margin:0 1px 3px 1px;vertical-align: middle;" src="${emojiFile}" alt=""/>`
-          )
+          newData = newData.replace(item, `<img style="width: 20px;height: 20px;margin:0 1px 3px 1px;vertical-align: middle;" src="${emojiFile}" alt=""/>`)
         })
       }
     }
@@ -116,9 +111,7 @@ export const useEmoji = () => {
   function getEmojiFileByName(name: string) {
     for (const emoji of emojiList) {
       if (emoji.name === name) {
-        const emojiPath = emojiPathList.value.find(
-          (item: { path: string; src: string }) => item.path.indexOf(emoji.file) > -1
-        )
+        const emojiPath = emojiPathList.value.find((item: { path: string; src: string }) => item.path.indexOf(emoji.file) > -1)
         return emojiPath ? emojiPath.src : undefined
       }
     }

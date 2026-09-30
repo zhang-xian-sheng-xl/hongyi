@@ -1,19 +1,8 @@
 <template>
   <BusinessDetailsHeader v-loading="loading" :business="business">
-    <el-button v-if="permissionListRef?.validateWrite" @click="openForm('update', business.id)">
-      编辑
-    </el-button>
-    <el-button
-      v-if="permissionListRef?.validateWrite"
-      :disabled="business.endStatus"
-      type="success"
-      @click="openStatusForm()"
-    >
-      变更商机状态
-    </el-button>
-    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer">
-      转移
-    </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" @click="openForm('update', business.id)"> 编辑 </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" :disabled="business.endStatus" type="success" @click="openStatusForm()"> 变更商机状态 </el-button>
+    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer"> 转移 </el-button>
   </BusinessDetailsHeader>
   <el-col>
     <el-tabs>
@@ -24,12 +13,7 @@
         <BusinessDetailsInfo :business="business" />
       </el-tab-pane>
       <el-tab-pane label="联系人" lazy>
-        <ContactList
-          :biz-id="business.id!"
-          :biz-type="BizTypeEnum.CRM_BUSINESS"
-          :business-id="business.id"
-          :customer-id="business.customerId"
-        />
+        <ContactList :biz-id="business.id!" :biz-type="BizTypeEnum.CRM_BUSINESS" :business-id="business.id" :customer-id="business.customerId" />
       </el-tab-pane>
       <el-tab-pane label="产品">
         <BusinessProductList :business="business" />
@@ -41,13 +25,7 @@
         <OperateLogV2 :log-list="logList" />
       </el-tab-pane>
       <el-tab-pane label="团队成员">
-        <PermissionList
-          ref="permissionListRef"
-          :biz-id="business.id!"
-          :biz-type="BizTypeEnum.CRM_BUSINESS"
-          :show-action="true"
-          @quit-team="close"
-        />
+        <PermissionList ref="permissionListRef" :biz-id="business.id!" :biz-type="BizTypeEnum.CRM_BUSINESS" :show-action="true" @quit-team="close" />
       </el-tab-pane>
     </el-tabs>
   </el-col>

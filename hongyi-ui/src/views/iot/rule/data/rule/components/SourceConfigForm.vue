@@ -1,29 +1,11 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    label-width="0px"
-    :inline-message="true"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" label-width="0px" :inline-message="true">
     <el-table :data="formData" class="-mt-10px">
       <el-table-column label="产品" min-width="150">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.productId`" :rules="formRules.productId" class="mb-0px!">
-            <el-select
-              v-model="row.productId"
-              placeholder="请选择产品"
-              @change="handleProductChange(row, $index)"
-              clearable
-              filterable
-              style="width: 100%"
-            >
-              <el-option
-                v-for="product in productList"
-                :key="product.id"
-                :label="product.name"
-                :value="product.id"
-              />
+            <el-select v-model="row.productId" placeholder="请选择产品" @change="handleProductChange(row, $index)" clearable filterable style="width: 100%">
+              <el-option v-for="product in productList" :key="product.id" :label="product.name" :value="product.id" />
             </el-select>
           </el-form-item>
         </template>
@@ -31,20 +13,9 @@
       <el-table-column label="设备" min-width="150">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.deviceId`" :rules="formRules.deviceId" class="mb-0px!">
-            <el-select
-              v-model="row.deviceId"
-              placeholder="请选择设备"
-              clearable
-              filterable
-              style="width: 100%"
-            >
+            <el-select v-model="row.deviceId" placeholder="请选择设备" clearable filterable style="width: 100%">
               <el-option label="全部设备" :value="0" />
-              <el-option
-                v-for="device in getFilteredDevices(row.productId)"
-                :key="device.id"
-                :label="device.deviceName"
-                :value="device.id"
-              />
+              <el-option v-for="device in getFilteredDevices(row.productId)" :key="device.id" :label="device.deviceName" :value="device.id" />
             </el-select>
           </el-form-item>
         </template>
@@ -52,20 +23,8 @@
       <el-table-column label="消息" min-width="150">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.method`" :rules="formRules.method" class="mb-0px!">
-            <el-select
-              v-model="row.method"
-              placeholder="请选择消息"
-              @change="handleMethodChange(row, $index)"
-              clearable
-              filterable
-              style="width: 100%"
-            >
-              <el-option
-                v-for="method in upstreamMethods"
-                :key="method.method"
-                :label="method.name"
-                :value="method.method"
-              />
+            <el-select v-model="row.method" placeholder="请选择消息" @change="handleMethodChange(row, $index)" clearable filterable style="width: 100%">
+              <el-option v-for="method in upstreamMethods" :key="method.method" :label="method.name" :value="method.method" />
             </el-select>
           </el-form-item>
         </template>
@@ -73,21 +32,8 @@
       <el-table-column label="标识符" min-width="200">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.identifier`" class="mb-0px!">
-            <el-select
-              v-if="shouldShowIdentifierSelect(row)"
-              v-model="row.identifier"
-              placeholder="请选择标识符"
-              clearable
-              filterable
-              style="width: 100%"
-              v-loading="row.identifierLoading"
-            >
-              <el-option
-                v-for="item in getThingModelOptions(row)"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
+            <el-select v-if="shouldShowIdentifierSelect(row)" v-model="row.identifier" placeholder="请选择标识符" clearable filterable style="width: 100%" v-loading="row.identifierLoading">
+              <el-option v-for="item in getThingModelOptions(row)" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
           </el-form-item>
         </template>
@@ -135,10 +81,7 @@ const getFilteredDevices = (productId: number) => {
 
 /** 判断是否需要显示标识符选择器 */
 const shouldShowIdentifierSelect = (row: any) => {
-  return [
-    IotDeviceMessageMethodEnum.EVENT_POST.method,
-    IotDeviceMessageMethodEnum.PROPERTY_POST.method
-  ].includes(row.method)
+  return [IotDeviceMessageMethodEnum.EVENT_POST.method, IotDeviceMessageMethodEnum.PROPERTY_POST.method].includes(row.method)
 }
 
 /** 获取物模型选项 */

@@ -11,13 +11,7 @@
       </div>
       <div>
         <!-- 右上：按钮 -->
-        <el-button
-          @click="openForm('update', device.id)"
-          v-hasPermi="['iot:device:update']"
-          v-if="product.status === 0"
-        >
-          编辑
-        </el-button>
+        <el-button @click="openForm('update', device.id)" v-hasPermi="['iot:device:update']" v-if="product.status === 0"> 编辑 </el-button>
       </div>
     </div>
   </div>

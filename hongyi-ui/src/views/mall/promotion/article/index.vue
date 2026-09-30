@@ -3,45 +3,18 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="80px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="80px">
       <el-form-item label="文章分类" prop="categoryId">
-        <el-select
-          v-model="queryParams.categoryId"
-          class="!w-240px"
-          placeholder="全部"
-          @keyup.enter="handleQuery"
-        >
-          <el-option
-            v-for="item in categoryList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.categoryId" class="!w-240px" placeholder="全部" @keyup.enter="handleQuery">
+          <el-option v-for="item in categoryList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="文章标题" prop="title">
-        <el-input
-          v-model="queryParams.title"
-          class="!w-240px"
-          clearable
-          placeholder="请输入文章标题"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.title" class="!w-240px" clearable placeholder="请输入文章标题" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择状态">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -64,12 +37,7 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['promotion:article:create']"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="['promotion:article:create']" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
@@ -101,41 +69,16 @@
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="发布时间"
-        prop="createTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="发布时间" prop="createTime" width="180px" />
       <el-table-column align="center" fixed="right" label="操作" width="120">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['promotion:article:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['promotion:article:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['promotion:article:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['promotion:article:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
@@ -223,8 +166,7 @@ const spuList = ref<ProductSpuApi.Spu[]>([])
 onMounted(async () => {
   await getList()
   // 加载分类、商品列表
-  categoryList.value =
-    (await ArticleCategoryApi.getSimpleArticleCategoryList()) as ArticleCategoryApi.ArticleCategoryVO[]
+  categoryList.value = (await ArticleCategoryApi.getSimpleArticleCategoryList()) as ArticleCategoryApi.ArticleCategoryVO[]
   spuList.value = (await ProductSpuApi.getSpuSimpleList()) as ProductSpuApi.Spu[]
 })
 </script>

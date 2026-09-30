@@ -3,107 +3,38 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="100px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
       <el-form-item label="接收邮箱" prop="toMail">
-        <el-input
-          v-model="queryParams.toMail"
-          placeholder="请输入接收邮箱"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.toMail" placeholder="请输入接收邮箱" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="邮箱账号" prop="accountId">
-        <el-select
-          v-model="queryParams.accountId"
-          placeholder="请选择邮箱账号"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="account in accountList"
-            :key="account.id"
-            :value="account.id"
-            :label="account.mail"
-          />
+        <el-select v-model="queryParams.accountId" placeholder="请选择邮箱账号" clearable class="!w-240px">
+          <el-option v-for="account in accountList" :key="account.id" :value="account.id" :label="account.mail" />
         </el-select>
       </el-form-item>
       <el-form-item label="模板编号" prop="templateId">
-        <el-input
-          v-model="queryParams.templateId"
-          placeholder="请输入模板编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.templateId" placeholder="请输入模板编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="发送状态" prop="sendStatus">
-        <el-select
-          v-model="queryParams.sendStatus"
-          placeholder="请选择发送状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_MAIL_SEND_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.sendStatus" placeholder="请选择发送状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_MAIL_SEND_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="用户编号" prop="userId">
-        <el-input
-          v-model="queryParams.userId"
-          placeholder="请输入用户编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.userId" placeholder="请输入用户编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="用户类型" prop="userType">
-        <el-select
-          v-model="queryParams.userType"
-          placeholder="请选择用户类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.userType" placeholder="请选择用户类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="发送时间" prop="sendTime">
-        <el-date-picker
-          v-model="queryParams.sendTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          class="!w-240px"
-        />
+        <el-date-picker v-model="queryParams.sendTime" value-format="YYYY-MM-DD HH:mm:ss" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['system:mail-log:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['system:mail-log:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -112,13 +43,7 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column
-        label="发送时间"
-        align="center"
-        prop="sendTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="发送时间" align="center" prop="sendTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="接收用户" align="center" width="150">
         <template #default="scope">
           <div v-if="scope.row.userType && scope.row.userId">
@@ -133,21 +58,15 @@
           <div class="text-left">
             <div v-if="scope.row.toMails && scope.row.toMails.length > 0">
               收件：
-              <span v-for="(mail, index) in scope.row.toMails" :key="mail">
-                {{ mail }}<span v-if="index < scope.row.toMails.length - 1">、</span>
-              </span>
+              <span v-for="(mail, index) in scope.row.toMails" :key="mail"> {{ mail }}<span v-if="index < scope.row.toMails.length - 1">、</span> </span>
             </div>
             <div v-if="scope.row.ccMails && scope.row.ccMails.length > 0">
               抄送：
-              <span v-for="(mail, index) in scope.row.ccMails" :key="mail">
-                {{ mail }}<span v-if="index < scope.row.ccMails.length - 1">、</span>
-              </span>
+              <span v-for="(mail, index) in scope.row.ccMails" :key="mail"> {{ mail }}<span v-if="index < scope.row.ccMails.length - 1">、</span> </span>
             </div>
             <div v-if="scope.row.bccMails && scope.row.bccMails.length > 0">
               密送：
-              <span v-for="(mail, index) in scope.row.bccMails" :key="mail">
-                {{ mail }}<span v-if="index < scope.row.bccMails.length - 1">、</span>
-              </span>
+              <span v-for="(mail, index) in scope.row.bccMails" :key="mail"> {{ mail }}<span v-if="index < scope.row.bccMails.length - 1">、</span> </span>
             </div>
           </div>
         </template>
@@ -166,24 +85,12 @@
       <el-table-column label="模板编号" align="center" prop="templateId" />
       <el-table-column label="操作" align="center" fixed="right" class-name="fixed-width">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openDetail(scope.row)"
-            v-hasPermi="['system:mail-log:query']"
-          >
-            详情
-          </el-button>
+          <el-button link type="primary" @click="openDetail(scope.row)" v-hasPermi="['system:mail-log:query']"> 详情 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：详情 -->

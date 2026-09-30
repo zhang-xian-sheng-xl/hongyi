@@ -18,10 +18,7 @@
       <el-descriptions-item label="产品状态">
         <dict-tag :type="DICT_TYPE.IOT_PRODUCT_STATUS" :value="product.status" />
       </el-descriptions-item>
-      <el-descriptions-item
-        label="联网方式"
-        v-if="[DeviceTypeEnum.DEVICE, DeviceTypeEnum.GATEWAY].includes(product.deviceType)"
-      >
+      <el-descriptions-item label="联网方式" v-if="[DeviceTypeEnum.DEVICE, DeviceTypeEnum.GATEWAY].includes(product.deviceType)">
         <dict-tag :type="DICT_TYPE.IOT_NET_TYPE" :value="product.netType" />
       </el-descriptions-item>
       <el-descriptions-item label="动态注册">
@@ -35,13 +32,7 @@
           <el-button link type="primary" class="ml-2" @click="secretVisible = !secretVisible">
             <Icon :icon="secretVisible ? 'ep:hide' : 'ep:view'" />
           </el-button>
-          <el-button
-            v-if="secretVisible && product.productSecret"
-            link
-            type="primary"
-            class="ml-1"
-            @click="copySecret"
-          >
+          <el-button v-if="secretVisible && product.productSecret" link type="primary" class="ml-1" @click="copySecret">
             <Icon icon="ep:document-copy" />
           </el-button>
         </div>

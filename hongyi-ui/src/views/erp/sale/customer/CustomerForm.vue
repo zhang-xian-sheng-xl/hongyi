@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="名称" prop="name">
@@ -41,11 +35,7 @@
         <el-col :span="12">
           <el-form-item label="开启状态" prop="status">
             <el-radio-group v-model="formData.status">
-              <el-radio
-                v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -53,12 +43,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="排序" prop="sort">
-            <el-input-number
-              v-model="formData.sort"
-              placeholder="请输入排序"
-              class="!w-1/1"
-              :precision="0"
-            />
+            <el-input-number v-model="formData.sort" placeholder="请输入排序" class="!w-1/1" :precision="0" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -68,13 +53,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="税率(%)" prop="taxPercent">
-            <el-input-number
-              v-model="formData.taxPercent"
-              :min="0"
-              :precision="2"
-              placeholder="请输入税率"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.taxPercent" :min="0" :precision="2" placeholder="请输入税率" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

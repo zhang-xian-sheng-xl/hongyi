@@ -1,23 +1,12 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="50%">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="租户名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入租户名" />
       </el-form-item>
       <el-form-item label="租户套餐" prop="packageId">
         <el-select v-model="formData.packageId" clearable placeholder="请选择租户套餐">
-          <el-option
-            v-for="item in packageList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+          <el-option v-for="item in packageList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="联系人" prop="contactName">
@@ -30,44 +19,20 @@
         <el-input v-model="formData.username" placeholder="请输入用户名称" />
       </el-form-item>
       <el-form-item v-if="formData.id === undefined" label="用户密码" prop="password">
-        <el-input
-          v-model="formData.password"
-          placeholder="请输入用户密码"
-          show-password
-          type="password"
-        />
+        <el-input v-model="formData.password" placeholder="请输入用户密码" show-password type="password" />
       </el-form-item>
       <el-form-item label="账号额度" prop="accountCount">
-        <el-input-number
-          v-model="formData.accountCount"
-          :min="0"
-          controls-position="right"
-          placeholder="请输入账号额度"
-        />
+        <el-input-number v-model="formData.accountCount" :min="0" controls-position="right" placeholder="请输入账号额度" />
       </el-form-item>
       <el-form-item label="过期时间" prop="expireTime">
-        <el-date-picker
-          v-model="formData.expireTime"
-          clearable
-          placeholder="请选择过期时间"
-          type="date"
-          value-format="x"
-        />
+        <el-date-picker v-model="formData.expireTime" clearable placeholder="请选择过期时间" type="date" value-format="x" />
       </el-form-item>
       <el-form-item label="绑定域名" prop="websites">
-        <el-input-tag
-          v-model="formData.websites"
-          placeholder="请输入绑定域名，按回车添加"
-          class="w-full"
-        />
+        <el-input-tag v-model="formData.websites" placeholder="请输入绑定域名，按回车添加" class="w-full" />
       </el-form-item>
       <el-form-item label="租户状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

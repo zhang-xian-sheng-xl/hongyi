@@ -1,36 +1,14 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="业务类型" prop="bizType">
-        <el-select
-          v-model="queryParams.bizType"
-          placeholder="请选择业务类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.MEMBER_EXPERIENCE_BIZ_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.bizType" placeholder="请选择业务类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.MEMBER_EXPERIENCE_BIZ_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="标题" prop="title">
-        <el-input
-          v-model="queryParams.title"
-          placeholder="请输入标题"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.title" placeholder="请输入标题" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -54,17 +32,10 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="编号" align="center" prop="id" width="150px" />
-      <el-table-column
-        label="获得时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="获得时间" align="center" prop="createTime" :formatter="dateFormatter" />
       <el-table-column label="经验" align="center" prop="experience" width="150px">
         <template #default="scope">
-          <el-tag v-if="scope.row.experience > 0" class="ml-2" type="success" effect="dark">
-            +{{ scope.row.experience }}
-          </el-tag>
+          <el-tag v-if="scope.row.experience > 0" class="ml-2" type="success" effect="dark"> +{{ scope.row.experience }} </el-tag>
           <el-tag v-else class="ml-2" type="danger" effect="dark">
             {{ scope.row.experience }}
           </el-tag>
@@ -88,12 +59,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

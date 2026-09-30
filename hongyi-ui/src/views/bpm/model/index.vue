@@ -3,23 +3,9 @@
     <div class="flex justify-between pl-20px items-center">
       <h3 class="font-extrabold">流程模型</h3>
       <!-- 搜索工作栏 -->
-      <el-form
-        v-if="!isCategorySorting"
-        class="-mb-15px flex mr-10px"
-        :model="queryParams"
-        ref="queryFormRef"
-        :inline="true"
-        label-width="68px"
-        @submit.prevent
-      >
+      <el-form v-if="!isCategorySorting" class="-mb-15px flex mr-10px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px" @submit.prevent>
         <el-form-item prop="name" class="ml-auto">
-          <el-input
-            v-model="queryParams.name"
-            placeholder="搜索流程"
-            clearable
-            @keyup.enter="handleQuery"
-            class="!w-240px"
-          >
+          <el-input v-model="queryParams.name" placeholder="搜索流程" clearable @keyup.enter="handleQuery" class="!w-240px">
             <template #prefix>
               <Icon icon="ep:search" class="mx-10px" />
             </template>
@@ -27,9 +13,7 @@
         </el-form-item>
         <!-- 右上角：新建模型、更多操作 -->
         <el-form-item>
-          <el-button type="primary" @click="openForm('create')" v-hasPermi="['bpm:model:create']">
-            <Icon icon="ep:plus" class="mr-5px" /> 新建模型
-          </el-button>
+          <el-button type="primary" @click="openForm('create')" v-hasPermi="['bpm:model:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新建模型 </el-button>
         </el-form-item>
         <el-form-item>
           <el-dropdown @command="(command) => handleCommand(command)" placement="bottom-end">
@@ -61,24 +45,10 @@
 
     <!-- 按照分类，展示其所属的模型列表 -->
     <div class="px-15px">
-      <draggable
-        :disabled="!isCategorySorting"
-        v-model="categoryGroup"
-        item-key="id"
-        :animation="400"
-      >
+      <draggable :disabled="!isCategorySorting" v-model="categoryGroup" item-key="id" :animation="400">
         <template #item="{ element }">
-          <ContentWrap
-            class="rounded-lg transition-all duration-300 ease-in-out hover:shadow-xl"
-            v-loading="loading"
-            :body-style="{ padding: 0 }"
-            :key="element.id"
-          >
-            <CategoryDraggableModel
-              :isCategorySorting="isCategorySorting"
-              :categoryInfo="element"
-              @success="getList"
-            />
+          <ContentWrap class="rounded-lg transition-all duration-300 ease-in-out hover:shadow-xl" v-loading="loading" :body-style="{ padding: 0 }" :key="element.id">
+            <CategoryDraggableModel :isCategorySorting="isCategorySorting" :categoryInfo="element" @success="getList" />
           </ContentWrap>
         </template>
       </draggable>
@@ -220,7 +190,7 @@ onActivated(() => {
   .el-form--inline .el-form-item {
     margin-right: 10px;
   }
-  
+
   .el-divider--horizontal {
     margin-top: 6px;
   }

@@ -1,19 +1,10 @@
 <template>
   <div class="flex flex-wrap items-center gap-8px">
-    <div
-      v-for="(seckillActivity, index) in Activitys"
-      :key="seckillActivity.id"
-      class="select-box spu-pic"
-    >
+    <div v-for="(seckillActivity, index) in Activitys" :key="seckillActivity.id" class="select-box spu-pic">
       <el-tooltip :content="seckillActivity.name">
         <div class="relative h-full w-full">
           <el-image :src="seckillActivity.picUrl" class="h-full w-full" />
-          <Icon
-            v-show="!disabled"
-            class="del-icon"
-            icon="ep:circle-close-filled"
-            @click="handleRemoveActivity(index)"
-          />
+          <Icon v-show="!disabled" class="del-icon" icon="ep:circle-close-filled" @click="handleRemoveActivity(index)" />
         </div>
       </el-tooltip>
     </div>
@@ -24,11 +15,7 @@
     </el-tooltip>
   </div>
   <!-- 拼团活动选择对话框（表格形式） -->
-  <SeckillTableSelect
-    ref="seckillActivityTableSelectRef"
-    :multiple="limit != 1"
-    @change="handleActivitySelected"
-  />
+  <SeckillTableSelect ref="seckillActivityTableSelectRef" :multiple="limit != 1" @change="handleActivitySelected" />
 </template>
 <script lang="ts" setup>
 import * as SeckillActivityApi from '@/api/mall/promotion/seckill/seckillActivity'
@@ -77,10 +64,7 @@ watch(
       return
     }
     // 只有活动发生变化之后，才会查询活动
-    if (
-      Activitys.value.length === 0 ||
-      Activitys.value.some((seckillActivity) => !ids.includes(seckillActivity.id!))
-    ) {
+    if (Activitys.value.length === 0 || Activitys.value.some((seckillActivity) => !ids.includes(seckillActivity.id!))) {
       Activitys.value = await SeckillActivityApi.getSeckillActivityListByIds(ids)
     }
   },
@@ -98,9 +82,7 @@ const openSeckillActivityTableSelect = () => {
  * 选择活动后触发
  * @param activityVOs 选中的活动列表
  */
-const handleActivitySelected = (
-  activityVOs: SeckillActivityApi.SeckillActivityVO | SeckillActivityApi.SeckillActivityVO[]
-) => {
+const handleActivitySelected = (activityVOs: SeckillActivityApi.SeckillActivityVO | SeckillActivityApi.SeckillActivityVO[]) => {
   Activitys.value = isArray(activityVOs) ? activityVOs : [activityVOs]
   emitActivityChange()
 }

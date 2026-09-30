@@ -2,15 +2,7 @@
   <div class="product-warp" style="cursor: pointer" @click.stop="openDetail(spuId)">
     <!-- 左侧商品图片-->
     <div class="product-warp-left mr-24px">
-      <el-image
-        :initial-index="0"
-        :preview-src-list="[picUrl]"
-        :src="picUrl"
-        class="product-warp-left-img"
-        fit="contain"
-        preview-teleported
-        @click.stop
-      />
+      <el-image :initial-index="0" :preview-src-list="[picUrl]" :src="picUrl" class="product-warp-left-img" fit="contain" preview-teleported @click.stop />
     </div>
     <!-- 右侧商品信息 -->
     <div class="product-warp-right">

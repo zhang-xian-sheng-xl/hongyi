@@ -9,51 +9,21 @@
       </el-form-item>
       <el-form-item label="权限范围">
         <el-select v-model="formData.dataScope">
-          <el-option
-            v-for="item in getIntDictOptions(DICT_TYPE.SYSTEM_DATA_SCOPE)"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+          <el-option v-for="item in getIntDictOptions(DICT_TYPE.SYSTEM_DATA_SCOPE)" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-form>
-    <el-form-item
-      v-if="formData.dataScope === SystemDataScopeEnum.DEPT_CUSTOM"
-      label="部门范围"
-      label-width="80px"
-    >
+    <el-form-item v-if="formData.dataScope === SystemDataScopeEnum.DEPT_CUSTOM" label="部门范围" label-width="80px">
       <el-card class="w-full h-400px !overflow-y-scroll" shadow="never">
         <template #header>
           全选/全不选:
-          <el-switch
-            v-model="treeNodeAll"
-            active-text="是"
-            inactive-text="否"
-            inline-prompt
-            @change="handleCheckedTreeNodeAll()"
-          />
+          <el-switch v-model="treeNodeAll" active-text="是" inactive-text="否" inline-prompt @change="handleCheckedTreeNodeAll()" />
           全部展开/折叠:
-          <el-switch
-            v-model="deptExpand"
-            active-text="展开"
-            inactive-text="折叠"
-            inline-prompt
-            @change="handleCheckedTreeExpand"
-          />
+          <el-switch v-model="deptExpand" active-text="展开" inactive-text="折叠" inline-prompt @change="handleCheckedTreeExpand" />
           父子联动(选中父节点，自动选择子节点):
           <el-switch v-model="checkStrictly" active-text="是" inactive-text="否" inline-prompt />
         </template>
-        <el-tree
-          ref="treeRef"
-          :check-strictly="!checkStrictly"
-          :data="deptOptions"
-          :props="defaultProps"
-          default-expand-all
-          empty-text="加载中，请稍后"
-          node-key="id"
-          show-checkbox
-        />
+        <el-tree ref="treeRef" :check-strictly="!checkStrictly" :data="deptOptions" :props="defaultProps" default-expand-all empty-text="加载中，请稍后" node-key="id" show-checkbox />
       </el-card>
     </el-form-item>
     <template #footer>
@@ -118,10 +88,7 @@ const submitForm = async () => {
     const data = {
       roleId: formData.id,
       dataScope: formData.dataScope,
-      dataScopeDeptIds:
-        formData.dataScope !== SystemDataScopeEnum.DEPT_CUSTOM
-          ? []
-          : treeRef.value.getCheckedKeys(false)
+      dataScopeDeptIds: formData.dataScope !== SystemDataScopeEnum.DEPT_CUSTOM ? [] : treeRef.value.getCheckedKeys(false)
     }
     await PermissionApi.assignRoleDataScope(data)
     message.success(t('common.updateSuccess'))

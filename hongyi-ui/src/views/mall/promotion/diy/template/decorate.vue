@@ -12,11 +12,7 @@
     @save="submitForm"
   >
     <template #toolBarLeft>
-      <el-radio-group
-        :model-value="selectedTemplateItem"
-        class="h-full!"
-        @change="handleTemplateItemChange"
-      >
+      <el-radio-group :model-value="selectedTemplateItem" class="h-full!" @change="handleTemplateItemChange">
         <el-tooltip v-for="(item, index) in templateItems" :key="index" :content="item.name">
           <el-radio-button :value="index">
             <Icon :icon="item.icon" :size="24" />
@@ -57,9 +53,7 @@ const currentFormData = ref<DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.Di
   property: ''
 } as DiyPageApi.DiyPageVO)
 // templateItem 对应的缓存
-const currentFormDataMap = ref<
-  Map<string, DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO>
->(new Map())
+const currentFormDataMap = ref<Map<string, DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO>>(new Map())
 // 商城 H5 预览地址
 const previewUrl = ref('')
 
@@ -83,10 +77,7 @@ const libs = ref<DiyComponentLibrary[]>(templateLibs)
 // 模板选项切换
 const handleTemplateItemChange = (val: number) => {
   // 缓存模版编辑数据
-  currentFormDataMap.value.set(
-    templateItems[selectedTemplateItem.value].name,
-    currentFormData.value!
-  )
+  currentFormDataMap.value.set(templateItems[selectedTemplateItem.value].name, currentFormData.value!)
   // 读取模版缓存
   const data = currentFormDataMap.value.get(templateItems[val].name)
 
@@ -95,21 +86,15 @@ const handleTemplateItemChange = (val: number) => {
   // 编辑模板
   if (val === 0) {
     libs.value = templateLibs
-    currentFormData.value = (isEmpty(data) ? formData.value : data) as
-      | DiyTemplateApi.DiyTemplatePropertyVO
-      | DiyPageApi.DiyPageVO
+    currentFormData.value = (isEmpty(data) ? formData.value : data) as DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO
     return
   }
 
   // 编辑页面
   libs.value = PAGE_LIBS
-  currentFormData.value = (
-    isEmpty(data)
-      ? formData.value!.pages.find(
-          (page: DiyPageApi.DiyPageVO) => page.name === templateItems[val].name
-        )
-      : data
-  ) as DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO
+  currentFormData.value = (isEmpty(data) ? formData.value!.pages.find((page: DiyPageApi.DiyPageVO) => page.name === templateItems[val].name) : data) as
+    | DiyTemplateApi.DiyTemplatePropertyVO
+    | DiyPageApi.DiyPageVO
 }
 
 // 提交表单
@@ -181,13 +166,8 @@ const recoverPageIndex = () => {
   sessionStorage.removeItem(DIY_PAGE_INDEX_KEY)
 
   // 重新初始化数据
-  currentFormData.value = formData.value as
-    | DiyTemplateApi.DiyTemplatePropertyVO
-    | DiyPageApi.DiyPageVO
-  currentFormDataMap.value = new Map<
-    string,
-    DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO
-  >()
+  currentFormData.value = formData.value as DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO
+  currentFormDataMap.value = new Map<string, DiyTemplateApi.DiyTemplatePropertyVO | DiyPageApi.DiyPageVO>()
   // 切换页面
   if (pageIndex !== selectedTemplateItem.value) {
     handleTemplateItemChange(pageIndex)

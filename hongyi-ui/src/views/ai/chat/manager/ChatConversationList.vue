@@ -1,36 +1,14 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="用户编号" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          clearable
-          placeholder="请输入用户编号"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.userId" clearable placeholder="请输入用户编号" class="!w-240px">
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="聊天编号" prop="title">
-        <el-input
-          v-model="queryParams.title"
-          placeholder="请输入聊天编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.title" placeholder="请输入聊天编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -63,36 +41,18 @@
       <el-table-column label="角色" align="center" prop="roleName" width="180" />
       <el-table-column label="模型标识" align="center" prop="model" width="180" />
       <el-table-column label="消息数" align="center" prop="messageCount" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="温度参数" align="center" prop="temperature" />
       <el-table-column label="回复 Token 数" align="center" prop="maxTokens" width="120" />
       <el-table-column label="上下文数量" align="center" prop="maxContexts" width="120" />
       <el-table-column label="操作" align="center" width="180" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['ai:chat-conversation:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['ai:chat-conversation:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

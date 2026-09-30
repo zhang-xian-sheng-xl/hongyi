@@ -11,30 +11,11 @@
         <el-card class="w-full h-400px !overflow-y-scroll" shadow="never">
           <template #header>
             全选/全不选:
-            <el-switch
-              v-model="treeNodeAll"
-              active-text="是"
-              inactive-text="否"
-              inline-prompt
-              @change="handleCheckedTreeNodeAll"
-            />
+            <el-switch v-model="treeNodeAll" active-text="是" inactive-text="否" inline-prompt @change="handleCheckedTreeNodeAll" />
             全部展开/折叠:
-            <el-switch
-              v-model="menuExpand"
-              active-text="展开"
-              inactive-text="折叠"
-              inline-prompt
-              @change="handleCheckedTreeExpand"
-            />
+            <el-switch v-model="menuExpand" active-text="展开" inactive-text="折叠" inline-prompt @change="handleCheckedTreeExpand" />
           </template>
-          <el-tree
-            ref="treeRef"
-            :data="menuOptions"
-            :props="defaultProps"
-            empty-text="加载中，请稍候"
-            node-key="id"
-            show-checkbox
-          />
+          <el-tree ref="treeRef" :data="menuOptions" :props="defaultProps" empty-text="加载中，请稍候" node-key="id" show-checkbox />
         </el-card>
       </el-form-item>
     </el-form>

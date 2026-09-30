@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="130px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="130px">
       <el-form-item label="配置名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入配置名" />
       </el-form-item>
@@ -14,54 +8,25 @@
         <el-input v-model="formData.remark" placeholder="请输入备注" />
       </el-form-item>
       <el-form-item label="存储器" prop="storage">
-        <el-select
-          v-model="formData.storage"
-          :disabled="formData.id !== undefined"
-          placeholder="请选择存储器"
-        >
-          <el-option
-            v-for="dict in getDictOptions(DICT_TYPE.INFRA_FILE_STORAGE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="parseInt(dict.value)"
-          />
+        <el-select v-model="formData.storage" :disabled="formData.id !== undefined" placeholder="请选择存储器">
+          <el-option v-for="dict in getDictOptions(DICT_TYPE.INFRA_FILE_STORAGE)" :key="dict.value" :label="dict.label" :value="parseInt(dict.value)" />
         </el-select>
       </el-form-item>
       <!-- DB -->
       <!-- Local / FTP / SFTP -->
-      <el-form-item
-        v-if="formData.storage >= 10 && formData.storage <= 12"
-        label="基础路径"
-        prop="config.basePath"
-      >
+      <el-form-item v-if="formData.storage >= 10 && formData.storage <= 12" label="基础路径" prop="config.basePath">
         <el-input v-model="formData.config.basePath" placeholder="请输入基础路径" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.storage >= 11 && formData.storage <= 12"
-        label="主机地址"
-        prop="config.host"
-      >
+      <el-form-item v-if="formData.storage >= 11 && formData.storage <= 12" label="主机地址" prop="config.host">
         <el-input v-model="formData.config.host" placeholder="请输入主机地址" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.storage >= 11 && formData.storage <= 12"
-        label="主机端口"
-        prop="config.port"
-      >
+      <el-form-item v-if="formData.storage >= 11 && formData.storage <= 12" label="主机端口" prop="config.port">
         <el-input-number v-model="formData.config.port" :min="0" placeholder="请输入主机端口" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.storage >= 11 && formData.storage <= 12"
-        label="用户名"
-        prop="config.username"
-      >
+      <el-form-item v-if="formData.storage >= 11 && formData.storage <= 12" label="用户名" prop="config.username">
         <el-input v-model="formData.config.username" placeholder="请输入密码" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.storage >= 11 && formData.storage <= 12"
-        label="密码"
-        prop="config.password"
-      >
+      <el-form-item v-if="formData.storage >= 11 && formData.storage <= 12" label="密码" prop="config.password">
         <el-input v-model="formData.config.password" placeholder="请输入密码" />
       </el-form-item>
       <el-form-item v-if="formData.storage === 11" label="连接模式" prop="config.mode">
@@ -83,21 +48,13 @@
       <el-form-item v-if="formData.storage === 20" label="accessSecret" prop="config.accessSecret">
         <el-input v-model="formData.config.accessSecret" placeholder="请输入 accessSecret" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.storage === 20"
-        label="是否 Path Style"
-        prop="config.enablePathStyleAccess"
-      >
+      <el-form-item v-if="formData.storage === 20" label="是否 Path Style" prop="config.enablePathStyleAccess">
         <el-radio-group v-model="formData.config.enablePathStyleAccess">
           <el-radio key="true" :value="true">启用</el-radio>
           <el-radio key="false" :value="false">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="formData.storage === 20"
-        label="公开访问"
-        prop="config.enablePublicAccess"
-      >
+      <el-form-item v-if="formData.storage === 20" label="公开访问" prop="config.enablePublicAccess">
         <el-radio-group v-model="formData.config.enablePublicAccess">
           <el-radio key="true" :value="true">公开</el-radio>
           <el-radio key="false" :value="false">私有</el-radio>
@@ -157,9 +114,7 @@ const formRules = reactive<FormRules>({
     bucket: [{ required: true, message: '存储 bucket 不能为空', trigger: 'blur' }],
     accessKey: [{ required: true, message: 'accessKey 不能为空', trigger: 'blur' }],
     accessSecret: [{ required: true, message: 'accessSecret 不能为空', trigger: 'blur' }],
-    enablePathStyleAccess: [
-      { required: true, message: '是否 PathStyle 访问不能为空', trigger: 'change' }
-    ],
+    enablePathStyleAccess: [{ required: true, message: '是否 PathStyle 访问不能为空', trigger: 'change' }],
     enablePublicAccess: [{ required: true, message: '公开访问设置不能为空', trigger: 'change' }],
     domain: [{ required: true, message: '自定义域名不能为空', trigger: 'blur' }]
   } as FormRules

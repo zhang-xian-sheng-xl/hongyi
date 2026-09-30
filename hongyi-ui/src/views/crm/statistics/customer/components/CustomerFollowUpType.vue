@@ -22,10 +22,7 @@
   </el-card>
 </template>
 <script setup lang="ts">
-import {
-  StatisticsCustomerApi,
-  CrmStatisticsFollowUpSummaryByTypeRespVO
-} from '@/api/crm/statistics/customer'
+import { StatisticsCustomerApi, CrmStatisticsFollowUpSummaryByTypeRespVO } from '@/api/crm/statistics/customer'
 import { EChartsOption } from 'echarts'
 import { sumBy } from 'lodash-es'
 import { DICT_TYPE, getDictLabel } from '@/utils/dict'
@@ -77,19 +74,15 @@ const echartsOption = reactive<EChartsOption>({
 /** 获取数据并填充图表 */
 const fetchAndFill = async () => {
   // 1. 加载统计数据
-  const followUpSummaryByType = await StatisticsCustomerApi.getFollowUpSummaryByType(
-    props.queryParams
-  )
+  const followUpSummaryByType = await StatisticsCustomerApi.getFollowUpSummaryByType(props.queryParams)
   // 2.1 更新 Echarts 数据
   if (echartsOption.series && echartsOption.series[0] && echartsOption.series[0]['data']) {
-    echartsOption.series[0]['data'] = followUpSummaryByType.map(
-      (row: CrmStatisticsFollowUpSummaryByTypeRespVO) => {
-        return {
-          name: getDictLabel(DICT_TYPE.CRM_FOLLOW_UP_TYPE, row.followUpType),
-          value: row.followUpRecordCount
-        }
+    echartsOption.series[0]['data'] = followUpSummaryByType.map((row: CrmStatisticsFollowUpSummaryByTypeRespVO) => {
+      return {
+        name: getDictLabel(DICT_TYPE.CRM_FOLLOW_UP_TYPE, row.followUpType),
+        value: row.followUpRecordCount
       }
-    )
+    })
   }
   // 2.2 更新列表数据
   const totalCount = sumBy(followUpSummaryByType, 'followUpRecordCount')

@@ -2,37 +2,15 @@
 <template>
   <el-form ref="formRef" :disabled="isDetail" :model="formData" :rules="rules" label-width="120px">
     <el-form-item label="商品名称" prop="name">
-      <el-input
-        v-model="formData.name"
-        :autosize="{ minRows: 2, maxRows: 2 }"
-        :clearable="true"
-        :show-word-limit="true"
-        class="w-80!"
-        maxlength="64"
-        placeholder="请输入商品名称"
-        type="textarea"
-      />
+      <el-input v-model="formData.name" :autosize="{ minRows: 2, maxRows: 2 }" :clearable="true" :show-word-limit="true" class="w-80!" maxlength="64" placeholder="请输入商品名称" type="textarea" />
     </el-form-item>
     <el-form-item label="商品分类" prop="categoryId">
-      <el-cascader
-        v-model="formData.categoryId"
-        :options="categoryList"
-        :props="defaultProps"
-        class="w-80!"
-        clearable
-        filterable
-        placeholder="请选择商品分类"
-      />
+      <el-cascader v-model="formData.categoryId" :options="categoryList" :props="defaultProps" class="w-80!" clearable filterable placeholder="请选择商品分类" />
       <el-button :icon="RefreshRight" @click="refreshCategoryList" class="ml-1" size="small" />
     </el-form-item>
     <el-form-item label="商品品牌" prop="brandId">
       <el-select v-model="formData.brandId" class="w-80!" placeholder="请选择商品品牌">
-        <el-option
-          v-for="item in brandList"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id as number"
-        />
+        <el-option v-for="item in brandList" :key="item.id" :label="item.name" :value="item.id as number" />
       </el-select>
       <el-button :icon="RefreshRight" @click="refreshBrandList" class="ml-1" size="small" />
     </el-form-item>

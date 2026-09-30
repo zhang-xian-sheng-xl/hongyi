@@ -3,56 +3,20 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="用户编号" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          clearable
-          placeholder="请输入用户编号"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.userId" clearable placeholder="请输入用户编号" class="!w-240px">
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="写作类型" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          placeholder="请选择写作类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.AI_WRITE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" placeholder="请选择写作类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.AI_WRITE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="平台" prop="platform">
-        <el-select
-          v-model="queryParams.platform"
-          placeholder="请选择平台"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.platform" placeholder="请选择平台" clearable class="!w-240px">
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -93,13 +57,7 @@
         </template>
       </el-table-column>
       <el-table-column label="模型" align="center" prop="model" width="180" />
-      <el-table-column
-        label="生成内容提示"
-        align="center"
-        prop="prompt"
-        width="180"
-        show-overflow-tooltip
-      />
+      <el-table-column label="生成内容提示" align="center" prop="prompt" width="180" show-overflow-tooltip />
       <el-table-column label="生成的内容" align="center" prop="generatedContent" width="180" />
       <el-table-column label="原文" align="center" prop="originalContent" width="180" />
       <el-table-column label="长度" align="center" prop="length">
@@ -122,34 +80,16 @@
           <dict-tag :type="DICT_TYPE.AI_WRITE_LANGUAGE" :value="scope.row.language" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="错误信息" align="center" prop="errorMessage" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['ai:write:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['ai:write:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

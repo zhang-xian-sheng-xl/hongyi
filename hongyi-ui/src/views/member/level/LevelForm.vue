@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="800">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="110px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="110px" v-loading="formLoading">
       <el-row>
         <el-col :span="12">
           <el-form-item label="等级名称" prop="name">
@@ -15,38 +9,19 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="等级" prop="level">
-            <el-input-number
-              v-model="formData.level"
-              :min="0"
-              :precision="0"
-              placeholder="请输入等级"
-              class="!w-240px"
-            />
+            <el-input-number v-model="formData.level" :min="0" :precision="0" placeholder="请输入等级" class="!w-240px" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="升级经验" prop="experience">
-            <el-input-number
-              v-model="formData.experience"
-              :min="0"
-              :precision="0"
-              placeholder="请输入升级经验"
-              class="!w-240px"
-            />
+            <el-input-number v-model="formData.experience" :min="0" :precision="0" placeholder="请输入升级经验" class="!w-240px" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="享受折扣(%)" prop="discountPercent">
-            <el-input-number
-              v-model="formData.discountPercent"
-              :min="0"
-              :max="100"
-              :precision="0"
-              placeholder="请输入享受折扣"
-              class="!w-240px"
-            />
+            <el-input-number v-model="formData.discountPercent" :min="0" :max="100" :precision="0" placeholder="请输入享受折扣" class="!w-240px" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -64,11 +39,7 @@
       </el-row>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

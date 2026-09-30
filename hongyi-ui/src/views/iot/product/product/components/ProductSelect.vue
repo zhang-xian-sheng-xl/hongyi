@@ -1,20 +1,7 @@
 <!-- 产品下拉选择器组件 -->
 <template>
-  <el-select
-    :model-value="modelValue"
-    @update:model-value="handleChange"
-    placeholder="请选择产品"
-    filterable
-    clearable
-    class="w-full"
-    :loading="loading"
-  >
-    <el-option
-      v-for="product in productList"
-      :key="product.id"
-      :label="product.name"
-      :value="product.id"
-    />
+  <el-select :model-value="modelValue" @update:model-value="handleChange" placeholder="请选择产品" filterable clearable class="w-full" :loading="loading">
+    <el-option v-for="product in productList" :key="product.id" :label="product.name" :value="product.id" />
   </el-select>
 </template>
 

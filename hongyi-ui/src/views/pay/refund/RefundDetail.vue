@@ -5,9 +5,7 @@
         <el-tag size="small">{{ refundDetail.merchantRefundId }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="渠道退款单号">
-        <el-tag type="success" size="small" v-if="refundDetail.channelRefundNo">{{
-          refundDetail.channelRefundNo
-        }}</el-tag>
+        <el-tag type="success" size="small" v-if="refundDetail.channelRefundNo">{{ refundDetail.channelRefundNo }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="商户支付单号">
         <el-tag size="small">{{ refundDetail.merchantOrderId }}</el-tag>
@@ -18,14 +16,10 @@
       <el-descriptions-item label="应用编号">{{ refundDetail.appId }}</el-descriptions-item>
       <el-descriptions-item label="应用名称">{{ refundDetail.appName }}</el-descriptions-item>
       <el-descriptions-item label="支付金额">
-        <el-tag type="success" size="small">
-          ￥{{ (refundDetail.payPrice / 100.0).toFixed(2) }}
-        </el-tag>
+        <el-tag type="success" size="small"> ￥{{ (refundDetail.payPrice / 100.0).toFixed(2) }} </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="退款金额">
-        <el-tag size="mini" type="danger">
-          ￥{{ (refundDetail.refundPrice / 100.0).toFixed(2) }}
-        </el-tag>
+        <el-tag size="mini" type="danger"> ￥{{ (refundDetail.refundPrice / 100.0).toFixed(2) }} </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="退款状态">
         <dict-tag :type="DICT_TYPE.PAY_REFUND_STATUS" :value="refundDetail.status" />

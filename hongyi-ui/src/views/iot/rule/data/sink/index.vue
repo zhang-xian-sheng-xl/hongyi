@@ -1,50 +1,18 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="目的名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入目的名称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入目的名称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="目的状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          class="!w-240px"
-          clearable
-          placeholder="请选择目的状态"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择目的状态">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="目的类型" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          class="!w-240px"
-          clearable
-          placeholder="请选择目的类型"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_DATA_SINK_TYPE_ENUM)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" class="!w-240px" clearable placeholder="请选择目的类型">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_DATA_SINK_TYPE_ENUM)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -67,12 +35,7 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['iot:data-sink:create']"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="['iot:data-sink:create']" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
@@ -96,41 +59,16 @@
           <dict-tag :type="DICT_TYPE.IOT_DATA_SINK_TYPE_ENUM" :value="scope.row.type" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       <el-table-column align="center" fixed="right" label="操作" width="120px">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['iot:data-sink:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['iot:data-sink:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['iot:data-sink:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['iot:data-sink:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

@@ -1,44 +1,15 @@
 <!-- 可入库的订单列表 -->
 <template>
-  <Dialog
-    title="选择采购订单（仅展示可入库）"
-    v-model="dialogVisible"
-    :appendToBody="true"
-    :scroll="true"
-    width="1080"
-  >
+  <Dialog title="选择采购订单（仅展示可入库）" v-model="dialogVisible" :appendToBody="true" :scroll="true" width="1080">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        class="-mb-15px"
-        :model="queryParams"
-        ref="queryFormRef"
-        :inline="true"
-        label-width="68px"
-      >
+      <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
         <el-form-item label="订单单号" prop="no">
-          <el-input
-            v-model="queryParams.no"
-            placeholder="请输入订单单号"
-            clearable
-            @keyup.enter="handleQuery"
-            class="!w-160px"
-          />
+          <el-input v-model="queryParams.no" placeholder="请输入订单单号" clearable @keyup.enter="handleQuery" class="!w-160px" />
         </el-form-item>
         <el-form-item label="产品" prop="productId">
-          <el-select
-            v-model="queryParams.productId"
-            clearable
-            filterable
-            placeholder="请选择产品"
-            class="!w-160px"
-          >
-            <el-option
-              v-for="item in productList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="queryParams.productId" clearable filterable placeholder="请选择产品" class="!w-160px">
+            <el-option v-for="item in productList" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="订单时间" prop="orderTime">
@@ -63,58 +34,21 @@
       <el-table v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true">
         <el-table-column align="center" width="65">
           <template #default="scope">
-            <el-radio
-              :value="scope.row.id"
-              v-model="currentRowValue"
-              @change="handleCurrentChange(scope.row)"
-            >
-              &nbsp;
-            </el-radio>
+            <el-radio :value="scope.row.id" v-model="currentRowValue" @change="handleCurrentChange(scope.row)"> &nbsp; </el-radio>
           </template>
         </el-table-column>
         <el-table-column min-width="180" label="订单单号" align="center" prop="no" />
         <el-table-column label="供应商" align="center" prop="supplierName" />
         <el-table-column label="产品信息" align="center" prop="productNames" min-width="200" />
-        <el-table-column
-          label="订单时间"
-          align="center"
-          prop="orderTime"
-          :formatter="dateFormatter2"
-          width="120px"
-        />
+        <el-table-column label="订单时间" align="center" prop="orderTime" :formatter="dateFormatter2" width="120px" />
         <el-table-column label="创建人" align="center" prop="creatorName" />
-        <el-table-column
-          label="总数量"
-          align="center"
-          prop="totalCount"
-          :formatter="erpCountTableColumnFormatter"
-        />
-        <el-table-column
-          label="入库数量"
-          align="center"
-          prop="inCount"
-          :formatter="erpCountTableColumnFormatter"
-        />
-        <el-table-column
-          label="金额合计"
-          align="center"
-          prop="totalProductPrice"
-          :formatter="erpPriceTableColumnFormatter"
-        />
-        <el-table-column
-          label="含税金额"
-          align="center"
-          prop="totalPrice"
-          :formatter="erpPriceTableColumnFormatter"
-        />
+        <el-table-column label="总数量" align="center" prop="totalCount" :formatter="erpCountTableColumnFormatter" />
+        <el-table-column label="入库数量" align="center" prop="inCount" :formatter="erpCountTableColumnFormatter" />
+        <el-table-column label="金额合计" align="center" prop="totalProductPrice" :formatter="erpPriceTableColumnFormatter" />
+        <el-table-column label="含税金额" align="center" prop="totalPrice" :formatter="erpPriceTableColumnFormatter" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer>
       <el-button :disabled="!currentRow" type="primary" @click="submitForm">确 定</el-button>

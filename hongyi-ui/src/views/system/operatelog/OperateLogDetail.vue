@@ -31,9 +31,7 @@
       <el-descriptions-item v-if="detailData.extra" label="操作拓展参数">
         {{ detailData.extra }}
       </el-descriptions-item>
-      <el-descriptions-item label="请求 URL">
-        {{ detailData.requestMethod }} {{ detailData.requestUrl }}
-      </el-descriptions-item>
+      <el-descriptions-item label="请求 URL"> {{ detailData.requestMethod }} {{ detailData.requestUrl }} </el-descriptions-item>
       <el-descriptions-item label="操作时间">
         {{ formatDate(detailData.createTime) }}
       </el-descriptions-item>

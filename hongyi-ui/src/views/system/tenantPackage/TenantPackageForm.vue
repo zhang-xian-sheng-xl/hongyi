@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="套餐名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入套餐名" />
       </el-form-item>
@@ -14,39 +8,16 @@
         <el-card class="w-full h-400px !overflow-y-scroll" shadow="never">
           <template #header>
             全选/全不选:
-            <el-switch
-              v-model="treeNodeAll"
-              active-text="是"
-              inactive-text="否"
-              inline-prompt
-              @change="handleCheckedTreeNodeAll"
-            />
+            <el-switch v-model="treeNodeAll" active-text="是" inactive-text="否" inline-prompt @change="handleCheckedTreeNodeAll" />
             全部展开/折叠:
-            <el-switch
-              v-model="menuExpand"
-              active-text="展开"
-              inactive-text="折叠"
-              inline-prompt
-              @change="handleCheckedTreeExpand"
-            />
+            <el-switch v-model="menuExpand" active-text="展开" inactive-text="折叠" inline-prompt @change="handleCheckedTreeExpand" />
           </template>
-          <el-tree
-            ref="treeRef"
-            :data="menuOptions"
-            :props="defaultProps"
-            empty-text="加载中，请稍候"
-            node-key="id"
-            show-checkbox
-          />
+          <el-tree ref="treeRef" :data="menuOptions" :props="defaultProps" empty-text="加载中，请稍候" node-key="id" show-checkbox />
         </el-card>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

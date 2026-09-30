@@ -8,12 +8,7 @@
           tooltip="昨日订单数量"
           title="昨日订单数量"
           :value="summary?.value?.yesterdayOrderCount || 0"
-          :percent="
-            calculateRelativeRate(
-              summary?.value?.yesterdayOrderCount,
-              summary?.reference?.yesterdayOrderCount
-            )
-          "
+          :percent="calculateRelativeRate(summary?.value?.yesterdayOrderCount, summary?.reference?.yesterdayOrderCount)"
         />
       </el-col>
       <el-col :sm="6" :xs="12">
@@ -21,12 +16,7 @@
           tooltip="本月订单数量"
           title="本月订单数量"
           :value="summary?.value?.monthOrderCount || 0"
-          :percent="
-            calculateRelativeRate(
-              summary?.value?.monthOrderCount,
-              summary?.reference?.monthOrderCount
-            )
-          "
+          :percent="calculateRelativeRate(summary?.value?.monthOrderCount, summary?.reference?.monthOrderCount)"
         />
       </el-col>
       <el-col :sm="6" :xs="12">
@@ -36,12 +26,7 @@
           prefix="￥"
           :decimals="2"
           :value="fenToYuan(summary?.value?.yesterdayPayPrice || 0)"
-          :percent="
-            calculateRelativeRate(
-              summary?.value?.yesterdayPayPrice,
-              summary?.reference?.yesterdayPayPrice
-            )
-          "
+          :percent="calculateRelativeRate(summary?.value?.yesterdayPayPrice, summary?.reference?.yesterdayPayPrice)"
         />
       </el-col>
       <el-col :sm="6" :xs="12">
@@ -51,9 +36,7 @@
           prefix="￥"
           ::decimals="2"
           :value="fenToYuan(summary?.value?.monthPayPrice || 0)"
-          :percent="
-            calculateRelativeRate(summary?.value?.monthPayPrice, summary?.reference?.monthPayPrice)
-          "
+          :percent="calculateRelativeRate(summary?.value?.monthPayPrice, summary?.reference?.monthPayPrice)"
         />
       </el-col>
     </el-row>
@@ -64,14 +47,7 @@
           <CardTitle title="交易状况" />
           <!-- 查询条件 -->
           <ShortcutDateRangePicker ref="shortcutDateRangePicker" @change="getTradeTrendData">
-            <el-button
-              class="ml-4"
-              @click="handleExport"
-              :loading="exportLoading"
-              v-hasPermi="['statistics:trade:export']"
-            >
-              <Icon icon="ep:download" class="mr-1" />导出
-            </el-button>
+            <el-button class="ml-4" @click="handleExport" :loading="exportLoading" v-hasPermi="['statistics:trade:export']"> <Icon icon="ep:download" class="mr-1" />导出 </el-button>
           </ShortcutDateRangePicker>
         </div>
       </template>
@@ -87,12 +63,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.turnoverPrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.turnoverPrice,
-                trendSummary?.reference?.turnoverPrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.turnoverPrice, trendSummary?.reference?.turnoverPrice)"
           />
         </el-col>
         <el-col :md="6" :sm="12" :xs="24">
@@ -105,12 +76,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.orderPayPrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.orderPayPrice,
-                trendSummary?.reference?.orderPayPrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.orderPayPrice, trendSummary?.reference?.orderPayPrice)"
           />
         </el-col>
         <el-col :md="6" :sm="12" :xs="24">
@@ -123,12 +89,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.rechargePrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.rechargePrice,
-                trendSummary?.reference?.rechargePrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.rechargePrice, trendSummary?.reference?.rechargePrice)"
           />
         </el-col>
         <el-col :md="6" :sm="12" :xs="24">
@@ -141,12 +102,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.expensePrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.expensePrice,
-                trendSummary?.reference?.expensePrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.expensePrice, trendSummary?.reference?.expensePrice)"
           />
         </el-col>
         <el-col :md="6" :sm="12" :xs="24">
@@ -159,12 +115,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.walletPayPrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.walletPayPrice,
-                trendSummary?.reference?.walletPayPrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.walletPayPrice, trendSummary?.reference?.walletPayPrice)"
           />
         </el-col>
         <el-col :md="6" :sm="12" :xs="24">
@@ -177,12 +128,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.brokerageSettlementPrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.brokerageSettlementPrice,
-                trendSummary?.reference?.brokerageSettlementPrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.brokerageSettlementPrice, trendSummary?.reference?.brokerageSettlementPrice)"
           />
         </el-col>
         <el-col :md="6" :sm="12" :xs="24">
@@ -195,12 +141,7 @@
             prefix="￥"
             :decimals="2"
             :value="fenToYuan(trendSummary?.value?.afterSaleRefundPrice || 0)"
-            :percent="
-              calculateRelativeRate(
-                trendSummary?.value?.afterSaleRefundPrice,
-                trendSummary?.reference?.afterSaleRefundPrice
-              )
-            "
+            :percent="calculateRelativeRate(trendSummary?.value?.afterSaleRefundPrice, trendSummary?.reference?.afterSaleRefundPrice)"
           />
         </el-col>
       </el-row>

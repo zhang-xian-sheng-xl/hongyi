@@ -11,28 +11,10 @@
   <el-card shadow="never" class="mt-16px">
     <el-table v-loading="loading" :data="list">
       <el-table-column label="序号" align="center" type="index" width="80" fixed="left" />
-      <el-table-column
-        label="客户名称"
-        align="center"
-        prop="customerName"
-        min-width="200"
-        fixed="left"
-      />
+      <el-table-column label="客户名称" align="center" prop="customerName" min-width="200" fixed="left" />
       <el-table-column label="合同名称" align="center" prop="contractName" min-width="200" />
-      <el-table-column
-        label="合同总金额"
-        align="center"
-        prop="totalPrice"
-        min-width="200"
-        :formatter="erpPriceTableColumnFormatter"
-      />
-      <el-table-column
-        label="回款金额"
-        align="center"
-        prop="receivablePrice"
-        min-width="200"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column label="合同总金额" align="center" prop="totalPrice" min-width="200" :formatter="erpPriceTableColumnFormatter" />
+      <el-table-column label="回款金额" align="center" prop="receivablePrice" min-width="200" :formatter="erpPriceTableColumnFormatter" />
       <el-table-column align="center" label="客户来源" prop="source" width="100">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.CRM_CUSTOMER_SOURCE" :value="scope.row.source" />
@@ -45,29 +27,13 @@
       </el-table-column>
       <el-table-column label="负责人" align="center" prop="ownerUserName" min-width="200" />
       <el-table-column label="创建人" align="center" prop="creatorUserName" min-width="200" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        min-width="200"
-      />
-      <el-table-column
-        label="下单日期"
-        align="center"
-        prop="orderDate"
-        :formatter="dateFormatter"
-        min-width="200"
-        fixed="right"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" min-width="200" />
+      <el-table-column label="下单日期" align="center" prop="orderDate" :formatter="dateFormatter" min-width="200" fixed="right" />
     </el-table>
   </el-card>
 </template>
 <script setup lang="ts">
-import {
-  StatisticsCustomerApi,
-  CrmStatisticsCustomerSummaryByDateRespVO
-} from '@/api/crm/statistics/customer'
+import { StatisticsCustomerApi, CrmStatisticsCustomerSummaryByDateRespVO } from '@/api/crm/statistics/customer'
 import { EChartsOption } from 'echarts'
 import { dateFormatter } from '@/utils/formatTime'
 import { erpPriceTableColumnFormatter } from '@/utils'
@@ -131,21 +97,15 @@ const fetchAndFill = async () => {
   const contractSummary = await StatisticsCustomerApi.getContractSummary(props.queryParams)
   // 2.1 更新 Echarts 数据
   if (echartsOption.xAxis && echartsOption.xAxis['data']) {
-    echartsOption.xAxis['data'] = customerCount.map(
-      (s: CrmStatisticsCustomerSummaryByDateRespVO) => s.time
-    )
+    echartsOption.xAxis['data'] = customerCount.map((s: CrmStatisticsCustomerSummaryByDateRespVO) => s.time)
   }
   if (echartsOption.series && echartsOption.series[0] && echartsOption.series[0]['data']) {
-    echartsOption.series[0]['data'] = customerCount.map(
-      (item: CrmStatisticsCustomerSummaryByDateRespVO) => {
-        return {
-          name: item.time,
-          value: item.customerCreateCount
-            ? ((item.customerDealCount / item.customerCreateCount) * 100).toFixed(2)
-            : 0
-        }
+    echartsOption.series[0]['data'] = customerCount.map((item: CrmStatisticsCustomerSummaryByDateRespVO) => {
+      return {
+        name: item.time,
+        value: item.customerCreateCount ? ((item.customerDealCount / item.customerCreateCount) * 100).toFixed(2) : 0
       }
-    )
+    })
   }
   // 2.2 更新列表数据
   list.value = contractSummary

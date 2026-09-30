@@ -5,42 +5,18 @@
   <ContentWrap>
     <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px">
       <el-form-item label="门店手机" prop="phone">
-        <el-input
-          v-model="queryParams.phone"
-          class="!w-240px"
-          clearable
-          placeholder="请输门店手机"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.phone" class="!w-240px" clearable placeholder="请输门店手机" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="门店名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输门店名称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输门店名称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="门店状态" prop="status">
         <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="门店状态">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker
-          v-model="queryParams.createTime"
-          class="!w-240px"
-          end-placeholder="结束日期"
-          start-placeholder="开始日期"
-          type="datetimerange"
-          value-format="YYYY-MM-DD HH:mm:ss"
-        />
+        <el-date-picker v-model="queryParams.createTime" class="!w-240px" end-placeholder="结束日期" start-placeholder="开始日期" type="datetimerange" value-format="YYYY-MM-DD HH:mm:ss" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery">
@@ -51,12 +27,7 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['trade:delivery:pick-up-store:create']"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="['trade:delivery:pick-up-store:create']" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
@@ -77,48 +48,19 @@
       <el-table-column label="门店手机" min-width="100" prop="phone" />
       <el-table-column label="地址" min-width="100" prop="detailAddress" />
       <el-table-column label="营业时间" min-width="180">
-        <template #default="scope">
-          {{ scope.row.openingTime }} ~ {{ scope.row.closingTime }}
-        </template>
+        <template #default="scope"> {{ scope.row.openingTime }} ~ {{ scope.row.closingTime }} </template>
       </el-table-column>
       <el-table-column align="center" label="开启状态" min-width="100" prop="status">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180" />
       <el-table-column align="center" label="操作" min-width="110">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['trade:delivery:pick-up-store:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['trade:delivery:pick-up-store:update']"
-            link
-            type="primary"
-            @click="openFormBind(scope.row.id)"
-          >
-            绑定店员
-          </el-button>
-          <el-button
-            v-hasPermi="['trade:delivery:pick-up-store:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['trade:delivery:pick-up-store:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['trade:delivery:pick-up-store:update']" link type="primary" @click="openFormBind(scope.row.id)"> 绑定店员 </el-button>
+          <el-button v-hasPermi="['trade:delivery:pick-up-store:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>

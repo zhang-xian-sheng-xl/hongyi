@@ -1,20 +1,9 @@
 <template>
   <Dialog v-model="dialogVisible" title="分配客户">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item label="负责人" prop="ownerUserId">
         <el-select v-model="formData.ownerUserId" class="w-1/1">
-          <el-option
-            v-for="item in userOptions"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+          <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
     </el-form>

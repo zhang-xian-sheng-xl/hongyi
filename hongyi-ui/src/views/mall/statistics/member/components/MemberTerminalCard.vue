@@ -50,9 +50,7 @@ const getMemberTerminalStatisticsList = async () => {
   const list = await MemberStatisticsApi.getMemberTerminalStatisticsList()
   const dictDataList = getIntDictOptions(DICT_TYPE.TERMINAL)
   terminalChartOptions.series![0].data = dictDataList.map((dictData: DictDataType) => {
-    const userCount = list.find(
-      (item: MemberTerminalStatisticsRespVO) => item.terminal === dictData.value
-    )?.userCount
+    const userCount = list.find((item: MemberTerminalStatisticsRespVO) => item.terminal === dictData.value)?.userCount
     return {
       name: dictData.label,
       value: userCount || 0

@@ -2,12 +2,7 @@
   <Dialog v-model="dialogVisible" title="拒绝售后" width="45%">
     <el-form ref="formRef" v-loading="formLoading" :model="formData" label-width="80px">
       <el-form-item label="审批备注">
-        <el-input
-          v-model="formData.auditReason"
-          :rows="3"
-          placeholder="请输入审批备注"
-          type="textarea"
-        />
+        <el-input v-model="formData.auditReason" :rows="3" placeholder="请输入审批备注" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>

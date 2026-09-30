@@ -2,35 +2,13 @@
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
     <!-- 搜索工作栏 -->
     <ContentWrap>
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="82px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="82px">
         <el-form-item label="优惠券名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            class="!w-240px"
-            clearable
-            placeholder="请输入优惠劵名"
-            @keyup="handleQuery"
-          />
+          <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入优惠劵名" @keyup="handleQuery" />
         </el-form-item>
         <el-form-item label="优惠类型" prop="discountType">
-          <el-select
-            v-model="queryParams.discountType"
-            class="!w-240px"
-            clearable
-            placeholder="请选择优惠券类型"
-          >
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_DISCOUNT_TYPE)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+          <el-select v-model="queryParams.discountType" class="!w-240px" clearable placeholder="请选择优惠券类型">
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_DISCOUNT_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -67,26 +45,10 @@
             <dict-tag :type="DICT_TYPE.PROMOTION_COUPON_TAKE_TYPE" :value="scope.row.takeType" />
           </template>
         </el-table-column>
-        <el-table-column
-          :formatter="validityTypeFormat"
-          align="center"
-          label="使用时间"
-          prop="validityType"
-          width="185"
-        />
+        <el-table-column :formatter="validityTypeFormat" align="center" label="使用时间" prop="validityType" width="185" />
         <el-table-column align="center" label="发放数量" prop="totalCount" />
-        <el-table-column
-          :formatter="remainedCountFormat"
-          align="center"
-          label="剩余数量"
-          prop="totalCount"
-        />
-        <el-table-column
-          :formatter="takeLimitCountFormat"
-          align="center"
-          label="领取上限"
-          prop="takeLimitCount"
-        />
+        <el-table-column :formatter="remainedCountFormat" align="center" label="剩余数量" prop="totalCount" />
+        <el-table-column :formatter="takeLimitCountFormat" align="center" label="领取上限" prop="takeLimitCount" />
         <el-table-column align="center" label="状态" prop="status">
           <template #default="scope">
             <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
@@ -94,12 +56,7 @@
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer>
       <el-button :disabled="formLoading" type="primary" @click="submitForm">确 定</el-button>
@@ -109,12 +66,7 @@
 </template>
 <script lang="ts" setup>
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
-import {
-  discountFormat,
-  remainedCountFormat,
-  takeLimitCountFormat,
-  validityTypeFormat
-} from '@/views/mall/promotion/coupon/formatter'
+import { discountFormat, remainedCountFormat, takeLimitCountFormat, validityTypeFormat } from '@/views/mall/promotion/coupon/formatter'
 import * as CouponTemplateApi from '@/api/mall/promotion/coupon/couponTemplate'
 import { CouponTemplateTakeTypeEnum } from '@/utils/constants'
 

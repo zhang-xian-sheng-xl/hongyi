@@ -1,21 +1,10 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="父级分类" prop="parentId">
         <el-select v-model="formData.parentId" placeholder="请选择上级分类">
           <el-option :key="0" label="顶级分类" :value="0" />
-          <el-option
-            v-for="item in productCategoryList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+          <el-option v-for="item in productCategoryList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="名称" prop="name">

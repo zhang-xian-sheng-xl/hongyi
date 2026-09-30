@@ -2,28 +2,13 @@
 <template>
   <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px" :disabled="isDetail">
     <el-form-item label="商品排序" prop="sort">
-      <el-input-number
-        v-model="formData.sort"
-        :min="0"
-        placeholder="请输入商品排序"
-        class="w-80!"
-      />
+      <el-input-number v-model="formData.sort" :min="0" placeholder="请输入商品排序" class="w-80!" />
     </el-form-item>
     <el-form-item label="赠送积分" prop="giveIntegral">
-      <el-input-number
-        v-model="formData.giveIntegral"
-        :min="0"
-        placeholder="请输入赠送积分"
-        class="w-80!"
-      />
+      <el-input-number v-model="formData.giveIntegral" :min="0" placeholder="请输入赠送积分" class="w-80!" />
     </el-form-item>
     <el-form-item label="虚拟销量" prop="virtualSalesCount">
-      <el-input-number
-        v-model="formData.virtualSalesCount"
-        :min="0"
-        placeholder="请输入虚拟销量"
-        class="w-80!"
-      />
+      <el-input-number v-model="formData.virtualSalesCount" :min="0" placeholder="请输入虚拟销量" class="w-80!" />
     </el-form-item>
   </el-form>
 </template>

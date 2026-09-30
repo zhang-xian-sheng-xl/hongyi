@@ -2,27 +2,10 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="80px"
-      @submit.prevent
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="80px" @submit.prevent>
       <el-form-item label="标识符" prop="identifier">
-        <el-select
-          v-model="queryParams.identifier"
-          placeholder="请选择服务标识符"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="service in serviceThingModels"
-            :key="service.identifier"
-            :label="`${service.name}(${service.identifier})`"
-            :value="service.identifier!"
-          />
+        <el-select v-model="queryParams.identifier" placeholder="请选择服务标识符" clearable class="!w-240px">
+          <el-option v-for="service in serviceThingModels" :key="service.identifier" :label="`${service.name}(${service.identifier})`" :value="service.identifier!" />
         </el-select>
       </el-form-item>
       <el-form-item label="时间范围" prop="times">
@@ -87,9 +70,7 @@
       <el-table-column label="输出参数" align="center" prop="outputParams">
         <template #default="scope">
           <span v-if="scope.row.reply">
-            {{
-              `{"code":${scope.row.reply.code},"msg":"${scope.row.reply.msg}","data":${scope.row.reply.data}\}`
-            }}
+            {{ `{"code":${scope.row.reply.code},"msg":"${scope.row.reply.msg}","data":${scope.row.reply.data}\}` }}
           </span>
           <span v-else>-</span>
         </template>
@@ -97,12 +78,7 @@
     </el-table>
 
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 
@@ -110,11 +86,7 @@
 import { DeviceApi } from '@/api/iot/device/device'
 import { ThingModelData } from '@/api/iot/thingmodel'
 import { formatDate, defaultShortcuts } from '@/utils/formatTime'
-import {
-  getThingModelServiceCallTypeLabel,
-  IotDeviceMessageMethodEnum,
-  IoTThingModelTypeEnum
-} from '@/views/iot/utils/constants'
+import { getThingModelServiceCallTypeLabel, IotDeviceMessageMethodEnum, IoTThingModelTypeEnum } from '@/views/iot/utils/constants'
 
 const props = defineProps<{
   deviceId: number
@@ -136,9 +108,7 @@ const queryFormRef = ref() // 搜索的表单
 
 /** 服务类型的物模型数据 */
 const serviceThingModels = computed(() => {
-  return props.thingModelList.filter(
-    (item: ThingModelData) => item.type === IoTThingModelTypeEnum.SERVICE
-  )
+  return props.thingModelList.filter((item: ThingModelData) => item.type === IoTThingModelTypeEnum.SERVICE)
 })
 
 /** 查询列表 */
@@ -171,18 +141,14 @@ const resetQuery = () => {
 /** 获取服务名称 */
 const getServiceName = (identifier: string | undefined) => {
   if (!identifier) return '-'
-  const service = serviceThingModels.value.find(
-    (item: ThingModelData) => item.identifier === identifier
-  )
+  const service = serviceThingModels.value.find((item: ThingModelData) => item.identifier === identifier)
   return service?.name || identifier
 }
 
 /** 获取调用方式 */
 const getCallType = (identifier: string | undefined) => {
   if (!identifier) return '-'
-  const service = serviceThingModels.value.find(
-    (item: ThingModelData) => item.identifier === identifier
-  )
+  const service = serviceThingModels.value.find((item: ThingModelData) => item.identifier === identifier)
   if (!service?.service?.callType) return '-'
   return getThingModelServiceCallTypeLabel(service.service.callType) || '-'
 }

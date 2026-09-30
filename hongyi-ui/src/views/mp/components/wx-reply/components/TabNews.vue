@@ -21,12 +21,7 @@
         </el-row>
       </el-col>
       <el-dialog title="选择图文" v-model="showDialog" width="90%" append-to-body destroy-on-close>
-        <WxMaterialSelect
-          type="news"
-          :account-id="reply.accountId"
-          :newsType="newsType"
-          @select-material="selectMaterial"
-        />
+        <WxMaterialSelect type="news" :account-id="reply.accountId" :newsType="newsType" @select-material="selectMaterial" />
       </el-dialog>
     </el-row>
   </div>

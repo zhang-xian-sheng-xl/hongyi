@@ -3,29 +3,12 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="85px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="85px">
       <el-form-item label="推广员编号" prop="bindUserId">
-        <el-input
-          v-model="queryParams.bindUserId"
-          class="!w-240px"
-          clearable
-          placeholder="请输入推广员编号"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.bindUserId" class="!w-240px" clearable placeholder="请输入推广员编号" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="推广资格" prop="brokerageEnabled">
-        <el-select
-          v-model="queryParams.brokerageEnabled"
-          class="!w-240px"
-          clearable
-          placeholder="请选择推广资格"
-        >
+        <el-select v-model="queryParams.brokerageEnabled" class="!w-240px" clearable placeholder="请选择推广资格">
           <el-option :value="true" label="有" />
           <el-option :value="false" label="无" />
         </el-select>
@@ -50,12 +33,7 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['trade:brokerage-user:create']"
-          plain
-          type="primary"
-          @click="openCreateUserForm"
-        >
+        <el-button v-hasPermi="['trade:brokerage-user:create']" plain type="primary" @click="openCreateUserForm">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
@@ -74,41 +52,12 @@
       </el-table-column>
       <el-table-column align="center" label="昵称" min-width="80px" prop="nickname" />
       <el-table-column align="center" label="推广人数" prop="brokerageUserCount" width="80px" />
-      <el-table-column
-        align="center"
-        label="推广订单数量"
-        min-width="110px"
-        prop="brokerageOrderCount"
-      />
-      <el-table-column
-        :formatter="fenToYuanFormat"
-        align="center"
-        label="推广订单金额"
-        min-width="110px"
-        prop="brokerageOrderPrice"
-      />
-      <el-table-column
-        :formatter="fenToYuanFormat"
-        align="center"
-        label="已提现金额"
-        min-width="100px"
-        prop="withdrawPrice"
-      />
+      <el-table-column align="center" label="推广订单数量" min-width="110px" prop="brokerageOrderCount" />
+      <el-table-column :formatter="fenToYuanFormat" align="center" label="推广订单金额" min-width="110px" prop="brokerageOrderPrice" />
+      <el-table-column :formatter="fenToYuanFormat" align="center" label="已提现金额" min-width="100px" prop="withdrawPrice" />
       <el-table-column align="center" label="已提现次数" min-width="100px" prop="withdrawCount" />
-      <el-table-column
-        :formatter="fenToYuanFormat"
-        align="center"
-        label="未提现金额"
-        min-width="100px"
-        prop="price"
-      />
-      <el-table-column
-        :formatter="fenToYuanFormat"
-        align="center"
-        label="冻结中佣金"
-        min-width="100px"
-        prop="frozenPrice"
-      />
+      <el-table-column :formatter="fenToYuanFormat" align="center" label="未提现金额" min-width="100px" prop="price" />
+      <el-table-column :formatter="fenToYuanFormat" align="center" label="冻结中佣金" min-width="100px" prop="frozenPrice" />
       <el-table-column align="center" label="推广资格" min-width="80px" prop="brokerageEnabled">
         <template #default="scope">
           <el-switch
@@ -121,30 +70,13 @@
           />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="成为推广员时间"
-        prop="brokerageTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="成为推广员时间" prop="brokerageTime" width="180px" />
       <el-table-column align="center" label="上级推广员编号" prop="bindUserId" width="150px" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="推广员绑定时间"
-        prop="bindUserTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="推广员绑定时间" prop="bindUserTime" width="180px" />
       <el-table-column align="center" fixed="right" label="操作" width="150px">
         <template #default="scope">
           <el-dropdown
-            v-hasPermi="[
-              'trade:brokerage-user:user-query',
-              'trade:brokerage-user:order-query',
-              'trade:brokerage-user:update-bind-user',
-              'trade:brokerage-user:clear-bind-user'
-            ]"
+            v-hasPermi="['trade:brokerage-user:user-query', 'trade:brokerage-user:order-query', 'trade:brokerage-user:update-bind-user', 'trade:brokerage-user:clear-bind-user']"
             @command="(command) => handleCommand(command, scope.row)"
           >
             <el-button link type="primary">
@@ -153,32 +85,10 @@
             </el-button>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item
-                  v-if="checkPermi(['trade:brokerage-user:user-query'])"
-                  command="openBrokerageUserTable"
-                >
-                  推广人
-                </el-dropdown-item>
-                <el-dropdown-item
-                  v-if="checkPermi(['trade:brokerage-user:order-query'])"
-                  command="openBrokerageOrderTable"
-                >
-                  推广订单
-                </el-dropdown-item>
-                <el-dropdown-item
-                  v-if="checkPermi(['trade:brokerage-user:update-bind-user'])"
-                  command="openUpdateBindUserForm"
-                >
-                  修改上级推广人
-                </el-dropdown-item>
-                <el-dropdown-item
-                  v-if="
-                    scope.row.bindUserId && checkPermi(['trade:brokerage-user:clear-bind-user'])
-                  "
-                  command="handleClearBindUser"
-                >
-                  清除上级推广人
-                </el-dropdown-item>
+                <el-dropdown-item v-if="checkPermi(['trade:brokerage-user:user-query'])" command="openBrokerageUserTable"> 推广人 </el-dropdown-item>
+                <el-dropdown-item v-if="checkPermi(['trade:brokerage-user:order-query'])" command="openBrokerageOrderTable"> 推广订单 </el-dropdown-item>
+                <el-dropdown-item v-if="checkPermi(['trade:brokerage-user:update-bind-user'])" command="openUpdateBindUserForm"> 修改上级推广人 </el-dropdown-item>
+                <el-dropdown-item v-if="scope.row.bindUserId && checkPermi(['trade:brokerage-user:clear-bind-user'])" command="handleClearBindUser"> 清除上级推广人 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -186,12 +96,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
   <!-- 修改上级推广人表单 -->
   <BrokerageUserUpdateForm ref="updateFormRef" @success="getList" />

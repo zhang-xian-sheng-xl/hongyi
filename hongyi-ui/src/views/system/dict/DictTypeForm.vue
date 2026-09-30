@@ -1,29 +1,15 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="字典名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入字典名称" />
       </el-form-item>
       <el-form-item label="字典类型" prop="type">
-        <el-input
-          v-model="formData.type"
-          :disabled="typeof formData.id !== 'undefined'"
-          placeholder="请输入参数名称"
-        />
+        <el-input v-model="formData.type" :disabled="typeof formData.id !== 'undefined'" placeholder="请输入参数名称" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

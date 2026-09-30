@@ -1,32 +1,12 @@
 <template>
-
-
   <!-- 搜索 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="表名称" prop="tableName">
-        <el-input
-          v-model="queryParams.tableName"
-          class="!w-240px"
-          clearable
-          placeholder="请输入表名称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.tableName" class="!w-240px" clearable placeholder="请输入表名称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="表描述" prop="tableComment">
-        <el-input
-          v-model="queryParams.tableComment"
-          class="!w-240px"
-          clearable
-          placeholder="请输入表描述"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.tableComment" class="!w-240px" clearable placeholder="请输入表描述" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -52,12 +32,7 @@
           <Icon class="mr-5px" icon="ep:zoom-in" />
           导入
         </el-button>
-        <el-button
-          v-hasPermi="['infra:codegen:delete']"
-          type="danger"
-          :disabled="checkedIds.length === 0"
-          @click="handleDeleteBatch"
-        >
+        <el-button v-hasPermi="['infra:codegen:delete']" type="danger" :disabled="checkedIds.length === 0" @click="handleDeleteBatch">
           <Icon class="mr-5px" icon="ep:delete" />
           批量删除
         </el-button>
@@ -71,86 +46,26 @@
       <el-table-column type="selection" width="55" />
       <el-table-column align="center" label="数据源">
         <template #default="scope">
-          {{
-            dataSourceConfigList.find((config) => config.id === scope.row.dataSourceConfigId)?.name
-          }}
+          {{ dataSourceConfigList.find((config) => config.id === scope.row.dataSourceConfigId)?.name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="表名称" prop="tableName" width="200" />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="表描述"
-        prop="tableComment"
-        width="200"
-      />
+      <el-table-column :show-overflow-tooltip="true" align="center" label="表描述" prop="tableComment" width="200" />
       <el-table-column align="center" label="实体" prop="className" width="200" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="更新时间"
-        prop="createTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180" />
+      <el-table-column :formatter="dateFormatter" align="center" label="更新时间" prop="createTime" width="180" />
       <el-table-column align="center" fixed="right" label="操作" width="300px">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['infra:codegen:preview']"
-            link
-            type="primary"
-            @click="handlePreview(scope.row)"
-          >
-            预览
-          </el-button>
-          <el-button
-            v-hasPermi="['infra:codegen:update']"
-            link
-            type="primary"
-            @click="handleUpdate(scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['infra:codegen:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
-          <el-button
-            v-hasPermi="['infra:codegen:update']"
-            link
-            type="primary"
-            @click="handleSyncDB(scope.row)"
-          >
-            同步
-          </el-button>
-          <el-button
-            v-hasPermi="['infra:codegen:download']"
-            link
-            type="primary"
-            @click="handleGenTable(scope.row)"
-          >
-            生成代码
-          </el-button>
+          <el-button v-hasPermi="['infra:codegen:preview']" link type="primary" @click="handlePreview(scope.row)"> 预览 </el-button>
+          <el-button v-hasPermi="['infra:codegen:update']" link type="primary" @click="handleUpdate(scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['infra:codegen:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
+          <el-button v-hasPermi="['infra:codegen:update']" link type="primary" @click="handleSyncDB(scope.row)"> 同步 </el-button>
+          <el-button v-hasPermi="['infra:codegen:download']" link type="primary" @click="handleGenTable(scope.row)"> 生成代码 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 弹窗：导入表 -->

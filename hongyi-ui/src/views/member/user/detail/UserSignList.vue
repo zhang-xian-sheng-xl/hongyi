@@ -1,30 +1,12 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="签到用户" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          placeholder="请输入签到用户"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.nickname" placeholder="请输入签到用户" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="签到天数" prop="day">
-        <el-input
-          v-model="queryParams.day"
-          placeholder="请输入签到天数"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.day" placeholder="请输入签到天数" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="签到时间" prop="createTime">
         <el-date-picker
@@ -48,34 +30,17 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column
-        label="签到天数"
-        align="center"
-        prop="day"
-        :formatter="(_, __, cellValue) => ['第', cellValue, '天'].join(' ')"
-      />
+      <el-table-column label="签到天数" align="center" prop="day" :formatter="(_, __, cellValue) => ['第', cellValue, '天'].join(' ')" />
       <el-table-column label="获得积分" align="center" prop="point" width="100">
         <template #default="scope">
-          <el-tag v-if="scope.row.point > 0" class="ml-2" type="success" effect="dark">
-            +{{ scope.row.point }}
-          </el-tag>
+          <el-tag v-if="scope.row.point > 0" class="ml-2" type="success" effect="dark"> +{{ scope.row.point }} </el-tag>
           <el-tag v-else class="ml-2" type="danger" effect="dark"> {{ scope.row.point }} </el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        label="签到时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="签到时间" align="center" prop="createTime" :formatter="dateFormatter" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

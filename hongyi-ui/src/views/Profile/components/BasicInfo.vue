@@ -16,11 +16,7 @@
 import type { FormRules } from 'element-plus'
 import { FormSchema } from '@/types/form'
 import type { FormExpose } from '@/components/Form'
-import {
-  getUserProfile,
-  updateUserProfile,
-  UserProfileUpdateReqVO
-} from '@/api/system/user/profile'
+import { getUserProfile, updateUserProfile, UserProfileUpdateReqVO } from '@/api/system/user/profile'
 import { useUserStore } from '@/store/modules/user'
 
 defineOptions({ name: 'BasicInfo' })

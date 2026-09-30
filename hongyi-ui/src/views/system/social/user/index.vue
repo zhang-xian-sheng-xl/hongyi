@@ -3,45 +3,17 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="120px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="120px">
       <el-form-item label="社交平台" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          class="!w-240px"
-          clearable
-          placeholder="请选择社交平台"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SOCIAL_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" class="!w-240px" clearable placeholder="请选择社交平台">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SOCIAL_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="用户昵称" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          class="!w-240px"
-          clearable
-          placeholder="请输入用户昵称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.nickname" class="!w-240px" clearable placeholder="请输入用户昵称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="社交 openid" prop="openid">
-        <el-input
-          v-model="queryParams.openid"
-          class="!w-240px"
-          clearable
-          placeholder="请输入社交 openid"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.openid" class="!w-240px" clearable placeholder="请输入社交 openid" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -82,40 +54,16 @@
           <el-image :src="row.avatar" class="h-30px w-30px" @click="imagePreview(row.avatar)" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180px"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="更新时间"
-        prop="updateTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
+      <el-table-column :formatter="dateFormatter" align="center" label="更新时间" prop="updateTime" width="180px" />
       <el-table-column align="center" fixed="right" label="操作">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['system:social-user:query']"
-            link
-            type="primary"
-            @click="openDetail(scope.row.id)"
-          >
-            详情
-          </el-button>
+          <el-button v-hasPermi="['system:social-user:query']" link type="primary" @click="openDetail(scope.row.id)"> 详情 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：详情 -->

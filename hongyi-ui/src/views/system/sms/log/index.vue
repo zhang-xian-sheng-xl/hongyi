@@ -3,111 +3,38 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="100px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
       <el-form-item label="手机号" prop="mobile">
-        <el-input
-          v-model="queryParams.mobile"
-          placeholder="请输入手机号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.mobile" placeholder="请输入手机号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="短信渠道" prop="channelId">
-        <el-select
-          v-model="queryParams.channelId"
-          placeholder="请选择短信渠道"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="channel in channelList"
-            :key="channel.id"
-            :value="channel.id"
-            :label="
-              channel.signature +
-              `【 ${getDictLabel(DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE, channel.code)}】`
-            "
-          />
+        <el-select v-model="queryParams.channelId" placeholder="请选择短信渠道" clearable class="!w-240px">
+          <el-option v-for="channel in channelList" :key="channel.id" :value="channel.id" :label="channel.signature + `【 ${getDictLabel(DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE, channel.code)}】`" />
         </el-select>
       </el-form-item>
       <el-form-item label="模板编号" prop="templateId">
-        <el-input
-          v-model="queryParams.templateId"
-          placeholder="请输入模板编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.templateId" placeholder="请输入模板编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="发送状态" prop="sendStatus">
-        <el-select
-          v-model="queryParams.sendStatus"
-          placeholder="请选择发送状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_SEND_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.sendStatus" placeholder="请选择发送状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_SEND_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="发送时间" prop="sendTime">
-        <el-date-picker
-          v-model="queryParams.sendTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          class="!w-240px"
-        />
+        <el-date-picker v-model="queryParams.sendTime" value-format="YYYY-MM-DD HH:mm:ss" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" class="!w-240px" />
       </el-form-item>
       <el-form-item label="接收状态" prop="receiveStatus">
-        <el-select
-          v-model="queryParams.receiveStatus"
-          placeholder="请选择接收状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_RECEIVE_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.receiveStatus" placeholder="请选择接收状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_RECEIVE_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="接收时间" prop="receiveTime">
-        <el-date-picker
-          v-model="queryParams.receiveTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          class="!w-240px"
-        />
+        <el-date-picker v-model="queryParams.receiveTime" value-format="YYYY-MM-DD HH:mm:ss" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['system:sms-log:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['system:sms-log:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -116,13 +43,7 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="手机号" align="center" prop="mobile" width="120">
         <template #default="scope">
           <div>{{ scope.row.mobile }}</div>
@@ -161,24 +82,12 @@
       </el-table-column>
       <el-table-column label="操作" align="center" fixed="right" class-name="fixed-width">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openDetail(scope.row)"
-            v-hasPermi="['system:sms-log:query']"
-          >
-            详情
-          </el-button>
+          <el-button link type="primary" @click="openDetail(scope.row)" v-hasPermi="['system:sms-log:query']"> 详情 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：详情 -->

@@ -2,48 +2,23 @@
   <el-row :gutter="20">
     <el-col :span="16">
       <ContentWrap title="申请信息">
-        <el-form
-          ref="formRef"
-          v-loading="formLoading"
-          :model="formData"
-          :rules="formRules"
-          label-width="80px"
-        >
+        <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
           <el-form-item label="请假类型" prop="type">
             <el-select v-model="formData.type" clearable placeholder="请选择请假类型">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.BPM_OA_LEAVE_TYPE)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BPM_OA_LEAVE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <el-form-item label="开始时间" prop="startTime">
-            <el-date-picker
-              v-model="formData.startTime"
-              clearable
-              placeholder="请选择开始时间"
-              type="datetime"
-              value-format="x"
-            />
+            <el-date-picker v-model="formData.startTime" clearable placeholder="请选择开始时间" type="datetime" value-format="x" />
           </el-form-item>
           <el-form-item label="结束时间" prop="endTime">
-            <el-date-picker
-              v-model="formData.endTime"
-              clearable
-              placeholder="请选择结束时间"
-              type="datetime"
-              value-format="x"
-            />
+            <el-date-picker v-model="formData.endTime" clearable placeholder="请选择结束时间" type="datetime" value-format="x" />
           </el-form-item>
           <el-form-item label="原因" prop="reason">
             <el-input v-model="formData.reason" placeholder="请输入请假原因" type="textarea" />
           </el-form-item>
           <el-form-item>
-            <el-button :disabled="formLoading" type="primary" @click="submitForm">
-              确 定
-            </el-button>
+            <el-button :disabled="formLoading" type="primary" @click="submitForm"> 确 定 </el-button>
           </el-form-item>
         </el-form>
       </ContentWrap>
@@ -52,12 +27,7 @@
     <!-- 审批相关：流程信息 -->
     <el-col :span="8">
       <ContentWrap title="审批流程" :bodyStyle="{ padding: '0 20px 0' }">
-        <ProcessInstanceTimeline
-          ref="timelineRef"
-          :activity-nodes="activityNodes"
-          :show-status-icon="false"
-          @select-user-confirm="selectUserConfirm"
-        />
+        <ProcessInstanceTimeline ref="timelineRef" :activity-nodes="activityNodes" :show-status-icon="false" @select-user-confirm="selectUserConfirm" />
       </ContentWrap>
     </el-col>
   </el-row>
@@ -113,10 +83,7 @@ const submitForm = async () => {
   // 1.2 审批相关：校验指定审批人
   if (startUserSelectTasks.value?.length > 0) {
     for (const userTask of startUserSelectTasks.value) {
-      if (
-        Array.isArray(startUserSelectAssignees.value[userTask.id]) &&
-        startUserSelectAssignees.value[userTask.id].length === 0
-      ) {
+      if (Array.isArray(startUserSelectAssignees.value[userTask.id]) && startUserSelectAssignees.value[userTask.id].length === 0) {
         return message.warning(`请选择${userTask.name}的审批人`)
       }
     }
@@ -158,16 +125,11 @@ const getApprovalDetail = async () => {
     activityNodes.value = data.activityNodes
 
     // 获取发起人自选的任务
-    startUserSelectTasks.value = data.activityNodes?.filter(
-      (node: ApprovalNodeInfo) => CandidateStrategy.START_USER_SELECT === node.candidateStrategy
-    )
+    startUserSelectTasks.value = data.activityNodes?.filter((node: ApprovalNodeInfo) => CandidateStrategy.START_USER_SELECT === node.candidateStrategy)
     // 恢复之前的选择审批人
     if (startUserSelectTasks.value?.length > 0) {
       for (const node of startUserSelectTasks.value) {
-        if (
-          tempStartUserSelectAssignees.value[node.id] &&
-          tempStartUserSelectAssignees.value[node.id].length > 0
-        ) {
+        if (tempStartUserSelectAssignees.value[node.id] && tempStartUserSelectAssignees.value[node.id].length > 0) {
           startUserSelectAssignees.value[node.id] = tempStartUserSelectAssignees.value[node.id]
         } else {
           startUserSelectAssignees.value[node.id] = []
@@ -214,10 +176,7 @@ const getDetail = async (id: number) => {
 /** 初始化 */
 onMounted(async () => {
   // TODO @小北：这里可以简化，统一通过 getApprovalDetail 处理么？
-  const processDefinitionDetail = await DefinitionApi.getProcessDefinition(
-    undefined,
-    processDefineKey
-  )
+  const processDefinitionDetail = await DefinitionApi.getProcessDefinition(undefined, processDefineKey)
 
   if (!processDefinitionDetail) {
     message.error('OA 请假的流程模型未配置，请检查！')

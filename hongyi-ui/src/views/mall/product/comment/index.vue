@@ -3,13 +3,7 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="回复状态" prop="replyStatus">
         <el-select v-model="queryParams.replyStatus" class="!w-240px">
           <el-option label="已回复" :value="true" />
@@ -17,28 +11,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="商品名称" prop="spuName">
-        <el-input
-          v-model="queryParams.spuName"
-          placeholder="请输入商品名称"
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.spuName" placeholder="请输入商品名称" @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="用户名称" prop="userNickname">
-        <el-input
-          v-model="queryParams.userNickname"
-          placeholder="请输入用户名称"
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.userNickname" placeholder="请输入用户名称" @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="订单编号" prop="orderId">
-        <el-input
-          v-model="queryParams.orderId"
-          placeholder="请输入订单编号"
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.orderId" placeholder="请输入订单编号" @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="评论时间" prop="createTime">
         <el-date-picker
@@ -60,12 +39,7 @@
           <Icon icon="ep:refresh" class="mr-5px" />
           重置
         </el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['product:comment:create']"
-        >
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['product:comment:create']">
           <Icon icon="ep:plus" class="mr-5px" />
           添加虚拟评论
         </el-button>
@@ -80,21 +54,9 @@
       <el-table-column label="商品信息" align="center" min-width="400">
         <template #default="scope">
           <div class="row flex items-center gap-x-4px">
-            <el-image
-              v-if="scope.row.skuPicUrl"
-              :src="scope.row.skuPicUrl"
-              :preview-src-list="[scope.row.skuPicUrl]"
-              class="h-40px w-40px shrink-0"
-              preview-teleported
-            />
+            <el-image v-if="scope.row.skuPicUrl" :src="scope.row.skuPicUrl" :preview-src-list="[scope.row.skuPicUrl]" class="h-40px w-40px shrink-0" preview-teleported />
             <div>{{ scope.row.spuName }}</div>
-            <el-tag
-              v-for="property in scope.row.skuProperties"
-              :key="property.propertyId"
-              class="mr-10px"
-            >
-              {{ property.propertyName }}: {{ property.valueName }}
-            </el-tag>
+            <el-tag v-for="property in scope.row.skuProperties" :key="property.propertyId" class="mr-10px"> {{ property.propertyName }}: {{ property.valueName }} </el-tag>
           </div>
         </template>
       </el-table-column>
@@ -105,63 +67,25 @@
         <template #default="scope">
           <p>{{ scope.row.content }}</p>
           <div class="flex justify-center gap-x-4px">
-            <el-image
-              v-for="(picUrl, index) in scope.row.picUrls"
-              :key="index"
-              :src="picUrl"
-              :preview-src-list="scope.row.picUrls"
-              :initial-index="index"
-              class="h-40px w-40px"
-              preview-teleported
-            />
+            <el-image v-for="(picUrl, index) in scope.row.picUrls" :key="index" :src="picUrl" :preview-src-list="scope.row.picUrls" :initial-index="index" class="h-40px w-40px" preview-teleported />
           </div>
         </template>
       </el-table-column>
-      <el-table-column
-        label="回复内容"
-        align="center"
-        prop="replyContent"
-        min-width="250"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        label="评论时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180"
-      />
+      <el-table-column label="回复内容" align="center" prop="replyContent" min-width="250" show-overflow-tooltip />
+      <el-table-column label="评论时间" align="center" prop="createTime" :formatter="dateFormatter" width="180" />
       <el-table-column label="是否展示" align="center" width="80px">
         <template #default="scope">
-          <el-switch
-            v-model="scope.row.visible"
-            :active-value="true"
-            :inactive-value="false"
-            v-hasPermi="['product:comment:update']"
-            @change="handleVisibleChange(scope.row)"
-          />
+          <el-switch v-model="scope.row.visible" :active-value="true" :inactive-value="false" v-hasPermi="['product:comment:update']" @change="handleVisibleChange(scope.row)" />
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="60px" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="handleReply(scope.row.id)"
-            v-hasPermi="['product:comment:update']"
-          >
-            回复
-          </el-button>
+          <el-button link type="primary" @click="handleReply(scope.row.id)" v-hasPermi="['product:comment:update']"> 回复 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

@@ -17,62 +17,34 @@
 
     <!-- 条件列表 -->
     <div v-else class="space-y-16px">
-      <div
-        v-for="(condition, conditionIndex) in subGroup"
-        :key="`condition-${conditionIndex}`"
-        class="relative"
-      >
+      <div v-for="(condition, conditionIndex) in subGroup" :key="`condition-${conditionIndex}`" class="relative">
         <!-- 条件配置 -->
-        <div
-          class="border border-[var(--el-border-color-lighter)] rounded-6px bg-[var(--el-fill-color-blank)] shadow-sm"
-        >
-          <div
-            class="flex items-center justify-between p-12px bg-[var(--el-fill-color-light)] border-b border-[var(--el-border-color-lighter)] rounded-t-4px"
-          >
+        <div class="border border-[var(--el-border-color-lighter)] rounded-6px bg-[var(--el-fill-color-blank)] shadow-sm">
+          <div class="flex items-center justify-between p-12px bg-[var(--el-fill-color-light)] border-b border-[var(--el-border-color-lighter)] rounded-t-4px">
             <div class="flex items-center gap-8px">
-              <div
-                class="w-20px h-20px bg-blue-500 text-white rounded-full flex items-center justify-center text-10px font-bold"
-              >
+              <div class="w-20px h-20px bg-blue-500 text-white rounded-full flex items-center justify-center text-10px font-bold">
                 {{ conditionIndex + 1 }}
               </div>
-              <span class="text-12px font-500 text-[var(--el-text-color-primary)]"
-                >条件 {{ conditionIndex + 1 }}</span
-              >
+              <span class="text-12px font-500 text-[var(--el-text-color-primary)]">条件 {{ conditionIndex + 1 }}</span>
             </div>
-            <el-button
-              type="danger"
-              size="small"
-              text
-              @click="removeCondition(conditionIndex)"
-              v-if="subGroup!.length > 1"
-              class="hover:bg-red-50"
-            >
+            <el-button type="danger" size="small" text @click="removeCondition(conditionIndex)" v-if="subGroup!.length > 1" class="hover:bg-red-50">
               <Icon icon="ep:delete" />
             </el-button>
           </div>
 
           <div class="p-12px">
-            <ConditionConfig
-              :model-value="condition"
-              @update:model-value="(value) => updateCondition(conditionIndex, value)"
-              :trigger-type="triggerType"
-            />
+            <ConditionConfig :model-value="condition" @update:model-value="(value) => updateCondition(conditionIndex, value)" :trigger-type="triggerType" />
           </div>
         </div>
       </div>
 
       <!-- 添加条件按钮 -->
-      <div
-        v-if="subGroup && subGroup.length > 0 && subGroup.length < maxConditions"
-        class="text-center py-16px"
-      >
+      <div v-if="subGroup && subGroup.length > 0 && subGroup.length < maxConditions" class="text-center py-16px">
         <el-button type="primary" plain @click="addCondition">
           <Icon icon="ep:plus" />
           继续添加条件
         </el-button>
-        <span class="block mt-8px text-12px text-[var(--el-text-color-secondary)]">
-          最多可添加 {{ maxConditions }} 个条件
-        </span>
+        <span class="block mt-8px text-12px text-[var(--el-text-color-secondary)]"> 最多可添加 {{ maxConditions }} 个条件 </span>
       </div>
     </div>
   </div>
@@ -83,10 +55,7 @@ import { nextTick } from 'vue'
 import { useVModel } from '@vueuse/core'
 import ConditionConfig from './ConditionConfig.vue'
 import type { TriggerCondition } from '@/api/iot/rule/scene'
-import {
-  IotRuleSceneTriggerConditionTypeEnum,
-  IotRuleSceneTriggerConditionParameterOperatorEnum
-} from '@/views/iot/utils/constants'
+import { IotRuleSceneTriggerConditionTypeEnum, IotRuleSceneTriggerConditionParameterOperatorEnum } from '@/views/iot/utils/constants'
 
 /** 子条件组配置组件 */
 defineOptions({ name: 'SubConditionGroupConfig' })

@@ -1,49 +1,22 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="固件名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入固件名称" />
       </el-form-item>
       <el-form-item label="固件描述" prop="description">
-        <el-input
-          v-model="formData.description"
-          type="textarea"
-          :rows="3"
-          placeholder="请输入固件描述"
-        />
+        <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="请输入固件描述" />
       </el-form-item>
       <el-form-item label="所属产品" prop="productId">
-        <el-select
-          v-model="formData.productId"
-          placeholder="请选择产品"
-          clearable
-          class="!w-100%"
-          :disabled="formType === 'update'"
-        >
-          <el-option
-            v-for="product in productList"
-            :key="product.id"
-            :label="product.name"
-            :value="product.id"
-          />
+        <el-select v-model="formData.productId" placeholder="请选择产品" clearable class="!w-100%" :disabled="formType === 'update'">
+          <el-option v-for="product in productList" :key="product.id" :label="product.name" :value="product.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="版本号" prop="version" v-if="formType === 'create'">
         <el-input v-model="formData.version" placeholder="请输入版本号" />
       </el-form-item>
       <el-form-item label="固件文件" prop="fileUrl" v-if="formType === 'create'">
-        <UploadFile
-          v-model="formData.fileUrl"
-          :file-type="['bin', 'zip', 'pdf']"
-          :file-size="50"
-          :limit="1"
-        />
+        <UploadFile v-model="formData.fileUrl" :file-type="['bin', 'zip', 'pdf']" :file-size="50" :limit="1" />
       </el-form-item>
       <!-- 更新时显示只读信息 -->
       <template v-if="formType === 'update'">
@@ -51,13 +24,7 @@
           <el-input v-model="formData.version" readonly />
         </el-form-item>
         <el-form-item label="固件文件">
-          <el-link
-            type="primary"
-            :href="formData.fileUrl"
-            target="_blank"
-            download
-            v-if="formData.fileUrl"
-          >
+          <el-link type="primary" :href="formData.fileUrl" target="_blank" download v-if="formData.fileUrl">
             <Icon icon="ep:download" class="mr-5px" />
             下载固件文件
           </el-link>

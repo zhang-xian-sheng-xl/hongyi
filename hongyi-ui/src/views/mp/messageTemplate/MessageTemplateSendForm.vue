@@ -8,31 +8,12 @@
         <el-input v-model="templateTitle" disabled />
       </el-form-item>
       <el-form-item label="用户" prop="userId">
-        <el-select
-          v-model="formData.userId"
-          filterable
-          remote
-          reserve-keyword
-          placeholder="请输入用户昵称搜索"
-          :remote-method="searchUser"
-          :loading="userLoading"
-          class="!w-full"
-        >
-          <el-option
-            v-for="user in userList"
-            :key="user.id"
-            :label="user.nickname || user.openid"
-            :value="user.id"
-          />
+        <el-select v-model="formData.userId" filterable remote reserve-keyword placeholder="请输入用户昵称搜索" :remote-method="searchUser" :loading="userLoading" class="!w-full">
+          <el-option v-for="user in userList" :key="user.id" :label="user.nickname || user.openid" :value="user.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="模板数据" prop="data">
-        <el-input
-          v-model="formData.data"
-          type="textarea"
-          :rows="4"
-          placeholder='请输入模板数据（JSON 格式），例如：{"keyword1": {"value": "测试内容"}}'
-        />
+        <el-input v-model="formData.data" type="textarea" :rows="4" placeholder='请输入模板数据（JSON 格式），例如：{"keyword1": {"value": "测试内容"}}' />
       </el-form-item>
       <el-form-item label="跳转链接" prop="url">
         <el-input v-model="formData.url" placeholder="请输入跳转链接" />

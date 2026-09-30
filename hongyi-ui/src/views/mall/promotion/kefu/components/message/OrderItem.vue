@@ -24,12 +24,8 @@
       </div>
       <div class="pay-box flex justify-end pr-5px">
         <div class="flex items-center">
-          <div class="discounts-title pay-color"
-            >共 {{ getMessageContent?.productCount }} 件商品,总金额:
-          </div>
-          <div class="discounts-money pay-color">
-            ￥{{ fenToYuan(getMessageContent?.payPrice) }}
-          </div>
+          <div class="discounts-title pay-color">共 {{ getMessageContent?.productCount }} 件商品,总金额: </div>
+          <div class="discounts-money pay-color"> ￥{{ fenToYuan(getMessageContent?.payPrice) }} </div>
         </div>
       </div>
     </div>
@@ -50,9 +46,7 @@ const props = defineProps<{
   order?: any
 }>()
 
-const getMessageContent = computed(() =>
-  typeof props.message !== 'undefined' ? jsonParse(props!.message!.content) : props.order
-)
+const getMessageContent = computed(() => (typeof props.message !== 'undefined' ? jsonParse(props!.message!.content) : props.order))
 
 /** 查看订单详情 */
 const openDetail = (id: number) => {

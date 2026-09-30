@@ -11,24 +11,14 @@
         此第三方应用请求获得以下权限：
         <el-form-item prop="scopes">
           <el-checkbox-group v-model="formData.scopes">
-            <el-checkbox
-              v-for="scope in queryParams.scopes"
-              :key="scope"
-              :value="scope"
-              class="block mb-[-10px]"
-            >
+            <el-checkbox v-for="scope in queryParams.scopes" :key="scope" :value="scope" class="block mb-[-10px]">
               {{ formatScope(scope) }}
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <!-- 下方的登录按钮 -->
         <el-form-item class="w-full">
-          <el-button
-            :loading="formLoading"
-            class="w-3/5"
-            type="primary"
-            @click.prevent="handleAuthorize(true)"
-          >
+          <el-button :loading="formLoading" class="w-3/5" type="primary" @click.prevent="handleAuthorize(true)">
             <span v-if="!formLoading">同意授权</span>
             <span v-else>授 权 中...</span>
           </el-button>
@@ -160,15 +150,7 @@ const handleAuthorize = async (approved) => {
 
 /** 调用授权 API 接口 */
 const doAuthorize = (autoApprove, checkedScopes, uncheckedScopes) => {
-  return OAuth2Api.authorize(
-    queryParams.responseType,
-    queryParams.clientId,
-    queryParams.redirectUri,
-    queryParams.state,
-    autoApprove,
-    checkedScopes,
-    uncheckedScopes
-  )
+  return OAuth2Api.authorize(queryParams.responseType, queryParams.clientId, queryParams.redirectUri, queryParams.state, autoApprove, checkedScopes, uncheckedScopes)
 }
 
 /** 格式化 scope 文本 */

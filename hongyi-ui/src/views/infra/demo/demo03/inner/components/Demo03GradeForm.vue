@@ -1,11 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    label-width="100px"
-    v-loading="formLoading"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
     <el-form-item label="名字" prop="name">
       <el-input v-model="formData.name" placeholder="请输入名字" />
     </el-form-item>

@@ -1,20 +1,9 @@
 <template>
   <div class="absolute top-0 left-0 right-0 bottom-0 flex">
     <!--表单区域-->
-    <Left
-      ref="leftRef"
-      :is-generating="isGenerating"
-      @submit="submit"
-      @direct-generate="directGenerate"
-    />
+    <Left ref="leftRef" :is-generating="isGenerating" @submit="submit" @direct-generate="directGenerate" />
     <!--右边生成思维导图区域-->
-    <Right
-      ref="rightRef"
-      :generatedContent="generatedContent"
-      :isEnd="isEnd"
-      :isGenerating="isGenerating"
-      :isStart="isStart"
-    />
+    <Right ref="rightRef" :generatedContent="generatedContent" :isEnd="isEnd" :isGenerating="isGenerating" :isStart="isStart" />
   </div>
 </template>
 

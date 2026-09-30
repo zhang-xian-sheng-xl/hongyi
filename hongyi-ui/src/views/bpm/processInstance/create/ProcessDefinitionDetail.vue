@@ -13,23 +13,12 @@
               <el-scrollbar>
                 <el-row>
                   <el-col :span="17">
-                    <form-create
-                      :rule="detailForm.rule"
-                      v-model:api="fApi"
-                      v-model="detailForm.value"
-                      :option="detailForm.option"
-                      @submit="submitForm"
-                    />
+                    <form-create :rule="detailForm.rule" v-model:api="fApi" v-model="detailForm.value" :option="detailForm.option" @submit="submitForm" />
                   </el-col>
 
                   <el-col :span="6" :offset="1">
                     <!-- 流程时间线 -->
-                    <ProcessInstanceTimeline
-                      ref="timelineRef"
-                      :activity-nodes="activityNodes"
-                      :show-status-icon="false"
-                      @select-user-confirm="selectUserConfirm"
-                    />
+                    <ProcessInstanceTimeline ref="timelineRef" :activity-nodes="activityNodes" :show-status-icon="false" @select-user-confirm="selectUserConfirm" />
                   </el-col>
                 </el-row>
               </el-scrollbar>
@@ -39,16 +28,10 @@
           <el-tab-pane label="流程图" name="diagram">
             <div class="form-scroll-area">
               <!-- BPMN 流程图预览 -->
-              <ProcessInstanceBpmnViewer
-                :bpmn-xml="bpmnXML"
-                v-if="BpmModelType.BPMN === selectProcessDefinition.modelType"
-              />
+              <ProcessInstanceBpmnViewer :bpmn-xml="bpmnXML" v-if="BpmModelType.BPMN === selectProcessDefinition.modelType" />
 
               <!-- Simple 流程图预览 -->
-              <ProcessInstanceSimpleViewer
-                :simple-json="simpleJson"
-                v-if="BpmModelType.SIMPLE === selectProcessDefinition.modelType"
-              />
+              <ProcessInstanceSimpleViewer :simple-json="simpleJson" v-if="BpmModelType.SIMPLE === selectProcessDefinition.modelType" />
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -56,16 +39,9 @@
         <!-- 底部操作栏 -->
         <div class="b-t-solid border-t-1px border-[var(--el-border-color)]">
           <!-- 操作栏按钮 -->
-          <div
-            v-if="activeTab === 'form'"
-            class="h-50px bottom-10 text-14px flex items-center color-#32373c dark:color-#fff font-bold btn-container"
-          >
-            <el-button plain type="success" @click="submitForm">
-              <Icon icon="ep:select" />&nbsp; 发起
-            </el-button>
-            <el-button plain type="danger" @click="handleCancel">
-              <Icon icon="ep:close" />&nbsp; 取消
-            </el-button>
+          <div v-if="activeTab === 'form'" class="h-50px bottom-10 text-14px flex items-center color-#32373c dark:color-#fff font-bold btn-container">
+            <el-button plain type="success" @click="submitForm"> <Icon icon="ep:select" />&nbsp; 发起 </el-button>
+            <el-button plain type="danger" @click="handleCancel"> <Icon icon="ep:close" />&nbsp; 取消 </el-button>
           </div>
         </div>
       </el-scrollbar>
@@ -75,11 +51,7 @@
 <script lang="ts" setup>
 import { decodeFields, setConfAndFields2 } from '@/utils/formCreate'
 import { BpmModelType, BpmModelFormType } from '@/utils/constants'
-import {
-  CandidateStrategy,
-  NodeId,
-  FieldPermissionType
-} from '@/components/SimpleProcessDesignerV2/src/consts'
+import { CandidateStrategy, NodeId, FieldPermissionType } from '@/components/SimpleProcessDesignerV2/src/consts'
 import ProcessInstanceBpmnViewer from '../detail/ProcessInstanceBpmnViewer.vue'
 import ProcessInstanceSimpleViewer from '../detail/ProcessInstanceSimpleViewer.vue'
 import ProcessInstanceTimeline from '../detail/ProcessInstanceTimeline.vue'
@@ -199,16 +171,11 @@ const getApprovalDetail = async (row: any) => {
     activityNodes.value = data.activityNodes
 
     // 获取发起人自选的任务
-    startUserSelectTasks.value = data.activityNodes?.filter(
-      (node: ApprovalNodeInfo) => CandidateStrategy.START_USER_SELECT === node.candidateStrategy
-    )
+    startUserSelectTasks.value = data.activityNodes?.filter((node: ApprovalNodeInfo) => CandidateStrategy.START_USER_SELECT === node.candidateStrategy)
     // 恢复之前的选择审批人
     if (startUserSelectTasks.value?.length > 0) {
       for (const node of startUserSelectTasks.value) {
-        if (
-          tempStartUserSelectAssignees.value[node.id] &&
-          tempStartUserSelectAssignees.value[node.id].length > 0
-        ) {
+        if (tempStartUserSelectAssignees.value[node.id] && tempStartUserSelectAssignees.value[node.id].length > 0) {
           startUserSelectAssignees.value[node.id] = tempStartUserSelectAssignees.value[node.id]
         } else {
           startUserSelectAssignees.value[node.id] = []
@@ -268,7 +235,7 @@ const submitForm = async () => {
   if (!fApi.value || !props.selectProcessDefinition) {
     return
   }
-  
+
   try {
     // 流程表单校验
     await fApi.value.validate()
@@ -280,11 +247,7 @@ const submitForm = async () => {
   // 如果有指定审批人，需要校验
   if (startUserSelectTasks.value?.length > 0) {
     for (const userTask of startUserSelectTasks.value) {
-      if (
-        Array.isArray(startUserSelectAssignees.value[userTask.id]) &&
-        startUserSelectAssignees.value[userTask.id].length === 0
-      )
-        return message.warning(`请选择${userTask.name}的候选人`)
+      if (Array.isArray(startUserSelectAssignees.value[userTask.id]) && startUserSelectAssignees.value[userTask.id].length === 0) return message.warning(`请选择${userTask.name}的候选人`)
     }
   }
 
@@ -328,23 +291,13 @@ $button-height: 51px;
 $process-header-height: 105px;
 
 .processInstance-wrap-main {
-  height: calc(
-    100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px
-  );
-  max-height: calc(
-    100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px
-  );
+  height: calc(100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px);
+  max-height: calc(100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px);
   overflow: auto;
 
   .form-scroll-area {
-    height: calc(
-      100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px -
-        $process-header-height - 40px
-    );
-    max-height: calc(
-      100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px -
-        $process-header-height - 40px
-    );
+    height: calc(100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px - $process-header-height - 40px);
+    max-height: calc(100vh - var(--top-tool-height) - var(--tags-view-height) - var(--app-footer-height) - 35px - $process-header-height - 40px);
     overflow: auto;
   }
 }

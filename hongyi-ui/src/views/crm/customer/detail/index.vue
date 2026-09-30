@@ -1,41 +1,13 @@
 <template>
   <CustomerDetailsHeader :customer="customer" :loading="loading">
-    <el-button
-      v-if="permissionListRef?.validateWrite"
-      v-hasPermi="['crm:customer:update']"
-      type="primary"
-      @click="openForm"
-    >
-      编辑
-    </el-button>
-    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer">
-      转移
-    </el-button>
-    <el-button v-if="permissionListRef?.validateWrite" @click="handleUpdateDealStatus">
-      更改成交状态
-    </el-button>
-    <el-button
-      v-if="customer.lockStatus && permissionListRef?.validateOwnerUser"
-      @click="handleUnlock"
-    >
-      解锁
-    </el-button>
-    <el-button
-      v-if="!customer.lockStatus && permissionListRef?.validateOwnerUser"
-      @click="handleLock"
-    >
-      锁定
-    </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" v-hasPermi="['crm:customer:update']" type="primary" @click="openForm"> 编辑 </el-button>
+    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer"> 转移 </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" @click="handleUpdateDealStatus"> 更改成交状态 </el-button>
+    <el-button v-if="customer.lockStatus && permissionListRef?.validateOwnerUser" @click="handleUnlock"> 解锁 </el-button>
+    <el-button v-if="!customer.lockStatus && permissionListRef?.validateOwnerUser" @click="handleLock"> 锁定 </el-button>
     <el-button v-if="!customer.ownerUserId" type="primary" @click="handleReceive"> 领取</el-button>
-    <el-button v-if="!customer.ownerUserId" type="primary" @click="handleDistributeForm">
-      分配
-    </el-button>
-    <el-button
-      v-if="customer.ownerUserId && permissionListRef?.validateOwnerUser"
-      @click="handlePutPool"
-    >
-      放入公海
-    </el-button>
+    <el-button v-if="!customer.ownerUserId" type="primary" @click="handleDistributeForm"> 分配 </el-button>
+    <el-button v-if="customer.ownerUserId && permissionListRef?.validateOwnerUser" @click="handlePutPool"> 放入公海 </el-button>
   </CustomerDetailsHeader>
   <el-col>
     <el-tabs>
@@ -46,27 +18,13 @@
         <CustomerDetailsInfo :customer="customer" />
       </el-tab-pane>
       <el-tab-pane label="联系人" lazy>
-        <ContactList
-          :biz-id="customer.id!"
-          :customer-id="customer.id!"
-          :biz-type="BizTypeEnum.CRM_CUSTOMER"
-        />
+        <ContactList :biz-id="customer.id!" :customer-id="customer.id!" :biz-type="BizTypeEnum.CRM_CUSTOMER" />
       </el-tab-pane>
       <el-tab-pane label="团队成员">
-        <PermissionList
-          ref="permissionListRef"
-          :biz-id="customer.id!"
-          :biz-type="BizTypeEnum.CRM_CUSTOMER"
-          :show-action="!permissionListRef?.isPool || false"
-          @quit-team="close"
-        />
+        <PermissionList ref="permissionListRef" :biz-id="customer.id!" :biz-type="BizTypeEnum.CRM_CUSTOMER" :show-action="!permissionListRef?.isPool || false" @quit-team="close" />
       </el-tab-pane>
       <el-tab-pane label="商机" lazy>
-        <BusinessList
-          :biz-id="customer.id!"
-          :customer-id="customer.id!"
-          :biz-type="BizTypeEnum.CRM_CUSTOMER"
-        />
+        <BusinessList :biz-id="customer.id!" :customer-id="customer.id!" :biz-type="BizTypeEnum.CRM_CUSTOMER" />
       </el-tab-pane>
       <el-tab-pane label="合同" lazy>
         <ContractList :biz-id="customer.id!" :biz-type="BizTypeEnum.CRM_CUSTOMER" />

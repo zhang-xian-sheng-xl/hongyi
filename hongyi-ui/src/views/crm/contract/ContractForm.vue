@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="1280">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="120px">
       <el-row>
         <el-col :span="8">
           <el-form-item label="合同编号" prop="no">
@@ -20,17 +14,8 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="负责人" prop="ownerUserId">
-            <el-select
-              v-model="formData.ownerUserId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in userOptions"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
+            <el-select v-model="formData.ownerUserId" :disabled="formType !== 'create'" class="w-1/1">
+              <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -38,35 +23,15 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="客户名称" prop="customerId">
-            <el-select
-              v-model="formData.customerId"
-              placeholder="请选择客户"
-              class="w-1/1"
-              @change="handleCustomerChange"
-            >
-              <el-option
-                v-for="item in customerList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.customerId" placeholder="请选择客户" class="w-1/1" @change="handleCustomerChange">
+              <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="商机名称" prop="businessId">
-            <el-select
-              @change="handleBusinessChange"
-              :disabled="!formData.customerId"
-              v-model="formData.businessId"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in getBusinessOptions"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id!"
-              />
+            <el-select @change="handleBusinessChange" :disabled="!formData.customerId" v-model="formData.businessId" class="w-1/1">
+              <el-option v-for="item in getBusinessOptions" :key="item.id" :label="item.name" :value="item.id!" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -74,35 +39,17 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="下单日期" prop="orderDate">
-            <el-date-picker
-              v-model="formData.orderDate"
-              placeholder="选择下单日期"
-              type="date"
-              value-format="x"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.orderDate" placeholder="选择下单日期" type="date" value-format="x" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="开始时间" prop="startTime">
-            <el-date-picker
-              v-model="formData.startTime"
-              placeholder="选择开始时间"
-              type="date"
-              value-format="x"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.startTime" placeholder="选择开始时间" type="date" value-format="x" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="结束时间" prop="endTime">
-            <el-date-picker
-              v-model="formData.endTime"
-              placeholder="选择结束时间"
-              type="date"
-              value-format="x"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.endTime" placeholder="选择结束时间" type="date" value-format="x" class="!w-1/1" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -110,28 +57,14 @@
         <el-col :span="8">
           <el-form-item label="公司签约人" prop="signUserId">
             <el-select v-model="formData.signUserId" class="w-1/1">
-              <el-option
-                v-for="item in userOptions"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id!"
-              />
+              <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id!" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="客户签约人" prop="signContactId">
-            <el-select
-              v-model="formData.signContactId"
-              :disabled="!formData.customerId"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in getContactOptions"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.signContactId" :disabled="!formData.customerId" class="w-1/1">
+              <el-option v-for="item in getContactOptions" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -145,44 +78,24 @@
       <ContentWrap>
         <el-tabs v-model="subTabsName" class="-mt-15px -mb-10px">
           <el-tab-pane label="产品清单" name="product">
-            <ContractProductForm
-              ref="productFormRef"
-              :products="formData.products"
-              :disabled="disabled"
-            />
+            <ContractProductForm ref="productFormRef" :products="formData.products" :disabled="disabled" />
           </el-tab-pane>
         </el-tabs>
       </ContentWrap>
       <el-row>
         <el-col :span="8">
           <el-form-item label="产品总金额" prop="totalProductPrice">
-            <el-input
-              disabled
-              v-model="formData.totalProductPrice"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled v-model="formData.totalProductPrice" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="整单折扣（%）" prop="discountPercent">
-            <el-input-number
-              v-model="formData.discountPercent"
-              placeholder="请输入整单折扣"
-              controls-position="right"
-              :min="0"
-              :precision="2"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.discountPercent" placeholder="请输入整单折扣" controls-position="right" :min="0" :precision="2" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="折扣后金额" prop="totalPrice">
-            <el-input
-              disabled
-              v-model="formData.totalPrice"
-              placeholder="请输入商机金额"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled v-model="formData.totalPrice" placeholder="请输入商机金额" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -251,10 +164,7 @@ watch(
       return
     }
     const totalProductPrice = val.products.reduce((prev, curr) => prev + curr.totalPrice, 0)
-    const discountPrice =
-      val.discountPercent != null
-        ? erpPriceMultiply(totalProductPrice, val.discountPercent / 100.0)
-        : 0
+    const discountPrice = val.discountPercent != null ? erpPriceMultiply(totalProductPrice, val.discountPercent / 100.0) : 0
     const totalPrice = totalProductPrice - discountPrice
     // 赋值
     formData.value.totalProductPrice = totalProductPrice
@@ -359,11 +269,7 @@ const handleBusinessChange = async (businessId: number) => {
 }
 
 /** 动态获取客户联系人 */
-const getContactOptions = computed(() =>
-  contactList.value.filter((item) => item.customerId == formData.value.customerId)
-)
+const getContactOptions = computed(() => contactList.value.filter((item) => item.customerId == formData.value.customerId))
 /** 动态获取商机 */
-const getBusinessOptions = computed(() =>
-  businessList.value.filter((item) => item.customerId == formData.value.customerId)
-)
+const getBusinessOptions = computed(() => businessList.value.filter((item) => item.customerId == formData.value.customerId))
 </script>

@@ -1,33 +1,14 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="140px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="140px">
       <el-form-item label="短信渠道编号" prop="channelId">
         <el-select v-model="formData.channelId" placeholder="请选择短信渠道编号">
-          <el-option
-            v-for="channel in channelList"
-            :key="channel.id"
-            :label="
-              channel.signature +
-              `【 ${getDictLabel(DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE, channel.code)}】`
-            "
-            :value="channel.id"
-          />
+          <el-option v-for="channel in channelList" :key="channel.id" :label="channel.signature + `【 ${getDictLabel(DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE, channel.code)}】`" :value="channel.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="短信类型" prop="type">
         <el-select v-model="formData.type" placeholder="请选择短信类型">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_TEMPLATE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_TEMPLATE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="模板编号" prop="code">
@@ -41,11 +22,7 @@
       </el-form-item>
       <el-form-item label="开启状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

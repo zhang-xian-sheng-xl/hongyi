@@ -4,75 +4,26 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="客户" prop="customerId">
-        <el-select
-          v-model="queryParams.customerId"
-          class="!w-240px"
-          clearable
-          lable-key="name"
-          placeholder="请选择客户"
-          value-key="id"
-          @keyup.enter="handleQuery"
-        >
-          <el-option
-            v-for="item in customerList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id!"
-          />
+        <el-select v-model="queryParams.customerId" class="!w-240px" clearable lable-key="name" placeholder="请选择客户" value-key="id" @keyup.enter="handleQuery">
+          <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id!" />
         </el-select>
       </el-form-item>
       <el-form-item label="姓名" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入姓名"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入姓名" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="手机号" prop="mobile">
-        <el-input
-          v-model="queryParams.mobile"
-          class="!w-240px"
-          clearable
-          placeholder="请输入手机号"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.mobile" class="!w-240px" clearable placeholder="请输入手机号" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="电话" prop="telephone">
-        <el-input
-          v-model="queryParams.telephone"
-          class="!w-240px"
-          clearable
-          placeholder="请输入电话"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.telephone" class="!w-240px" clearable placeholder="请输入电话" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="微信" prop="wechat">
-        <el-input
-          v-model="queryParams.wechat"
-          class="!w-240px"
-          clearable
-          placeholder="请输入微信"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.wechat" class="!w-240px" clearable placeholder="请输入微信" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="电子邮箱" prop="email">
-        <el-input
-          v-model="queryParams.email"
-          class="!w-240px"
-          clearable
-          placeholder="请输入电子邮箱"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.email" class="!w-240px" clearable placeholder="请输入电子邮箱" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery">
@@ -87,13 +38,7 @@
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
-        <el-button
-          v-hasPermi="['crm:contact:export']"
-          :loading="exportLoading"
-          plain
-          type="success"
-          @click="handleExport"
-        >
+        <el-button v-hasPermi="['crm:contact:export']" :loading="exportLoading" plain type="success" @click="handleExport">
           <Icon class="mr-5px" icon="ep:download" />
           导出
         </el-button>
@@ -118,11 +63,7 @@
       </el-table-column>
       <el-table-column align="center" fixed="left" label="客户名称" prop="customerName" width="120">
         <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            @click="openCustomerDetail(scope.row.customerId)"
-          >
+          <el-link :underline="false" type="primary" @click="openCustomerDetail(scope.row.customerId)">
             {{ scope.row.customerName }}
           </el-link>
         </template>
@@ -145,71 +86,28 @@
         </template>
       </el-table-column>
       <el-table-column label="地址" align="center" prop="detailAddress" width="180" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="下次联系时间"
-        prop="contactNextTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="下次联系时间" prop="contactNextTime" width="180px" />
       <el-table-column align="center" label="性别" prop="sex">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.SYSTEM_USER_SEX" :value="scope.row.sex" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="备注" prop="remark" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="最后跟进时间"
-        prop="contactLastTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="最后跟进时间" prop="contactLastTime" width="180px" />
       <el-table-column align="center" label="负责人" prop="ownerUserName" width="120" />
       <el-table-column align="center" label="所属部门" prop="ownerUserDeptName" width="100" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="更新时间"
-        prop="updateTime"
-        width="180px"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="更新时间" prop="updateTime" width="180px" />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       <el-table-column align="center" label="创建人" prop="creatorName" width="120" />
       <el-table-column align="center" fixed="right" label="操作" width="200">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['crm:contact:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['crm:contact:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['crm:contact:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['crm:contact:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

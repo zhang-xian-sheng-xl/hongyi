@@ -3,13 +3,7 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="公众号" prop="accountId">
         <WxAccountSelect @change="onAccountChanged" />
       </el-form-item>
@@ -19,32 +13,17 @@
   <!-- 列表 -->
   <ContentWrap>
     <div class="waterfall" v-loading="loading">
-      <div
-        class="waterfall-item"
-        v-show="item.content && item.content.newsItem"
-        v-for="item in list"
-        :key="item.articleId"
-      >
+      <div class="waterfall-item" v-show="item.content && item.content.newsItem" v-for="item in list" :key="item.articleId">
         <wx-news :articles="item.content.newsItem" />
         <el-row justify="center" class="ope-row">
-          <el-button
-            type="danger"
-            circle
-            @click="handleDelete(item)"
-            v-hasPermi="['mp:free-publish:delete']"
-          >
+          <el-button type="danger" circle @click="handleDelete(item)" v-hasPermi="['mp:free-publish:delete']">
             <Icon icon="ep:delete" />
           </el-button>
         </el-row>
       </div>
     </div>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

@@ -5,10 +5,7 @@
         <span class="text-base font-medium text-gray-600">设备分布地图</span>
         <div class="flex items-center gap-4 text-sm">
           <span v-for="item in stateOptions" :key="item.value" class="flex items-center gap-1">
-            <span
-              class="inline-block w-3 h-3 rounded-full"
-              :style="{ backgroundColor: stateColorMap[item.value] }"
-            ></span>
+            <span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: stateColorMap[item.value] }"></span>
             <span class="text-gray-500">{{ item.label }}</span>
           </span>
         </div>

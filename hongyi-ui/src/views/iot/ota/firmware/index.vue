@@ -1,36 +1,13 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="固件名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入固件名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入固件名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="产品" prop="productId">
-        <el-select
-          v-model="queryParams.productId"
-          placeholder="请选择产品"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="product in productList"
-            :key="product.id"
-            :label="product.name"
-            :value="product.id"
-          />
+        <el-select v-model="queryParams.productId" placeholder="请选择产品" clearable @keyup.enter="handleQuery" class="!w-240px">
+          <el-option v-for="product in productList" :key="product.id" :label="product.name" :value="product.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -47,37 +24,21 @@
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['iot:ota-firmware:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['iot:ota-firmware:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table
-      row-key="id"
-      v-loading="loading"
-      :data="list"
-      :stripe="true"
-      :show-overflow-tooltip="true"
-    >
+    <el-table row-key="id" v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="固件编号" align="center" prop="id" />
       <el-table-column label="固件名称" align="center" prop="name" />
       <el-table-column label="固件版本" align="center" prop="description" />
       <el-table-column label="版本号" align="center" prop="version" />
       <el-table-column label="所属产品" align="center" prop="productId">
         <template #default="scope">
-          <el-link
-            @click="openProductDetail(scope.row.productId)"
-            v-if="getProductName(scope.row.productId)"
-          >
+          <el-link @click="openProductDetail(scope.row.productId)" v-if="getProductName(scope.row.productId)">
             {{ getProductName(scope.row.productId) }}
           </el-link>
           <span v-else>加载中...</span>
@@ -91,48 +52,17 @@
           </el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center" min-width="180px">
         <template #default="scope">
-          <el-button
-            link
-            @click="openFirmwareDetail(scope.row.id)"
-            v-hasPermi="['iot:ota-firmware:query']"
-          >
-            详情
-          </el-button>
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['iot:ota-firmware:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['iot:ota-firmware:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link @click="openFirmwareDetail(scope.row.id)" v-hasPermi="['iot:ota-firmware:query']"> 详情 </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['iot:ota-firmware:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['iot:ota-firmware:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

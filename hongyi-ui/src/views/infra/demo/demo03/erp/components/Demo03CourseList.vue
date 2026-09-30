@@ -1,78 +1,33 @@
 <template>
   <!-- 列表 -->
   <ContentWrap>
-    <el-button
-      type="primary"
-      plain
-      @click="openForm('create')"
-      v-hasPermi="['infra:demo03-student:create']"
-    >
-      <Icon icon="ep:plus" class="mr-5px" /> 新增
+    <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['infra:demo03-student:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
+    <el-button type="danger" plain :disabled="isEmpty(checkedIds)" @click="handleDeleteBatch" v-hasPermi="['infra:demo03-student:delete']">
+      <Icon icon="ep:delete" class="mr-5px" /> 批量删除
     </el-button>
-      <el-button
-          type="danger"
-          plain
-          :disabled="isEmpty(checkedIds)"
-          @click="handleDeleteBatch"
-          v-hasPermi="['infra:demo03-student:delete']"
-      >
-        <Icon icon="ep:delete" class="mr-5px" /> 批量删除
-      </el-button>
-    <el-table
-        row-key="id"
-        v-loading="loading"
-        :data="list"
-        :stripe="true"
-        :show-overflow-tooltip="true"
-        @selection-change="handleRowCheckboxChange"
-    >
-          <el-table-column type="selection" width="55" />
+    <el-table row-key="id" v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleRowCheckboxChange">
+      <el-table-column type="selection" width="55" />
       <el-table-column label="编号" align="center" prop="id" />
-       <el-table-column label="名字" align="center" prop="name" />
+      <el-table-column label="名字" align="center" prop="name" />
       <el-table-column label="分数" align="center" prop="score" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['infra:demo03-student:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['infra:demo03-student:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['infra:demo03-student:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['infra:demo03-student:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
-    <!-- 表单弹窗：添加/修改 -->
-    <Demo03CourseForm ref="formRef" @success="getList" />
+  <!-- 表单弹窗：添加/修改 -->
+  <Demo03CourseForm ref="formRef" @success="getList" />
 </template>
 <script setup lang="ts">
 import { dateFormatter } from '@/utils/formatTime'
 import { isEmpty } from '@/utils/is'
-import {Demo03Course, Demo03StudentApi} from '@/api/infra/demo/demo03/erp'
+import { Demo03Course, Demo03StudentApi } from '@/api/infra/demo/demo03/erp'
 import Demo03CourseForm from './Demo03CourseForm.vue'
 
 const { t } = useI18n() // 国际化
@@ -100,7 +55,7 @@ watch(
     queryParams.studentId = val
     handleQuery()
   },
-    { immediate: true, deep: true }
+  { immediate: true, deep: true }
 )
 
 /** 查询列表 */
@@ -150,14 +105,14 @@ const handleDeleteBatch = async () => {
     // 删除的二次确认
     await message.delConfirm()
     await Demo03StudentApi.deleteDemo03CourseList(checkedIds.value)
-    checkedIds.value = [];
+    checkedIds.value = []
     message.success(t('common.delSuccess'))
-    await getList();
+    await getList()
   } catch {}
 }
 
 const checkedIds = ref<number[]>([])
 const handleRowCheckboxChange = (records: Demo03Course[]) => {
-  checkedIds.value = records.map((item) => item.id);
+  checkedIds.value = records.map((item) => item.id)
 }
 </script>

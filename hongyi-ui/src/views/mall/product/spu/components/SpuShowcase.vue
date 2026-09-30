@@ -4,12 +4,7 @@
       <el-tooltip :content="spu.name">
         <div class="relative h-full w-full">
           <el-image :src="spu.picUrl" class="h-full w-full" />
-          <Icon
-            v-show="!disabled"
-            class="del-icon"
-            icon="ep:circle-close-filled"
-            @click="handleRemoveSpu(index)"
-          />
+          <Icon v-show="!disabled" class="del-icon" icon="ep:circle-close-filled" @click="handleRemoveSpu(index)" />
         </div>
       </el-tooltip>
     </div>

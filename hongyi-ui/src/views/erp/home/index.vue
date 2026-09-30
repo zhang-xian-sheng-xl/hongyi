@@ -45,16 +45,8 @@
 <script lang="ts" setup>
 import SummaryCard from './components/SummaryCard.vue'
 import TimeSummaryChart from './components/TimeSummaryChart.vue'
-import {
-  ErpSaleSummaryRespVO,
-  ErpSaleTimeSummaryRespVO,
-  SaleStatisticsApi
-} from '@/api/erp/statistics/sale'
-import {
-  ErpPurchaseSummaryRespVO,
-  ErpPurchaseTimeSummaryRespVO,
-  PurchaseStatisticsApi
-} from '@/api/erp/statistics/purchase'
+import { ErpSaleSummaryRespVO, ErpSaleTimeSummaryRespVO, SaleStatisticsApi } from '@/api/erp/statistics/sale'
+import { ErpPurchaseSummaryRespVO, ErpPurchaseTimeSummaryRespVO, PurchaseStatisticsApi } from '@/api/erp/statistics/purchase'
 
 /** 商城首页 */
 defineOptions({ name: 'ErpHome' })

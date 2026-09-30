@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="140px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="140px" v-loading="formLoading">
       <el-form-item label="配置名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入配置名称" />
       </el-form-item>
@@ -15,67 +9,27 @@
       </el-form-item>
       <el-form-item label="告警级别" prop="level">
         <el-select v-model="formData.level" placeholder="请选择告警级别">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_ALERT_LEVEL)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_ALERT_LEVEL)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="配置状态" prop="status">
         <el-select v-model="formData.status">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="关联场景联动规则" prop="sceneRuleIds">
-        <el-select
-          v-model="formData.sceneRuleIds"
-          multiple
-          placeholder="请选择关联的场景联动规则"
-          class="w-full"
-        >
-          <el-option
-            v-for="scene in sceneRuleOptions"
-            :key="scene.id"
-            :label="scene.name"
-            :value="scene.id"
-          />
+        <el-select v-model="formData.sceneRuleIds" multiple placeholder="请选择关联的场景联动规则" class="w-full">
+          <el-option v-for="scene in sceneRuleOptions" :key="scene.id" :label="scene.name" :value="scene.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="接收的用户" prop="receiveUserIds">
-        <el-select
-          v-model="formData.receiveUserIds"
-          multiple
-          placeholder="请选择接收的用户"
-          class="w-full"
-        >
-          <el-option
-            v-for="user in userOptions"
-            :key="user.id"
-            :label="user.nickname"
-            :value="user.id"
-          />
+        <el-select v-model="formData.receiveUserIds" multiple placeholder="请选择接收的用户" class="w-full">
+          <el-option v-for="user in userOptions" :key="user.id" :label="user.nickname" :value="user.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="接收类型" prop="receiveTypes">
-        <el-select
-          v-model="formData.receiveTypes"
-          multiple
-          placeholder="请选择接收类型"
-          class="w-full"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_ALERT_RECEIVE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="formData.receiveTypes" multiple placeholder="请选择接收类型" class="w-full">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_ALERT_RECEIVE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
     </el-form>

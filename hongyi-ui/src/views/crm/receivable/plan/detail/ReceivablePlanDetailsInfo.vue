@@ -20,10 +20,7 @@
             {{ formatDate(receivablePlan.returnTime, 'YYYY-MM-DD') }}
           </el-descriptions-item>
           <el-descriptions-item label="计划回款方式">
-            <dict-tag
-              :type="DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE"
-              :value="receivablePlan.returnType"
-            />
+            <dict-tag :type="DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE" :value="receivablePlan.returnType" />
           </el-descriptions-item>
           <el-descriptions-item label="提前几天提醒">
             {{ receivablePlan.remindDays }}

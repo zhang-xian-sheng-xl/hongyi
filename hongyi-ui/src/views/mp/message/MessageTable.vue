@@ -1,13 +1,7 @@
 <template>
   <div>
     <el-table v-loading="props.loading" :data="props.list">
-      <el-table-column
-        label="发送时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="发送时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="消息类型" align="center" prop="type" width="80" />
       <el-table-column label="发送方" align="center" prop="sendFrom" width="80">
         <template #default="scope">
@@ -33,9 +27,7 @@
             <el-tag>点击菜单链接</el-tag>
             【{{ scope.row.eventKey }}】
           </div>
-          <div
-            v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'scancode_waitmsg'"
-          >
+          <div v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'scancode_waitmsg'">
             <el-tag>扫码结果</el-tag>
             【{{ scope.row.eventKey }}】
           </div>
@@ -46,17 +38,13 @@
           <div v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'pic_sysphoto'">
             <el-tag>系统拍照发图</el-tag>
           </div>
-          <div
-            v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'pic_photo_or_album'"
-          >
+          <div v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'pic_photo_or_album'">
             <el-tag>拍照或者相册</el-tag>
           </div>
           <div v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'pic_weixin'">
             <el-tag>微信相册</el-tag>
           </div>
-          <div
-            v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'location_select'"
-          >
+          <div v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'location_select'">
             <el-tag>选择地理位置</el-tag>
           </div>
           <div v-else-if="scope.row.type === MsgType.Event && scope.row.event === 'SCAN'">
@@ -84,20 +72,10 @@
             <a :href="scope.row.url" target="_blank">{{ scope.row.title }}</a>
           </div>
           <div v-else-if="scope.row.type === MsgType.Location">
-            <WxLocation
-              :label="scope.row.label"
-              :location-y="scope.row.locationY"
-              :location-x="scope.row.locationX"
-            />
+            <WxLocation :label="scope.row.label" :location-y="scope.row.locationY" :location-x="scope.row.locationX" />
           </div>
           <div v-else-if="scope.row.type === MsgType.Music">
-            <WxMusic
-              :title="scope.row.title"
-              :description="scope.row.description"
-              :thumb-media-url="scope.row.thumbMediaUrl"
-              :music-url="scope.row.musicUrl"
-              :hq-music-url="scope.row.hqMusicUrl"
-            />
+            <WxMusic :title="scope.row.title" :description="scope.row.description" :thumb-media-url="scope.row.thumbMediaUrl" :music-url="scope.row.musicUrl" :hq-music-url="scope.row.hqMusicUrl" />
           </div>
           <div v-else-if="scope.row.type === MsgType.News">
             <WxNews :articles="scope.row.articles" />
@@ -109,14 +87,7 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="emit('send', scope.row.userId)"
-            v-hasPermi="['mp:message:send']"
-          >
-            消息
-          </el-button>
+          <el-button link type="primary" @click="emit('send', scope.row.userId)" v-hasPermi="['mp:message:send']"> 消息 </el-button>
         </template>
       </el-table-column>
     </el-table>

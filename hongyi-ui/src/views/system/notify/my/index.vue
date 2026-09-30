@@ -3,26 +3,10 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="是否已读" prop="readStatus">
-        <el-select
-          v-model="queryParams.readStatus"
-          placeholder="请选择状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.readStatus" placeholder="请选择状态" clearable class="!w-240px">
+          <el-option v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="发送时间" prop="createTime">
@@ -39,76 +23,40 @@
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button @click="handleUpdateList">
-          <Icon icon="ep:reading" class="mr-5px" /> 标记已读
-        </el-button>
-        <el-button @click="handleUpdateAll">
-          <Icon icon="ep:reading" class="mr-5px" /> 全部已读
-        </el-button>
+        <el-button @click="handleUpdateList"> <Icon icon="ep:reading" class="mr-5px" /> 标记已读 </el-button>
+        <el-button @click="handleUpdateAll"> <Icon icon="ep:reading" class="mr-5px" /> 全部已读 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      ref="tableRef"
-      row-key="id"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="list" ref="tableRef" row-key="id" @selection-change="handleSelectionChange">
       <el-table-column type="selection" :selectable="selectable" :reserve-selection="true" />
       <el-table-column label="发送人" align="center" prop="templateNickname" width="180" />
-      <el-table-column
-        label="发送时间"
-        align="center"
-        prop="createTime"
-        width="200"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="发送时间" align="center" prop="createTime" width="200" :formatter="dateFormatter" />
       <el-table-column label="类型" align="center" prop="templateType" width="180">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.SYSTEM_NOTIFY_TEMPLATE_TYPE" :value="scope.row.templateType" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="消息内容"
-        align="center"
-        prop="templateContent"
-        show-overflow-tooltip
-      />
+      <el-table-column label="消息内容" align="center" prop="templateContent" show-overflow-tooltip />
       <el-table-column label="是否已读" align="center" prop="readStatus" width="160">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.INFRA_BOOLEAN_STRING" :value="scope.row.readStatus" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="阅读时间"
-        align="center"
-        prop="readTime"
-        width="200"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="阅读时间" align="center" prop="readTime" width="200" :formatter="dateFormatter" />
       <el-table-column label="操作" align="center" width="160">
         <template #default="scope">
-          <el-button
-            link
-            :type="scope.row.readStatus ? 'primary' : 'warning'"
-            @click="openDetail(scope.row)"
-          >
+          <el-button link :type="scope.row.readStatus ? 'primary' : 'warning'" @click="openDetail(scope.row)">
             {{ scope.row.readStatus ? '详情' : '已读' }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：详情 -->

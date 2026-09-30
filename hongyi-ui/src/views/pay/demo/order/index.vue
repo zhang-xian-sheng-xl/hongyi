@@ -27,26 +27,14 @@
           <span>￥{{ (scope.row.refundPrice / 100.0).toFixed(2) }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="支付单号" align="center" prop="payOrderId" />
       <el-table-column label="是否支付" align="center" prop="payStatus">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.INFRA_BOOLEAN_STRING" :value="scope.row.payStatus" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="支付时间"
-        align="center"
-        prop="payTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="支付时间" align="center" prop="payTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="退款时间" align="center" prop="refundTime" width="180">
         <template #default="scope">
           <span v-if="scope.row.refundTime">{{ formatDate(scope.row.refundTime) }}</span>
@@ -55,50 +43,23 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button link type="primary" @click="handlePay(scope.row)" v-if="!scope.row.payStatus">
-            前往支付
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleRefund(scope.row)"
-            v-if="scope.row.payStatus && !scope.row.payRefundId"
-          >
-            发起退款
-          </el-button>
+          <el-button link type="primary" @click="handlePay(scope.row)" v-if="!scope.row.payStatus"> 前往支付 </el-button>
+          <el-button link type="danger" @click="handleRefund(scope.row)" v-if="scope.row.payStatus && !scope.row.payRefundId"> 发起退款 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 对话框(添加 / 修改) -->
   <Dialog title="发起订单" v-model="dialogVisible" width="500px">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="商品" prop="spuId">
-        <el-select
-          v-model="formData.spuId"
-          placeholder="请输入下单商品"
-          clearable
-          style="width: 380px"
-        >
+        <el-select v-model="formData.spuId" placeholder="请输入下单商品" clearable style="width: 380px">
           <el-option v-for="item in spus" :key="item.id" :label="item.name" :value="item.id">
             <span style="float: left">{{ item.name }}</span>
-            <span style="float: right; font-size: 13px; color: #8492a6">
-              ￥{{ (item.price / 100.0).toFixed(2) }}
-            </span>
+            <span style="float: right; font-size: 13px; color: #8492a6"> ￥{{ (item.price / 100.0).toFixed(2) }} </span>
           </el-option>
         </el-select>
       </el-form-item>

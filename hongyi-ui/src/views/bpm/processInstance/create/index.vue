@@ -1,23 +1,12 @@
 <template>
   <!-- 第一步，通过流程定义的列表，选择对应的流程 -->
   <template v-if="!selectProcessDefinition">
-    <el-input
-      v-model="searchName"
-      class="!w-50% mb-15px"
-      placeholder="请输入流程名称"
-      clearable
-      @input="handleQuery"
-      @clear="handleQuery"
-    >
+    <el-input v-model="searchName" class="!w-50% mb-15px" placeholder="请输入流程名称" clearable @input="handleQuery" @clear="handleQuery">
       <template #prefix>
         <Icon icon="ep:search" />
       </template>
     </el-input>
-    <ContentWrap
-      :class="{ 'process-definition-container': filteredProcessDefinitionList?.length }"
-      class="position-relative pb-20px h-700px"
-      v-loading="loading"
-    >
+    <ContentWrap :class="{ 'process-definition-container': filteredProcessDefinitionList?.length }" class="position-relative pb-20px h-700px" v-loading="loading">
       <el-row v-if="filteredProcessDefinitionList?.length" :gutter="20" class="!flex-nowrap">
         <el-col :span="5">
           <div class="flex flex-col">
@@ -34,12 +23,7 @@
         </el-col>
         <el-col :span="19">
           <el-scrollbar ref="scrollWrapper" height="700" @scroll="handleScroll">
-            <div
-              class="mb-20px pl-10px"
-              v-for="(definitions, categoryCode) in processDefinitionGroup"
-              :key="categoryCode"
-              :ref="`category-${categoryCode}`"
-            >
+            <div class="mb-20px pl-10px" v-for="(definitions, categoryCode) in processDefinitionGroup" :key="categoryCode" :ref="`category-${categoryCode}`">
               <h3 class="text-18px font-bold mb-10px mt-5px">
                 {{ getCategoryName(categoryCode as any) }}
               </h3>
@@ -51,18 +35,10 @@
                   :disabled="!definition.description || definition.description.trim().length === 0"
                   placement="top"
                 >
-                  <el-card
-                    shadow="hover"
-                    class="cursor-pointer definition-item-card"
-                    @click="handleSelect(definition)"
-                  >
+                  <el-card shadow="hover" class="cursor-pointer definition-item-card" @click="handleSelect(definition)">
                     <template #default>
                       <div class="flex">
-                        <el-image
-                          v-if="definition.icon"
-                          :src="definition.icon"
-                          class="w-32px h-32px"
-                        />
+                        <el-image v-if="definition.icon" :src="definition.icon" class="w-32px h-32px" />
                         <div v-else class="flow-icon">
                           <span style="font-size: 12px; color: #fff">
                             {{ subString(definition.name, 0, 2) }}
@@ -83,12 +59,7 @@
   </template>
 
   <!-- 第二步，填写表单，进行流程的提交 -->
-  <ProcessDefinitionDetail
-    v-else
-    ref="processDefinitionDetailRef"
-    :selectProcessDefinition="selectProcessDefinition"
-    @cancel="selectProcessDefinition = undefined"
-  />
+  <ProcessDefinitionDetail v-else ref="processDefinitionDetailRef" :selectProcessDefinition="selectProcessDefinition" @cancel="selectProcessDefinition = undefined" />
 </template>
 
 <script lang="ts" setup>
@@ -128,9 +99,7 @@ const getList = async () => {
         message.error('重新发起流程失败，原因：流程实例不存在')
         return
       }
-      const processDefinition = processDefinitionList.value.find(
-        (item: any) => item.key == processInstance.processDefinition?.key
-      )
+      const processDefinition = processDefinitionList.value.find((item: any) => item.key == processInstance.processDefinition?.key)
       if (!processDefinition) {
         message.error('重新发起流程失败，原因：流程定义不存在')
         return
@@ -264,9 +233,7 @@ const handleScroll = (e: any) => {
 
   // 更新当前 active 的分类
   if (currentCategory && categoryActive.value.code !== currentCategory.code) {
-    categoryActive.value = categoryList.value.find(
-      (c: CategoryVO) => c.code === currentCategory.code
-    )
+    categoryActive.value = categoryList.value.find((c: CategoryVO) => c.code === currentCategory.code)
   }
 }
 
@@ -280,9 +247,7 @@ const availableCategories = computed(() => {
   const availableCategoryCodes = Object.keys(processDefinitionGroup.value)
 
   // 过滤出有流程的分类
-  return categoryList.value.filter((category: CategoryVO) =>
-    availableCategoryCodes.includes(category.code)
-  )
+  return categoryList.value.filter((category: CategoryVO) => availableCategoryCodes.includes(category.code))
 })
 
 /** 初始化 */

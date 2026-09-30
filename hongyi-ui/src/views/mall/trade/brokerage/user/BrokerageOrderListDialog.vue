@@ -2,13 +2,7 @@
   <Dialog v-model="dialogVisible" title="推广订单列表" width="75%">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="85px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="85px">
         <el-form-item label="用户类型" prop="sourceUserLevel">
           <el-radio-group v-model="queryParams.sourceUserLevel" @change="handleQuery">
             <el-radio-button :value="0">全部</el-radio-button>
@@ -17,18 +11,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态" prop="status">
-          <el-select
-            v-model="queryParams.status"
-            class="!w-240px"
-            clearable
-            placeholder="请选择状态"
-          >
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.BROKERAGE_RECORD_STATUS)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+          <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择状态">
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BROKERAGE_RECORD_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="绑定时间" prop="createTime">
@@ -66,33 +50,16 @@
           </template>
         </el-table-column>
         <el-table-column align="center" label="昵称" min-width="80px" prop="sourceUserNickname" />
-        <el-table-column
-          :formatter="fenToYuanFormat"
-          align="center"
-          label="佣金"
-          min-width="100px"
-          prop="price"
-        />
+        <el-table-column :formatter="fenToYuanFormat" align="center" label="佣金" min-width="100px" prop="price" />
         <el-table-column align="center" label="状态" min-width="85" prop="status">
           <template #default="scope">
             <dict-tag :type="DICT_TYPE.BROKERAGE_RECORD_STATUS" :value="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column
-          :formatter="dateFormatter"
-          align="center"
-          label="创建时间"
-          prop="createTime"
-          width="180px"
-        />
+        <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
   </Dialog>
 </template>

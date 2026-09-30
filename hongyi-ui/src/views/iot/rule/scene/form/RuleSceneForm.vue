@@ -1,13 +1,5 @@
 <template>
-  <el-drawer
-    v-model="drawerVisible"
-    :title="drawerTitle"
-    size="80%"
-    direction="rtl"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
-    @close="handleClose"
-  >
+  <el-drawer v-model="drawerVisible" :title="drawerTitle" size="80%" direction="rtl" :close-on-click-modal="false" :close-on-press-escape="false" @close="handleClose">
     <el-form ref="formRef" :model="formData" :rules="formRules" label-width="110px">
       <!-- 基础信息配置 -->
       <BasicInfoSection v-model="formData" :rules="formRules" />
@@ -38,11 +30,7 @@ import TriggerSection from './sections/TriggerSection.vue'
 import ActionSection from './sections/ActionSection.vue'
 import { IotSceneRule } from '@/api/iot/rule/scene'
 import { RuleSceneApi } from '@/api/iot/rule/scene'
-import {
-  IotRuleSceneTriggerTypeEnum,
-  IotRuleSceneActionTypeEnum,
-  isDeviceTrigger
-} from '@/views/iot/utils/constants'
+import { IotRuleSceneTriggerTypeEnum, IotRuleSceneActionTypeEnum, isDeviceTrigger } from '@/views/iot/utils/constants'
 import { ElMessage } from 'element-plus'
 import { CommonStatusEnum } from '@/utils/constants'
 
@@ -172,10 +160,7 @@ const validateActions = (_rule: any, value: any, callback: any) => {
     }
 
     // 校验设备控制执行器
-    if (
-      action.type === IotRuleSceneActionTypeEnum.DEVICE_PROPERTY_SET ||
-      action.type === IotRuleSceneActionTypeEnum.DEVICE_SERVICE_INVOKE
-    ) {
+    if (action.type === IotRuleSceneActionTypeEnum.DEVICE_PROPERTY_SET || action.type === IotRuleSceneActionTypeEnum.DEVICE_SERVICE_INVOKE) {
       if (!action.productId) {
         callback(new Error(`执行器 ${i + 1}: 产品不能为空`))
         return
@@ -200,10 +185,7 @@ const validateActions = (_rule: any, value: any, callback: any) => {
     }
 
     // 校验告警执行器
-    if (
-      action.type === IotRuleSceneActionTypeEnum.ALERT_TRIGGER ||
-      action.type === IotRuleSceneActionTypeEnum.ALERT_RECOVER
-    ) {
+    if (action.type === IotRuleSceneActionTypeEnum.ALERT_TRIGGER || action.type === IotRuleSceneActionTypeEnum.ALERT_RECOVER) {
       if (!action.alertConfigId) {
         callback(new Error(`执行器 ${i + 1}: 告警配置不能为空`))
         return
@@ -228,9 +210,7 @@ const formRules = reactive({
       trigger: 'change'
     }
   ],
-  description: [
-    { type: 'string', max: 200, message: '场景描述不能超过200个字符', trigger: 'blur' }
-  ],
+  description: [{ type: 'string', max: 200, message: '场景描述不能超过200个字符', trigger: 'blur' }],
   triggers: [{ required: true, validator: validateTriggers, trigger: 'change' }],
   actions: [{ required: true, validator: validateActions, trigger: 'change' }]
 }) // 表单校验规则

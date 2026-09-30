@@ -2,9 +2,7 @@
   <ContentWrap>
     <div class="mx-auto">
       <!-- 头部导航栏 -->
-      <div
-        class="absolute top-0 left-0 right-0 h-50px bg-white border-bottom z-10 flex items-center px-20px"
-      >
+      <div class="absolute top-0 left-0 right-0 h-50px bg-white border-bottom z-10 flex items-center px-20px">
         <!-- 左侧标题 -->
         <div class="w-200px flex items-center overflow-hidden">
           <Icon icon="ep:arrow-left" class="cursor-pointer flex-shrink-0" @click="handleBack" />
@@ -20,20 +18,12 @@
               v-for="(step, index) in steps"
               :key="index"
               class="flex items-center cursor-pointer mx-15px relative h-full"
-              :class="[
-                currentStep === index
-                  ? 'text-[#3473ff] border-[#3473ff] border-b-2 border-b-solid'
-                  : 'text-gray-500'
-              ]"
+              :class="[currentStep === index ? 'text-[#3473ff] border-[#3473ff] border-b-2 border-b-solid' : 'text-gray-500']"
               @click="handleStepClick(index)"
             >
               <div
                 class="w-28px h-28px rounded-full flex items-center justify-center mr-8px border-2 border-solid text-15px"
-                :class="[
-                  currentStep === index
-                    ? 'bg-[#3473ff] text-white border-[#3473ff]'
-                    : 'border-gray-300 bg-white text-gray-500'
-                ]"
+                :class="[currentStep === index ? 'bg-[#3473ff] text-white border-[#3473ff]' : 'border-gray-300 bg-white text-gray-500']"
               >
                 {{ index + 1 }}
               </div>
@@ -44,9 +34,7 @@
 
         <!-- 右侧按钮 -->
         <div class="w-200px flex items-center justify-end gap-2">
-          <el-button v-if="actionType === 'update'" type="success" @click="handleDeploy">
-            发 布
-          </el-button>
+          <el-button v-if="actionType === 'update'" type="success" @click="handleDeploy"> 发 布 </el-button>
           <el-button type="primary" @click="handleSave">
             <span v-if="actionType === 'definition'">恢 复</span>
             <span v-else>保 存</span>
@@ -58,13 +46,7 @@
       <div class="mt-50px">
         <!-- 第一步：基本信息 -->
         <div v-if="currentStep === 0" class="mx-auto w-560px">
-          <BasicInfo
-            v-model="formData"
-            :categoryList="categoryList"
-            :userList="userList"
-            :deptList="deptList"
-            ref="basicInfoRef"
-          />
+          <BasicInfo v-model="formData" :categoryList="categoryList" :userList="userList" :deptList="deptList" ref="basicInfoRef" />
         </div>
 
         <!-- 第二步：表单设计 -->
@@ -208,27 +190,19 @@ const initData = async () => {
       data.simpleModel = JSON.parse(data.simpleModel)
     }
     formData.value = data
-    formData.value.startUserType =
-      formData.value.startUserIds?.length > 0 ? 1 : formData.value?.startDeptIds?.length > 0 ? 2 : 0
+    formData.value.startUserType = formData.value.startUserIds?.length > 0 ? 1 : formData.value?.startDeptIds?.length > 0 ? 2 : 0
   } else if (['update', 'copy'].includes(actionType)) {
     // 情况二：修改场景/复制场景
     const modelId = route.params.id as string
     formData.value = await ModelApi.getModel(modelId)
-    formData.value.startUserType =
-      formData.value.startUserIds?.length > 0 ? 1 : formData.value?.startDeptIds?.length > 0 ? 2 : 0
+    formData.value.startUserType = formData.value.startUserIds?.length > 0 ? 1 : formData.value?.startDeptIds?.length > 0 ? 2 : 0
 
     // 特殊：复制场景
     if (route.params.type === 'copy') {
       delete formData.value.id
       if (formData.value.bpmnXml) {
-        formData.value.bpmnXml = formData.value.bpmnXml.replaceAll(
-          formData.value.name,
-          formData.value.name + '副本'
-        )
-        formData.value.bpmnXml = formData.value.bpmnXml.replaceAll(
-          formData.value.key,
-          formData.value.key + '_copy'
-        )
+        formData.value.bpmnXml = formData.value.bpmnXml.replaceAll(formData.value.name, formData.value.name + '副本')
+        formData.value.bpmnXml = formData.value.bpmnXml.replaceAll(formData.value.key, formData.value.key + '_copy')
       }
       formData.value.name += '副本'
       formData.value.key += '_copy'

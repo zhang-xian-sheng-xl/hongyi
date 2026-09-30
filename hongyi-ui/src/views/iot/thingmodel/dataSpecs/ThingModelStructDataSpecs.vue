@@ -1,15 +1,8 @@
 <!-- dataType：struct 数组类型 -->
 <template>
   <!-- struct 数据展示 -->
-  <el-form-item
-    :rules="[{ required: true, validator: validateList, trigger: 'change' }]"
-    label="JSON 对象"
-  >
-    <div
-      v-for="(item, index) in dataSpecsList"
-      :key="index"
-      class="w-1/1 struct-item flex justify-between px-10px mb-10px"
-    >
+  <el-form-item :rules="[{ required: true, validator: validateList, trigger: 'change' }]" label="JSON 对象">
+    <div v-for="(item, index) in dataSpecsList" :key="index" class="w-1/1 struct-item flex justify-between px-10px mb-10px">
       <span>参数名称：{{ item.name }}</span>
       <div class="btn">
         <el-button link type="primary" @click="openStructForm(item)">编辑</el-button>
@@ -22,13 +15,7 @@
 
   <!-- struct 表单 -->
   <Dialog v-model="dialogVisible" :title="dialogTitle" append-to-body>
-    <el-form
-      ref="structFormRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="ThingModelFormRules"
-      label-width="100px"
-    >
+    <el-form ref="structFormRef" v-loading="formLoading" :model="formData" :rules="ThingModelFormRules" label-width="100px">
       <el-form-item label="参数名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入功能名称" />
       </el-form-item>
@@ -109,17 +96,12 @@ const submitForm = async () => {
       description: data.description,
       dataType: IoTDataSpecsDataTypeEnum.STRUCT,
       childDataType: data.property.dataType,
-      dataSpecs:
-        !!data.property.dataSpecs && Object.keys(data.property.dataSpecs).length > 1
-          ? data.property.dataSpecs
-          : undefined,
+      dataSpecs: !!data.property.dataSpecs && Object.keys(data.property.dataSpecs).length > 1 ? data.property.dataSpecs : undefined,
       dataSpecsList: isEmpty(data.property.dataSpecsList) ? undefined : data.property.dataSpecsList
     }
 
     // 新增或修改同 identifier 的参数
-    const existingIndex = dataSpecsList.value.findIndex(
-      (spec) => spec.identifier === data.identifier
-    )
+    const existingIndex = dataSpecsList.value.findIndex((spec) => spec.identifier === data.identifier)
     if (existingIndex > -1) {
       dataSpecsList.value[existingIndex] = item
     } else {

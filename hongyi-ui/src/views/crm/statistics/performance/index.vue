@@ -2,21 +2,9 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="选择年份" prop="orderDate">
-        <el-date-picker
-          v-model="queryParams.times[0]"
-          class="!w-240px"
-          type="year"
-          value-format="YYYY"
-          :default-time="[new Date().getFullYear()]"
-        />
+        <el-date-picker v-model="queryParams.times[0]" class="!w-240px" type="year" value-format="YYYY" :default-time="[new Date().getFullYear()]" />
       </el-form-item>
       <el-form-item label="归属部门" prop="deptId">
         <el-tree-select
@@ -32,12 +20,7 @@
       </el-form-item>
       <el-form-item label="员工" prop="userId">
         <el-select v-model="queryParams.userId" class="!w-240px" placeholder="员工" clearable>
-          <el-option
-            v-for="(user, index) in userListByDeptId"
-            :label="user.nickname"
-            :value="user.id"
-            :key="index"
-          />
+          <el-option v-for="(user, index) in userListByDeptId" :label="user.nickname" :value="user.id" :key="index" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -60,10 +43,7 @@
       </el-tab-pane>
       <!-- 员工回款金额统计 -->
       <el-tab-pane label="员工回款金额统计" name="ReceivablePricePerformance" lazy>
-        <ReceivablePricePerformance
-          :query-params="queryParams"
-          ref="ReceivablePricePerformanceRef"
-        />
+        <ReceivablePricePerformance :query-params="queryParams" ref="ReceivablePricePerformanceRef" />
       </el-tab-pane>
     </el-tabs>
   </el-col>
@@ -84,21 +64,14 @@ defineOptions({ name: 'CrmStatisticsCustomer' })
 const queryParams = reactive({
   deptId: useUserStore().getUser.deptId,
   userId: undefined,
-  times: [
-    formatDate(beginOfDay(new Date(new Date().getFullYear(), 0, 1))),
-    formatDate(endOfDay(new Date(new Date().getFullYear(), 11, 31)))
-  ]
+  times: [formatDate(beginOfDay(new Date(new Date().getFullYear(), 0, 1))), formatDate(endOfDay(new Date(new Date().getFullYear(), 11, 31)))]
 })
 
 const queryFormRef = ref() // 搜索的表单
 const deptList = ref<Tree[]>([]) // 部门树形结构
 const userList = ref<UserApi.UserVO[]>([]) // 全量用户清单
 // 根据选择的部门筛选员工清单
-const userListByDeptId = computed(() =>
-  queryParams.deptId
-    ? userList.value.filter((u: UserApi.UserVO) => u.deptId === queryParams.deptId)
-    : []
-)
+const userListByDeptId = computed(() => (queryParams.deptId ? userList.value.filter((u: UserApi.UserVO) => u.deptId === queryParams.deptId) : []))
 
 // 活跃标签
 const activeTab = ref('ContractCountPerformance')

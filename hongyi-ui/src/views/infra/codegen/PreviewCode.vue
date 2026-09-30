@@ -1,47 +1,16 @@
 <template>
-  <Dialog
-    v-model="dialogVisible"
-    align-center
-    class="app-infra-codegen-preview-container"
-    title="代码预览"
-    width="80%"
-  >
+  <Dialog v-model="dialogVisible" align-center class="app-infra-codegen-preview-container" title="代码预览" width="80%">
     <div class="flex">
       <!-- 代码目录树 -->
-      <el-card
-        v-loading="loading"
-        :gutter="12"
-        class="w-1/3"
-        element-loading-text="生成文件目录中..."
-        shadow="hover"
-      >
+      <el-card v-loading="loading" :gutter="12" class="w-1/3" element-loading-text="生成文件目录中..." shadow="hover">
         <el-scrollbar height="calc(100vh - 88px - 40px)">
-          <el-tree
-            ref="treeRef"
-            :data="preview.fileTree"
-            :expand-on-click-node="false"
-            default-expand-all
-            highlight-current
-            node-key="id"
-            @node-click="handleNodeClick"
-          />
+          <el-tree ref="treeRef" :data="preview.fileTree" :expand-on-click-node="false" default-expand-all highlight-current node-key="id" @node-click="handleNodeClick" />
         </el-scrollbar>
       </el-card>
       <!-- 代码 -->
-      <el-card
-        v-loading="loading"
-        :gutter="12"
-        class="ml-3 w-2/3"
-        element-loading-text="加载代码中..."
-        shadow="hover"
-      >
+      <el-card v-loading="loading" :gutter="12" class="ml-3 w-2/3" element-loading-text="加载代码中..." shadow="hover">
         <el-tabs v-model="preview.activeName">
-          <el-tab-pane
-            v-for="item in previewCodegen"
-            :key="item.filePath"
-            :label="item.filePath.substring(item.filePath.lastIndexOf('/') + 1)"
-            :name="item.filePath"
-          >
+          <el-tab-pane v-for="item in previewCodegen" :key="item.filePath" :label="item.filePath.substring(item.filePath.lastIndexOf('/') + 1)" :name="item.filePath">
             <el-button class="float-right" text type="primary" @click="copy(item.code)">
               {{ t('common.copy') }}
             </el-button>

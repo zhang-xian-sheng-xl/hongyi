@@ -1,19 +1,8 @@
 <!-- 商品发布 - 库存价格 -->
 <template>
-  <el-form
-    ref="formRef"
-    v-loading="formLoading"
-    :disabled="isDetail"
-    :model="formData"
-    :rules="rules"
-    label-width="120px"
-  >
+  <el-form ref="formRef" v-loading="formLoading" :disabled="isDetail" :model="formData" :rules="rules" label-width="120px">
     <el-form-item label="分销类型" prop="subCommissionType">
-      <el-radio-group
-        v-model="formData.subCommissionType"
-        class="w-80"
-        @change="changeSubCommissionType"
-      >
+      <el-radio-group v-model="formData.subCommissionType" class="w-80" @change="changeSubCommissionType">
         <el-radio :value="false">默认设置</el-radio>
         <el-radio :value="true" class="radio">单独设置</el-radio>
       </el-radio-group>
@@ -26,33 +15,18 @@
     </el-form-item>
     <!-- 多规格添加-->
     <el-form-item v-if="!formData.specType">
-      <SkuList
-        ref="skuListRef"
-        :prop-form-data="formData"
-        :property-list="propertyList"
-        :rule-config="ruleConfig"
-      />
+      <SkuList ref="skuListRef" :prop-form-data="formData" :property-list="propertyList" :rule-config="ruleConfig" />
     </el-form-item>
     <el-form-item v-if="formData.specType" label="商品属性">
       <el-button class="mb-10px mr-15px" @click="attributesAddFormRef.open">添加属性</el-button>
-      <ProductAttributes
-        :is-detail="isDetail"
-        :property-list="propertyList"
-        @success="generateSkus"
-      />
+      <ProductAttributes :is-detail="isDetail" :property-list="propertyList" @success="generateSkus" />
     </el-form-item>
     <template v-if="formData.specType && propertyList.length > 0">
       <el-form-item v-if="!isDetail" label="批量设置">
         <SkuList :is-batch="true" :prop-form-data="formData" :property-list="propertyList" />
       </el-form-item>
       <el-form-item label="规格列表">
-        <SkuList
-          ref="skuListRef"
-          :is-detail="isDetail"
-          :prop-form-data="formData"
-          :property-list="propertyList"
-          :rule-config="ruleConfig"
-        />
+        <SkuList ref="skuListRef" :is-detail="isDetail" :prop-form-data="formData" :property-list="propertyList" :rule-config="ruleConfig" />
       </el-form-item>
     </template>
   </el-form>
@@ -64,12 +38,7 @@
 import { PropType } from 'vue'
 import { copyValueToTarget } from '@/utils'
 import { propTypes } from '@/utils/propTypes'
-import {
-  getPropertyList,
-  PropertyAndValues,
-  RuleConfig,
-  SkuList
-} from '@/views/mall/product/spu/components/index'
+import { getPropertyList, PropertyAndValues, RuleConfig, SkuList } from '@/views/mall/product/spu/components/index'
 import ProductAttributes from './ProductAttributes.vue'
 import ProductPropertyAddForm from './ProductPropertyAddForm.vue'
 import type { Spu } from '@/api/mall/product/spu'

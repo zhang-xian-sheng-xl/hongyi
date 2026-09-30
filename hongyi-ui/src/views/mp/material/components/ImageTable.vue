@@ -6,12 +6,7 @@
         <div class="item-name">{{ item.name }}</div>
       </a>
       <el-row justify="center">
-        <el-button
-          type="danger"
-          circle
-          @click="emit('delete', item.id)"
-          v-hasPermi="['mp:material:delete']"
-        >
+        <el-button type="danger" circle @click="emit('delete', item.id)" v-hasPermi="['mp:material:delete']">
           <Icon icon="ep:delete" />
         </el-button>
       </el-row>

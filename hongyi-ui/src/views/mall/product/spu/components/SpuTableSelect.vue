@@ -1,32 +1,12 @@
 <template>
   <Dialog v-model="dialogVisible" :appendToBody="true" title="选择商品" width="70%">
     <ContentWrap>
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="68px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
         <el-form-item label="商品名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            class="!w-240px"
-            clearable
-            placeholder="请输入商品名称"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入商品名称" @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="商品分类" prop="categoryId">
-          <el-tree-select
-            v-model="queryParams.categoryId"
-            :data="categoryTreeList"
-            :props="defaultProps"
-            check-strictly
-            class="!w-240px"
-            node-key="id"
-            placeholder="请选择商品分类"
-          />
+          <el-tree-select v-model="queryParams.categoryId" :data="categoryTreeList" :props="defaultProps" check-strictly class="!w-240px" node-key="id" placeholder="请选择商品分类" />
         </el-form-item>
         <el-form-item label="创建时间" prop="createTime">
           <el-date-picker
@@ -54,17 +34,10 @@
         <!-- 1. 多选模式（不能使用type="selection"，Element会忽略Header插槽） -->
         <el-table-column width="55" v-if="multiple">
           <template #header>
-            <el-checkbox
-              v-model="isCheckAll"
-              :indeterminate="isIndeterminate"
-              @change="handleCheckAll"
-            />
+            <el-checkbox v-model="isCheckAll" :indeterminate="isIndeterminate" @change="handleCheckAll" />
           </template>
           <template #default="{ row }">
-            <el-checkbox
-              v-model="checkedStatus[row.id]"
-              @change="(checked: boolean) => handleCheckOne(checked, row, true)"
-            />
+            <el-checkbox v-model="checkedStatus[row.id]" @change="(checked: boolean) => handleCheckOne(checked, row, true)" />
           </template>
         </el-table-column>
         <!-- 2. 单选模式 -->
@@ -79,12 +52,7 @@
         <el-table-column key="id" align="center" label="商品编号" prop="id" min-width="60" />
         <el-table-column label="商品图" min-width="80">
           <template #default="{ row }">
-            <el-image
-              :src="row.picUrl"
-              class="h-30px w-30px"
-              :preview-src-list="[row.picUrl]"
-              preview-teleported
-            />
+            <el-image :src="row.picUrl" class="h-30px w-30px" :preview-src-list="[row.picUrl]" preview-teleported />
           </template>
         </el-table-column>
         <el-table-column label="商品名称" min-width="200" prop="name" />
@@ -95,12 +63,7 @@
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer v-if="multiple">
       <el-button type="primary" @click="handleEmitChange">确 定</el-button>
@@ -184,9 +147,7 @@ const getList = async () => {
     list.value = data.list
     total.value = data.total
     // checkbox绑定undefined会有问题，需要给一个bool值
-    list.value.forEach(
-      (spu) => (checkedStatus.value[spu.id] = checkedStatus.value[spu.id] || false)
-    )
+    list.value.forEach((spu) => (checkedStatus.value[spu.id] = checkedStatus.value[spu.id] || false))
     // 计算全选框状态
     calculateIsCheckAll()
   } finally {

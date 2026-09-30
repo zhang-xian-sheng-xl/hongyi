@@ -1,22 +1,11 @@
 <template>
   <Dialog title="修改用户等级" v-model="dialogVisible" width="600">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="用户编号" prop="id">
         <el-input v-model="formData.id" placeholder="请输入用户昵称" class="!w-240px" disabled />
       </el-form-item>
       <el-form-item label="用户昵称" prop="nickname">
-        <el-input
-          v-model="formData.nickname"
-          placeholder="请输入用户昵称"
-          class="!w-240px"
-          disabled
-        />
+        <el-input v-model="formData.nickname" placeholder="请输入用户昵称" class="!w-240px" disabled />
       </el-form-item>
       <el-form-item label="用户等级" prop="levelId">
         <MemberLevelSelect v-model="formData.levelId" />

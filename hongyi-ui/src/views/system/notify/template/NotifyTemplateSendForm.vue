@@ -1,27 +1,12 @@
 <template>
   <Dialog v-model="dialogVisible" title="测试发送" :max-height="500">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="140px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="140px">
       <el-form-item label="模板内容" prop="content">
-        <el-input
-          v-model="formData.content"
-          placeholder="请输入模板内容"
-          readonly
-          type="textarea"
-        />
+        <el-input v-model="formData.content" placeholder="请输入模板内容" readonly type="textarea" />
       </el-form-item>
       <el-form-item label="用户类型" prop="userType">
         <el-radio-group v-model="formData.userType">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -31,24 +16,11 @@
       </el-form-item>
       <el-form-item v-show="formData.userType === 2" label="接收人" prop="userId">
         <el-select v-model="formData.userId" placeholder="请选择接收人">
-          <el-option
-            v-for="item in userOption"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+          <el-option v-for="item in userOption" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
-      <el-form-item
-        v-for="param in formData.params"
-        :key="param"
-        :label="'参数 {' + param + '}'"
-        :prop="'templateParams.' + param"
-      >
-        <el-input
-          v-model="formData.templateParams[param]"
-          :placeholder="'请输入 ' + param + ' 参数'"
-        />
+      <el-form-item v-for="param in formData.params" :key="param" :label="'参数 {' + param + '}'" :prop="'templateParams.' + param">
+        <el-input v-model="formData.templateParams[param]" :placeholder="'请输入 ' + param + ' 参数'" />
       </el-form-item>
     </el-form>
     <template #footer>

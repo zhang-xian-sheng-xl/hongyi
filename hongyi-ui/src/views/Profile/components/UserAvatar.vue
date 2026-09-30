@@ -1,13 +1,6 @@
 <template>
   <div class="change-avatar">
-    <CropperAvatar
-      ref="cropperRef"
-      :btnProps="{ preIcon: 'ant-design:cloud-upload-outlined' }"
-      :showBtn="false"
-      :value="img"
-      width="120px"
-      @change="handelUpload"
-    />
+    <CropperAvatar ref="cropperRef" :btnProps="{ preIcon: 'ant-design:cloud-upload-outlined' }" :showBtn="false" :value="img" width="120px" @change="handelUpload" />
   </div>
 </template>
 <script lang="ts" setup>

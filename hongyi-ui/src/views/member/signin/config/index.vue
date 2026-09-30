@@ -3,25 +3,13 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-button
-      type="primary"
-      plain
-      @click="openForm('create')"
-      v-hasPermi="['point:sign-in-config:create']"
-    >
-      <Icon icon="ep:plus" class="mr-5px" /> 新增
-    </el-button>
+    <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['point:sign-in-config:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
   </ContentWrap>
 
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
-      <el-table-column
-        label="签到天数"
-        align="center"
-        prop="day"
-        :formatter="(_, __, cellValue) => ['第', cellValue, '天'].join(' ')"
-      />
+      <el-table-column label="签到天数" align="center" prop="day" :formatter="(_, __, cellValue) => ['第', cellValue, '天'].join(' ')" />
       <el-table-column label="奖励积分" align="center" prop="point" />
       <el-table-column label="奖励经验" align="center" prop="experience" />
       <el-table-column label="状态" align="center" prop="status">
@@ -31,22 +19,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['point:sign-in-config:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['point:sign-in-config:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['point:sign-in-config:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['point:sign-in-config:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>

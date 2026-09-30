@@ -15,9 +15,7 @@
           <el-descriptions-item label="手机">{{ clue.mobile }}</el-descriptions-item>
           <el-descriptions-item label="电话">{{ clue.telephone }}</el-descriptions-item>
           <el-descriptions-item label="邮箱">{{ clue.email }}</el-descriptions-item>
-          <el-descriptions-item label="地址">
-            {{ clue.areaName }} {{ clue.detailAddress }}
-          </el-descriptions-item>
+          <el-descriptions-item label="地址"> {{ clue.areaName }} {{ clue.detailAddress }} </el-descriptions-item>
           <el-descriptions-item label="QQ">{{ clue.qq }}</el-descriptions-item>
           <el-descriptions-item label="微信">{{ clue.wechat }}</el-descriptions-item>
           <el-descriptions-item label="客户行业">

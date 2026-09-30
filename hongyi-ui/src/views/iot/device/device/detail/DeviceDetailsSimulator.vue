@@ -12,20 +12,8 @@
               <el-tab-pane label="属性上报" :name="IotDeviceMessageMethodEnum.PROPERTY_POST.method">
                 <ContentWrap>
                   <el-table :data="propertyList" :show-overflow-tooltip="true" :stripe="true">
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="功能名称"
-                      prop="name"
-                      width="120"
-                    />
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="标识符"
-                      prop="identifier"
-                      width="120"
-                    />
+                    <el-table-column fixed="left" align="center" label="功能名称" prop="name" width="120" />
+                    <el-table-column fixed="left" align="center" label="标识符" prop="identifier" width="120" />
                     <el-table-column align="center" label="数据类型" width="100">
                       <template #default="{ row }">
                         {{ row.property?.dataType ?? '-' }}
@@ -38,19 +26,12 @@
                     </el-table-column>
                     <el-table-column fixed="right" align="center" label="值" width="150">
                       <template #default="scope">
-                        <el-input
-                          :model-value="getFormValue(scope.row.identifier)"
-                          @update:model-value="setFormValue(scope.row.identifier, $event)"
-                          placeholder="输入值"
-                          size="small"
-                        />
+                        <el-input :model-value="getFormValue(scope.row.identifier)" @update:model-value="setFormValue(scope.row.identifier, $event)" placeholder="输入值" size="small" />
                       </template>
                     </el-table-column>
                   </el-table>
                   <div class="flex justify-between items-center mt-4">
-                    <span class="text-sm text-gray-600">
-                      设置属性值后，点击「发送属性上报」按钮
-                    </span>
+                    <span class="text-sm text-gray-600"> 设置属性值后，点击「发送属性上报」按钮 </span>
                     <el-button type="primary" @click="handlePropertyPost">发送属性上报</el-button>
                   </div>
                 </ContentWrap>
@@ -60,20 +41,8 @@
               <el-tab-pane label="事件上报" :name="IotDeviceMessageMethodEnum.EVENT_POST.method">
                 <ContentWrap>
                   <el-table :data="eventList" :show-overflow-tooltip="true" :stripe="true">
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="功能名称"
-                      prop="name"
-                      width="120"
-                    />
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="标识符"
-                      prop="identifier"
-                      width="120"
-                    />
+                    <el-table-column fixed="left" align="center" label="功能名称" prop="name" width="120" />
+                    <el-table-column fixed="left" align="center" label="标识符" prop="identifier" width="120" />
                     <el-table-column align="center" label="数据类型" width="100">
                       <template #default="{ row }">
                         {{ row.event?.dataType ?? '-' }}
@@ -98,9 +67,7 @@
                     </el-table-column>
                     <el-table-column fixed="right" align="center" label="操作" width="100">
                       <template #default="scope">
-                        <el-button type="primary" size="small" @click="handleEventPost(scope.row)">
-                          上报事件
-                        </el-button>
+                        <el-button type="primary" size="small" @click="handleEventPost(scope.row)"> 上报事件 </el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -111,12 +78,8 @@
               <el-tab-pane label="状态变更" :name="IotDeviceMessageMethodEnum.STATE_UPDATE.method">
                 <ContentWrap>
                   <div class="flex gap-4">
-                    <el-button type="primary" @click="handleDeviceState(DeviceStateEnum.ONLINE)">
-                      设备上线
-                    </el-button>
-                    <el-button type="danger" @click="handleDeviceState(DeviceStateEnum.OFFLINE)">
-                      设备下线
-                    </el-button>
+                    <el-button type="primary" @click="handleDeviceState(DeviceStateEnum.ONLINE)"> 设备上线 </el-button>
+                    <el-button type="danger" @click="handleDeviceState(DeviceStateEnum.OFFLINE)"> 设备下线 </el-button>
                   </div>
                 </ContentWrap>
               </el-tab-pane>
@@ -130,20 +93,8 @@
               <el-tab-pane label="属性设置" :name="IotDeviceMessageMethodEnum.PROPERTY_SET.method">
                 <ContentWrap>
                   <el-table :data="propertyList" :show-overflow-tooltip="true" :stripe="true">
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="功能名称"
-                      prop="name"
-                      width="120"
-                    />
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="标识符"
-                      prop="identifier"
-                      width="120"
-                    />
+                    <el-table-column fixed="left" align="center" label="功能名称" prop="name" width="120" />
+                    <el-table-column fixed="left" align="center" label="标识符" prop="identifier" width="120" />
                     <el-table-column align="center" label="数据类型" width="100">
                       <template #default="{ row }">
                         {{ row.property?.dataType ?? '-' }}
@@ -156,45 +107,23 @@
                     </el-table-column>
                     <el-table-column fixed="right" align="center" label="值" width="150">
                       <template #default="scope">
-                        <el-input
-                          :model-value="getFormValue(scope.row.identifier)"
-                          @update:model-value="setFormValue(scope.row.identifier, $event)"
-                          placeholder="输入值"
-                          size="small"
-                        />
+                        <el-input :model-value="getFormValue(scope.row.identifier)" @update:model-value="setFormValue(scope.row.identifier, $event)" placeholder="输入值" size="small" />
                       </template>
                     </el-table-column>
                   </el-table>
                   <div class="flex justify-between items-center mt-4">
-                    <span class="text-sm text-gray-600">
-                      设置属性值后，点击「发送属性设置」按钮
-                    </span>
+                    <span class="text-sm text-gray-600"> 设置属性值后，点击「发送属性设置」按钮 </span>
                     <el-button type="primary" @click="handlePropertySet">发送属性设置</el-button>
                   </div>
                 </ContentWrap>
               </el-tab-pane>
 
               <!-- 服务调用 -->
-              <el-tab-pane
-                label="设备服务调用"
-                :name="IotDeviceMessageMethodEnum.SERVICE_INVOKE.method"
-              >
+              <el-tab-pane label="设备服务调用" :name="IotDeviceMessageMethodEnum.SERVICE_INVOKE.method">
                 <ContentWrap>
                   <el-table :data="serviceList" :show-overflow-tooltip="true" :stripe="true">
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="服务名称"
-                      prop="name"
-                      width="120"
-                    />
-                    <el-table-column
-                      fixed="left"
-                      align="center"
-                      label="标识符"
-                      prop="identifier"
-                      width="120"
-                    />
+                    <el-table-column fixed="left" align="center" label="服务名称" prop="name" width="120" />
+                    <el-table-column fixed="left" align="center" label="标识符" prop="identifier" width="120" />
                     <el-table-column align="left" label="输入参数" min-width="200">
                       <template #default="{ row }">
                         <DataDefinition :data="row" />
@@ -214,13 +143,7 @@
                     </el-table-column>
                     <el-table-column fixed="right" align="center" label="操作" width="100">
                       <template #default="scope">
-                        <el-button
-                          type="primary"
-                          size="small"
-                          @click="handleServiceInvoke(scope.row)"
-                        >
-                          服务调用
-                        </el-button>
+                        <el-button type="primary" size="small" @click="handleServiceInvoke(scope.row)"> 服务调用 </el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -247,11 +170,7 @@ import { ThingModelData } from '@/api/iot/thingmodel'
 import { DeviceApi, DeviceVO } from '@/api/iot/device/device'
 import DeviceDetailsMessage from './DeviceDetailsMessage.vue'
 import { DataDefinition } from '@/views/iot/thingmodel/components'
-import {
-  DeviceStateEnum,
-  IotDeviceMessageMethodEnum,
-  IoTThingModelTypeEnum
-} from '@/views/iot/utils/constants'
+import { DeviceStateEnum, IotDeviceMessageMethodEnum, IoTThingModelTypeEnum } from '@/views/iot/utils/constants'
 
 const props = defineProps<{
   product: ProductVO

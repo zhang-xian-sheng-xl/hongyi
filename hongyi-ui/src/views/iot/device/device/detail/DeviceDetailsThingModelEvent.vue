@@ -2,27 +2,10 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="80px"
-      @submit.prevent
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="80px" @submit.prevent>
       <el-form-item label="标识符" prop="identifier">
-        <el-select
-          v-model="queryParams.identifier"
-          placeholder="请选择事件标识符"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="event in eventThingModels"
-            :key="event.identifier"
-            :label="`${event.name}(${event.identifier})`"
-            :value="event.identifier!"
-          />
+        <el-select v-model="queryParams.identifier" placeholder="请选择事件标识符" clearable class="!w-240px">
+          <el-option v-for="event in eventThingModels" :key="event.identifier" :label="`${event.name}(${event.identifier})`" :value="event.identifier!" />
         </el-select>
       </el-form-item>
       <el-form-item label="时间范围" prop="times">
@@ -82,12 +65,7 @@
     </el-table>
 
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 
@@ -95,11 +73,7 @@
 import { DeviceApi } from '@/api/iot/device/device'
 import { ThingModelData } from '@/api/iot/thingmodel'
 import { formatDate, defaultShortcuts } from '@/utils/formatTime'
-import {
-  getEventTypeLabel,
-  IotDeviceMessageMethodEnum,
-  IoTThingModelTypeEnum
-} from '@/views/iot/utils/constants'
+import { getEventTypeLabel, IotDeviceMessageMethodEnum, IoTThingModelTypeEnum } from '@/views/iot/utils/constants'
 
 const props = defineProps<{
   deviceId: number
@@ -121,9 +95,7 @@ const queryFormRef = ref() // 搜索的表单
 
 /** 事件类型的物模型数据 */
 const eventThingModels = computed(() => {
-  return props.thingModelList.filter(
-    (item: ThingModelData) => item.type === IoTThingModelTypeEnum.EVENT
-  )
+  return props.thingModelList.filter((item: ThingModelData) => item.type === IoTThingModelTypeEnum.EVENT)
 })
 
 /** 查询列表 */
@@ -156,18 +128,14 @@ const resetQuery = () => {
 /** 获取事件名称 */
 const getEventName = (identifier: string | undefined) => {
   if (!identifier) return '-'
-  const event = eventThingModels.value.find(
-    (item: ThingModelData) => item.identifier === identifier
-  )
+  const event = eventThingModels.value.find((item: ThingModelData) => item.identifier === identifier)
   return event?.name || identifier
 }
 
 /** 获取事件类型 */
 const getEventType = (identifier: string | undefined) => {
   if (!identifier) return '-'
-  const event = eventThingModels.value.find(
-    (item: ThingModelData) => item.identifier === identifier
-  )
+  const event = eventThingModels.value.find((item: ThingModelData) => item.identifier === identifier)
   if (!event?.event?.type) return '-'
   return getEventTypeLabel(event.event.type) || '-'
 }

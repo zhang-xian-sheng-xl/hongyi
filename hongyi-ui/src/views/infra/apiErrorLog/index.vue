@@ -1,47 +1,17 @@
 <template>
-
-
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="用户编号" prop="userId">
-        <el-input
-          v-model="queryParams.userId"
-          placeholder="请输入用户编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.userId" placeholder="请输入用户编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="用户类型" prop="userType">
-        <el-select
-          v-model="queryParams.userType"
-          placeholder="请选择用户类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.userType" placeholder="请选择用户类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.USER_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="应用名" prop="applicationName">
-        <el-input
-          v-model="queryParams.applicationName"
-          placeholder="请输入应用名"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.applicationName" placeholder="请输入应用名" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="异常时间" prop="exceptionTime">
         <el-date-picker
@@ -55,32 +25,14 @@
         />
       </el-form-item>
       <el-form-item label="处理状态" prop="processStatus">
-        <el-select
-          v-model="queryParams.processStatus"
-          placeholder="请选择处理状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.processStatus" placeholder="请选择处理状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['infra:api-error-log:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['infra:api-error-log:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -98,32 +50,16 @@
       <el-table-column label="应用名" align="center" prop="applicationName" width="200" />
       <el-table-column label="请求方法" align="center" prop="requestMethod" width="80" />
       <el-table-column label="请求地址" align="center" prop="requestUrl" width="180" />
-      <el-table-column
-        label="异常发生时间"
-        align="center"
-        prop="exceptionTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="异常发生时间" align="center" prop="exceptionTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="异常名" align="center" prop="exceptionName" width="180" />
       <el-table-column label="处理状态" align="center" prop="processStatus">
         <template #default="scope">
-          <dict-tag
-            :type="DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS"
-            :value="scope.row.processStatus"
-          />
+          <dict-tag :type="DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS" :value="scope.row.processStatus" />
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="200">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openDetail(scope.row)"
-            v-hasPermi="['infra:api-error-log:query']"
-          >
-            详细
-          </el-button>
+          <el-button link type="primary" @click="openDetail(scope.row)" v-hasPermi="['infra:api-error-log:query']"> 详细 </el-button>
           <el-button
             link
             type="primary"
@@ -146,12 +82,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：详情 -->

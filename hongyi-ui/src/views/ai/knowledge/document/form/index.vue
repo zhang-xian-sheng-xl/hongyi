@@ -2,9 +2,7 @@
   <ContentWrap>
     <div class="mx-auto">
       <!-- 头部导航栏 -->
-      <div
-        class="absolute top-0 left-0 right-0 h-50px bg-white border-bottom z-10 flex items-center px-20px"
-      >
+      <div class="absolute top-0 left-0 right-0 h-50px bg-white border-bottom z-10 flex items-center px-20px">
         <!-- 左侧标题 -->
         <div class="w-200px flex items-center overflow-hidden">
           <Icon icon="ep:arrow-left" class="cursor-pointer flex-shrink-0" @click="handleBack" />
@@ -20,19 +18,11 @@
               v-for="(step, index) in steps"
               :key="index"
               class="flex items-center mx-15px relative h-full"
-              :class="[
-                currentStep === index
-                  ? 'text-[#3473ff] border-[#3473ff] border-b-2 border-b-solid'
-                  : 'text-gray-500'
-              ]"
+              :class="[currentStep === index ? 'text-[#3473ff] border-[#3473ff] border-b-2 border-b-solid' : 'text-gray-500']"
             >
               <div
                 class="w-28px h-28px rounded-full flex items-center justify-center mr-8px border-2 border-solid text-15px"
-                :class="[
-                  currentStep === index
-                    ? 'bg-[#3473ff] text-white border-[#3473ff]'
-                    : 'border-gray-300 bg-white text-gray-500'
-                ]"
+                :class="[currentStep === index ? 'bg-[#3473ff] text-white border-[#3473ff]' : 'border-gray-300 bg-white text-gray-500']"
               >
                 {{ index + 1 }}
               </div>

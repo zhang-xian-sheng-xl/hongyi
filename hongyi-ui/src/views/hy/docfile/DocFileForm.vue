@@ -1,22 +1,8 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="上级" prop="parentId">
-        <el-tree-select
-          v-model="formData.parentId"
-          :data="docFileTree"
-          :props="defaultProps"
-          @change="handleMaxNO"
-          check-strictly
-          default-expand-all
-          placeholder="请选择上级"
-        />
+        <el-tree-select v-model="formData.parentId" :data="docFileTree" :props="defaultProps" @change="handleMaxNO" check-strictly default-expand-all placeholder="请选择上级" />
       </el-form-item>
       <el-form-item label="标题" prop="name">
         <el-input v-model="formData.name" placeholder="请输入标题" />
@@ -119,7 +105,7 @@ const getDocFileTree = async () => {
 }
 const handleMaxNO = async () => {
   if (formType.value === 'create') {
- let res=  await DocFileApi.getMaxno(formData.value.parentId)
+    let res = await DocFileApi.getMaxno(formData.value.parentId)
     formData.value.numSeq = res
   }
 }

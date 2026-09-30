@@ -3,25 +3,13 @@
   <doc-alert title="【通用】数据权限" url="https://doc.iocoder.cn/crm/permission/" />
 
   <ContentWrap>
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="160px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="160px" v-loading="formLoading">
       <el-card shadow="never">
         <!-- 操作 -->
         <template #header>
           <div class="flex items-center justify-between">
             <CardTitle title="客户公海规则设置" />
-            <el-button
-              type="primary"
-              @click="onSubmit"
-              v-hasPermi="['crm:customer-pool-config:update']"
-            >
-              保存
-            </el-button>
+            <el-button type="primary" @click="onSubmit" v-hasPermi="['crm:customer-pool-config:update']"> 保存 </el-button>
           </div>
         </template>
         <!-- 表单 -->
@@ -39,19 +27,13 @@
             天未成交
           </el-form-item>
           <el-form-item label="提前提醒设置" prop="notifyEnabled">
-            <el-radio-group
-              v-model="formData.notifyEnabled"
-              @change="changeNotifyEnable"
-              class="ml-4"
-            >
+            <el-radio-group v-model="formData.notifyEnabled" @change="changeNotifyEnable" class="ml-4">
               <el-radio :value="false" size="large">不提醒</el-radio>
               <el-radio :value="true" size="large">提醒</el-radio>
             </el-radio-group>
           </el-form-item>
           <div v-if="formData.notifyEnabled">
-            <el-form-item>
-              提前 <el-input-number class="mx-2" v-model="formData.notifyDays" /> 天提醒
-            </el-form-item>
+            <el-form-item> 提前 <el-input-number class="mx-2" v-model="formData.notifyDays" /> 天提醒 </el-form-item>
           </div>
         </div>
       </el-card>

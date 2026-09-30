@@ -1,11 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    label-width="100px"
-    v-loading="formLoading"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
     <el-form-item label="名字" prop="name">
       <el-input v-model="formData.name" placeholder="请输入名字" />
     </el-form-item>
@@ -25,7 +19,7 @@ const formData = ref({})
 const formRules = reactive({
   studentId: [{ required: true, message: '学生编号不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '名字不能为空', trigger: 'blur' }],
-  teacher: [{ required: true, message: '班主任不能为空', trigger: 'blur' }],
+  teacher: [{ required: true, message: '班主任不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 

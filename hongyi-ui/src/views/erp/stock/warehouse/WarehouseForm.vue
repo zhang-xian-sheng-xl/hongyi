@@ -1,13 +1,7 @@
 <!-- ERP 仓库表单 -->
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="仓库名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入仓库名称" />
       </el-form-item>
@@ -16,43 +10,22 @@
       </el-form-item>
       <el-form-item label="仓库状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="仓储费" prop="warehousePrice">
-        <el-input-number
-          v-model="formData.warehousePrice"
-          placeholder="请输入仓储费，单位：元/天/KG"
-          :min="0"
-          :precision="2"
-          class="!w-1/1"
-        />
+        <el-input-number v-model="formData.warehousePrice" placeholder="请输入仓储费，单位：元/天/KG" :min="0" :precision="2" class="!w-1/1" />
       </el-form-item>
       <el-form-item label="搬运费" prop="truckagePrice">
-        <el-input-number
-          v-model="formData.truckagePrice"
-          placeholder="请输入搬运费，单位：元"
-          :min="0"
-          :precision="2"
-          class="!w-1/1"
-        />
+        <el-input-number v-model="formData.truckagePrice" placeholder="请输入搬运费，单位：元" :min="0" :precision="2" class="!w-1/1" />
       </el-form-item>
       <el-form-item label="负责人" prop="principal">
         <el-input v-model="formData.principal" placeholder="请输入负责人" />
       </el-form-item>
       <el-form-item label="排序" prop="sort">
-        <el-input-number
-          v-model="formData.sort"
-          placeholder="请输入排序"
-          :precision="0"
-          class="!w-1/1"
-        />
+        <el-input-number v-model="formData.sort" placeholder="请输入排序" :precision="0" class="!w-1/1" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input type="textarea" v-model="formData.remark" placeholder="请输入备注" />

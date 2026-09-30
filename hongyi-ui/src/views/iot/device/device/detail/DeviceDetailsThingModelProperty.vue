@@ -2,23 +2,9 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-      @submit.prevent
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px" @submit.prevent>
       <el-form-item label="" prop="keyword">
-        <el-input
-          v-model="queryParams.keyword"
-          placeholder="请输入属性名称、标志符"
-          clearable
-          class="!w-240px"
-          @keyup.enter="handleQuery"
-          @clear="handleQuery"
-        />
+        <el-input v-model="queryParams.keyword" placeholder="请输入属性名称、标志符" clearable class="!w-240px" @keyup.enter="handleQuery" @clear="handleQuery" />
       </el-form-item>
       <el-form-item class="float-right !mr-0 !mb-0">
         <el-button-group>
@@ -32,16 +18,7 @@
       </el-form-item>
       <!-- TODO @芋艿：参考阿里云，实时刷新！ -->
       <el-form-item>
-        <el-switch
-          size="large"
-          width="80"
-          v-model="autoRefresh"
-          class="-ml-15px"
-          inline-prompt
-          active-text="定时刷新"
-          inactive-text="定时刷新"
-          style="--el-switch-on-color: #13ce66"
-        />
+        <el-switch size="large" width="80" v-model="autoRefresh" class="-ml-15px" inline-prompt active-text="定时刷新" inactive-text="定时刷新" style="--el-switch-on-color: #13ce66" />
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -49,24 +26,10 @@
     <!-- 卡片视图 -->
     <template v-if="viewMode === 'card'">
       <el-row :gutter="16" v-loading="loading">
-        <el-col
-          v-for="item in list"
-          :key="item.identifier"
-          :xs="24"
-          :sm="12"
-          :md="12"
-          :lg="6"
-          class="mb-4"
-        >
-          <el-card
-            class="h-full transition-colors relative overflow-hidden"
-            :body-style="{ padding: '0' }"
-          >
+        <el-col v-for="item in list" :key="item.identifier" :xs="24" :sm="12" :md="12" :lg="6" class="mb-4">
+          <el-card class="h-full transition-colors relative overflow-hidden" :body-style="{ padding: '0' }">
             <!-- 添加渐变背景层 -->
-            <div
-              class="absolute top-0 left-0 right-0 h-[50px] pointer-events-none bg-gradient-to-b from-[#eefaff] to-transparent"
-            >
-            </div>
+            <div class="absolute top-0 left-0 right-0 h-[50px] pointer-events-none bg-gradient-to-b from-[#eefaff] to-transparent"> </div>
             <div class="p-4 relative">
               <!-- 标题区域 -->
               <div class="flex items-center mb-3">
@@ -126,22 +89,10 @@
           {{ formatValueWithUnit(scope.row) }}
         </template>
       </el-table-column>
-      <el-table-column
-        label="更新时间"
-        align="center"
-        prop="updateTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="更新时间" align="center" prop="updateTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openHistory(props.deviceId, scope.row.identifier, scope.row.dataType)"
-          >
-            查看数据
-          </el-button>
+          <el-button link type="primary" @click="openHistory(props.deviceId, scope.row.identifier, scope.row.dataType)"> 查看数据 </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -191,11 +142,7 @@ const handleFilter = () => {
     list.value = filterList.value
   } else {
     const keyword = queryParams.keyword.toLowerCase()
-    list.value = filterList.value.filter(
-      (item) =>
-        item.identifier?.toLowerCase().includes(keyword) ||
-        item.name?.toLowerCase().includes(keyword)
-    )
+    list.value = filterList.value.filter((item) => item.identifier?.toLowerCase().includes(keyword) || item.name?.toLowerCase().includes(keyword))
   }
 }
 

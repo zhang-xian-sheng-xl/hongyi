@@ -1,13 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="1080">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-      :disabled="disabled"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading" :disabled="disabled">
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="付款单号" prop="no">
@@ -16,59 +9,26 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="付款时间" prop="paymentTime">
-            <el-date-picker
-              v-model="formData.paymentTime"
-              type="date"
-              value-format="x"
-              placeholder="选择付款时间"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.paymentTime" type="date" value-format="x" placeholder="选择付款时间" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="供应商" prop="supplierId">
-            <el-select
-              v-model="formData.supplierId"
-              clearable
-              filterable
-              placeholder="请选择供应商"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in supplierList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.supplierId" clearable filterable placeholder="请选择供应商" class="!w-1/1">
+              <el-option v-for="item in supplierList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="财务人员" prop="financeUserId">
-            <el-select
-              v-model="formData.financeUserId"
-              clearable
-              filterable
-              placeholder="请选择财务人员"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in userList"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
+            <el-select v-model="formData.financeUserId" clearable filterable placeholder="请选择财务人员" class="!w-1/1">
+              <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item label="备注" prop="remark">
-            <el-input
-              type="textarea"
-              v-model="formData.remark"
-              :rows="1"
-              placeholder="请输入备注"
-            />
+            <el-input type="textarea" v-model="formData.remark" :rows="1" placeholder="请输入备注" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -81,31 +41,15 @@
       <ContentWrap>
         <el-tabs v-model="subTabsName" class="-mt-15px -mb-10px">
           <el-tab-pane label="采购入库、退货单" name="item">
-            <FinancePaymentItemForm
-              ref="itemFormRef"
-              :supplier-id="formData.supplierId"
-              :items="formData.items"
-              :disabled="disabled"
-            />
+            <FinancePaymentItemForm ref="itemFormRef" :supplier-id="formData.supplierId" :items="formData.items" :disabled="disabled" />
           </el-tab-pane>
         </el-tabs>
       </ContentWrap>
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="付款账户" prop="accountId">
-            <el-select
-              v-model="formData.accountId"
-              clearable
-              filterable
-              placeholder="请选择结算账户"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in accountList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.accountId" clearable filterable placeholder="请选择结算账户" class="!w-1/1">
+              <el-option v-for="item in accountList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -116,30 +60,18 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="优惠金额" prop="discountPrice">
-            <el-input-number
-              v-model="formData.discountPrice"
-              controls-position="right"
-              :precision="2"
-              placeholder="请输入优惠金额"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.discountPrice" controls-position="right" :precision="2" placeholder="请输入优惠金额" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="实际付款">
-            <el-input
-              disabled
-              v-model="formData.paymentPrice"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled v-model="formData.paymentPrice" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <template #footer>
-      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled">
-        确 定
-      </el-button>
+      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled"> 确 定 </el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>

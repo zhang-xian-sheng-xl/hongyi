@@ -34,7 +34,7 @@ const treeRef = ref<InstanceType<typeof ElTree>>()
 
 /** 获得部门树 */
 const getTree = async () => {
-  const res = await DocFileApi.getDocFileList({ pageNo: 1, pageSize: 9999})
+  const res = await DocFileApi.getDocFileList({ pageNo: 1, pageSize: 9999 })
   deptList.value = []
   deptList.value.push(...handleTree(res))
 }

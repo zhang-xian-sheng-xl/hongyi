@@ -1,21 +1,10 @@
 <!-- 转移数据的表单弹窗，目前主要用于 CRM 客户、商机等详情界面 -->
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="30%">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="150px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="150px">
       <el-form-item label="选择新负责人" prop="newOwnerUserId">
         <el-select v-model="formData.newOwnerUserId">
-          <el-option
-            v-for="item in userOptions"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+          <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="老负责人">
@@ -26,10 +15,7 @@
       </el-form-item>
       <el-form-item v-if="oldOwnerHandler" label="老负责人权限级别" prop="oldOwnerPermissionLevel">
         <el-radio-group v-model="formData.oldOwnerPermissionLevel">
-          <template
-            v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PERMISSION_LEVEL)"
-            :key="dict.value"
-          >
+          <template v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PERMISSION_LEVEL)" :key="dict.value">
             <el-radio v-if="dict.value != PermissionLevelEnum.OWNER" :value="dict.value">
               {{ dict.label }}
             </el-radio>
@@ -75,9 +61,7 @@ const oldOwnerHandler = ref(false) // 老负责人的处理方式
 const formData = ref<TransferReqVO>({} as TransferReqVO)
 const formRules = reactive({
   newOwnerUserId: [{ required: true, message: '新负责人不能为空', trigger: 'blur' }],
-  oldOwnerPermissionLevel: [
-    { required: true, message: '老负责人加入团队后的权限级别不能为空', trigger: 'blur' }
-  ]
+  oldOwnerPermissionLevel: [{ required: true, message: '老负责人加入团队后的权限级别不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 

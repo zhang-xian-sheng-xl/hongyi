@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="60%">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-row>
         <el-col :span="12">
           <el-form-item label="门店 logo" prop="logo">
@@ -17,11 +11,7 @@
         <el-col :span="12">
           <el-form-item label="门店状态" prop="status">
             <el-radio-group v-model="formData.status">
-              <el-radio
-                v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -41,12 +31,7 @@
         </el-col>
       </el-row>
       <el-form-item label="门店简介" prop="introduction">
-        <el-input
-          v-model="formData.introduction"
-          :rows="3"
-          type="textarea"
-          placeholder="请输入门店简介"
-        />
+        <el-input v-model="formData.introduction" :rows="3" type="textarea" placeholder="请输入门店简介" />
       </el-form-item>
       <el-row>
         <el-col :span="12">
@@ -63,26 +48,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="营业开始时间" prop="openingTime">
-            <el-time-select
-              v-model="formData.openingTime"
-              :max-time="formData.closingTime"
-              placeholder="开始时间"
-              start="08:30"
-              step="00:15"
-              end="23:30"
-            />
+            <el-time-select v-model="formData.openingTime" :max-time="formData.closingTime" placeholder="开始时间" start="08:30" step="00:15" end="23:30" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="营业结束时间" prop="closingTime">
-            <el-time-select
-              v-model="formData.closingTime"
-              :min-time="formData.openingTime"
-              placeholder="结束时间"
-              start="08:30"
-              step="00:15"
-              end="23:30"
-            />
+            <el-time-select v-model="formData.closingTime" :min-time="formData.openingTime" placeholder="结束时间" start="08:30" step="00:15" end="23:30" />
           </el-form-item>
         </el-col>
       </el-row>

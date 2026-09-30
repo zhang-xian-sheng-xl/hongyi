@@ -1,20 +1,7 @@
 <!-- 产品选择器组件 -->
 <template>
-  <el-select
-    :model-value="modelValue"
-    @update:model-value="handleChange"
-    placeholder="请选择产品"
-    filterable
-    clearable
-    class="w-full"
-    :loading="productLoading"
-  >
-    <el-option
-      v-for="product in productList"
-      :key="product.id"
-      :label="product.name"
-      :value="product.id"
-    >
+  <el-select :model-value="modelValue" @update:model-value="handleChange" placeholder="请选择产品" filterable clearable class="w-full" :loading="productLoading">
+    <el-option v-for="product in productList" :key="product.id" :label="product.name" :value="product.id">
       <div class="flex items-center justify-between w-full py-4px">
         <div class="flex-1">
           <div class="text-14px font-500 text-[var(--el-text-color-primary)] mb-2px">

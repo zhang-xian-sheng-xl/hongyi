@@ -2,25 +2,13 @@
 <template>
   <el-container class="kefu">
     <el-header class="kefu-header">
-      <div
-        :class="{ 'kefu-header-item-activation': tabActivation('会员信息') }"
-        class="kefu-header-item cursor-pointer flex items-center justify-center"
-        @click="handleClick('会员信息')"
-      >
+      <div :class="{ 'kefu-header-item-activation': tabActivation('会员信息') }" class="kefu-header-item cursor-pointer flex items-center justify-center" @click="handleClick('会员信息')">
         会员信息
       </div>
-      <div
-        :class="{ 'kefu-header-item-activation': tabActivation('最近浏览') }"
-        class="kefu-header-item cursor-pointer flex items-center justify-center"
-        @click="handleClick('最近浏览')"
-      >
+      <div :class="{ 'kefu-header-item-activation': tabActivation('最近浏览') }" class="kefu-header-item cursor-pointer flex items-center justify-center" @click="handleClick('最近浏览')">
         最近浏览
       </div>
-      <div
-        :class="{ 'kefu-header-item-activation': tabActivation('交易订单') }"
-        class="kefu-header-item cursor-pointer flex items-center justify-center"
-        @click="handleClick('交易订单')"
-      >
+      <div :class="{ 'kefu-header-item-activation': tabActivation('交易订单') }" class="kefu-header-item cursor-pointer flex items-center justify-center" @click="handleClick('交易订单')">
         交易订单
       </div>
     </el-header>
@@ -149,8 +137,7 @@ const getUserWallet = async () => {
     wallet.value = WALLET_INIT_DATA
     return
   }
-  wallet.value =
-    (await WalletApi.getWallet({ userId: conversation.value.userId })) || WALLET_INIT_DATA
+  wallet.value = (await WalletApi.getWallet({ userId: conversation.value.userId })) || WALLET_INIT_DATA
 }
 
 /** 获得用户 */

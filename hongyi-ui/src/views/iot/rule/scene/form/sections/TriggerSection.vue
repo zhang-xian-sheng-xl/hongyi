@@ -17,20 +17,12 @@
     <div class="p-16px space-y-24px">
       <!-- 触发器列表 -->
       <div v-if="triggers.length > 0" class="space-y-24px">
-        <div
-          v-for="(triggerItem, index) in triggers"
-          :key="`trigger-${index}`"
-          class="border-2 border-green-200 rounded-8px bg-green-50 shadow-sm hover:shadow-md transition-shadow"
-        >
+        <div v-for="(triggerItem, index) in triggers" :key="`trigger-${index}`" class="border-2 border-green-200 rounded-8px bg-green-50 shadow-sm hover:shadow-md transition-shadow">
           <!-- 触发器头部 - 绿色主题 -->
-          <div
-            class="flex items-center justify-between p-16px bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200 rounded-t-6px"
-          >
+          <div class="flex items-center justify-between p-16px bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200 rounded-t-6px">
             <div class="flex items-center gap-12px">
               <div class="flex items-center gap-8px text-16px font-600 text-green-700">
-                <div
-                  class="w-24px h-24px bg-green-500 text-white rounded-full flex items-center justify-center text-12px font-bold"
-                >
+                <div class="w-24px h-24px bg-green-500 text-white rounded-full flex items-center justify-center text-12px font-bold">
                   {{ index + 1 }}
                 </div>
                 <span>触发器 {{ index + 1 }}</span>
@@ -40,14 +32,7 @@
               </el-tag>
             </div>
             <div class="flex items-center gap-8px">
-              <el-button
-                v-if="triggers.length > 1"
-                type="danger"
-                size="small"
-                text
-                @click="removeTrigger(index)"
-                class="hover:bg-red-50"
-              >
+              <el-button v-if="triggers.length > 1" type="danger" size="small" text @click="removeTrigger(index)" class="hover:bg-red-50">
                 <Icon icon="ep:delete" />
                 删除
               </el-button>
@@ -66,36 +51,21 @@
             />
 
             <!-- 定时触发配置 -->
-            <div
-              v-else-if="triggerItem.type === IotRuleSceneTriggerTypeEnum.TIMER"
-              class="flex flex-col gap-16px"
-            >
-              <div
-                class="flex items-center gap-8px p-12px px-16px bg-[var(--el-fill-color-light)] rounded-6px border border-[var(--el-border-color-lighter)]"
-              >
+            <div v-else-if="triggerItem.type === IotRuleSceneTriggerTypeEnum.TIMER" class="flex flex-col gap-16px">
+              <div class="flex items-center gap-8px p-12px px-16px bg-[var(--el-fill-color-light)] rounded-6px border border-[var(--el-border-color-lighter)]">
                 <Icon icon="ep:timer" class="text-[var(--el-color-danger)] text-18px" />
-                <span class="text-14px font-500 text-[var(--el-text-color-primary)]"
-                  >定时触发配置</span
-                >
+                <span class="text-14px font-500 text-[var(--el-text-color-primary)]">定时触发配置</span>
               </div>
 
               <!-- CRON 表达式配置 -->
-              <div
-                class="p-16px border border-[var(--el-border-color-lighter)] rounded-6px bg-[var(--el-fill-color-blank)]"
-              >
+              <div class="p-16px border border-[var(--el-border-color-lighter)] rounded-6px bg-[var(--el-fill-color-blank)]">
                 <el-form-item label="CRON表达式" required>
-                  <Crontab
-                    :model-value="triggerItem.cronExpression || '0 0 12 * * ?'"
-                    @update:model-value="(value) => updateTriggerCronConfig(index, value)"
-                  />
+                  <Crontab :model-value="triggerItem.cronExpression || '0 0 12 * * ?'" @update:model-value="(value) => updateTriggerCronConfig(index, value)" />
                 </el-form-item>
               </div>
 
               <!-- 附加条件组配置 -->
-              <TimerConditionGroupConfig
-                :model-value="triggerItem.conditionGroups"
-                @update:model-value="(value) => updateTriggerConditionGroups(index, value)"
-              />
+              <TimerConditionGroupConfig :model-value="triggerItem.conditionGroups" @update:model-value="(value) => updateTriggerConditionGroups(index, value)" />
             </div>
           </div>
         </div>
@@ -107,9 +77,7 @@
           <template #description>
             <div class="space-y-8px">
               <p class="text-[var(--el-text-color-secondary)]">暂无触发器配置</p>
-              <p class="text-12px text-[var(--el-text-color-placeholder)]">
-                请使用上方的"添加触发器"按钮来设置触发规则
-              </p>
+              <p class="text-12px text-[var(--el-text-color-placeholder)]"> 请使用上方的"添加触发器"按钮来设置触发规则 </p>
             </div>
           </template>
         </el-empty>
@@ -124,11 +92,7 @@ import DeviceTriggerConfig from '../configs/DeviceTriggerConfig.vue'
 import TimerConditionGroupConfig from '../configs/TimerConditionGroupConfig.vue'
 import { Crontab } from '@/components/Crontab'
 import type { Trigger, TriggerCondition } from '@/api/iot/rule/scene'
-import {
-  getTriggerTypeLabel,
-  IotRuleSceneTriggerTypeEnum,
-  isDeviceTrigger
-} from '@/views/iot/utils/constants'
+import { getTriggerTypeLabel, IotRuleSceneTriggerTypeEnum, isDeviceTrigger } from '@/views/iot/utils/constants'
 
 /** 触发器配置组件 */
 defineOptions({ name: 'TriggerSection' })

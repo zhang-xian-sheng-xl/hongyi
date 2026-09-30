@@ -10,29 +10,9 @@
       </div>
       <div>
         <!-- 右上：按钮 -->
-        <el-button
-          @click="openForm('update', product.id)"
-          v-hasPermi="['iot:product:update']"
-          :disabled="product.status === 1"
-        >
-          编辑
-        </el-button>
-        <el-button
-          type="primary"
-          @click="confirmPublish(product.id)"
-          v-hasPermi="['iot:product:update']"
-          v-if="product.status === 0"
-        >
-          发布
-        </el-button>
-        <el-button
-          type="danger"
-          @click="confirmUnpublish(product.id)"
-          v-hasPermi="['iot:product:update']"
-          v-if="product.status === 1"
-        >
-          撤销发布
-        </el-button>
+        <el-button @click="openForm('update', product.id)" v-hasPermi="['iot:product:update']" :disabled="product.status === 1"> 编辑 </el-button>
+        <el-button type="primary" @click="confirmPublish(product.id)" v-hasPermi="['iot:product:update']" v-if="product.status === 0"> 发布 </el-button>
+        <el-button type="danger" @click="confirmUnpublish(product.id)" v-hasPermi="['iot:product:update']" v-if="product.status === 1"> 撤销发布 </el-button>
       </div>
     </div>
   </div>

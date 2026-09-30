@@ -1,45 +1,19 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="130px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="130px" v-loading="formLoading">
       <el-form-item label="所属平台" prop="platform">
         <el-select v-model="formData.platform" placeholder="请输入平台" clearable>
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="模型类型" prop="type">
-        <el-select
-          v-model="formData.type"
-          placeholder="请输入模型类型"
-          clearable
-          :disabled="formData.id"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.AI_MODEL_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="formData.type" placeholder="请输入模型类型" clearable :disabled="formData.id">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.AI_MODEL_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="API 秘钥" prop="keyId">
         <el-select v-model="formData.keyId" placeholder="请选择 API 秘钥" clearable>
-          <el-option
-            v-for="apiKey in apiKeyList"
-            :key="apiKey.id"
-            :label="apiKey.name"
-            :value="apiKey.id"
-          />
+          <el-option v-for="apiKey in apiKeyList" :key="apiKey.id" :label="apiKey.name" :value="apiKey.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="模型名字" prop="name">
@@ -53,54 +27,19 @@
       </el-form-item>
       <el-form-item label="开启状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        label="温度参数"
-        prop="temperature"
-        v-if="formData.type === AiModelTypeEnum.CHAT"
-      >
-        <el-input-number
-          v-model="formData.temperature"
-          placeholder="请输入温度参数"
-          :min="0"
-          :max="2"
-          :precision="2"
-          class="!w-1/1"
-        />
+      <el-form-item label="温度参数" prop="temperature" v-if="formData.type === AiModelTypeEnum.CHAT">
+        <el-input-number v-model="formData.temperature" placeholder="请输入温度参数" :min="0" :max="2" :precision="2" class="!w-1/1" />
       </el-form-item>
-      <el-form-item
-        label="回复数 Token 数"
-        prop="maxTokens"
-        v-if="formData.type === AiModelTypeEnum.CHAT"
-      >
-        <el-input-number
-          v-model="formData.maxTokens"
-          placeholder="请输入回复数 Token 数"
-          :min="0"
-          :max="8192"
-          class="!w-1/1"
-        />
+      <el-form-item label="回复数 Token 数" prop="maxTokens" v-if="formData.type === AiModelTypeEnum.CHAT">
+        <el-input-number v-model="formData.maxTokens" placeholder="请输入回复数 Token 数" :min="0" :max="8192" class="!w-1/1" />
       </el-form-item>
-      <el-form-item
-        label="上下文数量"
-        prop="maxContexts"
-        v-if="formData.type === AiModelTypeEnum.CHAT"
-      >
-        <el-input-number
-          v-model="formData.maxContexts"
-          placeholder="请输入上下文数量"
-          :min="0"
-          :max="20"
-          class="!w-1/1"
-        />
+      <el-form-item label="上下文数量" prop="maxContexts" v-if="formData.type === AiModelTypeEnum.CHAT">
+        <el-input-number v-model="formData.maxContexts" placeholder="请输入上下文数量" :min="0" :max="20" class="!w-1/1" />
       </el-form-item>
     </el-form>
     <template #footer>

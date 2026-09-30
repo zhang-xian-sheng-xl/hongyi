@@ -4,22 +4,10 @@
   <div class="flex flex-col">
     <el-row :gutter="16" class="summary">
       <el-col v-loading="loading" :sm="6" :xs="12">
-        <SummaryCard
-          :value="summary?.userCount || 0"
-          icon="fa-solid:users"
-          icon-bg-color="text-blue-500"
-          icon-color="bg-blue-100"
-          title="累计会员数"
-        />
+        <SummaryCard :value="summary?.userCount || 0" icon="fa-solid:users" icon-bg-color="text-blue-500" icon-color="bg-blue-100" title="累计会员数" />
       </el-col>
       <el-col v-loading="loading" :sm="6" :xs="12">
-        <SummaryCard
-          :value="summary?.rechargeUserCount || 0"
-          icon="fa-solid:user"
-          icon-bg-color="text-purple-500"
-          icon-color="bg-purple-100"
-          title="累计充值人数"
-        />
+        <SummaryCard :value="summary?.rechargeUserCount || 0" icon="fa-solid:user" icon-bg-color="text-purple-500" icon-color="bg-purple-100" title="累计充值人数" />
       </el-col>
       <el-col v-loading="loading" :sm="6" :xs="12">
         <SummaryCard
@@ -33,15 +21,7 @@
         />
       </el-col>
       <el-col v-loading="loading" :sm="6" :xs="12">
-        <SummaryCard
-          :decimals="2"
-          :value="fenToYuan(summary?.expensePrice || 0)"
-          icon="fa-solid:yen-sign"
-          icon-bg-color="text-green-500"
-          icon-color="bg-green-100"
-          prefix="￥"
-          title="累计消费金额"
-        />
+        <SummaryCard :decimals="2" :value="fenToYuan(summary?.expensePrice || 0)" icon="fa-solid:yen-sign" icon-bg-color="text-green-500" icon-color="bg-green-100" prefix="￥" title="累计消费金额" />
       </el-col>
     </el-row>
     <el-row :gutter="16" class="mb-4">
@@ -75,35 +55,10 @@
                   show-overflow-tooltip
                   sortable
                 />
-                <el-table-column
-                  align="center"
-                  label="会员数量"
-                  min-width="105"
-                  prop="userCount"
-                  sortable
-                />
-                <el-table-column
-                  align="center"
-                  label="订单创建数量"
-                  min-width="135"
-                  prop="orderCreateUserCount"
-                  sortable
-                />
-                <el-table-column
-                  align="center"
-                  label="订单支付数量"
-                  min-width="135"
-                  prop="orderPayUserCount"
-                  sortable
-                />
-                <el-table-column
-                  :formatter="fenToYuanFormat"
-                  align="center"
-                  label="订单支付金额"
-                  min-width="135"
-                  prop="orderPayPrice"
-                  sortable
-                />
+                <el-table-column align="center" label="会员数量" min-width="105" prop="userCount" sortable />
+                <el-table-column align="center" label="订单创建数量" min-width="135" prop="orderCreateUserCount" sortable />
+                <el-table-column align="center" label="订单支付数量" min-width="135" prop="orderPayUserCount" sortable />
+                <el-table-column :formatter="fenToYuanFormat" align="center" label="订单支付金额" min-width="135" prop="orderPayPrice" sortable />
               </el-table>
             </el-col>
           </el-row>
@@ -122,12 +77,7 @@
 </template>
 <script lang="ts" setup>
 import * as MemberStatisticsApi from '@/api/mall/statistics/member'
-import {
-  MemberAreaStatisticsRespVO,
-  MemberSexStatisticsRespVO,
-  MemberSummaryRespVO,
-  MemberTerminalStatisticsRespVO
-} from '@/api/mall/statistics/member'
+import { MemberAreaStatisticsRespVO, MemberSexStatisticsRespVO, MemberSummaryRespVO, MemberTerminalStatisticsRespVO } from '@/api/mall/statistics/member'
 import SummaryCard from '@/components/SummaryCard/index.vue'
 import { EChartsOption } from 'echarts'
 import china from '@/assets/map/json/china.json'
@@ -266,9 +216,7 @@ const getMemberSexStatisticsList = async () => {
   const dictDataList = getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)
   dictDataList.push({ label: '未知', value: null } as any)
   sexChartOptions.series![0].data = dictDataList.map((dictData: DictDataType) => {
-    const userCount = list.find(
-      (item: MemberSexStatisticsRespVO) => item.sex === dictData.value
-    )?.userCount
+    const userCount = list.find((item: MemberSexStatisticsRespVO) => item.sex === dictData.value)?.userCount
     return {
       name: dictData.label,
       value: userCount || 0
@@ -282,9 +230,7 @@ const getMemberTerminalStatisticsList = async () => {
   const dictDataList = getIntDictOptions(DICT_TYPE.TERMINAL)
   dictDataList.push({ label: '未知', value: null } as any)
   terminalChartOptions.series![0].data = dictDataList.map((dictData: DictDataType) => {
-    const userCount = list.find(
-      (item: MemberTerminalStatisticsRespVO) => item.terminal === dictData.value
-    )?.userCount
+    const userCount = list.find((item: MemberTerminalStatisticsRespVO) => item.terminal === dictData.value)?.userCount
     return {
       name: dictData.label,
       value: userCount || 0
@@ -295,12 +241,7 @@ const getMemberTerminalStatisticsList = async () => {
 /** 初始化 **/
 onMounted(async () => {
   loading.value = true
-  await Promise.all([
-    getMemberSummary(),
-    getMemberTerminalStatisticsList(),
-    getMemberAreaStatisticsList(),
-    getMemberSexStatisticsList()
-  ])
+  await Promise.all([getMemberSummary(), getMemberTerminalStatisticsList(), getMemberAreaStatisticsList(), getMemberSexStatisticsList()])
   loading.value = false
 })
 </script>

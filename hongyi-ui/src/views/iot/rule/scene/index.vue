@@ -7,9 +7,7 @@
           <Icon icon="ep:connection" class="ml-5px mr-12px text-[#409eff]" />
           场景联动规则
         </h2>
-        <p class="m-0 text-[#606266] text-14px">
-          通过配置触发条件和执行动作，实现设备间的智能联动控制
-        </p>
+        <p class="m-0 text-[#606266] text-14px"> 通过配置触发条件和执行动作，实现设备间的智能联动控制 </p>
       </div>
       <div>
         <el-button type="primary" @click="handleAdd">
@@ -21,35 +19,13 @@
 
     <!-- 搜索和筛选 -->
     <el-card class="mb-16px" shadow="never">
-      <el-form
-        ref="queryFormRef"
-        :model="queryParams"
-        :inline="true"
-        label-width="80px"
-        @submit.prevent
-      >
+      <el-form ref="queryFormRef" :model="queryParams" :inline="true" label-width="80px" @submit.prevent>
         <el-form-item label="规则名称">
-          <el-input
-            v-model="queryParams.name"
-            placeholder="请输入规则名称"
-            clearable
-            @keyup.enter="handleQuery"
-            class="!w-240px"
-          />
+          <el-input v-model="queryParams.name" placeholder="请输入规则名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
         </el-form-item>
         <el-form-item label="规则状态">
-          <el-select
-            v-model="queryParams.status"
-            placeholder="请选择状态"
-            clearable
-            class="!w-240px"
-          >
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+          <el-select v-model="queryParams.status" placeholder="请选择状态" clearable class="!w-240px">
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -68,14 +44,9 @@
     <!-- 统计卡片 -->
     <el-row :gutter="16" class="mb-16px">
       <el-col :span="6">
-        <el-card
-          class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px"
-          shadow="hover"
-        >
+        <el-card class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px" shadow="hover">
           <div class="flex items-center">
-            <div
-              class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#667eea] to-[#764ba2]"
-            >
+            <div class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#667eea] to-[#764ba2]">
               <Icon icon="ep:document" />
             </div>
             <div>
@@ -88,14 +59,9 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card
-          class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px"
-          shadow="hover"
-        >
+        <el-card class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px" shadow="hover">
           <div class="flex items-center">
-            <div
-              class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#f093fb] to-[#f5576c]"
-            >
+            <div class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#f093fb] to-[#f5576c]">
               <Icon icon="ep:check" />
             </div>
             <div>
@@ -108,14 +74,9 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card
-          class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px"
-          shadow="hover"
-        >
+        <el-card class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px" shadow="hover">
           <div class="flex items-center">
-            <div
-              class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#4facfe] to-[#00f2fe]"
-            >
+            <div class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#4facfe] to-[#00f2fe]">
               <Icon icon="ep:close" />
             </div>
             <div>
@@ -128,14 +89,9 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card
-          class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px"
-          shadow="hover"
-        >
+        <el-card class="cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2px" shadow="hover">
           <div class="flex items-center">
-            <div
-              class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#43e97b] to-[#38f9d7]"
-            >
+            <div class="w-48px h-48px rounded-8px flex items-center justify-center text-24px text-white mr-16px bg-gradient-to-br from-[#43e97b] to-[#38f9d7]">
               <Icon icon="ep:timer" />
             </div>
             <div>
@@ -219,11 +175,7 @@
                 <Icon icon="ep:edit" />
                 编辑
               </el-button>
-              <el-button
-                :type="row.status === 0 ? 'warning' : 'success'"
-                link
-                @click="handleToggleStatus(row)"
-              >
+              <el-button :type="row.status === 0 ? 'warning' : 'success'" link @click="handleToggleStatus(row)">
                 <Icon :icon="row.status === 0 ? 'ep:video-pause' : 'ep:video-play'" />
                 {{ getDictLabel(DICT_TYPE.COMMON_STATUS, row.status) }}
               </el-button>
@@ -237,12 +189,7 @@
       </el-table>
 
       <!-- 分页 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getList"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
 
     <!-- 表单对话框 -->
@@ -255,11 +202,7 @@ import { DICT_TYPE, getDictLabel, getIntDictOptions } from '@/utils/dict'
 import { ContentWrap } from '@/components/ContentWrap'
 import RuleSceneForm from './form/RuleSceneForm.vue'
 import { IotSceneRule, RuleSceneApi } from '@/api/iot/rule/scene'
-import {
-  getActionTypeLabel,
-  getTriggerTypeLabel,
-  IotRuleSceneTriggerTypeEnum
-} from '@/views/iot/utils/constants'
+import { getActionTypeLabel, getTriggerTypeLabel, IotRuleSceneTriggerTypeEnum } from '@/views/iot/utils/constants'
 import { formatDate } from '@/utils/formatTime'
 import { CommonStatusEnum } from '@/utils/constants'
 import { CronUtils } from '@/utils/cron'
@@ -386,16 +329,12 @@ const getActionSummary = (rule: IotSceneRule) => {
 
 /** 检查规则是否包含定时触发器 */
 const hasTimerTrigger = (rule: IotSceneRule): boolean => {
-  return (
-    rule.triggers?.some((trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER) || false
-  )
+  return rule.triggers?.some((trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER) || false
 }
 
 /** 获取 CRON 表达式的执行频率描述 */
 const getCronFrequency = (rule: IotSceneRule): string => {
-  const timerTrigger = rule.triggers?.find(
-    (trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER
-  )
+  const timerTrigger = rule.triggers?.find((trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER)
   if (timerTrigger?.cronExpression) {
     return CronUtils.getFrequencyDescription(timerTrigger.cronExpression)
   }
@@ -404,9 +343,7 @@ const getCronFrequency = (rule: IotSceneRule): string => {
 
 /** 获取下次执行时间 */
 const getNextExecutionTime = (rule: IotSceneRule): Date | null => {
-  const timerTrigger = rule.triggers?.find(
-    (trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER
-  )
+  const timerTrigger = rule.triggers?.find((trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER)
   if (timerTrigger?.cronExpression) {
     return CronUtils.getNextExecutionTime(timerTrigger.cronExpression)
   }
@@ -415,9 +352,7 @@ const getNextExecutionTime = (rule: IotSceneRule): Date | null => {
 
 /** 获取 CRON 表达式原始值 */
 const getCronExpression = (rule: IotSceneRule): string => {
-  const timerTrigger = rule.triggers?.find(
-    (trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER
-  )
+  const timerTrigger = rule.triggers?.find((trigger) => trigger.type === IotRuleSceneTriggerTypeEnum.TIMER)
   return timerTrigger?.cronExpression || ''
 }
 
@@ -466,17 +401,13 @@ const handleToggleStatus = async (row: IotSceneRule) => {
     const text = row.status === CommonStatusEnum.ENABLE ? '禁用' : '启用'
     await message.confirm('确认要' + text + '"' + row.name + '"吗?')
     // 发起修改状态
-    await RuleSceneApi.updateRuleSceneStatus(
-      row.id!,
-      row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
-    )
+    await RuleSceneApi.updateRuleSceneStatus(row.id!, row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE)
     message.success(text + '成功')
     // 刷新
     await getList()
   } catch {
     // 取消后，进行恢复按钮
-    row.status =
-      row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
+    row.status = row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
   }
 }
 

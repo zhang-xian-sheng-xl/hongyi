@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="分类名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入分类名" />
       </el-form-item>
@@ -18,22 +12,13 @@
       </el-form-item>
       <el-form-item label="分类状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="分类排序" prop="sort">
-        <el-input-number
-          v-model="formData.sort"
-          placeholder="请输入分类排序"
-          class="!w-1/1"
-          :precision="0"
-        />
+        <el-input-number v-model="formData.sort" placeholder="请输入分类排序" class="!w-1/1" :precision="0" />
       </el-form-item>
     </el-form>
     <template #footer>

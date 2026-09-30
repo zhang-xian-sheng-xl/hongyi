@@ -1,41 +1,17 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
-    <Form
-      ref="formRef"
-      v-loading="formLoading"
-      :is-col="true"
-      :rules="rules"
-      :schema="allSchemas.formSchema"
-      class="mt-10px"
-    >
+    <Form ref="formRef" v-loading="formLoading" :is-col="true" :rules="rules" :schema="allSchemas.formSchema" class="mt-10px">
       <template #spuId>
         <el-button @click="spuSelectRef.open()">选择商品</el-button>
-        <SpuAndSkuList
-          ref="spuAndSkuListRef"
-          :rule-config="ruleConfig"
-          :spu-list="spuList"
-          :spu-property-list-p="spuPropertyList"
-        >
+        <SpuAndSkuList ref="spuAndSkuListRef" :rule-config="ruleConfig" :spu-list="spuList" :spu-property-list-p="spuPropertyList">
           <el-table-column align="center" label="砍价起始价格(元)" min-width="168">
             <template #default="{ row: sku }">
-              <el-input-number
-                v-model="sku.productConfig.bargainFirstPrice"
-                :min="0"
-                :precision="2"
-                :step="0.1"
-                class="w-100%"
-              />
+              <el-input-number v-model="sku.productConfig.bargainFirstPrice" :min="0" :precision="2" :step="0.1" class="w-100%" />
             </template>
           </el-table-column>
           <el-table-column align="center" label="砍价底价(元)" min-width="168">
             <template #default="{ row: sku }">
-              <el-input-number
-                v-model="sku.productConfig.bargainMinPrice"
-                :min="0"
-                :precision="2"
-                :step="0.1"
-                class="w-100%"
-              />
+              <el-input-number v-model="sku.productConfig.bargainMinPrice" :min="0" :precision="2" :step="0.1" class="w-100%" />
             </template>
           </el-table-column>
           <el-table-column align="center" label="活动库存" min-width="168">
@@ -104,11 +80,7 @@ const selectSpu = (spuId: number, skuIds: number[]) => {
 /**
  * 获取 SPU 详情
  */
-const getSpuDetails = async (
-  spuId: number,
-  skuIds: number[] | undefined,
-  products?: BargainProductVO[]
-) => {
+const getSpuDetails = async (spuId: number, skuIds: number[] | undefined, products?: BargainProductVO[]) => {
   const spuProperties: SpuProperty<BargainActivityApi.SpuExtension>[] = []
   const res = (await ProductSpuApi.getSpuDetailList([spuId])) as BargainActivityApi.SpuExtension[]
   if (res.length == 0) {
@@ -117,8 +89,7 @@ const getSpuDetails = async (
   spuList.value = []
   // 因为只能选择一个
   const spu = res[0]
-  const selectSkus =
-    typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
+  const selectSkus = typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
   selectSkus?.forEach((sku) => {
     let config: BargainProductVO = {
       spuId: spu.id!,
@@ -159,9 +130,7 @@ const open = async (type: string, id?: number) => {
   if (id) {
     formLoading.value = true
     try {
-      const data = (await BargainActivityApi.getBargainActivity(
-        id
-      )) as BargainActivityApi.BargainActivityVO
+      const data = (await BargainActivityApi.getBargainActivity(id)) as BargainActivityApi.BargainActivityVO
       // 用户每次砍价金额分转元, 分转元
       data.randomMinPrice = formatToFraction(data.randomMinPrice)
       data.randomMaxPrice = formatToFraction(data.randomMaxPrice)

@@ -11,55 +11,20 @@
       <el-col :span="20" :xs="24">
         <!-- 搜索 -->
         <ContentWrap>
-          <el-form
-            class="-mb-15px"
-            :model="queryParams"
-            ref="queryFormRef"
-            :inline="true"
-            label-width="68px"
-          >
+          <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
             <el-form-item label="用户名称" prop="username">
-              <el-input
-                v-model="queryParams.username"
-                placeholder="请输入用户名称"
-                clearable
-                @keyup.enter="handleQuery"
-                class="!w-240px"
-              />
+              <el-input v-model="queryParams.username" placeholder="请输入用户名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
             </el-form-item>
             <el-form-item label="手机号码" prop="mobile">
-              <el-input
-                v-model="queryParams.mobile"
-                placeholder="请输入手机号码"
-                clearable
-                @keyup.enter="handleQuery"
-                class="!w-240px"
-              />
+              <el-input v-model="queryParams.mobile" placeholder="请输入手机号码" clearable @keyup.enter="handleQuery" class="!w-240px" />
             </el-form-item>
             <el-form-item label="状态" prop="status">
-              <el-select
-                v-model="queryParams.status"
-                placeholder="用户状态"
-                clearable
-                class="!w-240px"
-              >
-                <el-option
-                  v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-                  :key="dict.value"
-                  :label="dict.label"
-                  :value="dict.value"
-                />
+              <el-select v-model="queryParams.status" placeholder="用户状态" clearable class="!w-240px">
+                <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
               </el-select>
             </el-form-item>
             <el-form-item label="创建时间" prop="createTime">
-              <el-date-picker
-                v-model="queryParams.createTime"
-                value-format="YYYY-MM-DD HH:mm:ss"
-                type="datetimerange"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                class="!w-240px"
-              />
+              <el-date-picker v-model="queryParams.createTime" value-format="YYYY-MM-DD HH:mm:ss" type="datetimerange" start-placeholder="开始日期" end-placeholder="结束日期" class="!w-240px" />
             </el-form-item>
             <el-form-item>
               <el-button @click="handleQuery"><Icon icon="ep:search" />搜索</el-button>
@@ -71,59 +36,25 @@
           <el-table v-loading="loading" :data="list">
             <el-table-column width="55">
               <template #header>
-                <el-checkbox
-                  v-model="isCheckAll"
-                  :indeterminate="isIndeterminate"
-                  @change="handleCheckAll"
-                />
+                <el-checkbox v-model="isCheckAll" :indeterminate="isIndeterminate" @change="handleCheckAll" />
               </template>
               <template #default="{ row }">
-                <el-checkbox
-                  v-model="checkedStatus[row.id]"
-                  @change="(checked: boolean) => handleCheckOne(checked, row, true)"
-                />
+                <el-checkbox v-model="checkedStatus[row.id]" @change="(checked: boolean) => handleCheckOne(checked, row, true)" />
               </template>
             </el-table-column>
             <el-table-column label="用户编号" align="center" key="id" prop="id" />
-            <el-table-column
-              label="用户名称"
-              align="center"
-              prop="username"
-              :show-overflow-tooltip="true"
-            />
-            <el-table-column
-              label="用户昵称"
-              align="center"
-              prop="nickname"
-              :show-overflow-tooltip="true"
-            />
-            <el-table-column
-              label="部门"
-              align="center"
-              key="deptName"
-              prop="deptName"
-              :show-overflow-tooltip="true"
-            />
+            <el-table-column label="用户名称" align="center" prop="username" :show-overflow-tooltip="true" />
+            <el-table-column label="用户昵称" align="center" prop="nickname" :show-overflow-tooltip="true" />
+            <el-table-column label="部门" align="center" key="deptName" prop="deptName" :show-overflow-tooltip="true" />
             <el-table-column label="手机号码" align="center" prop="mobile" width="120" />
             <el-table-column label="状态" key="status">
               <template #default="scope">
                 <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
               </template>
             </el-table-column>
-            <el-table-column
-              label="创建时间"
-              align="center"
-              prop="createTime"
-              :formatter="dateFormatter"
-              width="180"
-            />
+            <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180" />
           </el-table>
-          <Pagination
-            :total="total"
-            v-model:page="queryParams.pageNo"
-            v-model:limit="queryParams.pageSize"
-            @pagination="getList"
-          />
+          <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
         </ContentWrap>
       </el-col>
     </el-row>
@@ -246,8 +177,7 @@ const findCheckedIndex = (user) => checkedUsers.value.findIndex((item) => item.i
 const calculateIsCheckAll = () => {
   isCheckAll.value = list.value.every((user) => checkedStatus.value[user.id])
   // 计算中间状态：不是全部选中 && 任意一个选中
-  isIndeterminate.value =
-    !isCheckAll.value && list.value.some((user) => checkedStatus.value[user.id])
+  isIndeterminate.value = !isCheckAll.value && list.value.some((user) => checkedStatus.value[user.id])
 }
 
 /** 多选完成 */

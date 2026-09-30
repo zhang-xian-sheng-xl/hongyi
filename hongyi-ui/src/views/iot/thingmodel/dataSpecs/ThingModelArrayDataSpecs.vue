@@ -3,19 +3,7 @@
   <el-form-item label="元素类型" prop="property.dataSpecs.childDataType">
     <el-radio-group v-model="dataSpecs.childDataType" @change="handleChange">
       <template v-for="item in getDataTypeOptions()" :key="item.value">
-        <el-radio
-          v-if="
-            !(
-              [
-                IoTDataSpecsDataTypeEnum.ENUM,
-                IoTDataSpecsDataTypeEnum.ARRAY,
-                IoTDataSpecsDataTypeEnum.DATE
-              ] as any[]
-            ).includes(item.value)
-          "
-          :value="item.value"
-          class="w-1/3"
-        >
+        <el-radio v-if="!([IoTDataSpecsDataTypeEnum.ENUM, IoTDataSpecsDataTypeEnum.ARRAY, IoTDataSpecsDataTypeEnum.DATE] as any[]).includes(item.value)" :value="item.value" class="w-1/3">
           {{ `${item.value}(${item.label})` }}
         </el-radio>
       </template>
@@ -25,10 +13,7 @@
     <el-input v-model="dataSpecs.size" placeholder="请输入数组中的元素个数" />
   </el-form-item>
   <!-- Struct 型配置-->
-  <ThingModelStructDataSpecs
-    v-if="dataSpecs.childDataType === IoTDataSpecsDataTypeEnum.STRUCT"
-    v-model="dataSpecs.dataSpecsList"
-  />
+  <ThingModelStructDataSpecs v-if="dataSpecs.childDataType === IoTDataSpecsDataTypeEnum.STRUCT" v-model="dataSpecs.dataSpecsList" />
 </template>
 
 <script lang="ts" setup>

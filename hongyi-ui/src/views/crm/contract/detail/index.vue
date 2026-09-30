@@ -1,12 +1,8 @@
 <!-- 合同详情页面组件-->
 <template>
   <ContractDetailsHeader v-loading="loading" :contract="contract">
-    <el-button v-if="permissionListRef?.validateWrite" @click="openForm('update', contract.id)">
-      编辑
-    </el-button>
-    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transferContract">
-      转移
-    </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" @click="openForm('update', contract.id)"> 编辑 </el-button>
+    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transferContract"> 转移 </el-button>
   </ContractDetailsHeader>
   <el-col>
     <el-tabs>
@@ -20,25 +16,11 @@
         <ContractProductList :contract="contract" />
       </el-tab-pane>
       <el-tab-pane label="回款">
-        <ReceivablePlanList
-          :contract-id="contract.id!"
-          :customer-id="contract.customerId"
-          @create-receivable="createReceivable"
-        />
-        <ReceivableList
-          ref="receivableListRef"
-          :contract-id="contract.id!"
-          :customer-id="contract.customerId"
-        />
+        <ReceivablePlanList :contract-id="contract.id!" :customer-id="contract.customerId" @create-receivable="createReceivable" />
+        <ReceivableList ref="receivableListRef" :contract-id="contract.id!" :customer-id="contract.customerId" />
       </el-tab-pane>
       <el-tab-pane label="团队成员">
-        <PermissionList
-          ref="permissionListRef"
-          :biz-id="contract.id!"
-          :biz-type="BizTypeEnum.CRM_CONTRACT"
-          :show-action="true"
-          @quit-team="close"
-        />
+        <PermissionList ref="permissionListRef" :biz-id="contract.id!" :biz-type="BizTypeEnum.CRM_CONTRACT" :show-action="true" @quit-team="close" />
       </el-tab-pane>
       <el-tab-pane label="操作日志">
         <OperateLogV2 :log-list="logList" />

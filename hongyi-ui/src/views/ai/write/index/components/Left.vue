@@ -13,11 +13,7 @@
   <DefineLabel v-slot="{ label, hint, hintClick }">
     <h3 class="mt-5 mb-3 flex items-center justify-between text-[14px]">
       <span>{{ label }}</span>
-      <span
-        v-if="hint"
-        class="flex items-center text-[12px] text-[#846af7] cursor-pointer select-none"
-        @click="hintClick"
-      >
+      <span v-if="hint" class="flex items-center text-[12px] text-[#846af7] cursor-pointer select-none" @click="hintClick">
         <Icon icon="ep:question-filled" />
         {{ hint }}
       </span>
@@ -29,57 +25,26 @@
     <div class="w-full pt-2 bg-[#f5f7f9] flex justify-center">
       <div class="w-[303px] rounded-full bg-[#DDDFE3] p-1 z-10">
         <div
-          :class="
-            selectedTab === AiWriteTypeEnum.REPLY && 'after:transform after:translate-x-[100%]'
-          "
+          :class="selectedTab === AiWriteTypeEnum.REPLY && 'after:transform after:translate-x-[100%]'"
           class="flex items-center relative after:content-[''] after:block after:bg-white after:h-[30px] after:w-1/2 after:absolute after:top-0 after:left-0 after:transition-transform after:rounded-full"
         >
-          <ReuseTab
-            v-for="tab in tabs"
-            :key="tab.value"
-            :active="tab.value === selectedTab"
-            :itemClick="() => switchTab(tab.value)"
-            :text="tab.text"
-          />
+          <ReuseTab v-for="tab in tabs" :key="tab.value" :active="tab.value === selectedTab" :itemClick="() => switchTab(tab.value)" :text="tab.text" />
         </div>
       </div>
     </div>
-    <div
-      class="px-7 pb-2 flex-grow overflow-y-auto lg:block w-[380px] box-border bg-[#f5f7f9] h-full"
-    >
+    <div class="px-7 pb-2 flex-grow overflow-y-auto lg:block w-[380px] box-border bg-[#f5f7f9] h-full">
       <div>
         <template v-if="selectedTab === 1">
           <ReuseLabel :hint-click="() => example('write')" hint="示例" label="写作内容" />
-          <el-input
-            v-model="formData.prompt"
-            :maxlength="500"
-            :rows="5"
-            placeholder="请输入写作内容"
-            showWordLimit
-            type="textarea"
-          />
+          <el-input v-model="formData.prompt" :maxlength="500" :rows="5" placeholder="请输入写作内容" showWordLimit type="textarea" />
         </template>
 
         <template v-else>
           <ReuseLabel :hint-click="() => example('reply')" hint="示例" label="原文" />
-          <el-input
-            v-model="formData.originalContent"
-            :maxlength="500"
-            :rows="5"
-            placeholder="请输入原文"
-            showWordLimit
-            type="textarea"
-          />
+          <el-input v-model="formData.originalContent" :maxlength="500" :rows="5" placeholder="请输入原文" showWordLimit type="textarea" />
 
           <ReuseLabel label="回复内容" />
-          <el-input
-            v-model="formData.prompt"
-            :maxlength="500"
-            :rows="5"
-            placeholder="请输入回复内容"
-            showWordLimit
-            type="textarea"
-          />
+          <el-input v-model="formData.prompt" :maxlength="500" :rows="5" placeholder="请输入回复内容" showWordLimit type="textarea" />
         </template>
 
         <ReuseLabel label="长度" />

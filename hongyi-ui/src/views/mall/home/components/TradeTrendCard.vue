@@ -168,17 +168,10 @@ const handleTimeRangeTypeChange = async () => {
 }
 
 /** 查询订单数量趋势对照数据 */
-const getOrderCountTrendComparison = async (
-  beginTime: dayjs.ConfigType,
-  endTime: dayjs.ConfigType
-) => {
+const getOrderCountTrendComparison = async (beginTime: dayjs.ConfigType, endTime: dayjs.ConfigType) => {
   loading.value = true
   // 查询数据
-  const list = await TradeStatisticsApi.getOrderCountTrendComparison(
-    timeRangeType.value,
-    beginTime,
-    endTime
-  )
+  const list = await TradeStatisticsApi.getOrderCountTrendComparison(timeRangeType.value, beginTime, endTime)
   // 处理数据
   const dates: string[] = []
   const series = [...timeRange.get(timeRangeType.value).series]

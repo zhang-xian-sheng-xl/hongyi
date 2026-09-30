@@ -2,12 +2,7 @@
   <Dialog v-model="dialogVisible" title="商家备注" width="45%">
     <el-form ref="formRef" v-loading="formLoading" :model="formData" label-width="80px">
       <el-form-item label="备注">
-        <el-input
-          v-model="formData.remark"
-          :rows="3"
-          placeholder="请输入订单备注"
-          type="textarea"
-        />
+        <el-input v-model="formData.remark" :rows="3" placeholder="请输入订单备注" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>

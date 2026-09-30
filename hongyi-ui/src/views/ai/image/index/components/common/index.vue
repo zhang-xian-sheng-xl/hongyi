@@ -3,30 +3,14 @@
   <div class="prompt">
     <el-text tag="b">画面描述</el-text>
     <el-text tag="p">建议使用“形容词 + 动词 + 风格”的格式，使用“，”隔开</el-text>
-    <el-input
-      v-model="prompt"
-      maxlength="1024"
-      :rows="5"
-      class="w-100% mt-15px"
-      input-style="border-radius: 7px;"
-      placeholder="例如：童话里的小屋应该是什么样子？"
-      show-word-limit
-      type="textarea"
-    />
+    <el-input v-model="prompt" maxlength="1024" :rows="5" class="w-100% mt-15px" input-style="border-radius: 7px;" placeholder="例如：童话里的小屋应该是什么样子？" show-word-limit type="textarea" />
   </div>
   <div class="flex flex-col mt-30px">
     <div>
       <el-text tag="b">随机热词</el-text>
     </div>
     <el-space wrap class="flex flex-row flex-wrap justify-start mt-15px">
-      <el-button
-        round
-        class="m-0"
-        :type="selectHotWord === hotWord ? 'primary' : 'default'"
-        v-for="hotWord in ImageHotWords"
-        :key="hotWord"
-        @click="handleHotWordClick(hotWord)"
-      >
+      <el-button round class="m-0" :type="selectHotWord === hotWord ? 'primary' : 'default'" v-for="hotWord in ImageHotWords" :key="hotWord" @click="handleHotWordClick(hotWord)">
         {{ hotWord }}
       </el-button>
     </el-space>
@@ -36,19 +20,8 @@
       <el-text tag="b">平台</el-text>
     </div>
     <el-space wrap class="mt-15px w-full">
-      <el-select
-        v-model="otherPlatform"
-        placeholder="Select"
-        size="large"
-        class="!w-350px"
-        @change="handlerPlatformChange"
-      >
-        <el-option
-          v-for="item in OtherPlatformEnum"
-          :key="item.key"
-          :label="item.name"
-          :value="item.key"
-        />
+      <el-select v-model="otherPlatform" placeholder="Select" size="large" class="!w-350px" @change="handlerPlatformChange">
+        <el-option v-for="item in OtherPlatformEnum" :key="item.key" :label="item.name" :value="item.key" />
       </el-select>
     </el-space>
   </div>
@@ -58,12 +31,7 @@
     </div>
     <el-space wrap class="mt-15px w-full">
       <el-select v-model="modelId" placeholder="Select" size="large" class="!w-350px">
-        <el-option
-          v-for="item in platformModels"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        />
+        <el-option v-for="item in platformModels" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
     </el-space>
   </div>
@@ -77,14 +45,7 @@
     </el-space>
   </div>
   <div class="flex justify-center mt-50px">
-    <el-button
-      type="primary"
-      size="large"
-      round
-      :loading="drawIn"
-      :disabled="prompt.length === 0"
-      @click="handleGenerateImage"
-    >
+    <el-button type="primary" size="large" round :loading="drawIn" :disabled="prompt.length === 0" @click="handleGenerateImage">
       {{ drawIn ? '生成中' : '生成内容' }}
     </el-button>
   </div>

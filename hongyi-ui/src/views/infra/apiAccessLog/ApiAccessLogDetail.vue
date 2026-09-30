@@ -20,24 +20,18 @@
       <el-descriptions-item label="用户 UA">
         {{ detailData.userAgent }}
       </el-descriptions-item>
-      <el-descriptions-item label="请求信息">
-        {{ detailData.requestMethod }} {{ detailData.requestUrl }}
-      </el-descriptions-item>
+      <el-descriptions-item label="请求信息"> {{ detailData.requestMethod }} {{ detailData.requestUrl }} </el-descriptions-item>
       <el-descriptions-item label="请求参数">
         {{ detailData.requestParams }}
       </el-descriptions-item>
       <el-descriptions-item label="请求结果">
         {{ detailData.responseBody }}
       </el-descriptions-item>
-      <el-descriptions-item label="请求时间">
-        {{ formatDate(detailData.beginTime) }} ~ {{ formatDate(detailData.endTime) }}
-      </el-descriptions-item>
+      <el-descriptions-item label="请求时间"> {{ formatDate(detailData.beginTime) }} ~ {{ formatDate(detailData.endTime) }} </el-descriptions-item>
       <el-descriptions-item label="请求耗时">{{ detailData.duration }} ms</el-descriptions-item>
       <el-descriptions-item label="操作结果">
         <div v-if="detailData.resultCode === 0">正常</div>
-        <div v-else-if="detailData.resultCode > 0">
-          失败 | {{ detailData.resultCode }} | {{ detailData.resultMsg }}
-        </div>
+        <div v-else-if="detailData.resultCode > 0"> 失败 | {{ detailData.resultCode }} | {{ detailData.resultMsg }} </div>
       </el-descriptions-item>
       <el-descriptions-item label="操作模块">
         {{ detailData.operateModule }}

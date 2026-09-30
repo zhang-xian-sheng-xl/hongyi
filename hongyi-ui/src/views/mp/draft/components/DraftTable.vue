@@ -5,28 +5,13 @@
         <WxNews :articles="item.content.newsItem" />
         <!-- 操作按钮 -->
         <el-row>
-          <el-button
-            type="success"
-            circle
-            @click="emit('publish', item)"
-            v-hasPermi="['mp:free-publish:submit']"
-          >
+          <el-button type="success" circle @click="emit('publish', item)" v-hasPermi="['mp:free-publish:submit']">
             <Icon icon="fa:upload" />
           </el-button>
-          <el-button
-            type="primary"
-            circle
-            @click="emit('update', item)"
-            v-hasPermi="['mp:draft:update']"
-          >
+          <el-button type="primary" circle @click="emit('update', item)" v-hasPermi="['mp:draft:update']">
             <Icon icon="ep:edit" />
           </el-button>
-          <el-button
-            type="danger"
-            circle
-            @click="emit('delete', item)"
-            v-hasPermi="['mp:draft:delete']"
-          >
+          <el-button type="danger" circle @click="emit('delete', item)" v-hasPermi="['mp:draft:delete']">
             <Icon icon="ep:delete" />
           </el-button>
         </el-row>

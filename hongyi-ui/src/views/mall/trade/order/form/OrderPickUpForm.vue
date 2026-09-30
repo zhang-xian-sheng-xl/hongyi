@@ -1,21 +1,13 @@
 <template>
   <!-- 核销对话框 -->
   <Dialog v-model="dialogVisible" title="订单核销" width="35%">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item prop="pickUpVerifyCode" label="核销码">
         <el-input v-model="formData.pickUpVerifyCode" placeholder="请输入核销码" />
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button type="primary" :disabled="formLoading" @click="getOrderByPickUpVerifyCodeClick">
-        查询
-      </el-button>
+      <el-button type="primary" :disabled="formLoading" @click="getOrderByPickUpVerifyCodeClick"> 查询 </el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>
@@ -54,10 +46,10 @@ const orderDetails = ref<OrderVO>({})
 /** 打开弹窗 */
 const open = async (pickUpVerifyCode: string) => {
   resetForm()
-  if(pickUpVerifyCode != null){
-    formData.value.pickUpVerifyCode = pickUpVerifyCode;
+  if (pickUpVerifyCode != null) {
+    formData.value.pickUpVerifyCode = pickUpVerifyCode
     await getOrderByPickUpVerifyCode()
-  }else{
+  } else {
     dialogVisible.value = true
   }
 }

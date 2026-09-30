@@ -9,33 +9,17 @@
       </div>
       <div>
         <span>菜单名称：</span>
-        <el-input
-          class="input_width"
-          v-model="menu.name"
-          placeholder="请输入菜单名称"
-          :maxlength="isParent ? 4 : 7"
-          clearable
-        />
+        <el-input class="input_width" v-model="menu.name" placeholder="请输入菜单名称" :maxlength="isParent ? 4 : 7" clearable />
       </div>
       <div v-if="isLeave">
         <div class="menu_content">
           <span>菜单标识：</span>
-          <el-input
-            class="input_width"
-            v-model="menu.menuKey"
-            placeholder="请输入菜单 KEY"
-            clearable
-          />
+          <el-input class="input_width" v-model="menu.menuKey" placeholder="请输入菜单 KEY" clearable />
         </div>
         <div class="menu_content">
           <span>菜单内容：</span>
           <el-select v-model="menu.type" clearable placeholder="请选择" class="menu_option">
-            <el-option
-              v-for="item in menuOptions"
-              :label="item.label"
-              :value="item.value"
-              :key="item.value"
-            />
+            <el-option v-for="item in menuOptions" :label="item.label" :value="item.value" :key="item.value" />
           </el-select>
         </div>
         <div class="configur_content" v-if="menu.type === 'view'">
@@ -45,30 +29,15 @@
         <div class="configur_content" v-if="menu.type === 'miniprogram'">
           <div class="applet">
             <span>小程序的 appid ：</span>
-            <el-input
-              class="input_width"
-              v-model="menu.miniProgramAppId"
-              placeholder="请输入小程序的appid"
-              clearable
-            />
+            <el-input class="input_width" v-model="menu.miniProgramAppId" placeholder="请输入小程序的appid" clearable />
           </div>
           <div class="applet">
             <span>小程序的页面路径：</span>
-            <el-input
-              class="input_width"
-              v-model="menu.miniProgramPagePath"
-              placeholder="请输入小程序的页面路径，如：pages/index"
-              clearable
-            />
+            <el-input class="input_width" v-model="menu.miniProgramPagePath" placeholder="请输入小程序的页面路径，如：pages/index" clearable />
           </div>
           <div class="applet">
             <span>小程序的备用网页：</span>
-            <el-input
-              class="input_width"
-              v-model="menu.url"
-              placeholder="不支持小程序的老版本客户端将打开本网页"
-              clearable
-            />
+            <el-input class="input_width" v-model="menu.url" placeholder="不支持小程序的老版本客户端将打开本网页" clearable />
           </div>
           <p class="blue">tips:需要和公众号进行关联才可以把小程序绑定带微信菜单上哟！</p>
         </div>
@@ -93,18 +62,11 @@
               </el-row>
             </div>
             <el-dialog title="选择图文" v-model="showNewsDialog" width="80%" destroy-on-close>
-              <WxMaterialSelect
-                type="news"
-                :account-id="props.accountId"
-                @select-material="selectMaterial"
-              />
+              <WxMaterialSelect type="news" :account-id="props.accountId" @select-material="selectMaterial" />
             </el-dialog>
           </el-row>
         </div>
-        <div
-          class="configur_content"
-          v-if="menu.type === 'click' || menu.type === 'scancode_waitmsg'"
-        >
+        <div class="configur_content" v-if="menu.type === 'click' || menu.type === 'scancode_waitmsg'">
           <WxReplySelect v-if="hackResetWxReplySelect" v-model="menu.reply" />
         </div>
       </div>

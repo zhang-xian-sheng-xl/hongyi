@@ -13,12 +13,7 @@
       <el-table-column label="商品 ID" prop="spuId" min-width="70" />
       <el-table-column label="商品图片" align="center" prop="picUrl" width="80">
         <template #default="{ row }">
-          <el-image
-            :src="row.picUrl"
-            :preview-src-list="[row.picUrl]"
-            class="h-30px w-30px"
-            preview-teleported
-          />
+          <el-image :src="row.picUrl" :preview-src-list="[row.picUrl]" class="h-30px w-30px" preview-teleported />
         </template>
       </el-table-column>
       <el-table-column label="商品名称" prop="name" min-width="200" :show-overflow-tooltip="true" />
@@ -27,29 +22,12 @@
       <el-table-column label="加购件数" prop="cartCount" min-width="105" sortable="custom" />
       <el-table-column label="下单件数" prop="orderCount" min-width="105" sortable="custom" />
       <el-table-column label="支付件数" prop="orderPayCount" min-width="105" sortable="custom" />
-      <el-table-column
-        label="支付金额"
-        prop="orderPayPrice"
-        min-width="105"
-        sortable="custom"
-        :formatter="fenToYuanFormat"
-      />
+      <el-table-column label="支付金额" prop="orderPayPrice" min-width="105" sortable="custom" :formatter="fenToYuanFormat" />
       <el-table-column label="收藏数" prop="favoriteCount" min-width="90" sortable="custom" />
-      <el-table-column
-        label="访客-支付转化率(%)"
-        prop="browseConvertPercent"
-        min-width="180"
-        sortable="custom"
-        :formatter="formatConvertRate"
-      />
+      <el-table-column label="访客-支付转化率(%)" prop="browseConvertPercent" min-width="180" sortable="custom" :formatter="formatConvertRate" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getSpuList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getSpuList" />
   </el-card>
 </template>
 <script lang="ts" setup>

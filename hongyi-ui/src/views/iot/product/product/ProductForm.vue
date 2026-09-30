@@ -1,22 +1,10 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-form-item label="ProductKey" prop="productKey">
-        <el-input
-          v-model="formData.productKey"
-          placeholder="请输入 ProductKey"
-          :readonly="formType === 'update'"
-        >
+        <el-input v-model="formData.productKey" placeholder="请输入 ProductKey" :readonly="formType === 'update'">
           <template #append>
-            <el-button @click="generateProductKey" :disabled="formType === 'update'">
-              重新生成
-            </el-button>
+            <el-button @click="generateProductKey" :disabled="formType === 'update'"> 重新生成 </el-button>
           </template>
         </el-input>
       </el-form-item>
@@ -25,55 +13,29 @@
       </el-form-item>
       <el-form-item label="产品分类" prop="categoryId">
         <el-select v-model="formData.categoryId" placeholder="请选择产品分类" clearable>
-          <el-option
-            v-for="category in categoryList"
-            :key="category.id"
-            :label="category.name"
-            :value="category.id"
-          />
+          <el-option v-for="category in categoryList" :key="category.id" :label="category.name" :value="category.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="设备类型" prop="deviceType">
         <el-radio-group v-model="formData.deviceType" :disabled="formType === 'update'">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_PRODUCT_DEVICE_TYPE)"
-            :key="dict.value"
-            :label="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.IOT_PRODUCT_DEVICE_TYPE)" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="[DeviceTypeEnum.DEVICE, DeviceTypeEnum.GATEWAY].includes(formData.deviceType!)"
-        label="联网方式"
-        prop="netType"
-      >
+      <el-form-item v-if="[DeviceTypeEnum.DEVICE, DeviceTypeEnum.GATEWAY].includes(formData.deviceType!)" label="联网方式" prop="netType">
         <el-select v-model="formData.netType" placeholder="请选择联网方式">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_NET_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_NET_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="协议类型" prop="protocolType">
         <el-select v-model="formData.protocolType" placeholder="请选择协议类型">
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.IOT_PROTOCOL_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.IOT_PROTOCOL_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item prop="serializeType">
         <template #label>
-          <el-tooltip
-            content="iot-gateway-server 默认根据接入的协议类型确定数据格式，仅 MQTT、EMQX 协议支持自定义序列化类型"
-            placement="top"
-          >
+          <el-tooltip content="iot-gateway-server 默认根据接入的协议类型确定数据格式，仅 MQTT、EMQX 协议支持自定义序列化类型" placement="top">
             <span>
               序列化类型
               <Icon icon="ep:question-filled" class="ml-2px" />
@@ -81,12 +43,7 @@
           </el-tooltip>
         </template>
         <el-select v-model="formData.serializeType" placeholder="请选择序列化类型">
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.IOT_SERIALIZE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.IOT_SERIALIZE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-collapse>
@@ -125,13 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ProductApi,
-  ProductVO,
-  ProtocolTypeEnum,
-  SerializeTypeEnum,
-  DeviceTypeEnum
-} from '@/api/iot/product/product'
+import { ProductApi, ProductVO, ProtocolTypeEnum, SerializeTypeEnum, DeviceTypeEnum } from '@/api/iot/product/product'
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
 import { ProductCategoryApi, ProductCategoryVO } from '@/api/iot/product/category'
 import { UploadImg } from '@/components/UploadFile'

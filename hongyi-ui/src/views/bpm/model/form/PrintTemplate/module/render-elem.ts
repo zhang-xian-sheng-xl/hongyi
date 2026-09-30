@@ -1,11 +1,7 @@
 import { h, VNode } from 'snabbdom'
 import { DomEditor, IDomEditor, SlateElement } from '@wangeditor-next/editor'
 
-function renderProcessRecord(
-  elem: SlateElement,
-  _children: VNode[] | null,
-  editor: IDomEditor
-): VNode {
+function renderProcessRecord(elem: SlateElement, _children: VNode[] | null, editor: IDomEditor): VNode {
   const selected = DomEditor.isNodeSelected(editor, elem)
 
   return h(

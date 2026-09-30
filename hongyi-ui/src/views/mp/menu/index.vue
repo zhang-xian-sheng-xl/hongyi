@@ -27,22 +27,13 @@
           />
         </div>
         <div class="save_div">
-          <el-button class="save_btn" type="success" @click="onSave" v-hasPermi="['mp:menu:save']"
-            >保存并发布菜单</el-button
-          >
-          <el-button class="save_btn" type="danger" @click="onClear" v-hasPermi="['mp:menu:delete']"
-            >清空菜单</el-button
-          >
+          <el-button class="save_btn" type="success" @click="onSave" v-hasPermi="['mp:menu:save']">保存并发布菜单</el-button>
+          <el-button class="save_btn" type="danger" @click="onClear" v-hasPermi="['mp:menu:delete']">清空菜单</el-button>
         </div>
       </div>
       <!--右边配置-->
       <div class="right" v-if="showRightPanel">
-        <MenuEditor
-          :account-id="accountId"
-          :is-parent="isParent"
-          v-model="activeMenu"
-          @delete="onDeleteMenu"
-        />
+        <MenuEditor :account-id="accountId" :is-parent="isParent" v-model="activeMenu" @delete="onDeleteMenu" />
       </div>
       <!-- 一进页面就显示的默认页面，当点击左边按钮的时候，就不显示了-->
       <div v-else class="right">

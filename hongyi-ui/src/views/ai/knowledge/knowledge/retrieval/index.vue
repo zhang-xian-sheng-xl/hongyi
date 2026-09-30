@@ -8,15 +8,8 @@
       </div>
       <div>
         <div class="relative mb-10px">
-          <el-input
-            v-model="queryParams.content"
-            type="textarea"
-            :rows="8"
-            placeholder="请输入文本"
-          />
-          <div class="absolute bottom-10px right-10px text-gray-400 text-12px">
-            {{ queryParams.content?.length }} / 200
-          </div>
+          <el-input v-model="queryParams.content" type="textarea" :rows="8" placeholder="请输入文本" />
+          <div class="absolute bottom-10px right-10px text-gray-400 text-12px"> {{ queryParams.content?.length }} / 200 </div>
         </div>
         <div class="flex items-center mb-10px">
           <span class="w-60px text-gray-500">topK:</span>
@@ -24,13 +17,7 @@
         </div>
         <div class="flex items-center mb-15px">
           <span class="w-60px text-gray-500">相似度:</span>
-          <el-input-number
-            v-model="queryParams.similarityThreshold"
-            :min="0"
-            :max="1"
-            :precision="2"
-            :step="0.01"
-          />
+          <el-input-number v-model="queryParams.similarityThreshold" :min="0" :max="1" :precision="2" :step="0.01" />
         </div>
         <div class="flex justify-end">
           <el-button type="primary" @click="getRetrievalResult" :loading="loading">测试</el-button>
@@ -41,24 +28,13 @@
     <!-- 右侧召回结果区域 -->
     <ContentWrap class="flex-1 min-w-300px">
       <el-empty v-if="loading" description="正在检索中..." />
-      <div v-else-if="segments.length > 0" class="font-bold mb-15px">
-        {{ segments.length }} 个召回段落
-      </div>
+      <div v-else-if="segments.length > 0" class="font-bold mb-15px"> {{ segments.length }} 个召回段落 </div>
       <el-empty v-else description="暂无召回结果" />
       <div>
-        <div
-          v-for="(segment, index) in segments"
-          :key="index"
-          class="mb-20px border border-solid border-gray-200 rounded p-15px"
-        >
+        <div v-for="(segment, index) in segments" :key="index" class="mb-20px border border-solid border-gray-200 rounded p-15px">
           <div class="flex justify-between text-12px text-gray-500 mb-5px">
-            <span>
-              分段({{ segment.id }}) · {{ segment.contentLength }} 字符数 ·
-              {{ segment.tokens }} Token
-            </span>
-            <span class="px-8px py-4px bg-blue-50 text-blue-500 rounded-full text-12px font-bold">
-              score: {{ segment.score }}
-            </span>
+            <span> 分段({{ segment.id }}) · {{ segment.contentLength }} 字符数 · {{ segment.tokens }} Token </span>
+            <span class="px-8px py-4px bg-blue-50 text-blue-500 rounded-full text-12px font-bold"> score: {{ segment.score }} </span>
           </div>
           <div
             class="bg-gray-50 p-10px rounded mb-10px whitespace-pre-wrap overflow-hidden transition-all duration-100 text-13px"
@@ -141,8 +117,7 @@ const getKnowledgeInfo = async (id: number) => {
     const knowledge = await KnowledgeApi.getKnowledge(id)
     if (knowledge) {
       queryParams.topK = knowledge.topK || queryParams.topK
-      queryParams.similarityThreshold =
-        knowledge.similarityThreshold || queryParams.similarityThreshold
+      queryParams.similarityThreshold = knowledge.similarityThreshold || queryParams.similarityThreshold
     }
   } catch (error) {}
 }

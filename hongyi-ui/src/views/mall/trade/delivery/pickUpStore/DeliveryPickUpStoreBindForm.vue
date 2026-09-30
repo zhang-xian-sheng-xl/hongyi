@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="20%">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-row>
         <el-col :span="24">
           <el-form-item label="门店名称" prop="name">
@@ -23,12 +17,7 @@
           <ContentWrap v-if="formData.verifyUsers?.length > 0">
             <el-table :data="formData.verifyUsers">
               <el-table-column label="编号" align="center" prop="id" />
-              <el-table-column
-                label="用户昵称"
-                align="center"
-                prop="nickname"
-                :show-overflow-tooltip="true"
-              />
+              <el-table-column label="用户昵称" align="center" prop="nickname" :show-overflow-tooltip="true" />
               <el-table-column label="状态" align="center" key="status">
                 <template #default="scope">
                   <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
@@ -36,14 +25,7 @@
               </el-table-column>
               <el-table-column align="center" label="操作">
                 <template #default="scope">
-                  <el-button
-                    v-hasPermi="['trade:delivery:pick-up-store:delete']"
-                    link
-                    type="danger"
-                    @click="handleDelete(scope.row.id)"
-                  >
-                    删除
-                  </el-button>
+                  <el-button v-hasPermi="['trade:delivery:pick-up-store:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
                 </template>
               </el-table-column>
             </el-table>

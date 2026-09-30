@@ -1,21 +1,10 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
-    <Form
-      ref="formRef"
-      v-loading="formLoading"
-      :isCol="true"
-      :rules="rules"
-      :schema="allSchemas.formSchema"
-    >
+    <Form ref="formRef" v-loading="formLoading" :isCol="true" :rules="rules" :schema="allSchemas.formSchema">
       <!-- 先选择 -->
       <template #spuId>
         <el-button @click="spuSelectRef.open()">选择商品</el-button>
-        <SpuAndSkuList
-          ref="spuAndSkuListRef"
-          :rule-config="ruleConfig"
-          :spu-list="spuList"
-          :spu-property-list-p="spuPropertyList"
-        >
+        <SpuAndSkuList ref="spuAndSkuListRef" :rule-config="ruleConfig" :spu-list="spuList" :spu-property-list-p="spuPropertyList">
           <el-table-column align="center" label="秒杀库存" min-width="168">
             <template #default="{ row: sku }">
               <el-input-number v-model="sku.productConfig.stock" :min="0" class="w-100%" />
@@ -23,13 +12,7 @@
           </el-table-column>
           <el-table-column align="center" label="秒杀价格(元)" min-width="168">
             <template #default="{ row: sku }">
-              <el-input-number
-                v-model="sku.productConfig.seckillPrice"
-                :min="0"
-                :precision="2"
-                :step="0.1"
-                class="w-100%"
-              />
+              <el-input-number v-model="sku.productConfig.seckillPrice" :min="0" :precision="2" :step="0.1" class="w-100%" />
             </template>
           </el-table-column>
         </SpuAndSkuList>
@@ -89,11 +72,7 @@ const selectSpu = (spuId: number, skuIds: number[]) => {
 /**
  * 获取 SPU 详情
  */
-const getSpuDetails = async (
-  spuId: number,
-  skuIds: number[] | undefined,
-  products?: SeckillProductVO[]
-) => {
+const getSpuDetails = async (spuId: number, skuIds: number[] | undefined, products?: SeckillProductVO[]) => {
   const spuProperties: SpuProperty<SeckillActivityApi.SpuExtension>[] = []
   const res = (await ProductSpuApi.getSpuDetailList([spuId])) as SeckillActivityApi.SpuExtension[]
   if (res.length == 0) {
@@ -102,8 +81,7 @@ const getSpuDetails = async (
   spuList.value = []
   // 因为只能选择一个
   const spu = res[0]
-  const selectSkus =
-    typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
+  const selectSkus = typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
   selectSkus?.forEach((sku) => {
     let config: SeckillActivityApi.SeckillProductVO = {
       skuId: sku.id!,
@@ -141,10 +119,12 @@ const open = async (type: string, id?: number) => {
   if (id) {
     formLoading.value = true
     try {
-      const data = (await SeckillActivityApi.getSeckillActivity(
-        id
-      )) as SeckillActivityApi.SeckillActivityVO
-      await getSpuDetails(data.spuId!, data.products?.map((sku) => sku.skuId), data.products)
+      const data = (await SeckillActivityApi.getSeckillActivity(id)) as SeckillActivityApi.SeckillActivityVO
+      await getSpuDetails(
+        data.spuId!,
+        data.products?.map((sku) => sku.skuId),
+        data.products
+      )
       formRef.value.setValues(data)
     } finally {
       formLoading.value = false

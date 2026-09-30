@@ -1,53 +1,24 @@
 <template>
-  <el-card
-    class="wh-full"
-    :body-style="{ margin: 0, padding: 0, height: '100%', position: 'relative' }"
-    shadow="never"
-  >
+  <el-card class="wh-full" :body-style="{ margin: 0, padding: 0, height: '100%', position: 'relative' }" shadow="never">
     <template #header>
       绘画任务
       <!-- TODO @fan：看看，怎么优化下这个样子哈。 -->
       <el-button @click="handleViewPublic">绘画作品</el-button>
     </template>
     <!-- 图片列表 -->
-    <div
-      class="relative flex flex-row flex-wrap content-start h-full overflow-auto p-5 pb-[140px] box-border [&>div]:mr-5 [&>div]:mb-5"
-      ref="imageListRef"
-    >
-      <ImageCard
-        v-for="image in imageList"
-        :key="image.id"
-        :detail="image"
-        @on-btn-click="handleImageButtonClick"
-        @on-mj-btn-click="handleImageMidjourneyButtonClick"
-      />
+    <div class="relative flex flex-row flex-wrap content-start h-full overflow-auto p-5 pb-[140px] box-border [&>div]:mr-5 [&>div]:mb-5" ref="imageListRef">
+      <ImageCard v-for="image in imageList" :key="image.id" :detail="image" @on-btn-click="handleImageButtonClick" @on-mj-btn-click="handleImageMidjourneyButtonClick" />
     </div>
-    <div
-      class="absolute bottom-[60px] h-[50px] leading-[90px] w-full z-[999] bg-white flex flex-row justify-center items-center"
-    >
-      <Pagination
-        :total="pageTotal"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getImageList"
-      />
+    <div class="absolute bottom-[60px] h-[50px] leading-[90px] w-full z-[999] bg-white flex flex-row justify-center items-center">
+      <Pagination :total="pageTotal" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getImageList" />
     </div>
   </el-card>
 
   <!-- 图片详情 -->
-  <ImageDetail
-    :show="isShowImageDetail"
-    :id="showImageDetailId"
-    @handle-drawer-close="handleDetailClose"
-  />
+  <ImageDetail :show="isShowImageDetail" :id="showImageDetailId" @handle-drawer-close="handleDetailClose" />
 </template>
 <script setup lang="ts">
-import {
-  ImageApi,
-  ImageVO,
-  ImageMidjourneyActionVO,
-  ImageMidjourneyButtonsVO
-} from '@/api/ai/image'
+import { ImageApi, ImageVO, ImageMidjourneyActionVO, ImageMidjourneyButtonsVO } from '@/api/ai/image'
 import ImageDetail from './ImageDetail.vue'
 import ImageCard from './ImageCard.vue'
 import { ElLoading, LoadingOptionsResolved } from 'element-plus'
@@ -170,10 +141,7 @@ const handleImageButtonClick = async (type: string, imageDetail: ImageVO) => {
 }
 
 /** 处理 Midjourney 按钮点击事件  */
-const handleImageMidjourneyButtonClick = async (
-  button: ImageMidjourneyButtonsVO,
-  imageDetail: ImageVO
-) => {
+const handleImageMidjourneyButtonClick = async (button: ImageMidjourneyButtonsVO, imageDetail: ImageVO) => {
   // 1. 构建 params 参数
   const data = {
     id: imageDetail.id,

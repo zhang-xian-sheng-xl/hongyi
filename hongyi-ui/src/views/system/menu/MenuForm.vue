@@ -1,32 +1,15 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item label="上级菜单">
-        <el-tree-select
-          v-model="formData.parentId"
-          :data="menuTree"
-          :default-expanded-keys="[0]"
-          :props="defaultProps"
-          check-strictly
-          node-key="id"
-        />
+        <el-tree-select v-model="formData.parentId" :data="menuTree" :default-expanded-keys="[0]" :props="defaultProps" check-strictly node-key="id" />
       </el-form-item>
       <el-form-item label="菜单名称" prop="name">
         <el-input v-model="formData.name" clearable placeholder="请输入菜单名称" />
       </el-form-item>
       <el-form-item label="菜单类型" prop="type">
         <el-radio-group v-model="formData.type">
-          <el-radio-button
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_MENU_TYPE)"
-            :key="dict.label"
-            :value="dict.value"
-          >
+          <el-radio-button v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_MENU_TYPE)" :key="dict.label" :value="dict.value">
             {{ dict.label }}
           </el-radio-button>
         </el-radio-group>
@@ -36,10 +19,7 @@
       </el-form-item>
       <el-form-item v-if="formData.type !== 3" label="路由地址" prop="path">
         <template #label>
-          <Tooltip
-            message="访问的路由地址，如：`user`。如需外网地址时，则以 `http(s)://` 开头"
-            title="路由地址"
-          />
+          <Tooltip message="访问的路由地址，如：`user`。如需外网地址时，则以 `http(s)://` 开头" title="路由地址" />
         </template>
         <el-input v-model="formData.path" clearable placeholder="请输入路由地址" />
       </el-form-item>
@@ -51,10 +31,7 @@
       </el-form-item>
       <el-form-item v-if="formData.type !== 1" label="权限标识" prop="permission">
         <template #label>
-          <Tooltip
-            message="Controller 方法上的权限字符，如：@PreAuthorize(`@ss.hasPermission('system:user:list')`)"
-            title="权限标识"
-          />
+          <Tooltip message="Controller 方法上的权限字符，如：@PreAuthorize(`@ss.hasPermission('system:user:list')`)" title="权限标识" />
         </template>
         <el-input v-model="formData.permission" clearable placeholder="请输入权限标识" />
       </el-form-item>
@@ -63,11 +40,7 @@
       </el-form-item>
       <el-form-item label="菜单状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.label"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.label" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -83,10 +56,7 @@
       </el-form-item>
       <el-form-item v-if="formData.type !== 3" label="总是显示" prop="alwaysShow">
         <template #label>
-          <Tooltip
-            message="选择不是时，当该菜单只有一个子菜单时，不展示自己，直接展示子菜单"
-            title="总是显示"
-          />
+          <Tooltip message="选择不是时，当该菜单只有一个子菜单时，不展示自己，直接展示子菜单" title="总是显示" />
         </template>
         <el-radio-group v-model="formData.alwaysShow">
           <el-radio key="true" :value="true" border>总是</el-radio>
@@ -95,10 +65,7 @@
       </el-form-item>
       <el-form-item v-if="formData.type === 2" label="缓存状态" prop="keepAlive">
         <template #label>
-          <Tooltip
-            message="选择缓存时，则会被 `keep-alive` 缓存，必须填写「组件名称」字段"
-            title="缓存状态"
-          />
+          <Tooltip message="选择缓存时，则会被 `keep-alive` 缓存，必须填写「组件名称」字段" title="缓存状态" />
         </template>
         <el-radio-group v-model="formData.keepAlive">
           <el-radio key="true" :value="true" border>缓存</el-radio>
@@ -187,10 +154,7 @@ const submitForm = async () => {
   // 提交请求
   formLoading.value = true
   try {
-    if (
-      formData.value.type === SystemMenuTypeEnum.DIR ||
-      formData.value.type === SystemMenuTypeEnum.MENU
-    ) {
+    if (formData.value.type === SystemMenuTypeEnum.DIR || formData.value.type === SystemMenuTypeEnum.MENU) {
       if (!isExternal(formData.value.path)) {
         if (formData.value.parentId === 0 && formData.value.path.charAt(0) !== '/') {
           message.error('路径必须以 / 开头')

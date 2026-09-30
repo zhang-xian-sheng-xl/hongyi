@@ -27,9 +27,7 @@
         <el-col :span="6">
           <div class="text-center p-20px border border-solid border-gray-200 rounded bg-gray-50">
             <div class="text-32px font-bold mb-8px text-blue-500">
-              {{
-                Object.values(firmwareStatistics).reduce((sum, count) => sum + (count || 0), 0) || 0
-              }}
+              {{ Object.values(firmwareStatistics).reduce((sum, count) => sum + (count || 0), 0) || 0 }}
             </div>
             <div class="text-14px text-gray-600">升级设备总数</div>
           </div>
@@ -86,11 +84,7 @@
     </ContentWrap>
 
     <!-- 任务管理 -->
-    <OtaTaskList
-      :firmware-id="firmwareId"
-      :product-id="firmware?.productId"
-      @success="getStatistics"
-    />
+    <OtaTaskList :firmware-id="firmwareId" :product-id="firmware?.productId" @success="getStatistics" />
   </div>
 </template>
 
@@ -127,9 +121,7 @@ const getFirmwareInfo = async () => {
 const getStatistics = async () => {
   firmwareStatisticsLoading.value = true
   try {
-    firmwareStatistics.value = await IoTOtaTaskRecordApi.getOtaTaskRecordStatusStatistics(
-      firmwareId.value
-    )
+    firmwareStatistics.value = await IoTOtaTaskRecordApi.getOtaTaskRecordStatusStatistics(firmwareId.value)
   } finally {
     firmwareStatisticsLoading.value = false
   }

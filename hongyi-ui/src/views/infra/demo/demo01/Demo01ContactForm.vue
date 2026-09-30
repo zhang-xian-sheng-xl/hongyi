@@ -1,33 +1,18 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="名字" prop="name">
         <el-input v-model="formData.name" placeholder="请输入名字" />
       </el-form-item>
       <el-form-item label="性别" prop="sex">
         <el-radio-group v-model="formData.sex">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)"
-            :key="dict.value"
-            :label="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="出生年" prop="birthday">
-        <el-date-picker
-          v-model="formData.birthday"
-          type="date"
-          value-format="x"
-          placeholder="选择出生年"
-        />
+        <el-date-picker v-model="formData.birthday" type="date" value-format="x" placeholder="选择出生年" />
       </el-form-item>
       <el-form-item label="简介" prop="description">
         <Editor v-model="formData.description" height="150px" />
@@ -62,13 +47,13 @@ const formData = ref({
   sex: undefined,
   birthday: undefined,
   description: undefined,
-  avatar: undefined,
+  avatar: undefined
 })
 const formRules = reactive({
   name: [{ required: true, message: '名字不能为空', trigger: 'blur' }],
   sex: [{ required: true, message: '性别不能为空', trigger: 'blur' }],
   birthday: [{ required: true, message: '出生年不能为空', trigger: 'blur' }],
-  description: [{ required: true, message: '简介不能为空', trigger: 'blur' }],
+  description: [{ required: true, message: '简介不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -122,7 +107,7 @@ const resetForm = () => {
     sex: undefined,
     birthday: undefined,
     description: undefined,
-    avatar: undefined,
+    avatar: undefined
   }
   formRef.value?.resetFields()
 }

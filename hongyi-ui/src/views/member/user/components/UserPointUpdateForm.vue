@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" title="修改用户积分" width="600">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item label="用户编号" prop="id">
         <el-input v-model="formData.id" class="!w-240px" disabled />
       </el-form-item>
@@ -123,7 +117,5 @@ const resetForm = () => {
 }
 
 /** 变动后的积分 */
-const pointResult = computed(
-  () => formData.value.point + formData.value.changePoint * formData.value.changeType
-)
+const pointResult = computed(() => formData.value.point + formData.value.changePoint * formData.value.changeType)
 </script>

@@ -4,13 +4,7 @@
 
   <!-- 搜索 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
           v-model="queryParams.createTime"
@@ -23,42 +17,15 @@
         />
       </el-form-item>
       <el-form-item label="自提门店" prop="pickUpStoreIds">
-        <el-select
-          v-model="queryParams.pickUpStoreIds"
-          class="!w-280px"
-          placeholder="全部"
-          @change="handleQuery"
-        >
-          <el-option
-            v-for="item in pickUpStoreList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.pickUpStoreIds" class="!w-280px" placeholder="全部" @change="handleQuery">
+          <el-option v-for="item in pickUpStoreList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="聚合搜索">
-        <el-input
-          v-show="true"
-          v-model="queryParams[queryType.queryParam]"
-          class="!w-280px"
-          clearable
-          placeholder="请输入"
-          :type="queryType.queryParam === 'userId' ? 'number' : 'text'"
-        >
+        <el-input v-show="true" v-model="queryParams[queryType.queryParam]" class="!w-280px" clearable placeholder="请输入" :type="queryType.queryParam === 'userId' ? 'number' : 'text'">
           <template #prepend>
-            <el-select
-              v-model="queryType.queryParam"
-              class="!w-110px"
-              placeholder="全部"
-              @change="inputChangeSelect"
-            >
-              <el-option
-                v-for="dict in dynamicSearchList"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryType.queryParam" class="!w-110px" placeholder="全部" @change="inputChangeSelect">
+              <el-option v-for="dict in dynamicSearchList" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </template>
         </el-input>
@@ -72,22 +39,12 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          @click="handlePickup"
-          type="success"
-          plain
-          v-hasPermi="['trade:order:pick-up']"
-          :disabled="isUse"
-        >
+        <el-button @click="handlePickup" type="success" plain v-hasPermi="['trade:order:pick-up']" :disabled="isUse">
           <Icon class="mr-5px" icon="ep:check" />
           核销
         </el-button>
-        <el-button type="primary" @click="connectToSerialPort" :disabled="serialPort || isUse">
-          连接扫描枪
-        </el-button>
-        <el-button type="danger" @click="cutPort" :disabled="!serialPort || isUse">
-          断开扫描枪
-        </el-button>
+        <el-button type="primary" @click="connectToSerialPort" :disabled="serialPort || isUse"> 连接扫描枪 </el-button>
+        <el-button type="danger" @click="cutPort" :disabled="!serialPort || isUse"> 断开扫描枪 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -95,13 +52,7 @@
   <!-- 统计卡片 -->
   <el-row :gutter="16" class="summary">
     <el-col :sm="6" :xs="12" v-loading="loading">
-      <SummaryCard
-        title="订单数量"
-        icon="icon-park-outline:transaction-order"
-        icon-color="bg-blue-100"
-        icon-bg-color="text-blue-500"
-        :value="summary?.orderCount || 0"
-      />
+      <SummaryCard title="订单数量" icon="icon-park-outline:transaction-order" icon-color="bg-blue-100" icon-bg-color="text-blue-500" :value="summary?.orderCount || 0" />
     </el-col>
     <el-col :sm="6" :xs="12" v-loading="loading">
       <SummaryCard
@@ -115,24 +66,10 @@
       />
     </el-col>
     <el-col :sm="6" :xs="12" v-loading="loading">
-      <SummaryCard
-        title="退款单数"
-        icon="heroicons:receipt-refund"
-        icon-color="bg-yellow-100"
-        icon-bg-color="text-yellow-500"
-        :value="summary?.afterSaleCount || 0"
-      />
+      <SummaryCard title="退款单数" icon="heroicons:receipt-refund" icon-color="bg-yellow-100" icon-bg-color="text-yellow-500" :value="summary?.afterSaleCount || 0" />
     </el-col>
     <el-col :sm="6" :xs="12" v-loading="loading">
-      <SummaryCard
-        title="退款金额"
-        icon="ri:refund-2-line"
-        icon-color="bg-green-100"
-        icon-bg-color="text-green-500"
-        prefix="￥"
-        :decimals="2"
-        :value="fenToYuan(summary?.afterSalePrice || 0)"
-      />
+      <SummaryCard title="退款金额" icon="ri:refund-2-line" icon-color="bg-green-100" icon-bg-color="text-green-500" prefix="￥" :decimals="2" :value="fenToYuan(summary?.afterSalePrice || 0)" />
     </el-col>
   </el-row>
 
@@ -141,42 +78,20 @@
     <el-table v-loading="loading" :data="list">
       <el-table-column label="订单号" align="center" prop="no" min-width="180" />
       <el-table-column label="用户信息" align="center" prop="user.nickname" min-width="80" />
-      <el-table-column
-        label="推荐人信息"
-        align="center"
-        prop="brokerageUser.nickname"
-        min-width="100"
-      />
+      <el-table-column label="推荐人信息" align="center" prop="brokerageUser.nickname" min-width="100" />
       <el-table-column label="商品信息" align="center" prop="spuName" min-width="300">
         <template #default="{ row }">
           <div class="flex items-center" v-for="item in row.items" :key="item.id">
-            <el-image
-              :src="item.picUrl"
-              class="mr-10px h-30px w-30px flex-shrink-0"
-              :preview-src-list="[item.picUrl]"
-              preview-teleported
-            />
+            <el-image :src="item.picUrl" class="mr-10px h-30px w-30px flex-shrink-0" :preview-src-list="[item.picUrl]" preview-teleported />
             <span class="mr-10px">{{ item.spuName }}</span>
             <div class="flex flex-col flex-wrap gap-1">
-              <el-tag
-                v-for="property in item.properties"
-                :key="property.propertyId"
-                class="mr-10px"
-              >
-                {{ property.propertyName }}: {{ property.valueName }}
-              </el-tag>
+              <el-tag v-for="property in item.properties" :key="property.propertyId" class="mr-10px"> {{ property.propertyName }}: {{ property.valueName }} </el-tag>
               <span>{{ floatToFixed2(item.price) }} 元 x {{ item.count }}</span>
             </div>
           </div>
         </template>
       </el-table-column>
-      <el-table-column
-        label="实付金额(元)"
-        align="center"
-        prop="payPrice"
-        min-width="110"
-        :formatter="fenToYuanFormat"
-      />
+      <el-table-column label="实付金额(元)" align="center" prop="payPrice" min-width="110" :formatter="fenToYuanFormat" />
       <el-table-column label="核销员" align="center" prop="storeStaffName" min-width="70" />
       <el-table-column label="核销门店" align="center" prop="pickUpStoreId" min-width="80">
         <template #default="{ row }">
@@ -193,21 +108,10 @@
           <dict-tag :type="DICT_TYPE.TRADE_ORDER_STATUS" :value="row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="下单时间"
-        align="center"
-        prop="createTime"
-        min-width="170"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="下单时间" align="center" prop="createTime" min-width="170" :formatter="dateFormatter" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 各种操作的弹窗 -->
@@ -320,9 +224,7 @@ const getPickUpStoreList = async () => {
   pickUpStoreList.value = await PickUpStoreApi.getSimpleDeliveryPickUpStoreList()
   // 移除自己无法核销的门店
   const userId = useUserStore().getUser.id
-  pickUpStoreList.value = pickUpStoreList.value.filter((item) =>
-    item.verifyUserIds?.includes(userId)
-  )
+  pickUpStoreList.value = pickUpStoreList.value.filter((item) => item.verifyUserIds?.includes(userId))
 }
 
 /** 显示核销表单 */
@@ -335,12 +237,7 @@ const handlePickup = () => {
 const connectToSerialPort = async () => {
   try {
     // 判断浏览器支持串口通信
-    if (
-      'serial' in navigator &&
-      navigator.serial != null &&
-      typeof navigator.serial === 'object' &&
-      'requestPort' in navigator.serial
-    ) {
+    if ('serial' in navigator && navigator.serial != null && typeof navigator.serial === 'object' && 'requestPort' in navigator.serial) {
       // 提示用户选择一个串口
       port.value = await navigator.serial.requestPort()
     } else {

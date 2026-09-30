@@ -1,44 +1,16 @@
 <template>
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="字典名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入字典名称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入字典名称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="字典类型" prop="type">
-        <el-input
-          v-model="queryParams.type"
-          class="!w-240px"
-          clearable
-          placeholder="请输入字典类型"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.type" class="!w-240px" clearable placeholder="请输入字典类型" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          class="!w-240px"
-          clearable
-          placeholder="请选择字典状态"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择字典状态">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -61,32 +33,15 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['system:dict:create']"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="['system:dict:create']" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
-        <el-button
-          v-hasPermi="['system:dict:export']"
-          :loading="exportLoading"
-          plain
-          type="success"
-          @click="handleExport"
-        >
+        <el-button v-hasPermi="['system:dict:export']" :loading="exportLoading" plain type="success" @click="handleExport">
           <Icon class="mr-5px" icon="ep:download" />
           导出
         </el-button>
-        <el-button
-          v-hasPermi="['system:dict:delete']"
-          :disabled="checkedIds.length === 0"
-          plain
-          type="danger"
-          @click="handleDeleteBatch"
-        >
+        <el-button v-hasPermi="['system:dict:delete']" :disabled="checkedIds.length === 0" plain type="danger" @click="handleDeleteBatch">
           <Icon class="mr-5px" icon="ep:delete" />
           批量删除
         </el-button>
@@ -107,44 +62,19 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="备注" prop="remark" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180" />
       <el-table-column align="center" label="操作">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['system:dict:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            修改
-          </el-button>
+          <el-button v-hasPermi="['system:dict:update']" link type="primary" @click="openForm('update', scope.row.id)"> 修改 </el-button>
           <router-link :to="'/dict/type/data/' + scope.row.type">
             <el-button link type="primary">数据</el-button>
           </router-link>
-          <el-button
-            v-hasPermi="['system:dict:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['system:dict:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

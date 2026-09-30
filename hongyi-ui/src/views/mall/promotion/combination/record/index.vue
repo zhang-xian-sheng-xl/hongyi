@@ -6,20 +6,12 @@
     <el-col :span="6">
       <ContentWrap class="h-[110px] pb-0!">
         <div class="flex items-center">
-          <div
-            class="h-[50px] w-[50px] flex items-center justify-center"
-            style="color: rgb(24 144 255); background-color: rgb(24 144 255 / 10%)"
-          >
+          <div class="h-[50px] w-[50px] flex items-center justify-center" style="color: rgb(24 144 255); background-color: rgb(24 144 255 / 10%)">
             <Icon :size="23" icon="fa:user-times" />
           </div>
           <div class="ml-[20px]">
             <div class="mb-8px text-14px text-gray-400">参与人数(个)</div>
-            <CountTo
-              :duration="2600"
-              :end-val="recordSummary.userCount"
-              :start-val="0"
-              class="text-20px"
-            />
+            <CountTo :duration="2600" :end-val="recordSummary.userCount" :start-val="0" class="text-20px" />
           </div>
         </div>
       </ContentWrap>
@@ -27,20 +19,12 @@
     <el-col :span="6">
       <ContentWrap class="h-[110px]">
         <div class="flex items-center">
-          <div
-            class="h-[50px] w-[50px] flex items-center justify-center"
-            style="color: rgb(162 119 255); background-color: rgb(162 119 255 / 10%)"
-          >
+          <div class="h-[50px] w-[50px] flex items-center justify-center" style="color: rgb(162 119 255); background-color: rgb(162 119 255 / 10%)">
             <Icon :size="23" icon="fa:user-plus" />
           </div>
           <div class="ml-[20px]">
             <div class="mb-8px text-14px text-gray-400">成团数量(个)</div>
-            <CountTo
-              :duration="2600"
-              :end-val="recordSummary.successCount"
-              :start-val="0"
-              class="text-20px"
-            />
+            <CountTo :duration="2600" :end-val="recordSummary.successCount" :start-val="0" class="text-20px" />
           </div>
         </div>
       </ContentWrap>
@@ -48,20 +32,12 @@
     <el-col :span="6">
       <ContentWrap class="h-[110px]">
         <div class="flex items-center">
-          <div
-            class="h-[50px] w-[50px] flex items-center justify-center"
-            style="color: rgb(162 119 255); background-color: rgb(162 119 255 / 10%)"
-          >
+          <div class="h-[50px] w-[50px] flex items-center justify-center" style="color: rgb(162 119 255); background-color: rgb(162 119 255 / 10%)">
             <Icon :size="23" icon="fa:user-plus" />
           </div>
           <div class="ml-[20px]">
             <div class="mb-8px text-14px text-gray-400">虚拟成团(个)</div>
-            <CountTo
-              :duration="2600"
-              :end-val="recordSummary.virtualGroupCount"
-              :start-val="0"
-              class="text-20px"
-            />
+            <CountTo :duration="2600" :end-val="recordSummary.virtualGroupCount" :start-val="0" class="text-20px" />
           </div>
         </div>
       </ContentWrap>
@@ -70,13 +46,7 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
           v-model="queryParams.createTime"
@@ -90,14 +60,7 @@
       </el-form-item>
       <el-form-item label="拼团状态" prop="status">
         <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="全部">
-          <el-option
-            v-for="(dict, index) in getIntDictOptions(
-              DICT_TYPE.PROMOTION_COMBINATION_RECORD_STATUS
-            )"
-            :key="index"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="(dict, index) in getIntDictOptions(DICT_TYPE.PROMOTION_COMBINATION_RECORD_STATUS)" :key="index" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -125,78 +88,33 @@
       <el-table-column align="center" label="昵称" prop="nickname" min-width="100" />
       <el-table-column align="center" label="开团团长" prop="headId" min-width="100">
         <template #default="{ row }: { row: CombinationRecordApi.CombinationRecordVO }">
-          {{
-            row.headId ? pageList.find((item) => item.id === row.headId)?.nickname : row.nickname
-          }}
+          {{ row.headId ? pageList.find((item) => item.id === row.headId)?.nickname : row.nickname }}
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="开团时间"
-        prop="startTime"
-        width="180"
-      />
-      <el-table-column
-        align="center"
-        label="拼团商品"
-        prop="type"
-        show-overflow-tooltip
-        min-width="300"
-      >
+      <el-table-column :formatter="dateFormatter" align="center" label="开团时间" prop="startTime" width="180" />
+      <el-table-column align="center" label="拼团商品" prop="type" show-overflow-tooltip min-width="300">
         <template #default="{ row }">
-          <el-image
-            :src="row.picUrl"
-            class="mr-5px h-30px w-30px align-middle"
-            @click="imagePreview(row.picUrl)"
-          />
+          <el-image :src="row.picUrl" class="mr-5px h-30px w-30px align-middle" @click="imagePreview(row.picUrl)" />
           <span class="align-middle">{{ row.spuName }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="几人团" prop="userSize" min-width="100" />
       <el-table-column align="center" label="参与人数" prop="userCount" min-width="100" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="参团时间"
-        prop="createTime"
-        width="180"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="结束时间"
-        prop="endTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="参团时间" prop="createTime" width="180" />
+      <el-table-column :formatter="dateFormatter" align="center" label="结束时间" prop="endTime" width="180" />
       <el-table-column align="center" label="拼团状态" prop="status" min-width="150">
         <template #default="scope">
-          <dict-tag
-            :type="DICT_TYPE.PROMOTION_COMBINATION_RECORD_STATUS"
-            :value="scope.row.status"
-          />
+          <dict-tag :type="DICT_TYPE.PROMOTION_COMBINATION_RECORD_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
       <el-table-column align="center" fixed="right" label="操作">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['promotion:combination-record:query']"
-            link
-            type="primary"
-            @click="openRecordListDialog(scope.row)"
-          >
-            查看拼团
-          </el-button>
+          <el-button v-hasPermi="['promotion:combination-record:query']" link type="primary" @click="openRecordListDialog(scope.row)"> 查看拼团 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗 -->

@@ -9,12 +9,8 @@
                 <img src="@/assets/imgs/avatar.gif" alt="" />
               </el-avatar>
               <div>
-                <div class="text-20px">
-                  {{ t('workplace.welcome') }} {{ username }} {{ t('workplace.happyDay') }}
-                </div>
-                <div class="mt-10px text-14px text-gray-500">
-                  {{ t('workplace.toady') }}，20℃ - 32℃！
-                </div>
+                <div class="text-20px"> {{ t('workplace.welcome') }} {{ username }} {{ t('workplace.happyDay') }} </div>
+                <div class="mt-10px text-14px text-gray-500"> {{ t('workplace.toady') }}，20℃ - 32℃！ </div>
               </div>
             </div>
           </el-col>
@@ -22,32 +18,17 @@
             <div class="h-70px flex items-center justify-end lt-sm:mt-10px">
               <div class="px-8px text-right">
                 <div class="mb-16px text-14px text-gray-400">{{ t('workplace.project') }}</div>
-                <CountTo
-                  class="text-20px"
-                  :start-val="0"
-                  :end-val="totalSate.project"
-                  :duration="2600"
-                />
+                <CountTo class="text-20px" :start-val="0" :end-val="totalSate.project" :duration="2600" />
               </div>
               <el-divider direction="vertical" />
               <div class="px-8px text-right">
                 <div class="mb-16px text-14px text-gray-400">{{ t('workplace.toDo') }}</div>
-                <CountTo
-                  class="text-20px"
-                  :start-val="0"
-                  :end-val="totalSate.todo"
-                  :duration="2600"
-                />
+                <CountTo class="text-20px" :start-val="0" :end-val="totalSate.todo" :duration="2600" />
               </div>
               <el-divider direction="vertical" border-style="dashed" />
               <div class="px-8px text-right">
                 <div class="mb-16px text-14px text-gray-400">{{ t('workplace.access') }}</div>
-                <CountTo
-                  class="text-20px"
-                  :start-val="0"
-                  :end-val="totalSate.access"
-                  :duration="2600"
-                />
+                <CountTo class="text-20px" :start-val="0" :end-val="totalSate.access" :duration="2600" />
               </div>
             </div>
           </el-col>
@@ -62,39 +43,17 @@
         <template #header>
           <div class="h-3 flex justify-between">
             <span>{{ t('workplace.project') }}</span>
-            <el-link
-              type="primary"
-              :underline="false"
-              href="https://github.com/yudaocode"
-              target="_blank"
-            >
+            <el-link type="primary" :underline="false" href="https://github.com/yudaocode" target="_blank">
               {{ t('action.more') }}
             </el-link>
           </div>
         </template>
         <el-skeleton :loading="loading" animated>
           <el-row>
-            <el-col
-              v-for="(item, index) in projects"
-              :key="`card-${index}`"
-              :xl="8"
-              :lg="8"
-              :md="8"
-              :sm="24"
-              :xs="24"
-            >
-              <el-card
-                shadow="hover"
-                class="mr-5px mt-5px cursor-pointer"
-                @click="handleProjectClick(item.message)"
-              >
+            <el-col v-for="(item, index) in projects" :key="`card-${index}`" :xl="8" :lg="8" :md="8" :sm="24" :xs="24">
+              <el-card shadow="hover" class="mr-5px mt-5px cursor-pointer" @click="handleProjectClick(item.message)">
                 <div class="flex items-center">
-                  <Icon
-                    :icon="item.icon"
-                    :size="25"
-                    class="mr-8px"
-                    :style="{ color: item.color }"
-                  />
+                  <Icon :icon="item.icon" :size="25" class="mr-8px" :style="{ color: item.color }" />
                   <span class="text-16px">{{ item.name }}</span>
                 </div>
                 <div class="mt-12px text-12px text-gray-400">{{ t(item.message) }}</div>
@@ -164,9 +123,7 @@
               </el-avatar>
               <div>
                 <div class="text-14px">
-                  <Highlight :keys="item.keys.map((v) => t(v))">
-                    {{ item.type }} : {{ item.title }}
-                  </Highlight>
+                  <Highlight :keys="item.keys.map((v) => t(v))"> {{ item.type }} : {{ item.title }} </Highlight>
                 </div>
                 <div class="mt-16px text-12px text-gray-400">
                   {{ formatTime(item.date, 'yyyy-MM-dd') }}
@@ -399,14 +356,7 @@ const getWeeklyUserActivity = async () => {
 }
 
 const getAllApi = async () => {
-  await Promise.all([
-    getCount(),
-    getProject(),
-    getNotice(),
-    getShortcut(),
-    getUserAccessSource(),
-    getWeeklyUserActivity()
-  ])
+  await Promise.all([getCount(), getProject(), getNotice(), getShortcut(), getUserAccessSource(), getWeeklyUserActivity()])
   loading.value = false
 }
 

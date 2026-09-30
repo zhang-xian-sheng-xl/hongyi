@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" title="修改">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="昵称" prop="nickname">
         <el-input v-model="formData.nickname" placeholder="请输入昵称" />
       </el-form-item>
@@ -15,12 +9,7 @@
       </el-form-item>
       <el-form-item label="标签" prop="tagIds">
         <el-select v-model="formData.tagIds" clearable multiple placeholder="请选择标签">
-          <el-option
-            v-for="item in tagList"
-            :key="item.tagId"
-            :label="item.name"
-            :value="item.tagId"
-          />
+          <el-option v-for="item in tagList" :key="item.tagId" :label="item.name" :value="item.tagId" />
         </el-select>
       </el-form-item>
     </el-form>

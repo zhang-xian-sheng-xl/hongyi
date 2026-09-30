@@ -1,31 +1,12 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-    :disabled="disabled"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true" :disabled="disabled">
     <el-table :data="formData" show-summary :summary-method="getSummaries" class="-mt-10px">
       <el-table-column label="序号" type="index" align="center" width="60" />
       <el-table-column label="产品名称" min-width="180">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.productId`" :rules="formRules.productId" class="mb-0px!">
-            <el-select
-              v-model="row.productId"
-              clearable
-              filterable
-              @change="onChangeProduct($event, row)"
-              placeholder="请选择产品"
-            >
-              <el-option
-                v-for="item in productList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="row.productId" clearable filterable @change="onChangeProduct($event, row)" placeholder="请选择产品">
+              <el-option v-for="item in productList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </template>
@@ -54,50 +35,28 @@
       <el-table-column label="数量" prop="count" fixed="right" min-width="140">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.count`" :rules="formRules.count" class="mb-0px!">
-            <el-input-number
-              v-model="row.count"
-              controls-position="right"
-              :min="0.001"
-              :precision="3"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.count" controls-position="right" :min="0.001" :precision="3" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="产品单价" fixed="right" min-width="120">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.productPrice`" class="mb-0px!">
-            <el-input-number
-              v-model="row.productPrice"
-              controls-position="right"
-              :min="0.01"
-              :precision="2"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.productPrice" controls-position="right" :min="0.01" :precision="2" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="金额" prop="totalProductPrice" fixed="right" min-width="100">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.totalProductPrice`" class="mb-0px!">
-            <el-input
-              disabled
-              v-model="row.totalProductPrice"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled v-model="row.totalProductPrice" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="税率（%）" fixed="right" min-width="115">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.taxPercent`" class="mb-0px!">
-            <el-input-number
-              v-model="row.taxPercent"
-              controls-position="right"
-              :min="0"
-              :precision="2"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.taxPercent" controls-position="right" :min="0" :precision="2" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
@@ -138,12 +97,7 @@
 <script setup lang="ts">
 import { ProductApi, ProductVO } from '@/api/erp/product/product'
 import { StockApi } from '@/api/erp/stock/stock'
-import {
-  erpCountInputFormatter,
-  erpPriceInputFormatter,
-  erpPriceMultiply,
-  getSumValue
-} from '@/utils'
+import { erpCountInputFormatter, erpPriceInputFormatter, erpPriceMultiply, getSumValue } from '@/utils'
 
 const props = defineProps<{
   items: undefined
@@ -199,8 +153,7 @@ const getSummaries = (param: SummaryMethodProps) => {
     }
     if (['count', 'totalProductPrice', 'taxPrice', 'totalPrice'].includes(column.property)) {
       const sum = getSumValue(data.map((item) => Number(item[column.property])))
-      sums[index] =
-        column.property === 'count' ? erpCountInputFormatter(sum) : erpPriceInputFormatter(sum)
+      sums[index] = column.property === 'count' ? erpCountInputFormatter(sum) : erpPriceInputFormatter(sum)
     } else {
       sums[index] = ''
     }

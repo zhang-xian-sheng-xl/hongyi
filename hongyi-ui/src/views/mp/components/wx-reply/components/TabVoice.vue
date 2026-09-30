@@ -12,40 +12,17 @@
     <el-row v-else style="text-align: center">
       <!-- 选择素材 -->
       <el-col :span="12" class="col-select">
-        <el-button type="success" @click="showDialog = true">
-          素材库选择<Icon icon="ep:circle-check" />
-        </el-button>
-        <el-dialog
-          title="选择语音"
-          v-model="showDialog"
-          width="90%"
-          append-to-body
-          destroy-on-close
-        >
-          <WxMaterialSelect
-            type="voice"
-            :account-id="reply.accountId"
-            @select-material="selectMaterial"
-          />
+        <el-button type="success" @click="showDialog = true"> 素材库选择<Icon icon="ep:circle-check" /> </el-button>
+        <el-dialog title="选择语音" v-model="showDialog" width="90%" append-to-body destroy-on-close>
+          <WxMaterialSelect type="voice" :account-id="reply.accountId" @select-material="selectMaterial" />
         </el-dialog>
       </el-col>
       <!-- 文件上传 -->
       <el-col :span="12" class="col-add">
-        <el-upload
-          :action="UPLOAD_URL"
-          :headers="HEADERS"
-          multiple
-          :limit="1"
-          :file-list="fileList"
-          :data="uploadData"
-          :before-upload="beforeVoiceUpload"
-          :on-success="onUploadSuccess"
-        >
+        <el-upload :action="UPLOAD_URL" :headers="HEADERS" multiple :limit="1" :file-list="fileList" :data="uploadData" :before-upload="beforeVoiceUpload" :on-success="onUploadSuccess">
           <el-button type="primary">点击上传</el-button>
           <template #tip>
-            <div class="el-upload__tip">
-              格式支持 mp3/wma/wav/amr，文件大小不超过 2M，播放长度不超过 60s
-            </div>
+            <div class="el-upload__tip"> 格式支持 mp3/wma/wav/amr，文件大小不超过 2M，播放长度不超过 60s </div>
           </template>
         </el-upload>
       </el-col>

@@ -4,78 +4,29 @@
   <doc-alert title="微信小程序支付接入" url="https://doc.iocoder.cn/pay/wx-lite-pay-demo/" />
 
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="100px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
       <el-form-item label="应用编号" prop="appId">
-        <el-select
-          clearable
-          v-model="queryParams.appId"
-          placeholder="请选择应用信息"
-          class="!w-240px"
-        >
+        <el-select clearable v-model="queryParams.appId" placeholder="请选择应用信息" class="!w-240px">
           <el-option v-for="item in appList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="支付渠道" prop="channelCode">
-        <el-select
-          v-model="queryParams.channelCode"
-          placeholder="请选择支付渠道"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.PAY_CHANNEL_CODE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.channelCode" placeholder="请选择支付渠道" clearable class="!w-240px">
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.PAY_CHANNEL_CODE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="商户单号" prop="merchantOrderId">
-        <el-input
-          v-model="queryParams.merchantOrderId"
-          placeholder="请输入商户单号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.merchantOrderId" placeholder="请输入商户单号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="支付单号" prop="no">
-        <el-input
-          v-model="queryParams.no"
-          placeholder="请输入支付单号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.no" placeholder="请输入支付单号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="渠道单号" prop="channelOrderNo">
-        <el-input
-          v-model="queryParams.channelOrderNo"
-          placeholder="请输入渠道单号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.channelOrderNo" placeholder="请输入渠道单号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="支付状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择支付状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.PAY_ORDER_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择支付状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.PAY_ORDER_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -92,15 +43,7 @@
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['pay:order:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['pay:order:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -109,37 +52,21 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" width="80" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="支付金额" align="center" prop="price" width="100">
         <template #default="scope"> ￥{{ parseFloat(scope.row.price / 100).toFixed(2) }} </template>
       </el-table-column>
       <el-table-column label="退款金额" align="center" prop="refundPrice" width="100">
-        <template #default="scope">
-          ￥{{ parseFloat(scope.row.refundPrice / 100).toFixed(2) }}
-        </template>
+        <template #default="scope"> ￥{{ parseFloat(scope.row.refundPrice / 100).toFixed(2) }} </template>
       </el-table-column>
       <el-table-column label="手续金额" align="center" prop="channelFeePrice" width="100">
-        <template #default="scope">
-          ￥{{ parseFloat(scope.row.channelFeePrice / 100).toFixed(2) }}
-        </template>
+        <template #default="scope"> ￥{{ parseFloat(scope.row.channelFeePrice / 100).toFixed(2) }} </template>
       </el-table-column>
       <el-table-column label="订单号" align="left" width="300">
         <template #default="scope">
-          <p class="order-font">
-            <el-tag size="small"> 商户</el-tag> {{ scope.row.merchantOrderId }}
-          </p>
-          <p class="order-font" v-if="scope.row.no">
-            <el-tag size="small" type="warning">支付</el-tag> {{ scope.row.no }}
-          </p>
-          <p class="order-font" v-if="scope.row.channelOrderNo">
-            <el-tag size="small" type="success">渠道</el-tag> {{ scope.row.channelOrderNo }}
-          </p>
+          <p class="order-font"> <el-tag size="small"> 商户</el-tag> {{ scope.row.merchantOrderId }} </p>
+          <p class="order-font" v-if="scope.row.no"> <el-tag size="small" type="warning">支付</el-tag> {{ scope.row.no }} </p>
+          <p class="order-font" v-if="scope.row.channelOrderNo"> <el-tag size="small" type="success">渠道</el-tag> {{ scope.row.channelOrderNo }} </p>
         </template>
       </el-table-column>
       <el-table-column label="支付状态" align="center" prop="status">
@@ -152,35 +79,17 @@
           <dict-tag :type="DICT_TYPE.PAY_CHANNEL_CODE" :value="scope.row.channelCode" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="支付时间"
-        align="center"
-        prop="successTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="支付时间" align="center" prop="successTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="支付应用" align="center" prop="appName" width="100" />
       <el-table-column label="商品标题" align="center" prop="subject" width="180" />
       <el-table-column label="操作" align="center" fixed="right">
         <template #default="scope">
-          <el-button
-            type="primary"
-            link
-            @click="openDetail(scope.row.id)"
-            v-hasPermi="['pay:order:query']"
-          >
-            详情
-          </el-button>
+          <el-button type="primary" link @click="openDetail(scope.row.id)" v-hasPermi="['pay:order:query']"> 详情 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：预览 -->

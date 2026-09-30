@@ -16,13 +16,9 @@
         <el-tag type="success" size="small">￥{{ ((detailData.price || 0) / 100.0).toFixed(2) }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="手续费">
-        <el-tag type="warning" size="small">
-          ￥{{ ((detailData.channelFeePrice || 0) / 100.0).toFixed(2) }}
-        </el-tag>
+        <el-tag type="warning" size="small"> ￥{{ ((detailData.channelFeePrice || 0) / 100.0).toFixed(2) }} </el-tag>
       </el-descriptions-item>
-      <el-descriptions-item label="手续费比例">
-        {{ (detailData.channelFeeRate || 0).toFixed(2) }}%
-      </el-descriptions-item>
+      <el-descriptions-item label="手续费比例"> {{ (detailData.channelFeeRate || 0).toFixed(2) }}% </el-descriptions-item>
       <el-descriptions-item label="支付时间">
         {{ formatDate(detailData.successTime) }}
       </el-descriptions-item>
@@ -52,9 +48,7 @@
       </el-descriptions-item>
       <el-descriptions-item label="渠道用户">{{ detailData.channelUserId }}</el-descriptions-item>
       <el-descriptions-item label="退款金额">
-        <el-tag size="mini" type="danger">
-          ￥{{ ((detailData.refundPrice || 0) / 100.0).toFixed(2) }}
-        </el-tag>
+        <el-tag size="mini" type="danger"> ￥{{ ((detailData.refundPrice || 0) / 100.0).toFixed(2) }} </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="通知 URL">{{ detailData.notifyUrl }}</el-descriptions-item>
     </el-descriptions>

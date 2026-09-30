@@ -3,21 +3,9 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="会员昵称" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          class="!w-240px"
-          placeholder="请输入会员昵称"
-          clearable
-          @keyup="handleQuery"
-        />
+        <el-input v-model="queryParams.nickname" class="!w-240px" placeholder="请输入会员昵称" clearable @keyup="handleQuery" />
       </el-form-item>
       <el-form-item label="领取时间" prop="createTime">
         <el-date-picker
@@ -40,12 +28,7 @@
   <ContentWrap>
     <!-- Tab 选项：真正的内容在 Lab -->
     <el-tabs v-model="activeTab" type="card" @tab-change="onTabChange">
-      <el-tab-pane
-        v-for="tab in statusTabs"
-        :key="tab.value"
-        :label="tab.label"
-        :name="tab.value"
-      />
+      <el-tab-pane v-for="tab in statusTabs" :key="tab.value" :label="tab.label" :name="tab.value" />
     </el-tabs>
 
     <!-- 列表 -->
@@ -73,40 +56,16 @@
           <dict-tag :type="DICT_TYPE.PROMOTION_COUPON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="领取时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180"
-      />
-      <el-table-column
-        label="使用时间"
-        align="center"
-        prop="useTime"
-        :formatter="dateFormatter"
-        width="180"
-      />
+      <el-table-column label="领取时间" align="center" prop="createTime" :formatter="dateFormatter" width="180" />
+      <el-table-column label="使用时间" align="center" prop="useTime" :formatter="dateFormatter" width="180" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['promotion:coupon:delete']"
-            type="danger"
-            link
-            @click="handleDelete(scope.row.id)"
-          >
-            回收
-          </el-button>
+          <el-button v-hasPermi="['promotion:coupon:delete']" type="danger" link @click="handleDelete(scope.row.id)"> 回收 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 
@@ -170,9 +129,7 @@ const resetQuery = () => {
 const handleDelete = async (id: number) => {
   try {
     // 二次确认
-    await message.confirm(
-      '回收将会收回会员领取的待使用的优惠券，已使用的将无法回收，确定要回收所选优惠券吗？'
-    )
+    await message.confirm('回收将会收回会员领取的待使用的优惠券，已使用的将无法回收，确定要回收所选优惠券吗？')
     // 发起删除
     await deleteCoupon(id)
     message.notifySuccess('回收成功')

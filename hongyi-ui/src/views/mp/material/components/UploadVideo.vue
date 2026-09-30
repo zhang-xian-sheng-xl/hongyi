@@ -18,26 +18,16 @@
         <el-button type="primary" plain>选择视频</el-button>
       </template>
       <template #tip>
-        <span class="el-upload__tip" style="margin-left: 10px"
-          >格式支持 MP4，文件大小不超过 10MB</span
-        >
+        <span class="el-upload__tip" style="margin-left: 10px">格式支持 MP4，文件大小不超过 10MB</span>
       </template>
     </el-upload>
     <el-divider />
     <el-form :model="uploadData" :rules="uploadRules" ref="uploadFormRef">
       <el-form-item label="标题" prop="title">
-        <el-input
-          v-model="uploadData.title"
-          placeholder="标题将展示在相关播放页面，建议填写清晰、准确、生动的标题"
-        />
+        <el-input v-model="uploadData.title" placeholder="标题将展示在相关播放页面，建议填写清晰、准确、生动的标题" />
       </el-form-item>
       <el-form-item label="描述" prop="introduction">
-        <el-input
-          :rows="3"
-          type="textarea"
-          v-model="uploadData.introduction"
-          placeholder="介绍语将展示在相关播放页面，建议填写简洁明确、有信息量的内容"
-        />
+        <el-input :rows="3" type="textarea" v-model="uploadData.introduction" placeholder="介绍语将展示在相关播放页面，建议填写简洁明确、有信息量的内容" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -48,13 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import type {
-  FormInstance,
-  FormRules,
-  UploadInstance,
-  UploadProps,
-  UploadUserFile
-} from 'element-plus'
+import type { FormInstance, FormRules, UploadInstance, UploadProps, UploadUserFile } from 'element-plus'
 import { HEADERS, UploadData, UPLOAD_URL, UploadType, beforeVideoUpload } from './upload'
 
 const message = useMessage()

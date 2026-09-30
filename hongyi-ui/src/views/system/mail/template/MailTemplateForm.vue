@@ -1,20 +1,9 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" :width="800">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="140px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="140px">
       <el-form-item label="邮箱账号" prop="accountId">
         <el-select v-model="formData.accountId" placeholder="请选择邮箱账号">
-          <el-option
-            v-for="account in accountList"
-            :key="account.id"
-            :label="account.mail"
-            :value="account.id"
-          />
+          <el-option v-for="account in accountList" :key="account.id" :label="account.mail" :value="account.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="模板编码" prop="code">
@@ -34,11 +23,7 @@
       </el-form-item>
       <el-form-item label="开启状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

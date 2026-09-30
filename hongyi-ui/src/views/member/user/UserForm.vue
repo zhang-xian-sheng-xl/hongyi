@@ -1,22 +1,12 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="手机号" prop="mobile">
         <el-input v-model="formData.mobile" placeholder="请输入手机号" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -32,30 +22,16 @@
       </el-form-item>
       <el-form-item label="用户性别" prop="sex">
         <el-radio-group v-model="formData.sex">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_USER_SEX)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="出生日期" prop="birthday">
-        <el-date-picker
-          v-model="formData.birthday"
-          type="date"
-          value-format="x"
-          placeholder="选择出生日期"
-        />
+        <el-date-picker v-model="formData.birthday" type="date" value-format="x" placeholder="选择出生日期" />
       </el-form-item>
       <el-form-item label="所在地" prop="areaId">
-        <el-tree-select
-          v-model="formData.areaId"
-          :data="areaList"
-          :props="defaultProps"
-          :render-after-expand="true"
-        />
+        <el-tree-select v-model="formData.areaId" :data="areaList" :props="defaultProps" :render-after-expand="true" />
       </el-form-item>
       <el-form-item label="用户标签" prop="tagIds">
         <MemberTagSelect v-model="formData.tagIds" show-add />

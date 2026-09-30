@@ -1,29 +1,13 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
-    <Form
-      ref="formRef"
-      v-loading="formLoading"
-      :isCol="true"
-      :rules="rules"
-      :schema="allSchemas.formSchema"
-    >
+    <Form ref="formRef" v-loading="formLoading" :isCol="true" :rules="rules" :schema="allSchemas.formSchema">
       <!-- 先选择 -->
       <template #spuId>
         <el-button v-if="!isFormUpdate" @click="spuSelectRef.open()">选择商品</el-button>
-        <SpuAndSkuList
-          ref="spuAndSkuListRef"
-          :rule-config="ruleConfig"
-          :spu-list="spuList"
-          :spu-property-list-p="spuPropertyList"
-        >
+        <SpuAndSkuList ref="spuAndSkuListRef" :rule-config="ruleConfig" :spu-list="spuList" :spu-property-list-p="spuPropertyList">
           <el-table-column align="center" label="可兑换库存" min-width="168">
             <template #default="{ row: sku }">
-              <el-input-number
-                v-model="sku.productConfig.stock"
-                :max="sku.stock"
-                :min="0"
-                class="w-100%"
-              />
+              <el-input-number v-model="sku.productConfig.stock" :max="sku.stock" :min="0" class="w-100%" />
             </template>
           </el-table-column>
           <el-table-column align="center" label="可兑换次数" min-width="168">
@@ -38,13 +22,7 @@
           </el-table-column>
           <el-table-column align="center" label="所需金额(元)" min-width="168">
             <template #default="{ row: sku }">
-              <el-input-number
-                v-model="sku.productConfig.price"
-                :min="0"
-                :precision="2"
-                :step="0.1"
-                class="w-100%"
-              />
+              <el-input-number v-model="sku.productConfig.price" :min="0" :precision="2" :step="0.1" class="w-100%" />
             </template>
           </el-table-column>
         </SpuAndSkuList>
@@ -61,13 +39,7 @@
 import { SpuAndSkuList, SpuProperty, SpuSelect } from '../../components'
 import { allSchemas, rules } from './pointActivity.data'
 import { cloneDeep } from 'lodash-es'
-import {
-  PointActivityApi,
-  PointActivityVO,
-  PointProductVO,
-  SkuExtension,
-  SpuExtension
-} from '@/api/mall/promotion/point'
+import { PointActivityApi, PointActivityVO, PointProductVO, SkuExtension, SpuExtension } from '@/api/mall/promotion/point'
 import * as ProductSpuApi from '@/api/mall/product/spu'
 import { getPropertyList, RuleConfig } from '@/views/mall/product/spu/components'
 import { convertToInteger, formatToFraction } from '@/utils'
@@ -114,11 +86,7 @@ const selectSpu = (spuId: number, skuIds: number[]) => {
 /**
  * 获取 SPU 详情
  */
-const getSpuDetails = async (
-  spuId: number,
-  skuIds: number[] | undefined,
-  products?: PointProductVO[]
-) => {
+const getSpuDetails = async (spuId: number, skuIds: number[] | undefined, products?: PointProductVO[]) => {
   const spuProperties: SpuProperty<SpuExtension>[] = []
   const res = (await ProductSpuApi.getSpuDetailList([spuId])) as SpuExtension[]
   if (res.length == 0) {
@@ -127,8 +95,7 @@ const getSpuDetails = async (
   spuList.value = []
   // 因为只能选择一个
   const spu = res[0]
-  const selectSkus =
-    typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
+  const selectSkus = typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
   selectSkus?.forEach((sku) => {
     let config: PointProductVO = {
       skuId: sku.id!,

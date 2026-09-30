@@ -1,12 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true">
     <el-table :data="formData" class="-mt-10px">
       <el-table-column label="序号" type="index" width="100" />
       <el-table-column label="名字" min-width="150">
@@ -45,7 +38,7 @@ const formData = ref<any[]>([])
 const formRules = reactive({
   studentId: [{ required: true, message: '学生编号不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '名字不能为空', trigger: 'blur' }],
-  score: [{ required: true, message: '分数不能为空', trigger: 'blur' }],
+  score: [{ required: true, message: '分数不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -75,7 +68,7 @@ const handleAdd = () => {
     id: undefined,
     studentId: undefined,
     name: undefined,
-    score: undefined,
+    score: undefined
   }
   row.studentId = props.studentId as any
   formData.value.push(row)

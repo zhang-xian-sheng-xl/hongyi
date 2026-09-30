@@ -1,12 +1,7 @@
 <template>
   <el-table :data="formData" :show-overflow-tooltip="true" :stripe="true" height="120">
     <el-table-column label="商机名称" fixed="left" align="center" prop="name" />
-    <el-table-column
-      label="商机金额"
-      align="center"
-      prop="totalPrice"
-      :formatter="erpPriceTableColumnFormatter"
-    />
+    <el-table-column label="商机金额" align="center" prop="totalPrice" :formatter="erpPriceTableColumnFormatter" />
     <el-table-column label="客户名称" align="center" prop="customerName" />
     <el-table-column label="商机组" align="center" prop="statusTypeName" />
     <el-table-column label="商机阶段" align="center" prop="statusName" />

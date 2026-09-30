@@ -3,21 +3,9 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="模板名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入模板名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入模板名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -33,14 +21,7 @@
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['promotion:diy-template:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['promotion:diy-template:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -69,59 +50,20 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" min-width="180" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center" width="200">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="handleDecorate(scope.row.id)"
-            v-hasPermi="['promotion:diy-template:update']"
-          >
-            装修
-          </el-button>
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['promotion:diy-template:update']"
-          >
-            编辑
-          </el-button>
+          <el-button link type="primary" @click="handleDecorate(scope.row.id)" v-hasPermi="['promotion:diy-template:update']"> 装修 </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['promotion:diy-template:update']"> 编辑 </el-button>
           <template v-if="!scope.row.used">
-            <el-button
-              link
-              type="primary"
-              @click="handleUse(scope.row)"
-              v-hasPermi="['promotion:diy-template:use']"
-            >
-              使用
-            </el-button>
-            <el-button
-              link
-              type="danger"
-              @click="handleDelete(scope.row.id)"
-              v-hasPermi="['promotion:diy-template:delete']"
-            >
-              删除
-            </el-button>
+            <el-button link type="primary" @click="handleUse(scope.row)" v-hasPermi="['promotion:diy-template:use']"> 使用 </el-button>
+            <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['promotion:diy-template:delete']"> 删除 </el-button>
           </template>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

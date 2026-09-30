@@ -1,13 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="1080">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-      :disabled="disabled"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading" :disabled="disabled">
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="盘点单号" prop="no">
@@ -16,23 +9,12 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="盘点时间" prop="checkTime">
-            <el-date-picker
-              v-model="formData.checkTime"
-              type="date"
-              value-format="x"
-              placeholder="选择盘点时间"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.checkTime" type="date" value-format="x" placeholder="选择盘点时间" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item label="备注" prop="remark">
-            <el-input
-              type="textarea"
-              v-model="formData.remark"
-              :rows="1"
-              placeholder="请输入备注"
-            />
+            <el-input type="textarea" v-model="formData.remark" :rows="1" placeholder="请输入备注" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -51,9 +33,7 @@
       </el-tabs>
     </ContentWrap>
     <template #footer>
-      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled">
-        确 定
-      </el-button>
+      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled"> 确 定 </el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>

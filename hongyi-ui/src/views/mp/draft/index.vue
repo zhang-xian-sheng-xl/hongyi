@@ -3,56 +3,25 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="公众号" prop="accountId">
         <WxAccountSelect @change="onAccountChanged" />
       </el-form-item>
       <el-form-item>
-        <el-button
-          type="primary"
-          plain
-          @click="handleAdd"
-          v-hasPermi="['mp:draft:create']"
-          :disabled="accountId === 0"
-        >
-          <Icon icon="ep:plus" />新增
-        </el-button>
+        <el-button type="primary" plain @click="handleAdd" v-hasPermi="['mp:draft:create']" :disabled="accountId === 0"> <Icon icon="ep:plus" />新增 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
 
   <!-- 列表 -->
   <ContentWrap>
-    <DraftTable
-      :loading="loading"
-      :list="list"
-      @update="onUpdate"
-      @delete="onDelete"
-      @publish="onPublish"
-    />
+    <DraftTable :loading="loading" :list="list" @update="onUpdate" @delete="onDelete" @publish="onPublish" />
     <!-- 分页记录 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 添加或修改草稿对话框 -->
-  <el-dialog
-    :title="isCreating ? '新建图文' : '修改图文'"
-    width="80%"
-    v-model="showDialog"
-    :before-close="onBeforeDialogClose"
-    destroy-on-close
-  >
+  <el-dialog :title="isCreating ? '新建图文' : '修改图文'" width="80%" v-model="showDialog" :before-close="onBeforeDialogClose" destroy-on-close>
     <NewsForm v-model="newsList" v-loading="isSubmitting" :is-creating="isCreating" />
     <template #footer>
       <el-button @click="showDialog = false">取 消</el-button>
@@ -65,13 +34,7 @@
 import WxAccountSelect from '@/views/mp/components/wx-account-select'
 import * as MpDraftApi from '@/api/mp/draft'
 import * as MpFreePublishApi from '@/api/mp/freePublish'
-import {
-  type Article,
-  type NewsItem,
-  NewsForm,
-  DraftTable,
-  createEmptyNewsItem
-} from './components/'
+import { type Article, type NewsItem, NewsForm, DraftTable, createEmptyNewsItem } from './components/'
 // import drafts from './mock' // 可以用改本地数据模拟，避免API调用超限
 
 defineOptions({ name: 'MpDraft' })

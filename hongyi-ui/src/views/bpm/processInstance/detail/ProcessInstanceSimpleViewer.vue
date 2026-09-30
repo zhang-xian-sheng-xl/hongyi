@@ -1,10 +1,6 @@
 <template>
   <div v-loading="loading" class="process-viewer-container">
-    <SimpleProcessViewer
-      :flow-node="simpleModel"
-      :tasks="tasks"
-      :process-instance="processInstance"
-    />
+    <SimpleProcessViewer :flow-node="simpleModel" :tasks="tasks" :process-instance="processInstance" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -149,25 +145,11 @@ const setSimpleModelNodeTaskStatus = (
       simpleModel.activityStatus = TaskStatusEnum.NOT_START
     }
     simpleModel.conditionNodes?.forEach((node) => {
-      setSimpleModelNodeTaskStatus(
-        node,
-        processStatus,
-        rejectedTaskActivityIds,
-        unfinishedTaskActivityIds,
-        finishedActivityIds,
-        finishedSequenceFlowActivityIds
-      )
+      setSimpleModelNodeTaskStatus(node, processStatus, rejectedTaskActivityIds, unfinishedTaskActivityIds, finishedActivityIds, finishedSequenceFlowActivityIds)
     })
   }
 
-  setSimpleModelNodeTaskStatus(
-    simpleModel.childNode,
-    processStatus,
-    rejectedTaskActivityIds,
-    unfinishedTaskActivityIds,
-    finishedActivityIds,
-    finishedSequenceFlowActivityIds
-  )
+  setSimpleModelNodeTaskStatus(simpleModel.childNode, processStatus, rejectedTaskActivityIds, unfinishedTaskActivityIds, finishedActivityIds, finishedSequenceFlowActivityIds)
 }
 </script>
 

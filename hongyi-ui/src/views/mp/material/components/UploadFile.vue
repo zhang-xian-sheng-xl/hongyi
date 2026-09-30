@@ -20,14 +20,7 @@
 </template>
 <script lang="ts" setup>
 import type { UploadProps, UploadUserFile } from 'element-plus'
-import {
-  HEADERS,
-  UPLOAD_URL,
-  UploadData,
-  UploadType,
-  beforeImageUpload,
-  beforeVoiceUpload
-} from './upload'
+import { HEADERS, UPLOAD_URL, UploadData, UploadType, beforeImageUpload, beforeVoiceUpload } from './upload'
 
 const message = useMessage()
 

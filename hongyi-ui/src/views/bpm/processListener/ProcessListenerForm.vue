@@ -1,60 +1,29 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="110px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="110px" v-loading="formLoading">
       <el-form-item label="名字" prop="name">
         <el-input v-model="formData.name" placeholder="请输入名字" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="类型" prop="type">
-        <el-select
-          v-model="formData.type"
-          placeholder="请选择类型"
-          @change="formData.event = undefined"
-        >
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.BPM_PROCESS_LISTENER_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="formData.type" placeholder="请选择类型" @change="formData.event = undefined">
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.BPM_PROCESS_LISTENER_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="事件" prop="event">
         <el-select v-model="formData.event" placeholder="请选择事件">
-          <el-option
-            v-for="event in formData.type == 'execution'
-              ? ['开始', '结束']
-              : ['创建', '指派', '完成', '删除', '更新', '超时']"
-            :label="event"
-            :value="event"
-            :key="event"
-          />
+          <el-option v-for="event in formData.type == 'execution' ? ['开始', '结束'] : ['创建', '指派', '完成', '删除', '更新', '超时']" :label="event" :value="event" :key="event" />
         </el-select>
       </el-form-item>
       <el-form-item label="值类型" prop="valueType">
         <el-select v-model="formData.valueType" placeholder="请选择值类型">
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.BPM_PROCESS_LISTENER_VALUE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.BPM_PROCESS_LISTENER_VALUE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="类路径" prop="value" v-if="formData.type == 'class'">

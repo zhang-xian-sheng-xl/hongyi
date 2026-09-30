@@ -11,12 +11,8 @@
       <!-- 加载更多 -->
       <div v-loading="loading"></div>
       <div v-if="!loading">
-        <div class="el-table__empty-block" v-if="hasMore" @click="loadMore"
-          ><span class="el-table__empty-text">点击加载更多</span></div
-        >
-        <div class="el-table__empty-block" v-if="!hasMore"
-          ><span class="el-table__empty-text">没有更多了</span></div
-        >
+        <div class="el-table__empty-block" v-if="hasMore" @click="loadMore"><span class="el-table__empty-text">点击加载更多</span></div>
+        <div class="el-table__empty-block" v-if="!hasMore"><span class="el-table__empty-text">没有更多了</span></div>
       </div>
 
       <!-- 消息列表 -->
@@ -95,11 +91,7 @@ const sendMsg = async () => {
     return
   }
   // 公众号限制：客服消息，公众号只允许发送一条
-  if (
-    reply.value.type === ReplyType.News &&
-    reply.value.articles &&
-    reply.value.articles.length > 1
-  ) {
+  if (reply.value.type === ReplyType.News && reply.value.articles && reply.value.articles.length > 1) {
     reply.value.articles = [reply.value.articles[0]]
     message.success('图文消息条数限制在 1 条以内，已默认发送第一条')
   }

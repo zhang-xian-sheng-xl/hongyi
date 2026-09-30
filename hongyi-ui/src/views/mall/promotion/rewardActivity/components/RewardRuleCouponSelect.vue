@@ -1,11 +1,7 @@
 <template>
   <el-button class="ml-10px" type="text" @click="selectCoupon">添加优惠劵</el-button>
 
-  <div
-    v-for="(item, index) in list"
-    :key="item.id"
-    class="coupon-list-item p-x-10px mb-10px flex justify-between"
-  >
+  <div v-for="(item, index) in list" :key="item.id" class="coupon-list-item p-x-10px mb-10px flex justify-between">
     <div class="coupon-list-item-left flex items-center flex-wrap">
       <div class="mr-10px"> 优惠券名称：{{ item.name }}</div>
       <div class="mr-10px">
@@ -27,11 +23,7 @@
   </div>
 
   <!-- 优惠券选择 -->
-  <CouponSelect
-    ref="couponSelectRef"
-    :take-type="CouponTemplateTakeTypeEnum.ADMIN.type"
-    @change="handleCouponChange"
-  />
+  <CouponSelect ref="couponSelectRef" :take-type="CouponTemplateTakeTypeEnum.ADMIN.type" @change="handleCouponChange" />
 </template>
 
 <script lang="ts" setup>

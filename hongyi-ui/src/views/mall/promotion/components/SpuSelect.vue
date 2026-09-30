@@ -3,24 +3,10 @@
     <ContentWrap>
       <el-row :gutter="20" class="mb-10px">
         <el-col :span="6">
-          <el-input
-            v-model="queryParams.name"
-            class="!w-240px"
-            clearable
-            placeholder="请输入商品名称"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入商品名称" @keyup.enter="handleQuery" />
         </el-col>
         <el-col :span="6">
-          <el-tree-select
-            v-model="queryParams.categoryId"
-            :data="categoryList"
-            :props="defaultProps"
-            check-strictly
-            class="w-1/1"
-            node-key="id"
-            placeholder="请选择商品分类"
-          />
+          <el-tree-select v-model="queryParams.categoryId" :data="categoryList" :props="defaultProps" check-strictly class="w-1/1" node-key="id" placeholder="请选择商品分类" />
         </el-col>
         <el-col :span="6">
           <el-date-picker
@@ -44,26 +30,10 @@
           </el-button>
         </el-col>
       </el-row>
-      <el-table
-        ref="spuListRef"
-        v-loading="loading"
-        :data="list"
-        :expand-row-keys="expandRowKeys"
-        row-key="id"
-        @expand-change="expandChange"
-        @selection-change="selectSpu"
-      >
+      <el-table ref="spuListRef" v-loading="loading" :data="list" :expand-row-keys="expandRowKeys" row-key="id" @expand-change="expandChange" @selection-change="selectSpu">
         <el-table-column v-if="isSelectSku" type="expand" width="30">
           <template #default>
-            <SkuList
-              v-if="isExpand"
-              ref="skuListRef"
-              :isComponent="true"
-              :isDetail="true"
-              :prop-form-data="spuData"
-              :property-list="propertyList"
-              @selection-change="selectSku"
-            />
+            <SkuList v-if="isExpand" ref="skuListRef" :isComponent="true" :isDetail="true" :prop-form-data="spuData" :property-list="propertyList" @selection-change="selectSku" />
           </template>
         </el-table-column>
         <el-table-column type="selection" width="55" />
@@ -73,12 +43,7 @@
             <el-image :src="row.picUrl" class="h-30px w-30px" @click="imagePreview(row.picUrl)" />
           </template>
         </el-table-column>
-        <el-table-column
-          :show-overflow-tooltip="true"
-          label="商品名称"
-          min-width="300"
-          prop="name"
-        />
+        <el-table-column :show-overflow-tooltip="true" label="商品名称" min-width="300" prop="name" />
         <el-table-column align="center" label="商品售价" min-width="90" prop="price">
           <template #default="{ row }">
             {{ formatToFraction(row.price) }}
@@ -87,21 +52,10 @@
         <el-table-column align="center" label="销量" min-width="90" prop="salesCount" />
         <el-table-column align="center" label="库存" min-width="90" prop="stock" />
         <el-table-column align="center" label="排序" min-width="70" prop="sort" />
-        <el-table-column
-          :formatter="dateFormatter"
-          align="center"
-          label="创建时间"
-          prop="createTime"
-          width="180"
-        />
+        <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer>
       <el-button type="primary" @click="confirm">确 定</el-button>
@@ -258,9 +212,7 @@ const confirm = () => {
     return
   }
   // 返回各自 id 列表
-  props.isSelectSku
-    ? emits('confirm', selectedSpuId.value, selectedSkuIds.value)
-    : emits('confirm', selectedSpuId.value)
+  props.isSelectSku ? emits('confirm', selectedSpuId.value, selectedSkuIds.value) : emits('confirm', selectedSpuId.value)
   // 关闭弹窗
   dialogVisible.value = false
   selectedSpuId.value = 0

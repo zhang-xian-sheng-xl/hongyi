@@ -12,21 +12,10 @@ interface UploadData {
   accountId: number
 }
 
-const beforeImageUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) =>
-  useBeforeUpload(UploadType.Image, 2)(rawFile)
+const beforeImageUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => useBeforeUpload(UploadType.Image, 2)(rawFile)
 
-const beforeVoiceUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) =>
-  useBeforeUpload(UploadType.Voice, 2)(rawFile)
+const beforeVoiceUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => useBeforeUpload(UploadType.Voice, 2)(rawFile)
 
-const beforeVideoUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) =>
-  useBeforeUpload(UploadType.Video, 10)(rawFile)
+const beforeVideoUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => useBeforeUpload(UploadType.Video, 10)(rawFile)
 
-export {
-  HEADERS,
-  UPLOAD_URL,
-  UploadType,
-  UploadData,
-  beforeImageUpload,
-  beforeVoiceUpload,
-  beforeVideoUpload
-}
+export { HEADERS, UPLOAD_URL, UploadType, UploadData, beforeImageUpload, beforeVoiceUpload, beforeVideoUpload }

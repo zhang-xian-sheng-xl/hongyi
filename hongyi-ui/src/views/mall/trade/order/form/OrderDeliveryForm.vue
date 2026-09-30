@@ -10,12 +10,7 @@
       <template v-if="expressType === 'express'">
         <el-form-item label="物流公司">
           <el-select v-model="formData.logisticsId" placeholder="请选择" style="width: 100%">
-            <el-option
-              v-for="item in deliveryExpressList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+            <el-option v-for="item in deliveryExpressList" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="物流单号">

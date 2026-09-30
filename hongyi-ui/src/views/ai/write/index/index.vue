@@ -1,19 +1,7 @@
 <template>
   <div class="absolute top-0 left-0 right-0 bottom-0 flex">
-    <Left
-      :is-writing="isWriting"
-      class="h-full"
-      @submit="submit"
-      @reset="reset"
-      @example="handleExampleClick"
-    />
-    <Right
-      :is-writing="isWriting"
-      @stop-stream="stopStream"
-      ref="rightRef"
-      class="flex-grow"
-      v-model:content="writeResult"
-    />
+    <Left :is-writing="isWriting" class="h-full" @submit="submit" @reset="reset" @example="handleExampleClick" />
+    <Right :is-writing="isWriting" @stop-stream="stopStream" ref="rightRef" class="flex-grow" v-model:content="writeResult" />
   </div>
 </template>
 

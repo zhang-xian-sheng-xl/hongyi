@@ -8,20 +8,10 @@
         <el-input v-model="formData.receiverMobile" placeholder="请输入收件人手机号" />
       </el-form-item>
       <el-form-item label="所在地">
-        <el-tree-select
-          v-model="formData.receiverAreaId"
-          :data="areaList"
-          :props="defaultProps"
-          :render-after-expand="true"
-        />
+        <el-tree-select v-model="formData.receiverAreaId" :data="areaList" :props="defaultProps" :render-after-expand="true" />
       </el-form-item>
       <el-form-item label="详细地址">
-        <el-input
-          v-model="formData.receiverDetailAddress"
-          :rows="3"
-          placeholder="请输入收件人详细地址"
-          type="textarea"
-        />
+        <el-input v-model="formData.receiverDetailAddress" :rows="3" placeholder="请输入收件人详细地址" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>

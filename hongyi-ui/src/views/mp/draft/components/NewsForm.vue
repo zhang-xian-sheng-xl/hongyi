@@ -3,12 +3,7 @@
     <el-aside width="40%">
       <div class="select-item">
         <div v-for="(news, index) in newsList" :key="index">
-          <div
-            class="news-main father"
-            v-if="index === 0"
-            :class="{ activeAddNews: activeNewsIndex === index }"
-            @click="activeNewsIndex = index"
-          >
+          <div class="news-main father" v-if="index === 0" :class="{ activeAddNews: activeNewsIndex === index }" @click="activeNewsIndex = index">
             <div class="news-content">
               <img class="material-img" :src="news.thumbUrl" />
               <div class="news-content-title">{{ news.title }}</div>
@@ -17,23 +12,12 @@
               <el-button type="info" circle size="small" @click="() => moveDownNews(index)">
                 <Icon icon="ep:arrow-down-bold" />
               </el-button>
-              <el-button
-                v-if="isCreating"
-                type="danger"
-                circle
-                size="small"
-                @click="() => removeNews(index)"
-              >
+              <el-button v-if="isCreating" type="danger" circle size="small" @click="() => removeNews(index)">
                 <Icon icon="ep:delete" />
               </el-button>
             </div>
           </div>
-          <div
-            class="news-main-item father"
-            v-if="index > 0"
-            :class="{ activeAddNews: activeNewsIndex === index }"
-            @click="activeNewsIndex = index"
-          >
+          <div class="news-main-item father" v-if="index > 0" :class="{ activeAddNews: activeNewsIndex === index }" @click="activeNewsIndex = index">
             <div class="news-content-item">
               <div class="news-content-item-title">{{ news.title }}</div>
               <div class="news-content-item-img">
@@ -41,43 +25,20 @@
               </div>
             </div>
             <div class="child">
-              <el-button
-                v-if="newsList.length > index + 1"
-                circle
-                type="info"
-                size="small"
-                @click="() => moveDownNews(index)"
-              >
+              <el-button v-if="newsList.length > index + 1" circle type="info" size="small" @click="() => moveDownNews(index)">
                 <Icon icon="ep:arrow-down-bold" />
               </el-button>
-              <el-button
-                v-if="index > 0"
-                type="info"
-                circle
-                size="small"
-                @click="() => moveUpNews(index)"
-              >
+              <el-button v-if="index > 0" type="info" circle size="small" @click="() => moveUpNews(index)">
                 <Icon icon="ep:arrow-up-bold" />
               </el-button>
-              <el-button
-                v-if="isCreating"
-                type="danger"
-                size="small"
-                circle
-                @click="() => removeNews(index)"
-              >
+              <el-button v-if="isCreating" type="danger" size="small" circle @click="() => removeNews(index)">
                 <Icon icon="ep:delete" />
               </el-button>
             </div>
           </div>
         </div>
         <el-row justify="center" class="ope-row">
-          <el-button
-            type="primary"
-            circle
-            @click="plusNews"
-            v-if="newsList.length < 8 && isCreating"
-          >
+          <el-button type="primary" circle @click="plusNews" v-if="newsList.length < 8 && isCreating">
             <Icon icon="ep:plus" />
           </el-button>
         </el-row>
@@ -88,16 +49,8 @@
         <!-- 标题、作者、原文地址 -->
         <el-row :gutter="20">
           <el-input v-model="activeNewsItem.title" placeholder="请输入标题（必填）" />
-          <el-input
-            v-model="activeNewsItem.author"
-            placeholder="请输入作者"
-            style="margin-top: 5px"
-          />
-          <el-input
-            v-model="activeNewsItem.contentSourceUrl"
-            placeholder="请输入原文地址"
-            style="margin-top: 5px"
-          />
+          <el-input v-model="activeNewsItem.author" placeholder="请输入作者" style="margin-top: 5px" />
+          <el-input v-model="activeNewsItem.contentSourceUrl" placeholder="请输入原文地址" style="margin-top: 5px" />
         </el-row>
         <!-- 封面和摘要 -->
         <el-row :gutter="20">
@@ -106,14 +59,7 @@
           </el-col>
           <el-col :span="12">
             <p>摘要:</p>
-            <el-input
-              :rows="8"
-              type="textarea"
-              v-model="activeNewsItem.digest"
-              placeholder="请输入摘要"
-              class="digest"
-              maxlength="120"
-            />
+            <el-input :rows="8" type="textarea" v-model="activeNewsItem.digest" placeholder="请输入摘要" class="digest" maxlength="120" />
           </el-col>
         </el-row>
         <!--富文本编辑器组件-->

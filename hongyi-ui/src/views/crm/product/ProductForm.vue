@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-row>
         <el-col :span="12">
           <el-form-item label="产品名称" prop="name">
@@ -15,43 +9,20 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="负责人" prop="ownerUserId">
-            <el-select
-              v-model="formData.ownerUserId"
-              placeholder="请选择负责人"
-              :disabled="formData.id"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="user in userList"
-                :key="user.id"
-                :label="user.nickname"
-                :value="user.id"
-              />
+            <el-select v-model="formData.ownerUserId" placeholder="请选择负责人" :disabled="formData.id" class="w-1/1">
+              <el-option v-for="user in userList" :key="user.id" :label="user.nickname" :value="user.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="产品类型" prop="categoryId">
-            <el-cascader
-              v-model="formData.categoryId"
-              :options="productCategoryList"
-              :props="defaultProps"
-              class="w-1/1"
-              clearable
-              placeholder="请选择产品类型"
-              filterable
-            />
+            <el-cascader v-model="formData.categoryId" :options="productCategoryList" :props="defaultProps" class="w-1/1" clearable placeholder="请选择产品类型" filterable />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="产品单位" prop="unit">
             <el-select v-model="formData.unit" class="w-1/1" placeholder="请选择单位">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PRODUCT_UNIT)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PRODUCT_UNIT)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -62,14 +33,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="价格" prop="price">
-            <el-input-number
-              v-model="formData.price"
-              placeholder="请输入价格"
-              :min="0"
-              :precision="2"
-              :step="0.1"
-              class="w-full!"
-            />
+            <el-input-number v-model="formData.price" placeholder="请输入价格" :min="0" :precision="2" :step="0.1" class="w-full!" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -80,12 +44,7 @@
         <el-col :span="12">
           <el-form-item label="上架状态" prop="status">
             <el-select v-model="formData.status" placeholder="请选择状态" class="w-1/1">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PRODUCT_STATUS)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PRODUCT_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>

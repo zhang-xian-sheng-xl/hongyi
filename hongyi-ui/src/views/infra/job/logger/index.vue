@@ -5,70 +5,25 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="120px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="120px">
       <el-form-item label="处理器的名字" prop="handlerName">
-        <el-input
-          v-model="queryParams.handlerName"
-          placeholder="请输入处理器的名字"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.handlerName" placeholder="请输入处理器的名字" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="开始执行时间" prop="beginTime">
-        <el-date-picker
-          v-model="queryParams.beginTime"
-          type="date"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          placeholder="选择开始执行时间"
-          clearable
-          class="!w-240px"
-        />
+        <el-date-picker v-model="queryParams.beginTime" type="date" value-format="YYYY-MM-DD HH:mm:ss" placeholder="选择开始执行时间" clearable class="!w-240px" />
       </el-form-item>
       <el-form-item label="结束执行时间" prop="endTime">
-        <el-date-picker
-          v-model="queryParams.endTime"
-          type="date"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          placeholder="选择结束执行时间"
-          clearable
-          :default-time="new Date('1 23:59:59')"
-          class="!w-240px"
-        />
+        <el-date-picker v-model="queryParams.endTime" type="date" value-format="YYYY-MM-DD HH:mm:ss" placeholder="选择结束执行时间" clearable :default-time="new Date('1 23:59:59')" class="!w-240px" />
       </el-form-item>
       <el-form-item label="任务状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择任务状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_JOB_LOG_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择任务状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.INFRA_JOB_LOG_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['infra:job:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['infra:job:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -98,24 +53,12 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            type="primary"
-            link
-            @click="openDetail(scope.row.id)"
-            v-hasPermi="['infra:job:query']"
-          >
-            详细
-          </el-button>
+          <el-button type="primary" link @click="openDetail(scope.row.id)" v-hasPermi="['infra:job:query']"> 详细 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：查看 -->

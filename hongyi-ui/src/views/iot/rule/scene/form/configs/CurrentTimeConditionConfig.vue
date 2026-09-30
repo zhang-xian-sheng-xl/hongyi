@@ -5,18 +5,8 @@
       <!-- 时间操作符选择 -->
       <el-col :span="8">
         <el-form-item label="时间条件" required>
-          <el-select
-            :model-value="condition.operator"
-            @update:model-value="(value) => updateConditionField('operator', value)"
-            placeholder="请选择时间条件"
-            class="w-full"
-          >
-            <el-option
-              v-for="option in timeOperatorOptions"
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
-            >
+          <el-select :model-value="condition.operator" @update:model-value="(value) => updateConditionField('operator', value)" placeholder="请选择时间条件" class="w-full">
+            <el-option v-for="option in timeOperatorOptions" :key="option.value" :label="option.label" :value="option.value">
               <div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-8px">
                   <Icon :icon="option.icon" :class="option.iconClass" />
@@ -51,9 +41,7 @@
             value-format="YYYY-MM-DD HH:mm:ss"
             class="w-full"
           />
-          <div v-else class="text-[var(--el-text-color-placeholder)] text-14px">
-            无需设置时间值
-          </div>
+          <div v-else class="text-[var(--el-text-color-placeholder)] text-14px"> 无需设置时间值 </div>
         </el-form-item>
       </el-col>
 

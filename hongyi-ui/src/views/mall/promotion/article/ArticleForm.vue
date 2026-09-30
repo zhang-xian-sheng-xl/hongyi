@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="70%">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="110px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="110px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="文章标题" prop="title">
@@ -16,12 +10,7 @@
         <el-col :span="12">
           <el-form-item label="文章分类" prop="categoryId">
             <el-select v-model="formData.categoryId" placeholder="请选择">
-              <el-option
-                v-for="item in categoryList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+              <el-option v-for="item in categoryList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -48,11 +37,7 @@
         <el-col :span="12">
           <el-form-item label="状态" prop="status">
             <el-radio-group v-model="formData.status">
-              <el-radio
-                v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -61,11 +46,7 @@
         <el-col :span="12">
           <el-form-item label="是否热门" prop="recommendHot">
             <el-radio-group v-model="formData.recommendHot">
-              <el-radio
-                v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -74,11 +55,7 @@
         <el-col :span="12">
           <el-form-item label="是否轮播图" prop="recommendBanner">
             <el-radio-group v-model="formData.recommendBanner">
-              <el-radio
-                v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -218,8 +195,7 @@ const resetForm = () => {
 const categoryList = ref<ArticleCategoryApi.ArticleCategoryVO[]>([])
 const spuList = ref<ProductSpuApi.Spu[]>([])
 onMounted(async () => {
-  categoryList.value =
-    (await ArticleCategoryApi.getSimpleArticleCategoryList()) as ArticleCategoryApi.ArticleCategoryVO[]
+  categoryList.value = (await ArticleCategoryApi.getSimpleArticleCategoryList()) as ArticleCategoryApi.ArticleCategoryVO[]
   spuList.value = (await ProductSpuApi.getSpuSimpleList()) as ProductSpuApi.Spu[]
 })
 </script>

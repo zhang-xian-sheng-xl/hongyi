@@ -9,13 +9,7 @@
     </div>
     <div>
       <el-text class="mx-1">属性值：</el-text>
-      <el-tag
-        v-for="(value, valueIndex) in item.values"
-        :key="value.id"
-        :closable="!isDetail"
-        class="mx-1"
-        @close="handleCloseValue(index, valueIndex)"
-      >
+      <el-tag v-for="(value, valueIndex) in item.values" :key="value.id" :closable="!isDetail" class="mx-1" @close="handleCloseValue(index, valueIndex)">
         {{ value.name }}
       </el-tag>
       <el-select
@@ -33,21 +27,9 @@
         @change="handleInputConfirm(index, item.id)"
         @keyup.enter="handleInputConfirm(index, item.id)"
       >
-        <el-option
-          v-for="item2 in attributeOptions"
-          :key="item2.id"
-          :label="item2.name"
-          :value="item2.name"
-        />
+        <el-option v-for="item2 in attributeOptions" :key="item2.id" :label="item2.name" :value="item2.name" />
       </el-select>
-      <el-button
-        v-show="!inputVisible(index)"
-        class="button-new-tag ml-1"
-        size="small"
-        @click="showInput(index)"
-      >
-        + 添加
-      </el-button>
+      <el-button v-show="!inputVisible(index)" class="button-new-tag ml-1" size="small" @click="showInput(index)"> + 添加 </el-button>
     </div>
     <el-divider class="my-10px" />
   </el-col>

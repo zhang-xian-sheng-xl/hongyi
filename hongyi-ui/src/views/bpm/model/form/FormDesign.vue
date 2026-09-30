@@ -2,11 +2,7 @@
   <el-form ref="formRef" :model="modelData" :rules="rules" label-width="120px" class="mt-20px">
     <el-form-item label="表单类型" prop="formType" class="mb-20px">
       <el-radio-group v-model="modelData.formType">
-        <el-radio
-          v-for="dict in getIntDictOptions(DICT_TYPE.BPM_MODEL_FORM_TYPE)"
-          :key="dict.value"
-          :value="dict.value"
-        >
+        <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.BPM_MODEL_FORM_TYPE)" :key="dict.value" :value="dict.value">
           {{ dict.label }}
         </el-radio>
       </el-radio-group>
@@ -17,49 +13,24 @@
       </el-select>
     </el-form-item>
     <el-form-item v-if="modelData.formType === BpmModelFormType.CUSTOM" label="表单提交路由" prop="formCustomCreatePath">
-      <el-input
-        v-model="modelData.formCustomCreatePath"
-        placeholder="请输入表单提交路由"
-        style="width: 330px"
-      />
-      <el-tooltip
-        class="item"
-        content="自定义表单的提交路径，使用 Vue 的路由地址，例如说：bpm/oa/leave/create.vue"
-        effect="light"
-        placement="top"
-      >
+      <el-input v-model="modelData.formCustomCreatePath" placeholder="请输入表单提交路由" style="width: 330px" />
+      <el-tooltip class="item" content="自定义表单的提交路径，使用 Vue 的路由地址，例如说：bpm/oa/leave/create.vue" effect="light" placement="top">
         <Icon icon="ep:question" class="ml-5px" />
       </el-tooltip>
     </el-form-item>
     <el-form-item v-if="modelData.formType === BpmModelFormType.CUSTOM" label="表单查看地址" prop="formCustomViewPath">
-      <el-input
-        v-model="modelData.formCustomViewPath"
-        placeholder="请输入表单查看的组件地址"
-        style="width: 330px"
-      />
-      <el-tooltip
-        class="item"
-        content="自定义表单的查看组件地址，使用 Vue 的组件地址，例如说：bpm/oa/leave/detail.vue"
-        effect="light"
-        placement="top"
-      >
+      <el-input v-model="modelData.formCustomViewPath" placeholder="请输入表单查看的组件地址" style="width: 330px" />
+      <el-tooltip class="item" content="自定义表单的查看组件地址，使用 Vue 的组件地址，例如说：bpm/oa/leave/detail.vue" effect="light" placement="top">
         <Icon icon="ep:question" class="ml-5px" />
       </el-tooltip>
     </el-form-item>
     <!-- 表单预览 -->
-    <div
-      v-if="modelData.formType === BpmModelFormType.NORMAL && modelData.formId && formPreview.rule.length > 0"
-      class="mt-20px"
-    >
+    <div v-if="modelData.formType === BpmModelFormType.NORMAL && modelData.formId && formPreview.rule.length > 0" class="mt-20px">
       <div class="flex items-center mb-15px">
         <div class="h-15px w-4px bg-[#1890ff] mr-10px"></div>
         <span class="text-15px font-bold">表单预览</span>
       </div>
-      <form-create
-        v-model="formPreview.formData"
-        :rule="formPreview.rule"
-        :option="formPreview.option"
-      />
+      <form-create v-model="formPreview.formData" :rule="formPreview.rule" :option="formPreview.option" />
     </div>
   </el-form>
 </template>

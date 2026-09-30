@@ -12,27 +12,13 @@
     <el-table v-loading="loading" :data="list">
       <el-table-column label="序号" align="center" type="index" width="80" fixed="left" />
       <el-table-column label="员工姓名" prop="ownerUserName" min-width="100" fixed="left" />
-      <el-table-column
-        label="进入公海客户数"
-        align="right"
-        prop="customerPutCount"
-        min-width="200"
-      />
-      <el-table-column
-        label="公海领取客户数"
-        align="right"
-        prop="customerTakeCount"
-        min-width="200"
-      />
+      <el-table-column label="进入公海客户数" align="right" prop="customerPutCount" min-width="200" />
+      <el-table-column label="公海领取客户数" align="right" prop="customerTakeCount" min-width="200" />
     </el-table>
   </el-card>
 </template>
 <script setup lang="ts">
-import {
-  StatisticsCustomerApi,
-  CrmStatisticsPoolSummaryByDateRespVO,
-  CrmStatisticsPoolSummaryByUserRespVO
-} from '@/api/crm/statistics/customer'
+import { StatisticsCustomerApi, CrmStatisticsPoolSummaryByDateRespVO, CrmStatisticsPoolSummaryByUserRespVO } from '@/api/crm/statistics/customer'
 import { EChartsOption } from 'echarts'
 
 defineOptions({ name: 'CustomerPoolSummary' })
@@ -116,19 +102,13 @@ const fetchAndFill = async () => {
   const poolSummaryByUser = await StatisticsCustomerApi.getPoolSummaryByUser(props.queryParams)
   // 2.1 更新 Echarts 数据
   if (echartsOption.xAxis && echartsOption.xAxis['data']) {
-    echartsOption.xAxis['data'] = poolSummaryByDate.map(
-      (s: CrmStatisticsPoolSummaryByDateRespVO) => s.time
-    )
+    echartsOption.xAxis['data'] = poolSummaryByDate.map((s: CrmStatisticsPoolSummaryByDateRespVO) => s.time)
   }
   if (echartsOption.series && echartsOption.series[0] && echartsOption.series[0]['data']) {
-    echartsOption.series[0]['data'] = poolSummaryByDate.map(
-      (s: CrmStatisticsPoolSummaryByDateRespVO) => s.customerPutCount
-    )
+    echartsOption.series[0]['data'] = poolSummaryByDate.map((s: CrmStatisticsPoolSummaryByDateRespVO) => s.customerPutCount)
   }
   if (echartsOption.series && echartsOption.series[1] && echartsOption.series[1]['data']) {
-    echartsOption.series[1]['data'] = poolSummaryByDate.map(
-      (s: CrmStatisticsPoolSummaryByDateRespVO) => s.customerTakeCount
-    )
+    echartsOption.series[1]['data'] = poolSummaryByDate.map((s: CrmStatisticsPoolSummaryByDateRespVO) => s.customerTakeCount)
   }
 
   // 2.2 更新列表数据

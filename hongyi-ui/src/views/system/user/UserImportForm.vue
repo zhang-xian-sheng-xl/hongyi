@@ -23,14 +23,7 @@
             是否更新已经存在的用户数据
           </div>
           <span>仅允许导入 xls、xlsx 格式文件。</span>
-          <el-link
-            :underline="false"
-            style="font-size: 12px; vertical-align: baseline"
-            type="primary"
-            @click="importTemplate"
-          >
-            下载模板
-          </el-link>
+          <el-link :underline="false" style="font-size: 12px; vertical-align: baseline" type="primary" @click="importTemplate"> 下载模板 </el-link>
         </div>
       </template>
     </el-upload>
@@ -52,8 +45,7 @@ const message = useMessage() // 消息弹窗
 const dialogVisible = ref(false) // 弹窗的是否展示
 const formLoading = ref(false) // 表单的加载中
 const uploadRef = ref()
-const importUrl =
-  import.meta.env.VITE_BASE_URL + import.meta.env.VITE_API_URL + '/system/user/import'
+const importUrl = import.meta.env.VITE_BASE_URL + import.meta.env.VITE_API_URL + '/system/user/import'
 const uploadHeaders = ref() // 上传 Header 头
 const fileList = ref([]) // 文件列表
 const updateSupport = ref(0) // 是否更新已经存在的用户数据

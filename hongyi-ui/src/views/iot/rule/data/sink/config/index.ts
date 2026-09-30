@@ -7,13 +7,4 @@ import KafkaMQConfigForm from './KafkaMQConfigForm.vue'
 import RabbitMQConfigForm from './RabbitMQConfigForm.vue'
 import RedisStreamConfigForm from './RedisStreamConfigForm.vue'
 
-export {
-  HttpConfigForm,
-  TcpConfigForm,
-  WebSocketConfigForm,
-  MqttConfigForm,
-  RocketMQConfigForm,
-  KafkaMQConfigForm,
-  RabbitMQConfigForm,
-  RedisStreamConfigForm
-}
+export { HttpConfigForm, TcpConfigForm, WebSocketConfigForm, MqttConfigForm, RocketMQConfigForm, KafkaMQConfigForm, RabbitMQConfigForm, RedisStreamConfigForm }

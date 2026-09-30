@@ -1,13 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="1440">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-      :disabled="disabled"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading" :disabled="disabled">
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="退货单号" prop="no">
@@ -16,53 +9,28 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="退货时间" prop="returnTime">
-            <el-date-picker
-              v-model="formData.returnTime"
-              type="date"
-              value-format="x"
-              placeholder="选择退货时间"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.returnTime" type="date" value-format="x" placeholder="选择退货时间" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="关联订单" prop="orderNo">
             <el-input v-model="formData.orderNo" readonly>
               <template #append>
-                <el-button @click="openPurchaseOrderReturnEnableList">
-                  <Icon icon="ep:search" /> 选择
-                </el-button>
+                <el-button @click="openPurchaseOrderReturnEnableList"> <Icon icon="ep:search" /> 选择 </el-button>
               </template>
             </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="供应商" prop="supplierId">
-            <el-select
-              v-model="formData.supplierId"
-              clearable
-              filterable
-              disabled
-              placeholder="请选择供应商"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in supplierList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.supplierId" clearable filterable disabled placeholder="请选择供应商" class="!w-1/1">
+              <el-option v-for="item in supplierList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item label="备注" prop="remark">
-            <el-input
-              type="textarea"
-              v-model="formData.remark"
-              :rows="1"
-              placeholder="请输入备注"
-            />
+            <el-input type="textarea" v-model="formData.remark" :rows="1" placeholder="请输入备注" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -75,72 +43,35 @@
       <ContentWrap>
         <el-tabs v-model="subTabsName" class="-mt-15px -mb-10px">
           <el-tab-pane label="退货产品清单" name="item">
-            <PurchaseReturnItemForm
-              ref="itemFormRef"
-              :items="formData.items"
-              :disabled="disabled"
-            />
+            <PurchaseReturnItemForm ref="itemFormRef" :items="formData.items" :disabled="disabled" />
           </el-tab-pane>
         </el-tabs>
       </ContentWrap>
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="优惠率（%）" prop="discountPercent">
-            <el-input-number
-              v-model="formData.discountPercent"
-              controls-position="right"
-              :min="0"
-              :precision="2"
-              placeholder="请输入优惠率"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.discountPercent" controls-position="right" :min="0" :precision="2" placeholder="请输入优惠率" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="退款优惠" prop="discountPrice">
-            <el-input
-              disabled
-              v-model="formData.discountPrice"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled v-model="formData.discountPrice" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="优惠后金额">
-            <el-input
-              disabled
-              :model-value="formData.totalPrice - formData.otherPrice"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled :model-value="formData.totalPrice - formData.otherPrice" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="其它费用" prop="otherPrice">
-            <el-input-number
-              v-model="formData.otherPrice"
-              controls-position="right"
-              :min="0"
-              :precision="2"
-              placeholder="请输入其它费用"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.otherPrice" controls-position="right" :min="0" :precision="2" placeholder="请输入其它费用" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="结算账户" prop="accountId">
-            <el-select
-              v-model="formData.accountId"
-              clearable
-              filterable
-              placeholder="请选择结算账户"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in accountList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.accountId" clearable filterable placeholder="请选择结算账户" class="!w-1/1">
+              <el-option v-for="item in accountList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -152,18 +83,13 @@
       </el-row>
     </el-form>
     <template #footer>
-      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled">
-        确 定
-      </el-button>
+      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled"> 确 定 </el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>
 
   <!-- 可退货的订单列表 -->
-  <PurchaseOrderReturnEnableList
-    ref="purchaseOrderReturnEnableListRef"
-    @success="handlePurchaseOrderChange"
-  />
+  <PurchaseOrderReturnEnableList ref="purchaseOrderReturnEnableListRef" @success="handlePurchaseOrderChange" />
 </template>
 <script setup lang="ts">
 import { PurchaseReturnApi, PurchaseReturnVO } from '@/api/erp/purchase/return'
@@ -223,8 +149,7 @@ watch(
     }
     // 计算
     const totalPrice = val.items.reduce((prev, curr) => prev + curr.totalPrice, 0)
-    const discountPrice =
-      val.discountPercent != null ? erpPriceMultiply(totalPrice, val.discountPercent / 100.0) : 0
+    const discountPrice = val.discountPercent != null ? erpPriceMultiply(totalPrice, val.discountPercent / 100.0) : 0
     formData.value.discountPrice = discountPrice
     formData.value.totalPrice = totalPrice - discountPrice + val.otherPrice
   },

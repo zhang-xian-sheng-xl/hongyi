@@ -41,10 +41,7 @@
             <el-descriptions-item label="Key数量 :">
               {{ cache?.dbSize }}
             </el-descriptions-item>
-            <el-descriptions-item label="网络入口/出口 :">
-              {{ cache?.info?.instantaneous_input_kbps }}kps/
-              {{ cache?.info?.instantaneous_output_kbps }}kps
-            </el-descriptions-item>
+            <el-descriptions-item label="网络入口/出口 :"> {{ cache?.info?.instantaneous_input_kbps }}kps/ {{ cache?.info?.instantaneous_output_kbps }}kps </el-descriptions-item>
           </el-descriptions>
         </el-card>
       </el-col>

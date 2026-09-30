@@ -1,34 +1,13 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="产品" prop="productId">
-        <el-select
-          v-model="formData.productId"
-          placeholder="请选择产品"
-          :disabled="formType === 'update'"
-          clearable
-          @change="handleProductChange"
-        >
-          <el-option
-            v-for="product in products"
-            :key="product.id"
-            :label="product.name"
-            :value="product.id"
-          />
+        <el-select v-model="formData.productId" placeholder="请选择产品" :disabled="formType === 'update'" clearable @change="handleProductChange">
+          <el-option v-for="product in products" :key="product.id" :label="product.name" :value="product.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="DeviceName" prop="deviceName">
-        <el-input
-          v-model="formData.deviceName"
-          placeholder="请输入 DeviceName"
-          :disabled="formType === 'update'"
-        />
+        <el-input v-model="formData.deviceName" placeholder="请输入 DeviceName" :disabled="formType === 'update'" />
       </el-form-item>
 
       <el-collapse>
@@ -41,12 +20,7 @@
           </el-form-item>
           <el-form-item label="设备分组" prop="groupIds">
             <el-select v-model="formData.groupIds" placeholder="请选择设备分组" multiple clearable>
-              <el-option
-                v-for="group in deviceGroups"
-                :key="group.id"
-                :label="group.name"
-                :value="group.id"
-              />
+              <el-option v-for="group in deviceGroups" :key="group.id" :label="group.name" :value="group.id" />
             </el-select>
           </el-form-item>
           <el-form-item label="设备序列号" prop="serialNumber">
@@ -109,10 +83,7 @@ const formData = ref({
 
 /** 打开地图选择弹窗 */
 const openMapDialog = () => {
-  mapDialogRef.value?.open(
-    formData.value.longitude ? Number(formData.value.longitude) : undefined,
-    formData.value.latitude ? Number(formData.value.latitude) : undefined
-  )
+  mapDialogRef.value?.open(formData.value.longitude ? Number(formData.value.longitude) : undefined, formData.value.latitude ? Number(formData.value.latitude) : undefined)
 }
 
 /** 处理地图选择确认 */
@@ -127,8 +98,7 @@ const formRules = reactive({
     { required: true, message: 'DeviceName 不能为空', trigger: 'blur' },
     {
       pattern: /^[a-zA-Z0-9_.\-:@]{4,32}$/,
-      message:
-        '支持英文字母、数字、下划线（_）、中划线（-）、点号（.）、半角冒号（:）和特殊字符@，长度限制为 4~32 个字符',
+      message: '支持英文字母、数字、下划线（_）、中划线（-）、点号（.）、半角冒号（:）和特殊字符@，长度限制为 4~32 个字符',
       trigger: 'blur'
     }
   ],

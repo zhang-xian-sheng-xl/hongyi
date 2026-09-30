@@ -124,8 +124,7 @@ export const IoTThingModelServiceCallTypeEnum = {
     value: 'sync'
   }
 } as const
-export const getThingModelServiceCallTypeLabel = (value: string): string | undefined =>
-  Object.values(IoTThingModelServiceCallTypeEnum).find((type) => type.value === value)?.label
+export const getThingModelServiceCallTypeLabel = (value: string): string | undefined => Object.values(IoTThingModelServiceCallTypeEnum).find((type) => type.value === value)?.label
 
 // IoT 产品物模型事件类型枚举
 export const IoTThingModelEventTypeEnum = {
@@ -142,8 +141,7 @@ export const IoTThingModelEventTypeEnum = {
     value: 'error'
   }
 } as const
-export const getEventTypeLabel = (value: string): string | undefined =>
-  Object.values(IoTThingModelEventTypeEnum).find((type) => type.value === value)?.label
+export const getEventTypeLabel = (value: string): string | undefined => Object.values(IoTThingModelEventTypeEnum).find((type) => type.value === value)?.label
 
 // IoT 产品物模型参数是输入参数还是输出参数
 export const IoTThingModelParamDirectionEnum = {
@@ -226,9 +224,7 @@ export const getDataTypeName = (dataType: string): string => {
 }
 
 /** 获取数据类型标签类型（用于 el-tag 的 type 属性） */
-export const getDataTypeTagType = (
-  dataType: string
-): 'primary' | 'success' | 'info' | 'warning' | 'danger' => {
+export const getDataTypeTagType = (dataType: string): 'primary' | 'success' | 'info' | 'warning' | 'danger' => {
   const tagMap = {
     [IoTDataSpecsDataTypeEnum.INT]: 'primary',
     [IoTDataSpecsDataTypeEnum.FLOAT]: 'success',
@@ -502,8 +498,7 @@ export const JsonParamsInputTypeEnum = {
 } as const
 
 /** JSON 参数输入组件类型 */
-export type JsonParamsInputType =
-  (typeof JsonParamsInputTypeEnum)[keyof typeof JsonParamsInputTypeEnum]
+export type JsonParamsInputType = (typeof JsonParamsInputTypeEnum)[keyof typeof JsonParamsInputTypeEnum]
 
 /** JSON 参数输入组件文本常量 */
 export const JSON_PARAMS_INPUT_CONSTANTS = {

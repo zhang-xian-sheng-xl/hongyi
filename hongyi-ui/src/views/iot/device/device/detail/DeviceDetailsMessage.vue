@@ -5,39 +5,18 @@
     <el-form :model="queryParams" inline>
       <el-form-item>
         <el-select v-model="queryParams.method" placeholder="所有方法" class="!w-160px" clearable>
-          <el-option
-            v-for="item in methodOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+          <el-option v-for="item in methodOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-select
-          v-model="queryParams.upstream"
-          placeholder="上行/下行"
-          class="!w-160px"
-          clearable
-        >
+        <el-select v-model="queryParams.upstream" placeholder="上行/下行" class="!w-160px" clearable>
           <el-option label="上行" value="true" />
           <el-option label="下行" value="false" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleQuery">
-          <Icon icon="ep:search" class="mr-5px" /> 搜索
-        </el-button>
-        <el-switch
-          size="large"
-          width="80"
-          v-model="autoRefresh"
-          class="ml-20px"
-          inline-prompt
-          active-text="定时刷新"
-          inactive-text="定时刷新"
-          style="--el-switch-on-color: #13ce66"
-        />
+        <el-button type="primary" @click="handleQuery"> <Icon icon="ep:search" class="mr-5px" /> 搜索 </el-button>
+        <el-switch size="large" width="80" v-model="autoRefresh" class="ml-20px" inline-prompt active-text="定时刷新" inactive-text="定时刷新" style="--el-switch-on-color: #13ce66" />
       </el-form-item>
     </el-form>
 
@@ -66,12 +45,7 @@
           {{ methodOptions.find((item) => item.value === scope.row.method)?.label }}
         </template>
       </el-table-column>
-      <el-table-column
-        label="请求/响应数据"
-        align="center"
-        prop="params"
-        :show-overflow-tooltip="true"
-      >
+      <el-table-column label="请求/响应数据" align="center" prop="params" :show-overflow-tooltip="true">
         <template #default="scope">
           <span v-if="scope.row.reply">
             {{ `{"code":${scope.row.code},"msg":"${scope.row.msg}","data":${scope.row.data}\}` }}
@@ -83,12 +57,7 @@
 
     <!-- 分页 -->
     <div class="mt-10px flex justify-end">
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getMessageList"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getMessageList" />
     </div>
   </ContentWrap>
 </template>

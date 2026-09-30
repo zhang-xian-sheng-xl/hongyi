@@ -1,13 +1,6 @@
 <template>
   <!-- 情况一：添加/修改 -->
-  <el-table
-    v-if="!isDetail && !isActivityComponent"
-    :data="isBatch ? skuList : formData!.skus!"
-    border
-    class="tabNumWidth"
-    max-height="500"
-    size="small"
-  >
+  <el-table v-if="!isDetail && !isActivityComponent" :data="isBatch ? skuList : formData!.skus!" border class="tabNumWidth" max-height="500" size="small">
     <el-table-column align="center" label="图片" min-width="65">
       <template #default="{ row }">
         <UploadImg v-model="row.picUrl" height="50px" width="50px" />
@@ -15,13 +8,7 @@
     </el-table-column>
     <template v-if="formData!.specType && !isBatch">
       <!--  根据商品属性动态添加 -->
-      <el-table-column
-        v-for="(item, index) in tableHeaders"
-        :key="index"
-        :label="item.label"
-        align="center"
-        min-width="120"
-      >
+      <el-table-column v-for="(item, index) in tableHeaders" :key="index" :label="item.label" align="center" min-width="120">
         <template #default="{ row }">
           <span style="font-weight: bold; color: #40aaff">
             {{ row.properties?.[index]?.valueName }}
@@ -36,38 +23,17 @@
     </el-table-column>
     <el-table-column align="center" label="销售价" min-width="168">
       <template #default="{ row }">
-        <el-input-number
-          v-model="row.price"
-          :min="0"
-          :precision="2"
-          :step="0.1"
-          class="w-100%"
-          controls-position="right"
-        />
+        <el-input-number v-model="row.price" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
       </template>
     </el-table-column>
     <el-table-column align="center" label="市场价" min-width="168">
       <template #default="{ row }">
-        <el-input-number
-          v-model="row.marketPrice"
-          :min="0"
-          :precision="2"
-          :step="0.1"
-          class="w-100%"
-          controls-position="right"
-        />
+        <el-input-number v-model="row.marketPrice" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
       </template>
     </el-table-column>
     <el-table-column align="center" label="成本价" min-width="168">
       <template #default="{ row }">
-        <el-input-number
-          v-model="row.costPrice"
-          :min="0"
-          :precision="2"
-          :step="0.1"
-          class="w-100%"
-          controls-position="right"
-        />
+        <el-input-number v-model="row.costPrice" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
       </template>
     </el-table-column>
     <el-table-column align="center" label="库存" min-width="168">
@@ -77,95 +43,45 @@
     </el-table-column>
     <el-table-column align="center" label="重量(kg)" min-width="168">
       <template #default="{ row }">
-        <el-input-number
-          v-model="row.weight"
-          :min="0"
-          :precision="2"
-          :step="0.1"
-          class="w-100%"
-          controls-position="right"
-        />
+        <el-input-number v-model="row.weight" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
       </template>
     </el-table-column>
     <el-table-column align="center" label="体积(m^3)" min-width="168">
       <template #default="{ row }">
-        <el-input-number
-          v-model="row.volume"
-          :min="0"
-          :precision="2"
-          :step="0.1"
-          class="w-100%"
-          controls-position="right"
-        />
+        <el-input-number v-model="row.volume" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
       </template>
     </el-table-column>
     <template v-if="formData!.subCommissionType">
       <el-table-column align="center" label="一级返佣(元)" min-width="168">
         <template #default="{ row }">
-          <el-input-number
-            v-model="row.firstBrokeragePrice"
-            :min="0"
-            :precision="2"
-            :step="0.1"
-            class="w-100%"
-            controls-position="right"
-          />
+          <el-input-number v-model="row.firstBrokeragePrice" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="二级返佣(元)" min-width="168">
         <template #default="{ row }">
-          <el-input-number
-            v-model="row.secondBrokeragePrice"
-            :min="0"
-            :precision="2"
-            :step="0.1"
-            class="w-100%"
-            controls-position="right"
-          />
+          <el-input-number v-model="row.secondBrokeragePrice" :min="0" :precision="2" :step="0.1" class="w-100%" controls-position="right" />
         </template>
       </el-table-column>
     </template>
     <el-table-column v-if="formData?.specType" align="center" fixed="right" label="操作" width="80">
       <template #default="{ row }">
-        <el-button v-if="isBatch" link size="small" type="primary" @click="batchAdd">
-          批量添加
-        </el-button>
+        <el-button v-if="isBatch" link size="small" type="primary" @click="batchAdd"> 批量添加 </el-button>
         <el-button v-else link size="small" type="primary" @click="deleteSku(row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
 
   <!-- 情况二：详情 -->
-  <el-table
-    v-if="isDetail"
-    ref="activitySkuListRef"
-    :data="formData!.skus!"
-    border
-    max-height="500"
-    size="small"
-    style="width: 99%"
-    @selection-change="handleSelectionChange"
-  >
+  <el-table v-if="isDetail" ref="activitySkuListRef" :data="formData!.skus!" border max-height="500" size="small" style="width: 99%" @selection-change="handleSelectionChange">
     <el-table-column v-if="isComponent" type="selection" width="45" />
     <el-table-column align="center" label="图片" min-width="80">
       <template #default="{ row }">
-        <el-image
-          v-if="row.picUrl"
-          :src="row.picUrl"
-          class="h-50px w-50px"
-          @click="imagePreview(row.picUrl)"
-        />
+        <el-image v-if="row.picUrl" :src="row.picUrl" class="h-50px w-50px" @click="imagePreview(row.picUrl)" />
       </template>
     </el-table-column>
     <template v-if="formData!.specType && !isBatch">
       <!--  根据商品属性动态添加 -->
-      <el-table-column
-        v-for="(item, index) in tableHeaders"
-        :key="index"
-        :label="item.label"
-        align="center"
-        min-width="80"
-      >
+      <el-table-column v-for="(item, index) in tableHeaders" :key="index" :label="item.label" align="center" min-width="80">
         <template #default="{ row }">
           <span style="font-weight: bold; color: #40aaff">
             {{ row.properties?.[index]?.valueName }}
@@ -223,14 +139,7 @@
   </el-table>
 
   <!-- 情况三：作为活动组件 -->
-  <el-table
-    v-if="isActivityComponent"
-    :data="formData!.skus!"
-    border
-    max-height="500"
-    size="small"
-    style="width: 99%"
-  >
+  <el-table v-if="isActivityComponent" :data="formData!.skus!" border max-height="500" size="small" style="width: 99%">
     <el-table-column v-if="isComponent" type="selection" width="45" />
     <el-table-column align="center" label="图片" min-width="80">
       <template #default="{ row }">
@@ -239,13 +148,7 @@
     </el-table-column>
     <template v-if="formData!.specType">
       <!--  根据商品属性动态添加 -->
-      <el-table-column
-        v-for="(item, index) in tableHeaders"
-        :key="index"
-        :label="item.label"
-        align="center"
-        min-width="80"
-      >
+      <el-table-column v-for="(item, index) in tableHeaders" :key="index" :label="item.label" align="center" min-width="80">
         <template #default="{ row }">
           <span style="font-weight: bold; color: #40aaff">
             {{ row.properties?.[index]?.valueName }}
@@ -464,9 +367,7 @@ const generateTableData = (propertyList: any[]) => {
       secondBrokeragePrice: 0
     }
     // 如果存在属性相同的 sku 则不做处理
-    const index = formData.value!.skus!.findIndex(
-      (sku) => JSON.stringify(sku.properties) === JSON.stringify(row.properties)
-    )
+    const index = formData.value!.skus!.findIndex((sku) => JSON.stringify(sku.properties) === JSON.stringify(row.properties))
     if (index !== -1) {
       continue
     }

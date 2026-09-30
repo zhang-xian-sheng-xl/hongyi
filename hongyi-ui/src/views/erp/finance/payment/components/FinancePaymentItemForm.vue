@@ -1,13 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-    :disabled="disabled"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true" :disabled="disabled">
     <el-table :data="formData" show-summary :summary-method="getSummaries" class="-mt-10px">
       <el-table-column label="序号" type="index" align="center" width="60" />
       <el-table-column label="采购单据编号" min-width="200">
@@ -34,12 +26,7 @@
       <el-table-column label="本次付款" prop="paymentPrice" fixed="right" min-width="115">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.paymentPrice`" class="mb-0px!">
-            <el-input-number
-              v-model="row.paymentPrice"
-              controls-position="right"
-              :precision="2"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.paymentPrice" controls-position="right" :precision="2" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
@@ -63,15 +50,9 @@
   </el-row>
 
   <!-- 可付款的【采购入库单】列表 -->
-  <PurchaseInPaymentEnableList
-    ref="purchaseInPaymentEnableListRef"
-    @success="handleAddPurchaseIn"
-  />
+  <PurchaseInPaymentEnableList ref="purchaseInPaymentEnableListRef" @success="handleAddPurchaseIn" />
   <!-- 可付款的【采购入库单】列表 -->
-  <PurchaseReturnRefundEnableList
-    ref="purchaseReturnRefundEnableListRef"
-    @success="handleAddPurchaseReturn"
-  />
+  <PurchaseReturnRefundEnableList ref="purchaseReturnRefundEnableListRef" @success="handleAddPurchaseReturn" />
 </template>
 <script setup lang="ts">
 import { ProductVO } from '@/api/erp/product/product'

@@ -33,10 +33,7 @@
   </el-card>
 </template>
 <script lang="ts" setup>
-import {
-  CrmStatisticCustomerIndustryRespVO,
-  StatisticsPortraitApi
-} from '@/api/crm/statistics/portrait'
+import { CrmStatisticCustomerIndustryRespVO, StatisticsPortraitApi } from '@/api/crm/statistics/portrait'
 import { EChartsOption } from 'echarts'
 import { DICT_TYPE, getDictLabel } from '@/utils/dict'
 import { erpCalculatePercentage, getSumValue } from '@/utils'
@@ -184,10 +181,8 @@ const calculateProportion = (sourceList: CrmStatisticCustomerIndustryRespVO[]) =
   const sumCustomerCount = getSumValue(list.map((item) => item.customerCount))
   const sumDealCount = getSumValue(list.map((item) => item.dealCount))
   list.forEach((item) => {
-    item.industryPortion =
-      item.customerCount === 0 ? 0 : erpCalculatePercentage(item.customerCount, sumCustomerCount)
-    item.dealPortion =
-      item.dealCount === 0 ? 0 : erpCalculatePercentage(item.dealCount, sumDealCount)
+    item.industryPortion = item.customerCount === 0 ? 0 : erpCalculatePercentage(item.customerCount, sumCustomerCount)
+    item.dealPortion = item.dealCount === 0 ? 0 : erpCalculatePercentage(item.dealCount, sumDealCount)
   })
 }
 

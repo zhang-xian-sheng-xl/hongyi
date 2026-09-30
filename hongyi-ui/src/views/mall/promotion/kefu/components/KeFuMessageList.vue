@@ -10,38 +10,16 @@
           <div v-for="(item, index) in getMessageList0" :key="item.id" class="w-[100%]">
             <div class="flex justify-center items-center mb-20px">
               <!-- 日期 -->
-              <div
-                v-if="
-                  item.contentType !== KeFuMessageContentTypeEnum.SYSTEM && showTime(item, index)
-                "
-                class="date-message"
-              >
+              <div v-if="item.contentType !== KeFuMessageContentTypeEnum.SYSTEM && showTime(item, index)" class="date-message">
                 {{ formatDate(item.createTime) }}
               </div>
               <!-- 系统消息 -->
-              <div
-                v-if="item.contentType === KeFuMessageContentTypeEnum.SYSTEM"
-                class="system-message"
-              >
+              <div v-if="item.contentType === KeFuMessageContentTypeEnum.SYSTEM" class="system-message">
                 {{ item.content }}
               </div>
             </div>
-            <div
-              :class="[
-                item.senderType === UserTypeEnum.MEMBER
-                  ? `ss-row-left`
-                  : item.senderType === UserTypeEnum.ADMIN
-                    ? `ss-row-right`
-                    : ''
-              ]"
-              class="flex mb-20px w-[100%]"
-            >
-              <el-avatar
-                v-if="item.senderType === UserTypeEnum.MEMBER"
-                :src="conversation.userAvatar"
-                alt="avatar"
-                class="w-60px h-60px"
-              />
+            <div :class="[item.senderType === UserTypeEnum.MEMBER ? `ss-row-left` : item.senderType === UserTypeEnum.ADMIN ? `ss-row-right` : '']" class="flex mb-20px w-[100%]">
+              <el-avatar v-if="item.senderType === UserTypeEnum.MEMBER" :src="conversation.userAvatar" alt="avatar" class="w-60px h-60px" />
               <div
                 :class="{
                   'kefu-message': KeFuMessageContentTypeEnum.TEXT === item.contentType
@@ -50,10 +28,7 @@
                 <!-- 文本消息 -->
                 <MessageItem :message="item">
                   <template v-if="KeFuMessageContentTypeEnum.TEXT === item.contentType">
-                    <div
-                      v-dompurify-html="replaceEmoji(getMessageContent(item).text || item.content)"
-                      class="line-height-normal text-justify h-1/1 w-full"
-                    ></div>
+                    <div v-dompurify-html="replaceEmoji(getMessageContent(item).text || item.content)" class="line-height-normal text-justify h-1/1 w-full"></div>
                   </template>
                 </MessageItem>
                 <!-- 图片消息 -->
@@ -83,27 +58,15 @@
                 </MessageItem>
                 <!-- 订单消息 -->
                 <MessageItem :message="item">
-                  <OrderItem
-                    v-if="KeFuMessageContentTypeEnum.ORDER === item.contentType"
-                    :message="item"
-                    class="max-w-100% mx-10px"
-                  />
+                  <OrderItem v-if="KeFuMessageContentTypeEnum.ORDER === item.contentType" :message="item" class="max-w-100% mx-10px" />
                 </MessageItem>
               </div>
-              <el-avatar
-                v-if="item.senderType === UserTypeEnum.ADMIN"
-                :src="item.senderAvatar"
-                alt="avatar"
-              />
+              <el-avatar v-if="item.senderType === UserTypeEnum.ADMIN" :src="item.senderAvatar" alt="avatar" />
             </div>
           </div>
         </div>
       </el-scrollbar>
-      <div
-        v-show="showNewMessageTip"
-        class="newMessageTip flex items-center cursor-pointer"
-        @click="handleToNewMessage"
-      >
+      <div v-show="showNewMessageTip" class="newMessageTip flex items-center cursor-pointer" @click="handleToNewMessage">
         <span>有新消息</span>
         <Icon class="ml-5px" icon="ep:bottom" />
       </div>
@@ -111,19 +74,9 @@
     <el-footer class="kefu-footer">
       <div class="chat-tools flex items-center">
         <EmojiSelectPopover @select-emoji="handleEmojiSelect" />
-        <PictureSelectUpload
-          class="ml-15px mt-3px cursor-pointer"
-          @send-picture="handleSendPicture"
-        />
+        <PictureSelectUpload class="ml-15px mt-3px cursor-pointer" @send-picture="handleSendPicture" />
       </div>
-      <el-input
-        v-model="message"
-        :rows="6"
-        placeholder="输入消息，Enter发送，Shift+Enter换行"
-        style="border-style: none"
-        type="textarea"
-        @keyup.enter.prevent="handleSendMessage"
-      />
+      <el-input v-model="message" :rows="6" placeholder="输入消息，Enter发送，Shift+Enter换行" style="border-style: none" type="textarea" @keyup.enter.prevent="handleSendMessage" />
     </el-footer>
   </el-container>
   <el-container v-else class="kefu">

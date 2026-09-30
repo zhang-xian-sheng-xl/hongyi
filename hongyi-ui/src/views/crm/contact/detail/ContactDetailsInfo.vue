@@ -13,9 +13,7 @@
           <el-descriptions-item label="邮箱">{{ contact.email }}</el-descriptions-item>
           <el-descriptions-item label="QQ">{{ contact.qq }}</el-descriptions-item>
           <el-descriptions-item label="微信">{{ contact.wechat }}</el-descriptions-item>
-          <el-descriptions-item label="地址">
-            {{ contact.areaName }} {{ contact.detailAddress }}
-          </el-descriptions-item>
+          <el-descriptions-item label="地址"> {{ contact.areaName }} {{ contact.detailAddress }} </el-descriptions-item>
           <el-descriptions-item label="职务">{{ contact.post }}</el-descriptions-item>
           <el-descriptions-item label="直属上级">{{ contact.parentName }}</el-descriptions-item>
           <el-descriptions-item label="关键决策人">

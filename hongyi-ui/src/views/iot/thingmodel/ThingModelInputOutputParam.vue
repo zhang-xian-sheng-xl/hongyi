@@ -1,10 +1,6 @@
 <!-- 产品的物模型表单（event、service 项里的参数） -->
 <template>
-  <div
-    v-for="(item, index) in thingModelParams"
-    :key="index"
-    class="w-1/1 param-item flex justify-between px-10px mb-10px"
-  >
+  <div v-for="(item, index) in thingModelParams" :key="index" class="w-1/1 param-item flex justify-between px-10px mb-10px">
     <span>参数名称：{{ item.name }}</span>
     <div class="btn">
       <el-button link type="primary" @click="openParamForm(item)">编辑</el-button>
@@ -16,13 +12,7 @@
 
   <!-- param 表单 -->
   <Dialog v-model="dialogVisible" title="新增参数" append-to-body>
-    <el-form
-      ref="paramFormRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="ThingModelFormRules"
-      label-width="100px"
-    >
+    <el-form ref="paramFormRef" v-loading="formLoading" :model="formData" :rules="ThingModelFormRules" label-width="100px">
       <el-form-item label="参数名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入功能名称" />
       </el-form-item>
@@ -108,17 +98,12 @@ const submitForm = async () => {
       dataType: data.property.dataType,
       paraOrder: 0, // TODO @puhui999: 先写死默认看看后续
       direction: props.direction,
-      dataSpecs:
-        !!data.property.dataSpecs && Object.keys(data.property.dataSpecs).length > 1
-          ? data.property.dataSpecs
-          : undefined,
+      dataSpecs: !!data.property.dataSpecs && Object.keys(data.property.dataSpecs).length > 1 ? data.property.dataSpecs : undefined,
       dataSpecsList: isEmpty(data.property.dataSpecsList) ? undefined : data.property.dataSpecsList
     }
 
     // 新增或修改同 identifier 的参数
-    const existingIndex = thingModelParams.value.findIndex(
-      (spec) => spec.identifier === data.identifier
-    )
+    const existingIndex = thingModelParams.value.findIndex((spec) => spec.identifier === data.identifier)
     if (existingIndex > -1) {
       thingModelParams.value[existingIndex] = item
     } else {

@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="参数分类" prop="category">
         <el-input v-model="formData.category" placeholder="请输入参数分类" />
       </el-form-item>
@@ -21,11 +15,7 @@
       </el-form-item>
       <el-form-item label="是否可见" prop="visible">
         <el-radio-group v-model="formData.visible">
-          <el-radio
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value as string"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value as string" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

@@ -1,26 +1,14 @@
 <!-- 操作符选择器组件 -->
 <template>
   <div class="w-full">
-    <el-select
-      v-model="localValue"
-      placeholder="请选择操作符"
-      @change="handleChange"
-      class="w-full"
-    >
-      <el-option
-        v-for="operator in availableOperators"
-        :key="operator.value"
-        :label="operator.label"
-        :value="operator.value"
-      >
+    <el-select v-model="localValue" placeholder="请选择操作符" @change="handleChange" class="w-full">
+      <el-option v-for="operator in availableOperators" :key="operator.value" :label="operator.label" :value="operator.value">
         <div class="flex items-center justify-between w-full py-4px">
           <div class="flex items-center gap-8px">
             <div class="text-14px font-500 text-[var(--el-text-color-primary)]">
               {{ operator.label }}
             </div>
-            <div
-              class="text-12px text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] px-6px py-2px rounded-4px font-mono"
-            >
+            <div class="text-12px text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] px-6px py-2px rounded-4px font-mono">
               {{ operator.symbol }}
             </div>
           </div>
@@ -35,10 +23,7 @@
 
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
-import {
-  IotRuleSceneTriggerConditionParameterOperatorEnum,
-  IoTDataSpecsDataTypeEnum
-} from '@/views/iot/utils/constants'
+import { IotRuleSceneTriggerConditionParameterOperatorEnum, IoTDataSpecsDataTypeEnum } from '@/views/iot/utils/constants'
 
 /** 操作符选择器组件 */
 defineOptions({ name: 'OperatorSelector' })
@@ -93,12 +78,7 @@ const allOperators = [
     symbol: '>',
     description: '值大于指定值时触发',
     example: 'temperature > 30',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.DOUBLE,
-      IoTDataSpecsDataTypeEnum.DATE
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.DOUBLE, IoTDataSpecsDataTypeEnum.DATE]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.GREATER_THAN_OR_EQUALS.value,
@@ -106,12 +86,7 @@ const allOperators = [
     symbol: '≥',
     description: '值大于或等于指定值时触发',
     example: 'humidity >= 80',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.DOUBLE,
-      IoTDataSpecsDataTypeEnum.DATE
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.DOUBLE, IoTDataSpecsDataTypeEnum.DATE]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.LESS_THAN.value,
@@ -119,12 +94,7 @@ const allOperators = [
     symbol: '<',
     description: '值小于指定值时触发',
     example: 'temperature < 10',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.DOUBLE,
-      IoTDataSpecsDataTypeEnum.DATE
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.DOUBLE, IoTDataSpecsDataTypeEnum.DATE]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.LESS_THAN_OR_EQUALS.value,
@@ -132,12 +102,7 @@ const allOperators = [
     symbol: '≤',
     description: '值小于或等于指定值时触发',
     example: 'battery <= 20',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.DOUBLE,
-      IoTDataSpecsDataTypeEnum.DATE
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.DOUBLE, IoTDataSpecsDataTypeEnum.DATE]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.IN.value,
@@ -145,12 +110,7 @@ const allOperators = [
     symbol: '∈',
     description: '值在指定列表中时触发',
     example: 'status in [1,2,3]',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.TEXT,
-      IoTDataSpecsDataTypeEnum.ENUM
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.TEXT, IoTDataSpecsDataTypeEnum.ENUM]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.NOT_IN.value,
@@ -158,12 +118,7 @@ const allOperators = [
     symbol: '∉',
     description: '值不在指定列表中时触发',
     example: 'status not in [1,2,3]',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.TEXT,
-      IoTDataSpecsDataTypeEnum.ENUM
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.TEXT, IoTDataSpecsDataTypeEnum.ENUM]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.BETWEEN.value,
@@ -171,12 +126,7 @@ const allOperators = [
     symbol: '⊆',
     description: '值在指定范围内时触发',
     example: 'temperature between 20,30',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.DOUBLE,
-      IoTDataSpecsDataTypeEnum.DATE
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.DOUBLE, IoTDataSpecsDataTypeEnum.DATE]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.NOT_BETWEEN.value,
@@ -184,12 +134,7 @@ const allOperators = [
     symbol: '⊄',
     description: '值不在指定范围内时触发',
     example: 'temperature not between 20,30',
-    supportedTypes: [
-      IoTDataSpecsDataTypeEnum.INT,
-      IoTDataSpecsDataTypeEnum.FLOAT,
-      IoTDataSpecsDataTypeEnum.DOUBLE,
-      IoTDataSpecsDataTypeEnum.DATE
-    ]
+    supportedTypes: [IoTDataSpecsDataTypeEnum.INT, IoTDataSpecsDataTypeEnum.FLOAT, IoTDataSpecsDataTypeEnum.DOUBLE, IoTDataSpecsDataTypeEnum.DATE]
   },
   {
     value: IotRuleSceneTriggerConditionParameterOperatorEnum.LIKE.value,
@@ -222,9 +167,7 @@ const availableOperators = computed(() => {
   if (!props.propertyType) {
     return allOperators
   }
-  return allOperators.filter((op) =>
-    (op.supportedTypes as any[]).includes(props.propertyType || '')
-  )
+  return allOperators.filter((op) => (op.supportedTypes as any[]).includes(props.propertyType || ''))
 })
 
 // 计算属性：当前选中的操作符
@@ -245,11 +188,7 @@ watch(
   () => props.propertyType,
   () => {
     // 如果当前选择的操作符不支持新的属性类型，则清空选择
-    if (
-      localValue.value &&
-      selectedOperator.value &&
-      !(selectedOperator.value.supportedTypes as any[]).includes(props.propertyType || '')
-    ) {
+    if (localValue.value && selectedOperator.value && !(selectedOperator.value.supportedTypes as any[]).includes(props.propertyType || '')) {
       localValue.value = ''
     }
   }

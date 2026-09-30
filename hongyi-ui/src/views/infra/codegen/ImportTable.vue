@@ -3,36 +3,15 @@
     <!-- 搜索栏 -->
     <el-form ref="queryFormRef" :inline="true" :model="queryParams" label-width="68px">
       <el-form-item label="数据源" prop="dataSourceConfigId">
-        <el-select
-          v-model="queryParams.dataSourceConfigId"
-          class="!w-240px"
-          placeholder="请选择数据源"
-        >
-          <el-option
-            v-for="config in dataSourceConfigList"
-            :key="config.id"
-            :label="config.name"
-            :value="config.id"
-          />
+        <el-select v-model="queryParams.dataSourceConfigId" class="!w-240px" placeholder="请选择数据源">
+          <el-option v-for="config in dataSourceConfigList" :key="config.id" :label="config.name" :value="config.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="表名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入表名称"
-          @keyup.enter="getList"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入表名称" @keyup.enter="getList" />
       </el-form-item>
       <el-form-item label="表描述" prop="comment">
-        <el-input
-          v-model="queryParams.comment"
-          class="!w-240px"
-          clearable
-          placeholder="请输入表描述"
-          @keyup.enter="getList"
-        />
+        <el-input v-model="queryParams.comment" class="!w-240px" clearable placeholder="请输入表描述" @keyup.enter="getList" />
       </el-form-item>
       <el-form-item>
         <el-button @click="getList">
@@ -47,14 +26,7 @@
     </el-form>
     <!-- 列表 -->
     <el-row>
-      <el-table
-        ref="tableRef"
-        v-loading="dbTableLoading"
-        :data="dbTableList"
-        height="260px"
-        @row-click="handleRowClick"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table ref="tableRef" v-loading="dbTableLoading" :data="dbTableList" height="260px" @row-click="handleRowClick" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" />
         <el-table-column :show-overflow-tooltip="true" label="表名称" prop="name" />
         <el-table-column :show-overflow-tooltip="true" label="表描述" prop="comment" />
@@ -62,13 +34,7 @@
     </el-row>
     <!-- 操作 -->
     <template #footer>
-      <el-button
-        :disabled="tableList.length === 0 || dbTableLoading"
-        type="primary"
-        @click="handleImportTable"
-      >
-        导入
-      </el-button>
+      <el-button :disabled="tableList.length === 0 || dbTableLoading" type="primary" @click="handleImportTable"> 导入 </el-button>
       <el-button @click="close">关闭</el-button>
     </template>
   </Dialog>

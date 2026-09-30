@@ -2,35 +2,13 @@
   <Dialog v-model="dialogVisible" :appendToBody="true" title="选择活动" width="70%">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="68px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
         <el-form-item label="活动名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            placeholder="请输入活动名称"
-            clearable
-            @keyup.enter="handleQuery"
-            class="!w-240px"
-          />
+          <el-input v-model="queryParams.name" placeholder="请输入活动名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
         </el-form-item>
         <el-form-item label="活动状态" prop="status">
-          <el-select
-            v-model="queryParams.status"
-            placeholder="请选择活动状态"
-            clearable
-            class="!w-240px"
-          >
-            <el-option
-              v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
+          <el-select v-model="queryParams.status" placeholder="请选择活动状态" clearable class="!w-240px">
+            <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -48,27 +26,16 @@
         <!-- 1. 多选模式（不能使用type="selection"，Element会忽略Header插槽） -->
         <el-table-column width="55" v-if="multiple">
           <template #header>
-            <el-checkbox
-              v-model="isCheckAll"
-              :indeterminate="isIndeterminate"
-              @change="handleCheckAll"
-            />
+            <el-checkbox v-model="isCheckAll" :indeterminate="isIndeterminate" @change="handleCheckAll" />
           </template>
           <template #default="{ row }">
-            <el-checkbox
-              v-model="checkedStatus[row.id]"
-              @change="(checked: boolean) => handleCheckOne(checked, row, true)"
-            />
+            <el-checkbox v-model="checkedStatus[row.id]" @change="(checked: boolean) => handleCheckOne(checked, row, true)" />
           </template>
         </el-table-column>
         <!-- 2. 单选模式 -->
         <el-table-column label="#" width="55" v-else>
           <template #default="{ row }">
-            <el-radio
-              :value="row.id"
-              v-model="selectedActivityId"
-              @change="handleSingleSelected(row)"
-            >
+            <el-radio :value="row.id" v-model="selectedActivityId" @change="handleSingleSelected(row)">
               <!-- 空格不能省略，是为了让单选框不显示label，如果不指定label不会有选中的效果 -->
               &nbsp;
             </el-radio>
@@ -84,21 +51,11 @@
         </el-table-column>
         <el-table-column label="商品图片" prop="spuName" min-width="80">
           <template #default="scope">
-            <el-image
-              :src="scope.row.picUrl"
-              class="h-40px w-40px"
-              :preview-src-list="[scope.row.picUrl]"
-              preview-teleported
-            />
+            <el-image :src="scope.row.picUrl" class="h-40px w-40px" :preview-src-list="[scope.row.picUrl]" preview-teleported />
           </template>
         </el-table-column>
         <el-table-column label="商品标题" prop="spuName" min-width="300" />
-        <el-table-column
-          label="原价"
-          prop="marketPrice"
-          min-width="100"
-          :formatter="fenToYuanFormat"
-        />
+        <el-table-column label="原价" prop="marketPrice" min-width="100" :formatter="fenToYuanFormat" />
         <el-table-column label="拼团价" prop="seckillPrice" min-width="100">
           <template #default="scope">
             {{ formatSeckillPrice(scope.row.products) }}
@@ -112,21 +69,10 @@
             <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="创建时间"
-          align="center"
-          prop="createTime"
-          :formatter="dateFormatter"
-          width="180px"
-        />
+        <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer v-if="multiple">
       <el-button type="primary" @click="handleEmitChange">确 定</el-button>
@@ -211,10 +157,7 @@ const getList = async () => {
     list.value = data.list
     total.value = data.total
     // checkbox绑定undefined会有问题，需要给一个bool值
-    list.value.forEach(
-      (activityVO) =>
-        (checkedStatus.value[activityVO.id] = checkedStatus.value[activityVO.id] || false)
-    )
+    list.value.forEach((activityVO) => (checkedStatus.value[activityVO.id] = checkedStatus.value[activityVO.id] || false))
     // 计算全选框状态
     calculateIsCheckAll()
   } finally {
@@ -294,11 +237,7 @@ const handleCheckAll = (checked: boolean) => {
  * @param seckillActivity 活动
  * @param isCalcCheckAll 是否计算全选
  */
-const handleCheckOne = (
-  checked: boolean,
-  seckillActivity: SeckillActivityVO,
-  isCalcCheckAll: boolean
-) => {
+const handleCheckOne = (checked: boolean, seckillActivity: SeckillActivityVO, isCalcCheckAll: boolean) => {
   if (checked) {
     checkedActivitys.value.push(seckillActivity)
     checkedStatus.value[seckillActivity.id] = true
@@ -318,15 +257,13 @@ const handleCheckOne = (
 }
 
 // 查找活动在已选中活动列表中的索引
-const findCheckedIndex = (activityVO: SeckillActivityVO) =>
-  checkedActivitys.value.findIndex((item) => item.id === activityVO.id)
+const findCheckedIndex = (activityVO: SeckillActivityVO) => checkedActivitys.value.findIndex((item) => item.id === activityVO.id)
 
 // 计算全选框状态
 const calculateIsCheckAll = () => {
   isCheckAll.value = list.value.every((activityVO) => checkedStatus.value[activityVO.id])
   // 计算中间状态：不是全部选中 && 任意一个选中
-  isIndeterminate.value =
-    !isCheckAll.value && list.value.some((activityVO) => checkedStatus.value[activityVO.id])
+  isIndeterminate.value = !isCheckAll.value && list.value.some((activityVO) => checkedStatus.value[activityVO.id])
 }
 
 // 分类列表

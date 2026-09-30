@@ -8,16 +8,10 @@
         <!-- 主条件配置 -->
         <div class="space-y-16px">
           <!-- 主条件头部 - 与附加条件组保持一致的绿色风格 -->
-          <div
-            class="flex items-center justify-between p-16px bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-8px"
-          >
+          <div class="flex items-center justify-between p-16px bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-8px">
             <div class="flex items-center gap-12px">
               <div class="flex items-center gap-8px text-16px font-600 text-green-700">
-                <div
-                  class="w-24px h-24px bg-green-500 text-white rounded-full flex items-center justify-center text-12px font-bold"
-                >
-                  主
-                </div>
+                <div class="w-24px h-24px bg-green-500 text-white rounded-full flex items-center justify-center text-12px font-bold"> 主 </div>
                 <span>主条件</span>
               </div>
               <el-tag size="small" type="success">必须满足</el-tag>
@@ -25,12 +19,7 @@
           </div>
 
           <!-- 主条件内容配置 -->
-          <MainConditionInnerConfig
-            :model-value="trigger"
-            @update:model-value="updateCondition"
-            :trigger-type="trigger.type"
-            @trigger-type-change="handleTriggerTypeChange"
-          />
+          <MainConditionInnerConfig :model-value="trigger" @update:model-value="updateCondition" :trigger-type="trigger.type" @trigger-type-change="handleTriggerTypeChange" />
         </div>
       </div>
     </div>
@@ -40,30 +29,17 @@
       <!-- 条件组配置 -->
       <div class="flex flex-col gap-16px">
         <!-- 条件组容器头部 -->
-        <div
-          class="flex items-center justify-between p-16px bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-8px"
-        >
+        <div class="flex items-center justify-between p-16px bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-8px">
           <div class="flex items-center gap-12px">
             <div class="flex items-center gap-8px text-16px font-600 text-green-700">
-              <div
-                class="w-24px h-24px bg-green-500 text-white rounded-full flex items-center justify-center text-12px font-bold"
-              >
-                组
-              </div>
+              <div class="w-24px h-24px bg-green-500 text-white rounded-full flex items-center justify-center text-12px font-bold"> 组 </div>
               <span>附加条件组</span>
             </div>
             <el-tag size="small" type="success">与"主条件"为且关系</el-tag>
-            <el-tag size="small" type="info">
-              {{ trigger.conditionGroups?.length || 0 }} 个子条件组
-            </el-tag>
+            <el-tag size="small" type="info"> {{ trigger.conditionGroups?.length || 0 }} 个子条件组 </el-tag>
           </div>
           <div class="flex items-center gap-8px">
-            <el-button
-              type="primary"
-              size="small"
-              @click="addSubGroup"
-              :disabled="(trigger.conditionGroups?.length || 0) >= maxSubGroups"
-            >
+            <el-button type="primary" size="small" @click="addSubGroup" :disabled="(trigger.conditionGroups?.length || 0) >= maxSubGroups">
               <Icon icon="ep:plus" />
               添加子条件组
             </el-button>
@@ -75,29 +51,16 @@
         </div>
 
         <!-- 子条件组列表 -->
-        <div
-          v-if="trigger.conditionGroups && trigger.conditionGroups.length > 0"
-          class="space-y-16px"
-        >
+        <div v-if="trigger.conditionGroups && trigger.conditionGroups.length > 0" class="space-y-16px">
           <!-- 逻辑关系说明 -->
           <div class="relative">
-            <div
-              v-for="(subGroup, subGroupIndex) in trigger.conditionGroups"
-              :key="`sub-group-${subGroupIndex}`"
-              class="relative"
-            >
+            <div v-for="(subGroup, subGroupIndex) in trigger.conditionGroups" :key="`sub-group-${subGroupIndex}`" class="relative">
               <!-- 子条件组容器 -->
-              <div
-                class="border-2 border-orange-200 rounded-8px bg-orange-50 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div
-                  class="flex items-center justify-between p-16px bg-gradient-to-r from-orange-50 to-yellow-50 border-b border-orange-200 rounded-t-6px"
-                >
+              <div class="border-2 border-orange-200 rounded-8px bg-orange-50 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between p-16px bg-gradient-to-r from-orange-50 to-yellow-50 border-b border-orange-200 rounded-t-6px">
                   <div class="flex items-center gap-12px">
                     <div class="flex items-center gap-8px text-16px font-600 text-orange-700">
-                      <div
-                        class="w-24px h-24px bg-orange-500 text-white rounded-full flex items-center justify-center text-12px font-bold"
-                      >
+                      <div class="w-24px h-24px bg-orange-500 text-white rounded-full flex items-center justify-center text-12px font-bold">
                         {{ subGroupIndex + 1 }}
                       </div>
                       <span>子条件组 {{ subGroupIndex + 1 }}</span>
@@ -105,13 +68,7 @@
                     <el-tag size="small" type="warning" class="font-500">组内条件为"且"关系</el-tag>
                     <el-tag size="small" type="info"> {{ subGroup?.length || 0 }}个条件 </el-tag>
                   </div>
-                  <el-button
-                    type="danger"
-                    size="small"
-                    text
-                    @click="removeSubGroup(subGroupIndex)"
-                    class="hover:bg-red-50"
-                  >
+                  <el-button type="danger" size="small" text @click="removeSubGroup(subGroupIndex)" class="hover:bg-red-50">
                     <Icon icon="ep:delete" />
                     删除组
                   </el-button>
@@ -126,10 +83,7 @@
               </div>
 
               <!-- 子条件组间的"或"连接符 -->
-              <div
-                v-if="subGroupIndex < trigger.conditionGroups!.length - 1"
-                class="flex items-center justify-center py-12px"
-              >
+              <div v-if="subGroupIndex < trigger.conditionGroups!.length - 1" class="flex items-center justify-center py-12px">
                 <div class="flex items-center gap-8px">
                   <!-- 连接线 -->
                   <div class="w-32px h-1px bg-orange-300"></div>
@@ -146,10 +100,7 @@
         </div>
 
         <!-- 空状态 -->
-        <div
-          v-else
-          class="p-24px border-2 border-dashed border-orange-200 rounded-8px text-center bg-orange-50"
-        >
+        <div v-else class="p-24px border-2 border-dashed border-orange-200 rounded-8px text-center bg-orange-50">
           <div class="flex flex-col items-center gap-12px">
             <Icon icon="ep:plus" class="text-32px text-orange-400" />
             <div class="text-orange-600">

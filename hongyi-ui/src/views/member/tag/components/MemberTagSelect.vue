@@ -2,16 +2,7 @@
   <el-select v-model="tagIds" placeholder="请选择用户标签" clearable multiple class="!w-240px">
     <el-option v-for="tag in tags" :key="tag.id" :label="tag.name" :value="tag.id" />
   </el-select>
-  <el-button
-    v-if="showAdd"
-    type="primary"
-    class="ml-2"
-    link
-    @click="openForm('create')"
-    v-hasPermi="['member:tag:create']"
-  >
-    新增标签
-  </el-button>
+  <el-button v-if="showAdd" type="primary" class="ml-2" link @click="openForm('create')" v-hasPermi="['member:tag:create']"> 新增标签 </el-button>
 
   <!-- 表单弹窗：添加 -->
   <TagForm ref="formRef" @success="getList" />

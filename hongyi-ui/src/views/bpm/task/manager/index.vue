@@ -3,21 +3,9 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="任务名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入任务名称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入任务名称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -47,34 +35,11 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column align="center" label="流程" prop="processInstance.name" width="180" />
-      <el-table-column
-        align="center"
-        label="发起人"
-        prop="processInstance.startUser.nickname"
-        width="100"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="发起时间"
-        prop="createTime"
-        width="180"
-      />
+      <el-table-column align="center" label="发起人" prop="processInstance.startUser.nickname" width="100" />
+      <el-table-column :formatter="dateFormatter" align="center" label="发起时间" prop="createTime" width="180" />
       <el-table-column align="center" label="当前任务" prop="name" width="180" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="任务开始时间"
-        prop="createTime"
-        width="180"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="任务结束时间"
-        prop="endTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="任务开始时间" prop="createTime" width="180" />
+      <el-table-column :formatter="dateFormatter" align="center" label="任务结束时间" prop="endTime" width="180" />
       <el-table-column align="center" label="审批人" prop="assigneeUser.nickname" width="100" />
       <el-table-column align="center" label="审批状态" prop="status" width="120">
         <template #default="scope">
@@ -96,12 +61,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 <script lang="ts" setup>

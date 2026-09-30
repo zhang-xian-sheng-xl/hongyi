@@ -3,21 +3,8 @@
     <!-- 搜索工作栏 -->
     <el-form class="-mb-15px" :inline="true">
       <el-form-item>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['infra:data-source-config:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
-        <el-button
-          type="danger"
-          plain
-          :disabled="checkedIds.length === 0"
-          @click="handleDeleteBatch"
-          v-hasPermi="['infra:data-source-config:delete']"
-        >
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['infra:data-source-config:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
+        <el-button type="danger" plain :disabled="checkedIds.length === 0" @click="handleDeleteBatch" v-hasPermi="['infra:data-source-config:delete']">
           <Icon icon="ep:delete" class="mr-5px" /> 批量删除
         </el-button>
       </el-form-item>
@@ -32,33 +19,11 @@
       <el-table-column label="数据源名称" align="center" prop="name" />
       <el-table-column label="数据源连接" align="center" prop="url" :show-overflow-tooltip="true" />
       <el-table-column label="用户名" align="center" prop="username" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['infra:data-source-config:update']"
-            :disabled="scope.row.id === 0"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['infra:data-source-config:delete']"
-            :disabled="scope.row.id === 0"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['infra:data-source-config:update']" :disabled="scope.row.id === 0"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['infra:data-source-config:delete']" :disabled="scope.row.id === 0"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>

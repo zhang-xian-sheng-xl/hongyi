@@ -15,14 +15,7 @@
           show-word-limit
           type="textarea"
         />
-        <el-button
-          class="!w-full mt-[15px]"
-          type="primary"
-          :loading="isGenerating"
-          @click="emits('submit', formData)"
-        >
-          智能生成思维导图
-        </el-button>
+        <el-button class="!w-full mt-[15px]" type="primary" :loading="isGenerating" @click="emits('submit', formData)"> 智能生成思维导图 </el-button>
       </div>
       <div class="mt-[30px]">
         <el-text tag="b">使用已有内容生成？</el-text>
@@ -36,14 +29,7 @@
           show-word-limit
           type="textarea"
         />
-        <el-button
-          class="!w-full mt-[15px]"
-          type="primary"
-          @click="emits('directGenerate', generatedContent)"
-          :disabled="isGenerating"
-        >
-          直接生成
-        </el-button>
+        <el-button class="!w-full mt-[15px]" type="primary" @click="emits('directGenerate', generatedContent)" :disabled="isGenerating"> 直接生成 </el-button>
       </div>
     </div>
   </div>

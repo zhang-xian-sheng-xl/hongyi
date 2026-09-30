@@ -4,9 +4,7 @@
     <template v-if="formData.rules">
       <el-col v-for="(rule, index) in formData.rules" :key="index" :span="24">
         <span class="font-bold">活动层级{{ index + 1 }}</span>
-        <el-button v-if="index !== 0" link type="danger" @click="deleteRule(index)">
-          删除
-        </el-button>
+        <el-button v-if="index !== 0" link type="danger" @click="deleteRule(index)"> 删除 </el-button>
         <el-form ref="formRef" :model="rule">
           <el-form-item label="优惠门槛:" label-width="100px" prop="limit">
             满
@@ -21,14 +19,7 @@
               type="number"
               controls-position="right"
             />
-            <el-input
-              v-else
-              v-model="rule.limit"
-              :min="0"
-              class="w-150px! p-x-20px!"
-              placeholder=""
-              type="number"
-            />
+            <el-input v-else v-model="rule.limit" :min="0" class="w-150px! p-x-20px!" placeholder="" type="number" />
             {{ PromotionConditionTypeEnum.PRICE.type === formData.conditionType ? '元' : '件' }}
           </el-form-item>
           <el-form-item label="优惠内容:" label-width="100px">
@@ -36,36 +27,19 @@
               订单金额优惠
               <el-form-item>
                 减
-                <el-input-number
-                  v-model="rule.discountPrice"
-                  :min="0"
-                  :precision="2"
-                  :step="0.1"
-                  class="w-150px! p-x-20px!"
-                  controls-position="right"
-                />
+                <el-input-number v-model="rule.discountPrice" :min="0" :precision="2" :step="0.1" class="w-150px! p-x-20px!" controls-position="right" />
                 元
               </el-form-item>
             </el-col>
             <el-col :span="24">
               <span>包邮：</span>
-              <el-switch
-                v-model="rule.freeDelivery"
-                active-text="是"
-                inactive-text="否"
-                inline-prompt
-              />
+              <el-switch v-model="rule.freeDelivery" active-text="是" inactive-text="否" inline-prompt />
             </el-col>
             <el-col :span="24">
               <span>送积分：</span>
               <el-form-item>
                 送
-                <el-input
-                  v-model="rule.point"
-                  class="w-150px! p-x-20px!"
-                  placeholder=""
-                  type="number"
-                />
+                <el-input v-model="rule.point" class="w-150px! p-x-20px!" placeholder="" type="number" />
                 积分
               </el-form-item>
             </el-col>

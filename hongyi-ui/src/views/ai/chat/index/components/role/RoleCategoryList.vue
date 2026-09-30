@@ -1,13 +1,7 @@
 <template>
   <div class="flex flex-row flex-wrap items-center">
     <div class="flex flex-row mr-10px" v-for="category in categoryList" :key="category">
-      <el-button
-        plain
-        round
-        size="small"
-        :type="category === active ? 'primary' : ''"
-        @click="handleCategoryClick(category)"
-      >
+      <el-button plain round size="small" :type="category === active ? 'primary' : ''" @click="handleCategoryClick(category)">
         {{ category }}
       </el-button>
     </div>

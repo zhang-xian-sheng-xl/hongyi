@@ -1,43 +1,23 @@
 <!-- 联网搜索结果组件 -->
 <template>
   <!-- 联网搜索结果列表 -->
-  <div
-    v-if="webSearchPages && webSearchPages.length > 0"
-    class="mt-10px p-10px rounded-8px bg-[#f5f5f5]"
-  >
+  <div v-if="webSearchPages && webSearchPages.length > 0" class="mt-10px p-10px rounded-8px bg-[#f5f5f5]">
     <!-- 标题栏：可点击展开/收起 -->
-    <div
-      class="text-14px text-[#666] mb-8px flex items-center justify-between cursor-pointer hover:text-[#409eff]"
-      @click="toggleExpanded"
-    >
+    <div class="text-14px text-[#666] mb-8px flex items-center justify-between cursor-pointer hover:text-[#409eff]" @click="toggleExpanded">
       <div class="flex items-center">
         <Icon icon="ep:search" class="mr-5px" />
         联网搜索结果 ({{ webSearchPages.length }} 条)
       </div>
-      <Icon
-        :icon="isExpanded ? 'ep:arrow-up' : 'ep:arrow-down'"
-        class="text-12px transition-transform duration-200"
-      />
+      <Icon :icon="isExpanded ? 'ep:arrow-up' : 'ep:arrow-down'" class="text-12px transition-transform duration-200" />
     </div>
 
     <!-- 可展开的搜索结果列表 -->
     <div v-show="isExpanded" class="flex flex-col gap-8px transition-all duration-200 ease-in-out">
-      <div
-        v-for="(result, index) in webSearchPages"
-        :key="index"
-        class="p-10px bg-white rounded-6px cursor-pointer transition-all hover:bg-[#e6f4ff]"
-        @click="handleClick(result)"
-      >
+      <div v-for="(result, index) in webSearchPages" :key="index" class="p-10px bg-white rounded-6px cursor-pointer transition-all hover:bg-[#e6f4ff]" @click="handleClick(result)">
         <div class="flex items-start gap-8px">
           <!-- 网站图标 -->
           <div class="flex-shrink-0 w-16px h-16px mt-2px">
-            <img
-              v-if="result.icon"
-              :src="result.icon"
-              :alt="result.name"
-              class="w-full h-full object-contain rounded-2px"
-              @error="handleImageError"
-            />
+            <img v-if="result.icon" :src="result.icon" :alt="result.name" class="w-full h-full object-contain rounded-2px" @error="handleImageError" />
             <Icon v-else icon="ep:link" class="w-full h-full text-[#666]" />
           </div>
 
@@ -69,14 +49,7 @@
   </div>
 
   <!-- 联网搜索详情弹窗 -->
-  <el-popover
-    v-model:visible="dialogVisible"
-    :width="600"
-    trigger="click"
-    placement="top-start"
-    :offset="55"
-    popper-class="web-search-popover"
-  >
+  <el-popover v-model:visible="dialogVisible" :width="600" trigger="click" placement="top-start" :offset="55" popper-class="web-search-popover">
     <template #reference>
       <div ref="resultRef"></div>
     </template>
@@ -85,13 +58,7 @@
         <!-- 标题区域 -->
         <div class="flex items-start gap-8px mb-12px">
           <div class="flex-shrink-0 w-20px h-20px mt-2px">
-            <img
-              v-if="selectedResult.icon"
-              :src="selectedResult.icon"
-              :alt="selectedResult.name"
-              class="w-full h-full object-contain rounded-2px"
-              @error="handleImageError"
-            />
+            <img v-if="selectedResult.icon" :src="selectedResult.icon" :alt="selectedResult.name" class="w-full h-full object-contain rounded-2px" @error="handleImageError" />
             <Icon v-else icon="ep:link" class="w-full h-full text-[#666]" />
           </div>
           <div class="flex-1 min-w-0">
@@ -116,9 +83,7 @@
           <!-- 内容摘要 -->
           <div v-if="selectedResult.summary">
             <div class="text-14px font-medium text-[#333] mb-6px">内容摘要</div>
-            <div
-              class="text-14px leading-[1.6] text-[#333] bg-[#f8f9fa] p-10px rounded-6px whitespace-pre-wrap"
-            >
+            <div class="text-14px leading-[1.6] text-[#333] bg-[#f8f9fa] p-10px rounded-6px whitespace-pre-wrap">
               {{ selectedResult.summary }}
             </div>
           </div>
@@ -127,9 +92,7 @@
         <!-- 操作按钮 -->
         <div class="flex justify-end gap-8px mt-12px pt-12px border-t border-[#eee]">
           <el-button size="small" @click="dialogVisible = false">关闭</el-button>
-          <el-button type="primary" size="small" @click="openUrl(selectedResult.url)">
-            访问原文
-          </el-button>
+          <el-button type="primary" size="small" @click="openUrl(selectedResult.url)"> 访问原文 </el-button>
         </div>
       </div>
     </template>

@@ -2,42 +2,18 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="功能类型" prop="name">
-        <el-select
-          v-model="queryParams.type"
-          class="!w-240px"
-          clearable
-          placeholder="请选择功能类型"
-          @change="handleQuery"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_THING_MODEL_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" class="!w-240px" clearable placeholder="请选择功能类型" @change="handleQuery">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_THING_MODEL_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button
-          v-hasPermi="[`iot:thing-model:create`]"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="[`iot:thing-model:create`]" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           添加功能
         </el-button>
-        <el-button v-hasPermi="[`iot:thing-model:query`]" plain type="success" @click="openTSL">
-          TSL
-        </el-button>
+        <el-button v-hasPermi="[`iot:thing-model:query`]" plain type="success" @click="openTSL"> TSL </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -65,32 +41,13 @@
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template #default="scope">
-            <el-button
-              v-hasPermi="[`iot:thing-model:update`]"
-              link
-              type="primary"
-              @click="openForm('update', scope.row.id)"
-            >
-              编辑
-            </el-button>
-            <el-button
-              v-hasPermi="['iot:thing-model:delete']"
-              link
-              type="danger"
-              @click="handleDelete(scope.row.id)"
-            >
-              删除
-            </el-button>
+            <el-button v-hasPermi="[`iot:thing-model:update`]" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+            <el-button v-hasPermi="['iot:thing-model:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
           </template>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </el-tabs>
   </ContentWrap>
 

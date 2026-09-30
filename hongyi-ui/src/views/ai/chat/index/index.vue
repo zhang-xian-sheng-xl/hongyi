@@ -11,9 +11,7 @@
     />
     <!-- 右侧：对话详情 -->
     <el-container class="bg-[var(--el-bg-color)]">
-      <el-header
-        class="flex flex-row items-center justify-between bg-[var(--el-bg-color-page)] shadow-[0_0_0_0_var(--el-border-color-light)]"
-      >
+      <el-header class="flex flex-row items-center justify-between bg-[var(--el-bg-color-page)] shadow-[0_0_0_0_var(--el-border-color-light)]">
         <div class="text-18px font-bold">
           {{ activeConversation?.title ? activeConversation?.title : '对话' }}
           <span v-if="activeMessageList.length">({{ activeMessageList.length }})</span>
@@ -24,10 +22,7 @@
             <Icon icon="ep:setting" class="ml-10px" />
           </el-button>
           <el-button size="small" class="p-10px" @click="handlerMessageClear">
-            <Icon
-              icon="heroicons-outline:archive-box-x-mark"
-              color="var(--el-text-color-placeholder)"
-            />
+            <Icon icon="heroicons-outline:archive-box-x-mark" color="var(--el-text-color-placeholder)" />
           </el-button>
           <el-button size="small" class="p-10px">
             <Icon icon="ep:download" color="var(--el-text-color-placeholder)" />
@@ -45,15 +40,9 @@
             <!-- 情况一：消息加载中 -->
             <MessageLoading v-if="activeMessageListLoading" />
             <!-- 情况二：无聊天对话时 -->
-            <MessageNewConversation
-              v-if="!activeConversation"
-              @on-new-conversation="handleConversationCreate"
-            />
+            <MessageNewConversation v-if="!activeConversation" @on-new-conversation="handleConversationCreate" />
             <!-- 情况三：消息列表为空 -->
-            <MessageListEmpty
-              v-if="!activeMessageListLoading && messageList.length === 0 && activeConversation"
-              @on-prompt="doSendMessage"
-            />
+            <MessageListEmpty v-if="!activeMessageListLoading && messageList.length === 0 && activeConversation" @on-prompt="doSendMessage" />
             <!-- 情况四：消息列表不为空 -->
             <MessageList
               v-if="!activeMessageListLoading && messageList.length > 0 && activeConversation"
@@ -71,10 +60,7 @@
       <!-- 底部 -->
       <el-footer class="flex flex-col !h-auto !p-0">
         <!-- TODO @芋艿：这块要想办法迁移下！ -->
-        <form
-          class="mt-10px mx-20px mb-20px py-9px px-10px flex flex-col h-auto rounded-10px"
-          style="border: 1px solid var(--el-border-color)"
-        >
+        <form class="mt-10px mx-20px mb-20px py-9px px-10px flex flex-col h-auto rounded-10px" style="border: 1px solid var(--el-border-color)">
           <textarea
             class="h-80px border-none box-border resize-none py-0 px-2px overflow-auto focus:outline-none"
             v-model="prompt"
@@ -93,33 +79,17 @@
               <el-switch v-model="enableWebSearch" />
               <span class="ml-5px text-14px text-#8f8f8f">联网搜索</span>
             </div>
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleSendByButton"
-              :loading="conversationInProgress"
-              v-if="conversationInProgress == false"
-            >
+            <el-button type="primary" size="default" @click="handleSendByButton" :loading="conversationInProgress" v-if="conversationInProgress == false">
               {{ conversationInProgress ? '进行中' : '发送' }}
             </el-button>
-            <el-button
-              type="danger"
-              size="default"
-              @click="stopStream()"
-              v-if="conversationInProgress == true"
-            >
-              停止
-            </el-button>
+            <el-button type="danger" size="default" @click="stopStream()" v-if="conversationInProgress == true"> 停止 </el-button>
           </div>
         </form>
       </el-footer>
     </el-container>
 
     <!-- 更新对话 Form -->
-    <ConversationUpdateForm
-      ref="conversationUpdateFormRef"
-      @success="handleConversationUpdateSuccess"
-    />
+    <ConversationUpdateForm ref="conversationUpdateFormRef" @success="handleConversationUpdateSuccess" />
   </el-container>
 </template>
 
@@ -265,9 +235,7 @@ const getMessageList = async () => {
     }, 60)
 
     // 获取消息列表
-    activeMessageList.value = await ChatMessageApi.getChatMessageListByConversationId(
-      activeConversationId.value
-    )
+    activeMessageList.value = await ChatMessageApi.getChatMessageListByConversationId(activeConversationId.value)
 
     // 滚动到最下面
     await nextTick()
@@ -503,8 +471,7 @@ const doSendMessageStream = async (userMessage: ChatMessageVO) => {
         // 处理 reasoningContent
         if (data.receive.reasoningContent) {
           const lastMessage = activeMessageList.value[activeMessageList.value.length - 1]
-          lastMessage.reasoningContent =
-            lastMessage.reasoningContent + data.receive.reasoningContent
+          lastMessage.reasoningContent = lastMessage.reasoningContent + data.receive.reasoningContent
         }
 
         // 处理正常内容
@@ -572,8 +539,7 @@ const textRoll = async () => {
     receiveMessageDisplayedText.value = ''
     const task = async () => {
       // 调整速度
-      const diff =
-        (receiveMessageFullText.value.length - receiveMessageDisplayedText.value.length) / 10
+      const diff = (receiveMessageFullText.value.length - receiveMessageDisplayedText.value.length) / 10
       if (diff > 5) {
         textSpeed.value = 10
       } else if (diff > 2) {

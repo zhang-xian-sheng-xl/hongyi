@@ -4,26 +4,10 @@
   <ContentWrap>
     <div class="pb-5 text-xl">分配给我的客户</div>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="状态" prop="followUpStatus">
-        <el-select
-          v-model="queryParams.followUpStatus"
-          class="!w-240px"
-          placeholder="状态"
-          @change="handleQuery"
-        >
-          <el-option
-            v-for="(option, index) in FOLLOWUP_STATUS"
-            :label="option.label"
-            :value="option.value"
-            :key="index"
-          />
+        <el-select v-model="queryParams.followUpStatus" class="!w-240px" placeholder="状态" @change="handleQuery">
+          <el-option v-for="(option, index) in FOLLOWUP_STATUS" :label="option.label" :value="option.value" :key="index" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -56,13 +40,7 @@
           <dict-tag :type="DICT_TYPE.CRM_CUSTOMER_INDUSTRY" :value="scope.row.industryId" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="下次联系时间"
-        prop="contactNextTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="下次联系时间" prop="contactNextTime" width="180px" />
       <el-table-column align="center" label="备注" prop="remark" width="200" />
       <el-table-column align="center" label="锁定状态" prop="lockStatus">
         <template #default="scope">
@@ -74,13 +52,7 @@
           <dict-tag :type="DICT_TYPE.INFRA_BOOLEAN_STRING" :value="scope.row.dealStatus" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="最后跟进时间"
-        prop="contactLastTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="最后跟进时间" prop="contactLastTime" width="180px" />
       <el-table-column align="center" label="最后跟进记录" prop="contactLastContent" width="200" />
       <el-table-column label="地址" align="center" prop="detailAddress" width="180" />
       <el-table-column align="center" label="距离进入公海天数" prop="poolDay" width="140">
@@ -88,29 +60,12 @@
       </el-table-column>
       <el-table-column align="center" label="负责人" prop="ownerUserName" width="100px" />
       <el-table-column align="center" label="所属部门" prop="ownerUserDeptName" width="100px" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="更新时间"
-        prop="updateTime"
-        width="180px"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="更新时间" prop="updateTime" width="180px" />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       <el-table-column align="center" label="创建人" prop="creatorName" width="100px" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 

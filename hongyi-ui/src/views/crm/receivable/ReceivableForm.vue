@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="回款编号" prop="no">
@@ -15,17 +9,8 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="负责人" prop="ownerUserId">
-            <el-select
-              v-model="formData.ownerUserId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in userOptions"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
+            <el-select v-model="formData.ownerUserId" :disabled="formType !== 'create'" class="w-1/1">
+              <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -33,40 +18,15 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="客户名称" prop="customerId">
-            <el-select
-              v-model="formData.customerId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-              filterable
-              placeholder="请选择客户"
-              @change="handleCustomerChange"
-            >
-              <el-option
-                v-for="item in customerList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.customerId" :disabled="formType !== 'create'" class="w-1/1" filterable placeholder="请选择客户" @change="handleCustomerChange">
+              <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="合同名称" prop="contractId">
-            <el-select
-              v-model="formData.contractId"
-              :disabled="formType !== 'create' || !formData.customerId"
-              class="w-1/1"
-              filterable
-              placeholder="请选择合同"
-              @change="handleContractChange"
-            >
-              <el-option
-                v-for="data in contractList"
-                :key="data.id"
-                :disabled="data.auditStatus !== 20"
-                :label="data.name"
-                :value="data.id!"
-              />
+            <el-select v-model="formData.contractId" :disabled="formType !== 'create' || !formData.customerId" class="w-1/1" filterable placeholder="请选择合同" @change="handleContractChange">
+              <el-option v-for="data in contractList" :key="data.id" :disabled="data.auditStatus !== 20" :label="data.name" :value="data.id!" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -74,32 +34,15 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="回款期数" prop="planId">
-            <el-select
-              v-model="formData.planId"
-              :disabled="formType !== 'create' || !formData.contractId"
-              class="!w-1/1"
-              placeholder="请选择回款期数"
-              @change="handleReceivablePlanChange"
-            >
-              <el-option
-                v-for="data in receivablePlanList"
-                :key="data.id"
-                :disabled="data.receivableId"
-                :label="'第 ' + data.period + ' 期'"
-                :value="data.id!"
-              />
+            <el-select v-model="formData.planId" :disabled="formType !== 'create' || !formData.contractId" class="!w-1/1" placeholder="请选择回款期数" @change="handleReceivablePlanChange">
+              <el-option v-for="data in receivablePlanList" :key="data.id" :disabled="data.receivableId" :label="'第 ' + data.period + ' 期'" :value="data.id!" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="回款方式" prop="returnType">
             <el-select v-model="formData.returnType" class="w-1/1" placeholder="请选择回款方式">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -107,25 +50,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="回款金额" prop="price">
-            <el-input-number
-              v-model="formData.price"
-              :min="0.01"
-              :precision="2"
-              class="!w-100%"
-              controls-position="right"
-              placeholder="请输入回款金额"
-            />
+            <el-input-number v-model="formData.price" :min="0.01" :precision="2" class="!w-100%" controls-position="right" placeholder="请输入回款金额" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="回款日期" prop="returnTime">
-            <el-date-picker
-              v-model="formData.returnTime"
-              placeholder="选择回款日期"
-              type="date"
-              value-format="x"
-              class="!w-100%"
-            />
+            <el-date-picker v-model="formData.returnTime" placeholder="选择回款日期" type="date" value-format="x" class="!w-100%" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -173,11 +103,7 @@ const contractList = ref<ContractApi.ContractVO[]>([]) // 合同列表
 const receivablePlanList = ref<ReceivablePlanApi.ReceivablePlanVO[]>([]) // 回款计划列表
 
 /** 打开弹窗 */
-const open = async (
-  type: string,
-  id?: number,
-  receivablePlan?: ReceivablePlanApi.ReceivablePlanVO
-) => {
+const open = async (type: string, id?: number, receivablePlan?: ReceivablePlanApi.ReceivablePlanVO) => {
   dialogVisible.value = true
   dialogTitle.value = t('action.' + type)
   formType.value = type
@@ -267,10 +193,7 @@ const handleContractChange = async (contractId: number) => {
   if (contractId) {
     // 获得回款计划列表
     receivablePlanList.value = []
-    receivablePlanList.value = await ReceivablePlanApi.getReceivablePlanSimpleList(
-      formData.value.customerId!,
-      contractId
-    )
+    receivablePlanList.value = await ReceivablePlanApi.getReceivablePlanSimpleList(formData.value.customerId!, contractId)
     // 设置金额
     const contract = contractList.value.find((item) => item.id === contractId)
     if (contract) {

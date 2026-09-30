@@ -18,18 +18,8 @@
             />
           </el-form-item>
           <el-form-item label="时间间隔" class="!mb-0">
-            <el-select
-              v-model="queryParams.interval"
-              class="!w-120px"
-              placeholder="间隔类型"
-              @change="handleQuery"
-            >
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.DATE_INTERVAL)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.interval" class="!w-120px" placeholder="间隔类型" @change="handleQuery">
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.DATE_INTERVAL)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </div>
@@ -51,11 +41,7 @@ import { LineChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 import { GridComponent, LegendComponent, TooltipComponent } from 'echarts/components'
 import { UniversalTransition } from 'echarts/features'
-import {
-  StatisticsApi,
-  IotStatisticsDeviceMessageSummaryByDateRespVO,
-  IotStatisticsDeviceMessageReqVO
-} from '@/api/iot/statistics'
+import { StatisticsApi, IotStatisticsDeviceMessageSummaryByDateRespVO, IotStatisticsDeviceMessageReqVO } from '@/api/iot/statistics'
 import { formatDate, beginOfDay, endOfDay, defaultShortcuts } from '@/utils/formatTime'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 
@@ -113,14 +99,7 @@ const initChart = () => {
   }
 
   // 配置图表
-  echarts.use([
-    LineChart,
-    CanvasRenderer,
-    GridComponent,
-    LegendComponent,
-    TooltipComponent,
-    UniversalTransition
-  ])
+  echarts.use([LineChart, CanvasRenderer, GridComponent, LegendComponent, TooltipComponent, UniversalTransition])
   try {
     const chart = echarts.init(messageChartRef.value)
     chart.setOption({

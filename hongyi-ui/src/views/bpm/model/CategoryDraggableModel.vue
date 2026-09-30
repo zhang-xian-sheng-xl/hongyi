@@ -3,11 +3,7 @@
     <!-- 头部：分类名 -->
     <div class="flex items-center">
       <el-tooltip content="拖动排序" v-if="isCategorySorting">
-        <Icon
-          :size="22"
-          icon="ic:round-drag-indicator"
-          class="ml-10px category-drag-icon cursor-move text-#8a909c"
-        />
+        <Icon :size="22" icon="ic:round-drag-indicator" class="ml-10px category-drag-icon cursor-move text-#8a909c" />
       </el-tooltip>
       <h3 class="ml-20px mr-8px text-18px">{{ categoryInfo.name }}</h3>
       <div class="color-gray-600 text-16px"> ({{ categoryInfo.modelList?.length || 0 }}) </div>
@@ -17,23 +13,14 @@
       <div
         v-if="categoryInfo.modelList.length > 0"
         class="ml-20px flex items-center"
-        :class="[
-          'transition-transform duration-300 cursor-pointer',
-          isExpand ? 'rotate-180' : 'rotate-0'
-        ]"
+        :class="['transition-transform duration-300 cursor-pointer', isExpand ? 'rotate-180' : 'rotate-0']"
         @click="isExpand = !isExpand"
       >
         <Icon icon="ep:arrow-down-bold" color="#999" />
       </div>
       <div class="ml-auto flex items-center" :class="isModelSorting ? 'mr-15px' : 'mr-45px'">
         <template v-if="!isModelSorting">
-          <el-button
-            v-if="categoryInfo.modelList.length > 0"
-            link
-            type="info"
-            class="mr-20px"
-            @click.stop="handleModelSort"
-          >
+          <el-button v-if="categoryInfo.modelList.length > 0" link type="info" class="mr-20px" @click.stop="handleModelSort">
             <Icon icon="fa:sort-amount-desc" class="mr-5px" />
             排序
           </el-button>
@@ -41,10 +28,7 @@
             <Icon icon="fa:plus" class="mr-5px" />
             新建
           </el-button>
-          <el-dropdown
-            @command="(command) => handleCategoryCommand(command, categoryInfo)"
-            placement="bottom"
-          >
+          <el-dropdown @command="(command) => handleCategoryCommand(command, categoryInfo)" placement="bottom">
             <el-button link type="info">
               <Icon icon="ep:setting" class="mr-5px" />
               分类
@@ -82,10 +66,7 @@
           <template #default="{ row }">
             <div class="flex items-center">
               <el-tooltip content="拖动排序" v-if="isModelSorting">
-                <Icon
-                  icon="ic:round-drag-indicator"
-                  class="drag-icon cursor-move text-#8a909c mr-10px"
-                />
+                <Icon icon="ic:round-drag-indicator" class="drag-icon cursor-move text-#8a909c mr-10px" />
               </el-tooltip>
               <el-image v-if="row.icon" :src="row.icon" class="h-38px w-38px mr-10px rounded" />
               <div v-else class="flow-icon">
@@ -105,22 +86,12 @@
               {{ row.startDepts[0].name }}
             </el-text>
             <el-text v-else-if="row.startDepts?.length > 1">
-              <el-tooltip
-                class="box-item"
-                effect="dark"
-                placement="top"
-                :content="row.startDepts.map((dept: any) => dept.name).join('、')"
-              >
+              <el-tooltip class="box-item" effect="dark" placement="top" :content="row.startDepts.map((dept: any) => dept.name).join('、')">
                 {{ row.startDepts[0].name }}等 {{ row.startDepts.length }} 个部门可见
               </el-tooltip>
             </el-text>
             <el-text v-else>
-              <el-tooltip
-                class="box-item"
-                effect="dark"
-                placement="top"
-                :content="row.startUsers.map((user: any) => user.nickname).join('、')"
-              >
+              <el-tooltip class="box-item" effect="dark" placement="top" :content="row.startUsers.map((user: any) => user.nickname).join('、')">
                 {{ row.startUsers[0].nickname }}等 {{ row.startUsers.length }} 人可见
               </el-tooltip>
             </el-text>
@@ -133,20 +104,10 @@
         </el-table-column>
         <el-table-column label="表单信息" prop="formType" min-width="150">
           <template #default="scope">
-            <el-button
-              v-if="scope.row.formType === BpmModelFormType.NORMAL"
-              type="primary"
-              link
-              @click="handleFormDetail(scope.row)"
-            >
+            <el-button v-if="scope.row.formType === BpmModelFormType.NORMAL" type="primary" link @click="handleFormDetail(scope.row)">
               <span>{{ scope.row.formName }}</span>
             </el-button>
-            <el-button
-              v-else-if="scope.row.formType === BpmModelFormType.CUSTOM"
-              type="primary"
-              link
-              @click="handleFormDetail(scope.row)"
-            >
+            <el-button v-else-if="scope.row.formType === BpmModelFormType.CUSTOM" type="primary" link @click="handleFormDetail(scope.row)">
               <span>{{ scope.row.formCustomCreatePath }}</span>
             </el-button>
             <label v-else>暂无表单</label>
@@ -158,91 +119,30 @@
               <span v-if="scope.row.processDefinition" class="w-150px">
                 {{ formatDate(scope.row.processDefinition.deploymentTime) }}
               </span>
-              <el-tag v-if="scope.row.processDefinition">
-                v{{ scope.row.processDefinition.version }}
-              </el-tag>
+              <el-tag v-if="scope.row.processDefinition"> v{{ scope.row.processDefinition.version }} </el-tag>
               <el-tag v-else type="warning">未部署</el-tag>
-              <el-tag
-                v-if="scope.row.processDefinition?.suspensionState === 2"
-                type="warning"
-                class="ml-10px"
-              >
-                已停用
-              </el-tag>
+              <el-tag v-if="scope.row.processDefinition?.suspensionState === 2" type="warning" class="ml-10px"> 已停用 </el-tag>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="200" fixed="right">
           <template #default="scope">
-            <el-button
-              link
-              type="primary"
-              @click="openModelForm('update', scope.row.id)"
-              :disabled="!isManagerUser(scope.row) && !hasPermiUpdate"
-            >
-              修改
-            </el-button>
-            <el-button
-              link
-              type="primary"
-              @click="openModelForm('copy', scope.row.id)"
-              :disabled="!isManagerUser(scope.row) && !hasPermiUpdate"
-            >
-              复制
-            </el-button>
-            <el-button
-              link
-              class="!ml-5px"
-              type="primary"
-              @click="handleDeploy(scope.row)"
-              :disabled="!isManagerUser(scope.row) && !hasPermiDeploy"
-            >
-              发布
-            </el-button>
-            <el-dropdown
-              class="!align-middle ml-5px"
-              @command="(command) => handleModelCommand(command, scope.row)"
-              v-if="hasPermiMore"
-            >
+            <el-button link type="primary" @click="openModelForm('update', scope.row.id)" :disabled="!isManagerUser(scope.row) && !hasPermiUpdate"> 修改 </el-button>
+            <el-button link type="primary" @click="openModelForm('copy', scope.row.id)" :disabled="!isManagerUser(scope.row) && !hasPermiUpdate"> 复制 </el-button>
+            <el-button link class="!ml-5px" type="primary" @click="handleDeploy(scope.row)" :disabled="!isManagerUser(scope.row) && !hasPermiDeploy"> 发布 </el-button>
+            <el-dropdown class="!align-middle ml-5px" @command="(command) => handleModelCommand(command, scope.row)" v-if="hasPermiMore">
               <el-button type="primary" link>更多</el-button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item command="handleDefinitionList" v-if="hasPermiPdQuery">
-                    历史
-                  </el-dropdown-item>
-                  <el-dropdown-item
-                    command="handleReport"
-                    v-if="
-                      checkPermi(['bpm:process-instance:manager-query']) &&
-                      scope.row.processDefinition
-                    "
-                    :disabled="!isManagerUser(scope.row)"
-                  >
+                  <el-dropdown-item command="handleDefinitionList" v-if="hasPermiPdQuery"> 历史 </el-dropdown-item>
+                  <el-dropdown-item command="handleReport" v-if="checkPermi(['bpm:process-instance:manager-query']) && scope.row.processDefinition" :disabled="!isManagerUser(scope.row)">
                     报表
                   </el-dropdown-item>
-                  <el-dropdown-item
-                    command="handleChangeState"
-                    v-if="hasPermiUpdate && scope.row.processDefinition"
-                    :disabled="!isManagerUser(scope.row)"
-                  >
+                  <el-dropdown-item command="handleChangeState" v-if="hasPermiUpdate && scope.row.processDefinition" :disabled="!isManagerUser(scope.row)">
                     {{ scope.row.processDefinition.suspensionState === 1 ? '停用' : '启用' }}
                   </el-dropdown-item>
-                  <el-dropdown-item
-                    type="danger"
-                    command="handleClean"
-                    v-if="checkPermi(['bpm:model:clean'])"
-                    :disabled="!isManagerUser(scope.row)"
-                  >
-                    清理
-                  </el-dropdown-item>
-                  <el-dropdown-item
-                    type="danger"
-                    command="handleDelete"
-                    v-if="hasPermiDelete"
-                    :disabled="!isManagerUser(scope.row)"
-                  >
-                    删除
-                  </el-dropdown-item>
+                  <el-dropdown-item type="danger" command="handleClean" v-if="checkPermi(['bpm:model:clean'])" :disabled="!isManagerUser(scope.row)"> 清理 </el-dropdown-item>
+                  <el-dropdown-item type="danger" command="handleDelete" v-if="hasPermiDelete" :disabled="!isManagerUser(scope.row)"> 删除 </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -549,11 +449,7 @@ const initSort = useDebounceFn(() => {
     handle: '.drag-icon',
     onEnd: ({ newDraggableIndex, oldDraggableIndex }) => {
       if (oldDraggableIndex !== newDraggableIndex) {
-        modelList.value.splice(
-          newDraggableIndex,
-          0,
-          modelList.value.splice(oldDraggableIndex, 1)[0]
-        )
+        modelList.value.splice(newDraggableIndex, 0, modelList.value.splice(oldDraggableIndex, 1)[0])
       }
     }
   })

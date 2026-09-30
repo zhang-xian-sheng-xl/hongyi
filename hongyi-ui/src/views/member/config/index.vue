@@ -2,13 +2,7 @@
   <doc-alert title="会员手册（功能开启）" url="https://doc.iocoder.cn/member/build/" />
 
   <ContentWrap>
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-form-item label="hideId" v-show="false">
         <el-input v-model="formData.id" />
       </el-form-item>
@@ -20,32 +14,16 @@
             <el-text class="w-full" size="small" type="info">下单积分是否抵用订单金额</el-text>
           </el-form-item>
           <el-form-item label="积分抵扣" prop="pointTradeDeductUnitPrice">
-            <el-input-number
-              v-model="computedPointTradeDeductUnitPrice"
-              placeholder="请输入积分抵扣金额"
-              :precision="2"
-            />
-            <el-text class="w-full" size="small" type="info">
-              积分抵用比例(1 积分抵多少金额)，单位：元
-            </el-text>
+            <el-input-number v-model="computedPointTradeDeductUnitPrice" placeholder="请输入积分抵扣金额" :precision="2" />
+            <el-text class="w-full" size="small" type="info"> 积分抵用比例(1 积分抵多少金额)，单位：元 </el-text>
           </el-form-item>
           <el-form-item label="积分抵扣最大值" prop="pointTradeDeductMaxPrice">
-            <el-input-number
-              v-model="formData.pointTradeDeductMaxPrice"
-              placeholder="请输入积分抵扣最大值"
-            />
-            <el-text class="w-full" size="small" type="info">
-              单次下单积分使用上限，0 不限制
-            </el-text>
+            <el-input-number v-model="formData.pointTradeDeductMaxPrice" placeholder="请输入积分抵扣最大值" />
+            <el-text class="w-full" size="small" type="info"> 单次下单积分使用上限，0 不限制 </el-text>
           </el-form-item>
           <el-form-item label="1 元赠送多少分" prop="pointTradeGivePoint">
-            <el-input-number
-              v-model="formData.pointTradeGivePoint"
-              placeholder="请输入 1 元赠送多少积分"
-            />
-            <el-text class="w-full" size="small" type="info">
-              下单支付金额按比例赠送积分（实际支付 1 元赠送多少积分）
-            </el-text>
+            <el-input-number v-model="formData.pointTradeGivePoint" placeholder="请输入 1 元赠送多少积分" />
+            <el-text class="w-full" size="small" type="info"> 下单支付金额按比例赠送积分（实际支付 1 元赠送多少积分） </el-text>
           </el-form-item>
         </el-tab-pane>
       </el-tabs>

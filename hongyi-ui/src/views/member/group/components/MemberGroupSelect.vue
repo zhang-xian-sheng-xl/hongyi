@@ -1,11 +1,6 @@
 <template>
   <el-select v-model="groupId" placeholder="请选择用户分组" clearable class="!w-240px">
-    <el-option
-      v-for="group in groupOptions"
-      :key="group.id"
-      :label="group.name"
-      :value="group.id"
-    />
+    <el-option v-for="group in groupOptions" :key="group.id" :label="group.name" :value="group.id" />
   </el-select>
 </template>
 <script lang="ts" setup>

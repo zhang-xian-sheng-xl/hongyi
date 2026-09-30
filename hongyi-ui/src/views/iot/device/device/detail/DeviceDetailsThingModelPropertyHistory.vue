@@ -3,13 +3,7 @@
   <Dialog title="查看数据" v-model="dialogVisible" width="1024px" :appendToBody="true">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        class="-mb-15px"
-        :model="queryParams"
-        ref="queryFormRef"
-        :inline="true"
-        label-width="68px"
-      >
+      <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
         <el-form-item label="" prop="createTime">
           <el-date-picker
             v-model="queryParams.times"
@@ -24,17 +18,10 @@
         </el-form-item>
         <el-form-item class="float-right !mr-0 !mb-0">
           <el-button-group>
-            <el-button
-              :type="viewMode === 'chart' ? 'primary' : 'default'"
-              @click="viewMode = 'chart'"
-              :disabled="isComplexDataType"
-            >
+            <el-button :type="viewMode === 'chart' ? 'primary' : 'default'" @click="viewMode = 'chart'" :disabled="isComplexDataType">
               <Icon icon="ep:histogram" />
             </el-button>
-            <el-button
-              :type="viewMode === 'list' ? 'primary' : 'default'"
-              @click="viewMode = 'list'"
-            >
+            <el-button :type="viewMode === 'list' ? 'primary' : 'default'" @click="viewMode = 'list'">
               <Icon icon="ep:list" />
             </el-button>
           </el-button-group>
@@ -99,9 +86,7 @@ const queryFormRef = ref() // 搜索的表单
 // 判断是否为复杂数据类型（struct 或 array）
 const isComplexDataType = computed(() => {
   if (!thingModelDataType.value) return false
-  return [IoTDataSpecsDataTypeEnum.STRUCT, IoTDataSpecsDataTypeEnum.ARRAY].includes(
-    thingModelDataType.value as any
-  )
+  return [IoTDataSpecsDataTypeEnum.STRUCT, IoTDataSpecsDataTypeEnum.ARRAY].includes(thingModelDataType.value as any)
 })
 
 // Echarts 数据

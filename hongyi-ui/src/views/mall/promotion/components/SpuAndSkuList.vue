@@ -29,12 +29,7 @@
     </el-table-column>
     <el-table-column align="center" label="销量" min-width="90" prop="salesCount" />
     <el-table-column align="center" label="库存" min-width="90" prop="stock" />
-    <el-table-column
-      v-if="spuData.length > 1 && deletable"
-      align="center"
-      label="操作"
-      min-width="90"
-    >
+    <el-table-column v-if="spuData.length > 1 && deletable" align="center" label="操作" min-width="90">
       <template #default="scope">
         <el-button link type="primary" @click="deleteSpu(scope.row.id)"> 删除</el-button>
       </template>

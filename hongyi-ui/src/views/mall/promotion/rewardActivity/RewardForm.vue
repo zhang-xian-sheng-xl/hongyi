@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="活动名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入活动名称" />
       </el-form-item>
@@ -22,11 +16,7 @@
       </el-form-item>
       <el-form-item label="条件类型" prop="conditionType">
         <el-radio-group v-model="formData.conditionType">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_CONDITION_TYPE)"
-            :key="dict.value"
-            :label="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_CONDITION_TYPE)" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -36,26 +26,15 @@
       </el-form-item>
       <el-form-item label="活动范围" prop="productScope">
         <el-radio-group v-model="formData.productScope">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_PRODUCT_SCOPE)"
-            :key="dict.value"
-            :label="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_PRODUCT_SCOPE)" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="formData.productScope === PromotionProductScopeEnum.SPU.scope"
-        prop="productSpuIds"
-      >
+      <el-form-item v-if="formData.productScope === PromotionProductScopeEnum.SPU.scope" prop="productSpuIds">
         <SpuShowcase v-model="formData.productSpuIds" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.productScope === PromotionProductScopeEnum.CATEGORY.scope"
-        label="分类"
-        prop="productCategoryIds"
-      >
+      <el-form-item v-if="formData.productScope === PromotionProductScopeEnum.CATEGORY.scope" label="分类" prop="productCategoryIds">
         <ProductCategorySelect v-model="formData.productCategoryIds" :multiple="true" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
@@ -213,9 +192,7 @@ function setProductScopeValues(data: any) {
       data.productScopeValues = formData.value.productSpuIds
       break
     case PromotionProductScopeEnum.CATEGORY.scope:
-      data.productScopeValues = Array.isArray(formData.value.productCategoryIds)
-        ? formData.value.productCategoryIds
-        : [formData.value.productCategoryIds]
+      data.productScopeValues = Array.isArray(formData.value.productCategoryIds) ? formData.value.productCategoryIds : [formData.value.productCategoryIds]
       break
     default:
       break

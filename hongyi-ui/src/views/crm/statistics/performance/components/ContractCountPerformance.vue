@@ -10,13 +10,7 @@
   <!-- 统计列表 -->
   <el-card shadow="never" class="mt-16px">
     <el-table v-loading="loading" :data="tableData">
-      <el-table-column
-        v-for="item in columnsData"
-        :key="item.prop"
-        :label="item.label"
-        :prop="item.prop"
-        align="center"
-      >
+      <el-table-column v-for="item in columnsData" :key="item.prop" :label="item.label" :prop="item.prop" align="center">
         <template #default="scope">
           {{ scope.row[item.prop] }}
         </template>
@@ -26,10 +20,7 @@
 </template>
 <script setup lang="ts">
 import { EChartsOption } from 'echarts'
-import {
-  StatisticsPerformanceApi,
-  StatisticsPerformanceRespVO
-} from '@/api/crm/statistics/performance'
+import { StatisticsPerformanceApi, StatisticsPerformanceRespVO } from '@/api/crm/statistics/performance'
 
 defineOptions({ name: 'ContractCountPerformance' })
 const props = defineProps<{ queryParams: any }>() // 搜索参数
@@ -154,37 +145,25 @@ const echartsOption = reactive<EChartsOption>({
 const loadData = async () => {
   // 1. 加载统计数据
   loading.value = true
-  const performanceList = await StatisticsPerformanceApi.getContractCountPerformance(
-    props.queryParams
-  )
+  const performanceList = await StatisticsPerformanceApi.getContractCountPerformance(props.queryParams)
 
   // 2.1 更新 Echarts 数据
   if (echartsOption.xAxis && echartsOption.xAxis['data']) {
     echartsOption.xAxis['data'] = performanceList.map((s: StatisticsPerformanceRespVO) => s.time)
   }
   if (echartsOption.series && echartsOption.series[0] && echartsOption.series[0]['data']) {
-    echartsOption.series[0]['data'] = performanceList.map(
-      (s: StatisticsPerformanceRespVO) => s.currentMonthCount
-    )
+    echartsOption.series[0]['data'] = performanceList.map((s: StatisticsPerformanceRespVO) => s.currentMonthCount)
   }
   if (echartsOption.series && echartsOption.series[1] && echartsOption.series[1]['data']) {
-    echartsOption.series[1]['data'] = performanceList.map(
-      (s: StatisticsPerformanceRespVO) => s.lastMonthCount
-    )
+    echartsOption.series[1]['data'] = performanceList.map((s: StatisticsPerformanceRespVO) => s.lastMonthCount)
     echartsOption.series[3]['data'] = performanceList.map((s: StatisticsPerformanceRespVO) =>
-      s.lastMonthCount !== 0
-        ? (((s.currentMonthCount - s.lastMonthCount) / s.lastMonthCount) * 100).toFixed(2)
-        : 'NULL'
+      s.lastMonthCount !== 0 ? (((s.currentMonthCount - s.lastMonthCount) / s.lastMonthCount) * 100).toFixed(2) : 'NULL'
     )
   }
   if (echartsOption.series && echartsOption.series[2] && echartsOption.series[2]['data']) {
-    echartsOption.series[2]['data'] = performanceList.map(
-      (s: StatisticsPerformanceRespVO) => s.lastYearCount
-    )
+    echartsOption.series[2]['data'] = performanceList.map((s: StatisticsPerformanceRespVO) => s.lastYearCount)
     echartsOption.series[4]['data'] = performanceList.map((s: StatisticsPerformanceRespVO) =>
-      s.lastYearCount !== 0
-        ? (((s.currentMonthCount - s.lastYearCount) / s.lastYearCount) * 100).toFixed(2)
-        : 'NULL'
+      s.lastYearCount !== 0 ? (((s.currentMonthCount - s.lastYearCount) / s.lastYearCount) * 100).toFixed(2) : 'NULL'
     )
   }
 
@@ -216,14 +195,8 @@ const convertListData = () => {
     tableData[0]['prop' + index] = item.currentMonthCount
     tableData[1]['prop' + index] = item.lastMonthCount
     tableData[2]['prop' + index] = item.lastYearCount
-    tableData[3]['prop' + index] =
-      item.lastMonthCount !== 0
-        ? (((item.currentMonthCount - item.lastMonthCount) / item.lastMonthCount) * 100).toFixed(2)
-        : 'NULL'
-    tableData[4]['prop' + index] =
-      item.lastYearCount !== 0
-        ? (((item.currentMonthCount - item.lastYearCount) / item.lastYearCount) * 100).toFixed(2)
-        : 'NULL'
+    tableData[3]['prop' + index] = item.lastMonthCount !== 0 ? (((item.currentMonthCount - item.lastMonthCount) / item.lastMonthCount) * 100).toFixed(2) : 'NULL'
+    tableData[4]['prop' + index] = item.lastYearCount !== 0 ? (((item.currentMonthCount - item.lastYearCount) / item.lastYearCount) * 100).toFixed(2) : 'NULL'
   })
 }
 

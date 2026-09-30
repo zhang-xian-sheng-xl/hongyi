@@ -8,9 +8,7 @@
         <el-descriptions :column="4">
           <el-descriptions-item label="产品名称">{{ product.name }}</el-descriptions-item>
           <el-descriptions-item label="产品编码">{{ product.no }}</el-descriptions-item>
-          <el-descriptions-item label="价格">
-            {{ erpPriceInputFormatter(product.price) }} 元
-          </el-descriptions-item>
+          <el-descriptions-item label="价格"> {{ erpPriceInputFormatter(product.price) }} 元 </el-descriptions-item>
           <el-descriptions-item label="产品描述">{{ product.description }}</el-descriptions-item>
           <el-descriptions-item label="产品类型">{{ product.categoryName }}</el-descriptions-item>
           <el-descriptions-item label="是否上下架">

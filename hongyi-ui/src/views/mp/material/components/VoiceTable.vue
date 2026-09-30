@@ -7,30 +7,15 @@
         <WxVoicePlayer v-if="scope.row.url" :url="scope.row.url" />
       </template>
     </el-table-column>
-    <el-table-column
-      label="上传时间"
-      align="center"
-      prop="createTime"
-      :formatter="dateFormatter"
-      width="180"
-    >
+    <el-table-column label="上传时间" align="center" prop="createTime" :formatter="dateFormatter" width="180">
       <template #default="scope">
         <span>{{ scope.row.createTime }}</span>
       </template>
     </el-table-column>
     <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
       <template #default="scope">
-        <el-button type="primary" link @click="emit('delete', scope.row.id)">
-          <Icon icon="ep:download" />下载
-        </el-button>
-        <el-button
-          type="primary"
-          link
-          @click="emit('delete', scope.row.id)"
-          v-hasPermi="['mp:material:delete']"
-        >
-          <Icon icon="ep:delete" />删除
-        </el-button>
+        <el-button type="primary" link @click="emit('delete', scope.row.id)"> <Icon icon="ep:download" />下载 </el-button>
+        <el-button type="primary" link @click="emit('delete', scope.row.id)" v-hasPermi="['mp:material:delete']"> <Icon icon="ep:delete" />删除 </el-button>
       </template>
     </el-table-column>
   </el-table>

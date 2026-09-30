@@ -30,13 +30,7 @@
       </el-descriptions-item>
       <el-descriptions-item label="后续执行时间">
         <el-timeline>
-          <el-timeline-item
-            v-for="(nextTime, index) in nextTimes"
-            :key="index"
-            :timestamp="formatDate(nextTime)"
-          >
-            第 {{ index + 1 }} 次
-          </el-timeline-item>
+          <el-timeline-item v-for="(nextTime, index) in nextTimes" :key="index" :timestamp="formatDate(nextTime)"> 第 {{ index + 1 }} 次 </el-timeline-item>
         </el-timeline>
       </el-descriptions-item>
     </el-descriptions>

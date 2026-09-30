@@ -16,15 +16,7 @@
       <!-- 操作工具栏 -->
       <el-row :gutter="10" class="mb8">
         <el-col :span="1.5">
-          <el-button
-            type="primary"
-            plain
-            @click="onCreate"
-            v-hasPermi="['mp:auto-reply:create']"
-            v-if="msgType !== MsgType.Follow || list.length <= 0"
-          >
-            <Icon icon="ep:plus" />新增
-          </el-button>
+          <el-button type="primary" plain @click="onCreate" v-hasPermi="['mp:auto-reply:create']" v-if="msgType !== MsgType.Follow || list.length <= 0"> <Icon icon="ep:plus" />新增 </el-button>
         </el-col>
       </el-row>
       <!-- tab 项 -->
@@ -45,20 +37,9 @@
       </el-tab-pane>
     </el-tabs>
     <!-- 列表 -->
-    <ReplyTable
-      :loading="loading"
-      :list="list"
-      :msg-type="msgType"
-      @on-update="onUpdate"
-      @on-delete="onDelete"
-    />
+    <ReplyTable :loading="loading" :list="list" :msg-type="msgType" @on-update="onUpdate" @on-delete="onDelete" />
 
-    <el-dialog
-      :title="isCreating ? '新增自动回复' : '修改自动回复'"
-      v-model="showDialog"
-      width="800px"
-      destroy-on-close
-    >
+    <el-dialog :title="isCreating ? '新增自动回复' : '修改自动回复'" v-model="showDialog" width="800px" destroy-on-close>
       <ReplyForm v-model="replyForm" v-model:reply="reply" :msg-type="msgType" ref="formRef" />
       <template #footer>
         <el-button @click="cancel">取 消</el-button>

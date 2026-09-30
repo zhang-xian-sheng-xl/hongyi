@@ -1,57 +1,22 @@
 <template>
   <Dialog title="设定" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="130px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="130px" v-loading="formLoading">
       <el-form-item label="角色设定" prop="systemMessage">
-        <el-input
-          type="textarea"
-          v-model="formData.systemMessage"
-          :rows="4"
-          placeholder="请输入角色设定"
-        />
+        <el-input type="textarea" v-model="formData.systemMessage" :rows="4" placeholder="请输入角色设定" />
       </el-form-item>
       <el-form-item label="模型" prop="modelId">
         <el-select v-model="formData.modelId" placeholder="请选择模型">
-          <el-option
-            v-for="model in models"
-            :key="model.id"
-            :label="model.name"
-            :value="model.id"
-          />
+          <el-option v-for="model in models" :key="model.id" :label="model.name" :value="model.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="温度参数" prop="temperature">
-        <el-input-number
-          v-model="formData.temperature"
-          placeholder="请输入温度参数"
-          :min="0"
-          :max="2"
-          :precision="2"
-          class="!w-1/1"
-        />
+        <el-input-number v-model="formData.temperature" placeholder="请输入温度参数" :min="0" :max="2" :precision="2" class="!w-1/1" />
       </el-form-item>
       <el-form-item label="回复数 Token 数" prop="maxTokens">
-        <el-input-number
-          v-model="formData.maxTokens"
-          placeholder="请输入回复数 Token 数"
-          :min="0"
-          :max="8192"
-          class="!w-1/1"
-        />
+        <el-input-number v-model="formData.maxTokens" placeholder="请输入回复数 Token 数" :min="0" :max="8192" class="!w-1/1" />
       </el-form-item>
       <el-form-item label="上下文数量" prop="maxContexts">
-        <el-input-number
-          v-model="formData.maxContexts"
-          placeholder="请输入上下文数量"
-          :min="0"
-          :max="20"
-          class="!w-1/1"
-        />
+        <el-input-number v-model="formData.maxContexts" placeholder="请输入上下文数量" :min="0" :max="20" class="!w-1/1" />
       </el-form-item>
     </el-form>
     <template #footer>

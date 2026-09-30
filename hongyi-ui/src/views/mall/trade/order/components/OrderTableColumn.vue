@@ -2,62 +2,29 @@
   <el-table-column class-name="order-table-col">
     <template #header>
       <div class="flex items-center" style="width: 100%">
-        <div :style="{ width: orderTableHeadWidthList[0] + 'px' }" class="flex justify-center">
-          商品信息
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[1] + 'px' }" class="flex justify-center">
-          单价(元)/数量
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[2] + 'px' }" class="flex justify-center">
-          售后状态
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[3] + 'px' }" class="flex justify-center">
-          实付金额(元)
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[4] + 'px' }" class="flex justify-center">
-          买家/收货人
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[5] + 'px' }" class="flex justify-center">
-          配送方式
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[6] + 'px' }" class="flex justify-center">
-          订单状态
-        </div>
-        <div :style="{ width: orderTableHeadWidthList[7] + 'px' }" class="flex justify-center">
-          操作
-        </div>
+        <div :style="{ width: orderTableHeadWidthList[0] + 'px' }" class="flex justify-center"> 商品信息 </div>
+        <div :style="{ width: orderTableHeadWidthList[1] + 'px' }" class="flex justify-center"> 单价(元)/数量 </div>
+        <div :style="{ width: orderTableHeadWidthList[2] + 'px' }" class="flex justify-center"> 售后状态 </div>
+        <div :style="{ width: orderTableHeadWidthList[3] + 'px' }" class="flex justify-center"> 实付金额(元) </div>
+        <div :style="{ width: orderTableHeadWidthList[4] + 'px' }" class="flex justify-center"> 买家/收货人 </div>
+        <div :style="{ width: orderTableHeadWidthList[5] + 'px' }" class="flex justify-center"> 配送方式 </div>
+        <div :style="{ width: orderTableHeadWidthList[6] + 'px' }" class="flex justify-center"> 订单状态 </div>
+        <div :style="{ width: orderTableHeadWidthList[7] + 'px' }" class="flex justify-center"> 操作 </div>
       </div>
     </template>
     <template #default="scope">
-      <el-table
-        :ref="setOrderTableRef"
-        :border="true"
-        :data="scope.row.items"
-        :header-cell-style="headerStyle"
-        :span-method="spanMethod"
-        style="width: 100%"
-      >
+      <el-table :ref="setOrderTableRef" :border="true" :data="scope.row.items" :header-cell-style="headerStyle" :span-method="spanMethod" style="width: 100%">
         <el-table-column min-width="300" prop="spuName">
           <template #header>
-            <div
-              class="h-[35px] flex items-center -mx-[10px] px-[20px]"
-              style="background-color: var(--app-content-bg-color)"
-            >
+            <div class="h-[35px] flex items-center -mx-[10px] px-[20px]" style="background-color: var(--app-content-bg-color)">
               <span class="mr-20px">订单号：{{ scope.row.no }} </span>
               <span class="mr-20px">下单时间：{{ formatDate(scope.row.createTime) }}</span>
               <span>订单来源：</span>
               <dict-tag :type="DICT_TYPE.TERMINAL" :value="scope.row.terminal" class="mr-20px" />
               <span>支付方式：</span>
-              <dict-tag
-                v-if="scope.row.payChannelCode"
-                :type="DICT_TYPE.PAY_CHANNEL_CODE"
-                :value="scope.row.payChannelCode"
-                class="mr-20px"
-              />
+              <dict-tag v-if="scope.row.payChannelCode" :type="DICT_TYPE.PAY_CHANNEL_CODE" :value="scope.row.payChannelCode" class="mr-20px" />
               <span v-else class="mr-20px">未支付</span>
-              <span v-if="scope.row.payTime" class="mr-20px">
-                支付时间：{{ formatDate(scope.row.payTime) }}
-              </span>
+              <span v-if="scope.row.payTime" class="mr-20px"> 支付时间：{{ formatDate(scope.row.payTime) }} </span>
               <span>订单类型：</span>
               <dict-tag :type="DICT_TYPE.TRADE_ORDER_TYPE" :value="scope.row.type" />
             </div>
@@ -66,12 +33,7 @@
             <div class="flex flex-wrap">
               <div class="mb-[10px] mr-[10px] flex items-start">
                 <div class="mr-[10px]">
-                  <el-image
-                    :src="row.picUrl"
-                    class="!h-[45px] !w-[45px]"
-                    fit="contain"
-                    @click="imagePreview(row.picUrl)"
-                  >
+                  <el-image :src="row.picUrl" class="!h-[45px] !w-[45px]" fit="contain" @click="imagePreview(row.picUrl)">
                     <template #error>
                       <div class="image-slot">
                         <icon icon="ep:picture" />
@@ -85,27 +47,16 @@
                   </span>
                 </ElTooltip>
               </div>
-              <el-tag
-                v-for="property in row.properties"
-                :key="property.propertyId"
-                class="mb-[10px] mr-[10px]"
-              >
-                {{ property.propertyName }}: {{ property.valueName }}
-              </el-tag>
+              <el-tag v-for="property in row.properties" :key="property.propertyId" class="mb-[10px] mr-[10px]"> {{ property.propertyName }}: {{ property.valueName }} </el-tag>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="商品原价*数量" prop="price" width="150">
-          <template #default="{ row }">
-            {{ floatToFixed2(row.price) }} 元 / {{ row.count }}
-          </template>
+          <template #default="{ row }"> {{ floatToFixed2(row.price) }} 元 / {{ row.count }} </template>
         </el-table-column>
         <el-table-column label="售后状态" prop="afterSaleStatus" width="120">
           <template #default="{ row }">
-            <dict-tag
-              :type="DICT_TYPE.TRADE_ORDER_ITEM_AFTER_SALE_STATUS"
-              :value="row.afterSaleStatus"
-            />
+            <dict-tag :type="DICT_TYPE.TRADE_ORDER_ITEM_AFTER_SALE_STATUS" :value="row.afterSaleStatus" />
           </template>
         </el-table-column>
         <el-table-column align="center" label="实际支付" min-width="120" prop="payPrice">
@@ -116,21 +67,12 @@
         <el-table-column label="买家/收货人" min-width="160">
           <template #default>
             <!-- 快递发货  -->
-            <div
-              v-if="scope.row.deliveryType === DeliveryTypeEnum.EXPRESS.type"
-              class="flex flex-col"
-            >
+            <div v-if="scope.row.deliveryType === DeliveryTypeEnum.EXPRESS.type" class="flex flex-col">
               <span>买家：{{ scope.row.user?.nickname }}</span>
-              <span>
-                收货人：{{ scope.row.receiverName }} {{ scope.row.receiverMobile }}
-                {{ scope.row.receiverAreaName }} {{ scope.row.receiverDetailAddress }}
-              </span>
+              <span> 收货人：{{ scope.row.receiverName }} {{ scope.row.receiverMobile }} {{ scope.row.receiverAreaName }} {{ scope.row.receiverDetailAddress }} </span>
             </div>
             <!-- 自提  -->
-            <div
-              v-if="scope.row.deliveryType === DeliveryTypeEnum.PICK_UP.type"
-              class="flex flex-col"
-            >
+            <div v-if="scope.row.deliveryType === DeliveryTypeEnum.PICK_UP.type" class="flex flex-col">
               <span>
                 门店名称：
                 {{ pickUpStoreList.find((p) => p.id === scope.row.pickUpStoreId)?.name }}
@@ -206,9 +148,7 @@ interface SpanMethodProps {
 
 type spanMethodResp = number[] | { rowspan: number; colspan: number } | undefined
 const spanMethod = ({ row, rowIndex, columnIndex }: SpanMethodProps): spanMethodResp => {
-  const len = props.list.find(
-    (order) => order.items?.findIndex((item) => item.id === row.id) !== -1
-  )?.items?.length
+  const len = props.list.find((order) => order.items?.findIndex((item) => item.id === row.id) !== -1)?.items?.length
   // 要合并的列，从零开始
   const colIndex = [3, 4, 5, 6, 7]
   if (colIndex.includes(columnIndex)) {

@@ -3,76 +3,28 @@
   <ContentWrap>
     <el-form ref="queryFormRef" :inline="true" :model="queryParams" label-width="68px">
       <el-form-item label="商品名称" prop="spuName">
-        <el-input
-          v-model="queryParams.spuName"
-          class="!w-280px"
-          clearable
-          placeholder="请输入商品 SPU 名称"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.spuName" class="!w-280px" clearable placeholder="请输入商品 SPU 名称" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="退款编号" prop="no">
-        <el-input
-          v-model="queryParams.no"
-          class="!w-280px"
-          clearable
-          placeholder="请输入退款编号"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.no" class="!w-280px" clearable placeholder="请输入退款编号" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="订单编号" prop="orderNo">
-        <el-input
-          v-model="queryParams.orderNo"
-          class="!w-280px"
-          clearable
-          placeholder="请输入订单编号"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.orderNo" class="!w-280px" clearable placeholder="请输入订单编号" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="售后状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          class="!w-280px"
-          clearable
-          placeholder="请选择售后状态"
-        >
+        <el-select v-model="queryParams.status" class="!w-280px" clearable placeholder="请选择售后状态">
           <el-option label="全部" value="0" />
-          <el-option
-            v-for="dict in getDictOptions(DICT_TYPE.TRADE_AFTER_SALE_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getDictOptions(DICT_TYPE.TRADE_AFTER_SALE_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="售后方式" prop="way">
-        <el-select
-          v-model="queryParams.way"
-          class="!w-280px"
-          clearable
-          placeholder="请选择售后方式"
-        >
-          <el-option
-            v-for="dict in getDictOptions(DICT_TYPE.TRADE_AFTER_SALE_WAY)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.way" class="!w-280px" clearable placeholder="请选择售后方式">
+          <el-option v-for="dict in getDictOptions(DICT_TYPE.TRADE_AFTER_SALE_WAY)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="售后类型" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          class="!w-280px"
-          clearable
-          placeholder="请选择售后类型"
-        >
-          <el-option
-            v-for="dict in getDictOptions(DICT_TYPE.TRADE_AFTER_SALE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" class="!w-280px" clearable placeholder="请选择售后类型">
+          <el-option v-for="dict in getDictOptions(DICT_TYPE.TRADE_AFTER_SALE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -101,12 +53,7 @@
 
   <ContentWrap>
     <el-tabs v-model="queryParams.status" @tab-click="tabClick">
-      <el-tab-pane
-        v-for="item in statusTabs"
-        :key="item.label"
-        :label="item.label"
-        :name="item.value"
-      />
+      <el-tab-pane v-for="item in statusTabs" :key="item.label" :label="item.label" :name="item.value" />
     </el-tabs>
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
@@ -121,15 +68,9 @@
       <el-table-column label="商品信息" min-width="600" prop="spuName">
         <template #default="{ row }">
           <div class="flex items-center">
-            <el-image
-              :src="row.picUrl"
-              class="mr-10px h-30px w-30px"
-              @click="imagePreview(row.picUrl)"
-            />
+            <el-image :src="row.picUrl" class="mr-10px h-30px w-30px" @click="imagePreview(row.picUrl)" />
             <span class="mr-10px">{{ row.spuName }}</span>
-            <el-tag v-for="property in row.properties" :key="property.propertyId" class="mr-10px">
-              {{ property.propertyName }}: {{ property.valueName }}
-            </el-tag>
+            <el-tag v-for="property in row.properties" :key="property.propertyId" class="mr-10px"> {{ property.propertyName }}: {{ property.valueName }} </el-tag>
           </div>
         </template>
       </el-table-column>
@@ -160,12 +101,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 <script lang="ts" setup>

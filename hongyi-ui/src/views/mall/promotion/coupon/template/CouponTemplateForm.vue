@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="140px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="140px">
       <el-form-item label="优惠券名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入优惠券名称" />
       </el-form-item>
@@ -24,91 +18,38 @@
       </el-form-item>
       <el-form-item label="优惠劵类型" prop="productScope">
         <el-radio-group v-model="formData.productScope">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_PRODUCT_SCOPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_PRODUCT_SCOPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="formData.productScope === PromotionProductScopeEnum.SPU.scope"
-        label="商品"
-        prop="productSpuIds"
-      >
+      <el-form-item v-if="formData.productScope === PromotionProductScopeEnum.SPU.scope" label="商品" prop="productSpuIds">
         <SpuShowcase v-model="formData.productSpuIds" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.productScope === PromotionProductScopeEnum.CATEGORY.scope"
-        label="分类"
-        prop="productCategoryIds"
-      >
+      <el-form-item v-if="formData.productScope === PromotionProductScopeEnum.CATEGORY.scope" label="分类" prop="productCategoryIds">
         <ProductCategorySelect v-model="formData.productCategoryIds" />
       </el-form-item>
       <el-form-item label="优惠类型" prop="discountType">
         <el-radio-group v-model="formData.discountType">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_DISCOUNT_TYPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_DISCOUNT_TYPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="formData.discountType === PromotionDiscountTypeEnum.PRICE.type"
-        label="优惠券面额"
-        prop="discountPrice"
-      >
-        <el-input-number
-          v-model="formData.discountPrice"
-          :min="0"
-          :precision="2"
-          class="mr-2 !w-400px"
-          placeholder="请输入优惠金额，单位：元"
-        />
+      <el-form-item v-if="formData.discountType === PromotionDiscountTypeEnum.PRICE.type" label="优惠券面额" prop="discountPrice">
+        <el-input-number v-model="formData.discountPrice" :min="0" :precision="2" class="mr-2 !w-400px" placeholder="请输入优惠金额，单位：元" />
         元
       </el-form-item>
-      <el-form-item
-        v-if="formData.discountType === PromotionDiscountTypeEnum.PERCENT.type"
-        label="优惠券折扣"
-        prop="discountPercent"
-      >
-        <el-input-number
-          v-model="formData.discountPercent"
-          :max="9.9"
-          :min="1"
-          :precision="1"
-          class="mr-2 !w-400px"
-          placeholder="优惠券折扣不能小于 1 折，且不可大于 9.9 折"
-        />
+      <el-form-item v-if="formData.discountType === PromotionDiscountTypeEnum.PERCENT.type" label="优惠券折扣" prop="discountPercent">
+        <el-input-number v-model="formData.discountPercent" :max="9.9" :min="1" :precision="1" class="mr-2 !w-400px" placeholder="优惠券折扣不能小于 1 折，且不可大于 9.9 折" />
         折
       </el-form-item>
-      <el-form-item
-        v-if="formData.discountType === PromotionDiscountTypeEnum.PERCENT.type"
-        label="最多优惠"
-        prop="discountLimitPrice"
-      >
-        <el-input-number
-          v-model="formData.discountLimitPrice"
-          :min="0"
-          :precision="2"
-          class="mr-2 !w-400px"
-          placeholder="请输入最多优惠"
-        />
+      <el-form-item v-if="formData.discountType === PromotionDiscountTypeEnum.PERCENT.type" label="最多优惠" prop="discountLimitPrice">
+        <el-input-number v-model="formData.discountLimitPrice" :min="0" :precision="2" class="mr-2 !w-400px" placeholder="请输入最多优惠" />
         元
       </el-form-item>
       <el-form-item label="满多少元可以使用" prop="usePrice">
-        <el-input-number
-          v-model="formData.usePrice"
-          :min="0"
-          :precision="2"
-          class="mr-2 !w-400px"
-          placeholder="无门槛请设为 0"
-        />
+        <el-input-number v-model="formData.usePrice" :min="0" :precision="2" class="mr-2 !w-400px" placeholder="无门槛请设为 0" />
         元
       </el-form-item>
       <el-form-item label="领取方式" prop="takeType">
@@ -119,69 +60,28 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="formData.takeType === 1" label="发放数量" prop="totalCount">
-        <el-input-number
-          v-model="formData.totalCount"
-          :min="-1"
-          :precision="0"
-          class="mr-2 !w-400px"
-          placeholder="发放数量，没有之后不能领取或发放，-1 为不限制"
-        />
+        <el-input-number v-model="formData.totalCount" :min="-1" :precision="0" class="mr-2 !w-400px" placeholder="发放数量，没有之后不能领取或发放，-1 为不限制" />
         张
       </el-form-item>
       <el-form-item v-if="formData.takeType === 1" label="每人限领个数" prop="takeLimitCount">
-        <el-input-number
-          v-model="formData.takeLimitCount"
-          :min="-1"
-          :precision="0"
-          class="mr-2 !w-400px"
-          placeholder="设置为 -1 时，可无限领取"
-        />
+        <el-input-number v-model="formData.takeLimitCount" :min="-1" :precision="0" class="mr-2 !w-400px" placeholder="设置为 -1 时，可无限领取" />
         张
       </el-form-item>
       <el-form-item label="有效期类型" prop="validityType">
         <el-radio-group v-model="formData.validityType">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_COUPON_TEMPLATE_VALIDITY_TYPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_COUPON_TEMPLATE_VALIDITY_TYPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="formData.validityType === CouponTemplateValidityTypeEnum.DATE.type"
-        label="固定日期"
-        prop="validTimes"
-      >
-        <el-date-picker
-          v-model="formData.validTimes"
-          :default-time="[new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 2, 1, 23, 59, 59)]"
-          type="datetimerange"
-          value-format="x"
-        />
+      <el-form-item v-if="formData.validityType === CouponTemplateValidityTypeEnum.DATE.type" label="固定日期" prop="validTimes">
+        <el-date-picker v-model="formData.validTimes" :default-time="[new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 2, 1, 23, 59, 59)]" type="datetimerange" value-format="x" />
       </el-form-item>
-      <el-form-item
-        v-if="formData.validityType === CouponTemplateValidityTypeEnum.TERM.type"
-        label="领取日期"
-        prop="fixedStartTerm"
-      >
+      <el-form-item v-if="formData.validityType === CouponTemplateValidityTypeEnum.TERM.type" label="领取日期" prop="fixedStartTerm">
         第
-        <el-input-number
-          v-model="formData.fixedStartTerm"
-          :min="0"
-          :precision="0"
-          class="mx-2"
-          placeholder="0 为今天生效"
-        />
+        <el-input-number v-model="formData.fixedStartTerm" :min="0" :precision="0" class="mx-2" placeholder="0 为今天生效" />
         至
-        <el-input-number
-          v-model="formData.fixedEndTerm"
-          :min="0"
-          :precision="0"
-          class="mx-2"
-          placeholder="请输入结束天数"
-        />
+        <el-input-number v-model="formData.fixedEndTerm" :min="0" :precision="0" class="mx-2" placeholder="请输入结束天数" />
         天有效
       </el-form-item>
     </el-form>
@@ -194,11 +94,7 @@
 <script lang="ts" setup>
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import * as CouponTemplateApi from '@/api/mall/promotion/coupon/couponTemplate'
-import {
-  CouponTemplateValidityTypeEnum,
-  PromotionDiscountTypeEnum,
-  PromotionProductScopeEnum
-} from '@/utils/constants'
+import { CouponTemplateValidityTypeEnum, PromotionDiscountTypeEnum, PromotionProductScopeEnum } from '@/utils/constants'
 import SpuShowcase from '@/views/mall/product/spu/components/SpuShowcase.vue'
 import ProductCategorySelect from '@/views/mall/product/category/components/ProductCategorySelect.vue'
 import { convertToInteger, formatToFraction } from '@/utils'
@@ -269,8 +165,7 @@ const open = async (type: string, id?: number) => {
       formData.value = {
         ...data,
         discountPrice: formatToFraction(data.discountPrice),
-        discountPercent:
-          data.discountPercent !== undefined ? data.discountPercent / 10.0 : undefined,
+        discountPercent: data.discountPercent !== undefined ? data.discountPercent / 10.0 : undefined,
         discountLimitPrice: formatToFraction(data.discountLimitPrice),
         usePrice: formatToFraction(data.usePrice),
         validTimes: [data.validStartTime, data.validEndTime]
@@ -297,20 +192,11 @@ const submitForm = async () => {
     const data = {
       ...formData.value,
       discountPrice: convertToInteger(formData.value.discountPrice),
-      discountPercent:
-        formData.value.discountPercent !== undefined
-          ? formData.value.discountPercent * 10
-          : undefined,
+      discountPercent: formData.value.discountPercent !== undefined ? formData.value.discountPercent * 10 : undefined,
       discountLimitPrice: convertToInteger(formData.value.discountLimitPrice),
       usePrice: convertToInteger(formData.value.usePrice),
-      validStartTime:
-        formData.value.validTimes && formData.value.validTimes.length === 2
-          ? formData.value.validTimes[0]
-          : undefined,
-      validEndTime:
-        formData.value.validTimes && formData.value.validTimes.length === 2
-          ? formData.value.validTimes[1]
-          : undefined,
+      validStartTime: formData.value.validTimes && formData.value.validTimes.length === 2 ? formData.value.validTimes[0] : undefined,
+      validEndTime: formData.value.validTimes && formData.value.validTimes.length === 2 ? formData.value.validTimes[1] : undefined,
       totalCount: formData.value.takeType === 1 ? formData.value.totalCount : -1,
       takeLimitCount: formData.value.takeType === 1 ? formData.value.takeLimitCount : -1
     } as unknown as CouponTemplateApi.CouponTemplateVO
@@ -391,9 +277,7 @@ function setProductScopeValues(data: CouponTemplateApi.CouponTemplateVO) {
       data.productScopeValues = formData.value.productSpuIds
       break
     case PromotionProductScopeEnum.CATEGORY.scope:
-      data.productScopeValues = Array.isArray(formData.value.productCategoryIds)
-        ? formData.value.productCategoryIds
-        : [formData.value.productCategoryIds]
+      data.productScopeValues = Array.isArray(formData.value.productCategoryIds) ? formData.value.productCategoryIds : [formData.value.productCategoryIds]
       break
     default:
       break

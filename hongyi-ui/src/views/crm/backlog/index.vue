@@ -4,13 +4,7 @@
   <el-row :gutter="20">
     <el-col :span="4" class="min-w-[200px]">
       <div class="side-item-list">
-        <div
-          v-for="(item, index) in leftSides"
-          :key="index"
-          :class="leftMenu == item.menu ? 'side-item-select' : 'side-item-default'"
-          class="side-item"
-          @click="sideClick(item)"
-        >
+        <div v-for="(item, index) in leftSides" :key="index" :class="leftMenu == item.menu ? 'side-item-select' : 'side-item-default'" class="side-item" @click="sideClick(item)">
           {{ item.name }}
           <el-badge v-if="item.count > 0" :max="99" :value="item.count" />
         </div>
@@ -106,20 +100,14 @@ const sideClick = (item: any) => {
 }
 
 const getCount = () => {
-  CustomerApi.getTodayContactCustomerCount().then(
-    (count) => (customerTodayContactCount.value = count)
-  )
-  CustomerApi.getPutPoolRemindCustomerCount().then(
-    (count) => (customerPutPoolRemindCount.value = count)
-  )
+  CustomerApi.getTodayContactCustomerCount().then((count) => (customerTodayContactCount.value = count))
+  CustomerApi.getPutPoolRemindCustomerCount().then((count) => (customerPutPoolRemindCount.value = count))
   CustomerApi.getFollowCustomerCount().then((count) => (customerFollowCount.value = count))
   ClueApi.getFollowClueCount().then((count) => (clueFollowCount.value = count))
   ContractApi.getAuditContractCount().then((count) => (contractAuditCount.value = count))
   ContractApi.getRemindContractCount().then((count) => (contractRemindCount.value = count))
   ReceivableApi.getAuditReceivableCount().then((count) => (receivableAuditCount.value = count))
-  ReceivablePlanApi.getReceivablePlanRemindCount().then(
-    (count) => (receivablePlanRemindCount.value = count)
-  )
+  ReceivablePlanApi.getReceivablePlanRemindCount().then((count) => (receivablePlanRemindCount.value = count))
 }
 
 /** 激活时 */

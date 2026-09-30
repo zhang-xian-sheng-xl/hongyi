@@ -10,39 +10,18 @@
             </el-row>
             <el-row align="middle" justify="center" style="margin-top: 2%">
               <div class="thumb-but">
-                <el-upload
-                  :action="UPLOAD_URL"
-                  :headers="HEADERS"
-                  multiple
-                  :limit="1"
-                  :file-list="fileList"
-                  :data="uploadData"
-                  :before-upload="beforeImageUpload"
-                  :on-success="onUploadSuccess"
-                >
+                <el-upload :action="UPLOAD_URL" :headers="HEADERS" multiple :limit="1" :file-list="fileList" :data="uploadData" :before-upload="beforeImageUpload" :on-success="onUploadSuccess">
                   <template #trigger>
                     <el-button type="primary" link>本地上传</el-button>
                   </template>
-                  <el-button type="primary" link @click="showDialog = true" style="margin-left: 5px"
-                    >素材库选择
-                  </el-button>
+                  <el-button type="primary" link @click="showDialog = true" style="margin-left: 5px">素材库选择 </el-button>
                 </el-upload>
               </div>
             </el-row>
           </el-col>
         </el-row>
-        <el-dialog
-          title="选择图片"
-          v-model="showDialog"
-          width="80%"
-          append-to-body
-          destroy-on-close
-        >
-          <WxMaterialSelect
-            type="image"
-            :account-id="reply.accountId"
-            @select-material="selectMaterial"
-          />
+        <el-dialog title="选择图片" v-model="showDialog" width="80%" append-to-body destroy-on-close>
+          <WxMaterialSelect type="image" :account-id="reply.accountId" @select-material="selectMaterial" />
         </el-dialog>
       </el-col>
       <el-col :span="18">

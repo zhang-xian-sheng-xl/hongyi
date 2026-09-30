@@ -1,13 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="1080">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-      :disabled="disabled"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading" :disabled="disabled">
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="订单单号" prop="no">
@@ -16,41 +9,19 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="订单时间" prop="orderTime">
-            <el-date-picker
-              v-model="formData.orderTime"
-              type="date"
-              value-format="x"
-              placeholder="选择订单时间"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.orderTime" type="date" value-format="x" placeholder="选择订单时间" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="供应商" prop="supplierId">
-            <el-select
-              v-model="formData.supplierId"
-              clearable
-              filterable
-              placeholder="请选择供应商"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in supplierList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.supplierId" clearable filterable placeholder="请选择供应商" class="!w-1/1">
+              <el-option v-for="item in supplierList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item label="备注" prop="remark">
-            <el-input
-              type="textarea"
-              v-model="formData.remark"
-              :rows="1"
-              placeholder="请输入备注"
-            />
+            <el-input type="textarea" v-model="formData.remark" :rows="1" placeholder="请输入备注" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -70,23 +41,12 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="优惠率（%）" prop="discountPercent">
-            <el-input-number
-              v-model="formData.discountPercent"
-              controls-position="right"
-              :min="0"
-              :precision="2"
-              placeholder="请输入优惠率"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.discountPercent" controls-position="right" :min="0" :precision="2" placeholder="请输入优惠率" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="付款优惠" prop="discountPrice">
-            <el-input
-              disabled
-              v-model="formData.discountPrice"
-              :formatter="erpPriceInputFormatter"
-            />
+            <el-input disabled v-model="formData.discountPrice" :formatter="erpPriceInputFormatter" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -96,40 +56,20 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="结算账户" prop="accountId">
-            <el-select
-              v-model="formData.accountId"
-              clearable
-              filterable
-              placeholder="请选择结算账户"
-              class="!w-1/1"
-            >
-              <el-option
-                v-for="item in accountList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.accountId" clearable filterable placeholder="请选择结算账户" class="!w-1/1">
+              <el-option v-for="item in accountList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="支付订金" prop="depositPrice">
-            <el-input-number
-              v-model="formData.depositPrice"
-              controls-position="right"
-              :min="0"
-              :precision="2"
-              placeholder="请输入支付订金"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.depositPrice" controls-position="right" :min="0" :precision="2" placeholder="请输入支付订金" class="!w-1/1" />
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <template #footer>
-      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled">
-        确 定
-      </el-button>
+      <el-button @click="submitForm" type="primary" :disabled="formLoading" v-if="!disabled"> 确 定 </el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>
@@ -188,8 +128,7 @@ watch(
       return
     }
     const totalPrice = val.items.reduce((prev, curr) => prev + curr.totalPrice, 0)
-    const discountPrice =
-      val.discountPercent != null ? erpPriceMultiply(totalPrice, val.discountPercent / 100.0) : 0
+    const discountPrice = val.discountPercent != null ? erpPriceMultiply(totalPrice, val.discountPercent / 100.0) : 0
     formData.value.discountPrice = discountPrice
     formData.value.totalPrice = totalPrice - discountPrice
   },

@@ -1,18 +1,8 @@
 <template>
   <Dialog v-model="dialogVisible" title="修改上级推广人" width="500">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="推广人" prop="bindUserId">
-        <el-input
-          v-model="formData.bindUserId"
-          placeholder="请输入推广员编号"
-          v-loading="formLoading"
-        >
+        <el-input v-model="formData.bindUserId" placeholder="请输入推广员编号" v-loading="formLoading">
           <template #append>
             <el-button @click="handleGetUser"><Icon icon="ep:search" class="mr-5px" /></el-button>
           </template>

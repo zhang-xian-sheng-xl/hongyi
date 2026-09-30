@@ -2,18 +2,8 @@
   <div>
     <p>封面:</p>
     <div class="thumb-div">
-      <el-image
-        v-if="newsItem.thumbUrl"
-        style="width: 300px; max-height: 300px"
-        :src="newsItem.thumbUrl"
-        fit="contain"
-      />
-      <Icon
-        v-else
-        icon="ep:plus"
-        class="avatar-uploader-icon"
-        :class="isFirst ? 'avatar' : 'avatar1'"
-      />
+      <el-image v-if="newsItem.thumbUrl" style="width: 300px; max-height: 300px" :src="newsItem.thumbUrl" fit="contain" />
+      <Icon v-else icon="ep:plus" class="avatar-uploader-icon" :class="isFirst ? 'avatar' : 'avatar1'" />
       <div class="thumb-but">
         <el-upload
           :action="UPLOAD_URL"
@@ -29,31 +19,14 @@
           <template #trigger>
             <el-button size="small" type="primary">本地上传</el-button>
           </template>
-          <el-button
-            size="small"
-            type="primary"
-            @click="showImageDialog = true"
-            style="margin-left: 5px"
-          >
-            素材库选择
-          </el-button>
+          <el-button size="small" type="primary" @click="showImageDialog = true" style="margin-left: 5px"> 素材库选择 </el-button>
           <template #tip>
             <div class="el-upload__tip">支持 bmp/png/jpeg/jpg/gif 格式，大小不超过 2M</div>
           </template>
         </el-upload>
       </div>
-      <el-dialog
-        title="选择图片"
-        v-model="showImageDialog"
-        width="80%"
-        append-to-body
-        destroy-on-close
-      >
-        <WxMaterialSelect
-          type="image"
-          :account-id="accountId!"
-          @select-material="onMaterialSelected"
-        />
+      <el-dialog title="选择图片" v-model="showImageDialog" width="80%" append-to-body destroy-on-close>
+        <WxMaterialSelect type="image" :account-id="accountId!" @select-material="onMaterialSelected" />
       </el-dialog>
     </div>
   </div>
@@ -107,8 +80,7 @@ const onMaterialSelected = (item: any) => {
   newsItem.value.thumbUrl = item.url
 }
 
-const onBeforeUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) =>
-  useBeforeUpload(UploadType.Image, 2)(rawFile)
+const onBeforeUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => useBeforeUpload(UploadType.Image, 2)(rawFile)
 
 const onUploadSuccess: UploadProps['onSuccess'] = (res: any) => {
   if (res.code !== 0) {

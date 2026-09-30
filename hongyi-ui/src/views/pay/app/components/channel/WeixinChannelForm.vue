@@ -1,55 +1,28 @@
 <template>
   <div>
     <Dialog v-model="dialogVisible" :title="dialogTitle" width="800px">
-      <el-form
-        ref="formRef"
-        v-loading="formLoading"
-        :model="formData"
-        :rules="formRules"
-        label-width="120px"
-      >
+      <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="120px">
         <el-form-item label="渠道费率" label-width="180px" prop="feeRate">
-          <el-input
-            v-model="formData.feeRate"
-            :style="{ width: '100%' }"
-            clearable
-            placeholder="请输入渠道费率"
-          >
+          <el-input v-model="formData.feeRate" :style="{ width: '100%' }" clearable placeholder="请输入渠道费率">
             <template #append>%</template>
           </el-input>
         </el-form-item>
         <el-form-item label="微信 APPID" label-width="180px" prop="config.appId">
-          <el-input
-            v-model="formData.config.appId"
-            :style="{ width: '100%' }"
-            clearable
-            placeholder="请输入微信 APPID"
-          />
+          <el-input v-model="formData.config.appId" :style="{ width: '100%' }" clearable placeholder="请输入微信 APPID" />
         </el-form-item>
         <el-form-item label-width="180px">
-          <a
-            href="https://pay.weixin.qq.com/index.php/extend/merchant_appid/mapay_platform/account_manage"
-            target="_blank"
-          >
-            前往微信商户平台查看 APPID
-          </a>
+          <a href="https://pay.weixin.qq.com/index.php/extend/merchant_appid/mapay_platform/account_manage" target="_blank"> 前往微信商户平台查看 APPID </a>
         </el-form-item>
         <el-form-item label="商户号" label-width="180px" prop="config.mchId">
           <el-input v-model="formData.config.mchId" :style="{ width: '100%' }" />
         </el-form-item>
 
         <el-form-item label-width="180px">
-          <a href="https://pay.weixin.qq.com/index.php/extend/pay_setting" target="_blank">
-            前往微信商户平台查看商户号
-          </a>
+          <a href="https://pay.weixin.qq.com/index.php/extend/pay_setting" target="_blank"> 前往微信商户平台查看商户号 </a>
         </el-form-item>
         <el-form-item label="渠道状态" label-width="180px" prop="status">
           <el-radio-group v-model="formData.status">
-            <el-radio
-              v-for="dict in getDictOptions(DICT_TYPE.COMMON_STATUS)"
-              :key="parseInt(dict.value)"
-              :value="parseInt(dict.value)"
-            >
+            <el-radio v-for="dict in getDictOptions(DICT_TYPE.COMMON_STATUS)" :key="parseInt(dict.value)" :value="parseInt(dict.value)">
               {{ dict.label }}
             </el-radio>
           </el-radio-group>
@@ -64,11 +37,7 @@
           <el-form-item label="商户密钥" label-width="180px" prop="config.mchKey">
             <el-input v-model="formData.config.mchKey" clearable placeholder="请输入商户密钥" />
           </el-form-item>
-          <el-form-item
-            label="apiclient_cert.p12 证书"
-            label-width="180px"
-            prop="config.keyContent"
-          >
+          <el-form-item label="apiclient_cert.p12 证书" label-width="180px" prop="config.keyContent">
             <el-input
               v-model="formData.config.keyContent"
               :autosize="{ minRows: 2, maxRows: 4 }"
@@ -80,13 +49,7 @@
             />
           </el-form-item>
           <el-form-item label="" label-width="180px">
-            <el-upload
-              :before-upload="p12FileBeforeUpload"
-              :http-request="keyContentUpload"
-              :limit="1"
-              accept=".p12"
-              action=""
-            >
+            <el-upload :before-upload="p12FileBeforeUpload" :http-request="keyContentUpload" :limit="1" accept=".p12" action="">
               <el-button type="primary">
                 <Icon class="mr-5px" icon="ep:upload" />
                 点击上传
@@ -96,17 +59,9 @@
         </div>
         <div v-if="formData.config.apiVersion === 'v3'">
           <el-form-item label="API V3 密钥" label-width="180px" prop="config.apiV3Key">
-            <el-input
-              v-model="formData.config.apiV3Key"
-              clearable
-              placeholder="请输入 API V3 密钥"
-            />
+            <el-input v-model="formData.config.apiV3Key" clearable placeholder="请输入 API V3 密钥" />
           </el-form-item>
-          <el-form-item
-            label="apiclient_key.pem 证书"
-            label-width="180px"
-            prop="config.privateKeyContent"
-          >
+          <el-form-item label="apiclient_key.pem 证书" label-width="180px" prop="config.privateKeyContent">
             <el-input
               v-model="formData.config.privateKeyContent"
               :autosize="{ minRows: 2, maxRows: 4 }"
@@ -118,14 +73,7 @@
             />
           </el-form-item>
           <el-form-item label="" label-width="180px" prop="privateKeyContentFile">
-            <el-upload
-              ref="privateKeyContentFile"
-              :before-upload="pemFileBeforeUpload"
-              :http-request="privateKeyContentUpload"
-              :limit="1"
-              accept=".pem"
-              action=""
-            >
+            <el-upload ref="privateKeyContentFile" :before-upload="pemFileBeforeUpload" :http-request="privateKeyContentUpload" :limit="1" accept=".pem" action="">
               <el-button type="primary">
                 <Icon class="mr-5px" icon="ep:upload" />
                 点击上传
@@ -133,25 +81,12 @@
             </el-upload>
           </el-form-item>
           <el-form-item label="证书序列号" label-width="180px" prop="config.certSerialNo">
-            <el-input
-              v-model="formData.config.certSerialNo"
-              clearable
-              placeholder="请输入证书序列号"
-            />
+            <el-input v-model="formData.config.certSerialNo" clearable placeholder="请输入证书序列号" />
           </el-form-item>
           <el-form-item label-width="180px">
-            <a
-              href="https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage"
-              target="_blank"
-            >
-              前往微信商户平台查看证书序列号
-            </a>
+            <a href="https://pay.weixin.qq.com/index.php/core/cert/api_cert#/api-cert-manage" target="_blank"> 前往微信商户平台查看证书序列号 </a>
           </el-form-item>
-          <el-form-item
-            label="public_key.pem 证书"
-            label-width="180px"
-            prop="config.publicKeyContent"
-          >
+          <el-form-item label="public_key.pem 证书" label-width="180px" prop="config.publicKeyContent">
             <el-input
               v-model="formData.config.publicKeyContent"
               :autosize="{ minRows: 2, maxRows: 4 }"
@@ -163,14 +98,7 @@
             />
           </el-form-item>
           <el-form-item label="" label-width="180px" prop="publicKeyContentFile">
-            <el-upload
-              ref="publicKeyContentFile"
-              :before-upload="pemFileBeforeUpload"
-              :http-request="publicKeyContentUpload"
-              :limit="1"
-              accept=".pem"
-              action=""
-            >
+            <el-upload ref="publicKeyContentFile" :before-upload="pemFileBeforeUpload" :http-request="publicKeyContentUpload" :limit="1" accept=".pem" action="">
               <el-button type="primary">
                 <Icon class="mr-5px" icon="ep:upload" />
                 点击上传
@@ -181,9 +109,7 @@
             <el-input v-model="formData.config.publicKeyId" clearable placeholder="请输入公钥 ID" />
           </el-form-item>
           <el-form-item label-width="180px">
-            <a href="https://pay.weixin.qq.com/doc/v3/merchant/4012153196" target="_blank">
-              微信支付公钥产品简介及使用说明
-            </a>
+            <a href="https://pay.weixin.qq.com/doc/v3/merchant/4012153196" target="_blank"> 微信支付公钥产品简介及使用说明 </a>
           </el-form-item>
         </div>
         <el-form-item label="备注" label-width="180px" prop="remark">
@@ -236,12 +162,8 @@ const formRules = {
   'config.appId': [{ required: true, message: '请输入公众号APPID', trigger: 'blur' }],
   'config.apiVersion': [{ required: true, message: 'API版本不能为空', trigger: 'blur' }],
   'config.mchKey': [{ required: true, message: '请输入商户密钥', trigger: 'blur' }],
-  'config.keyContent': [
-    { required: true, message: '请上传 apiclient_cert.p12 证书', trigger: 'blur' }
-  ],
-  'config.privateKeyContent': [
-    { required: true, message: '请上传 apiclient_key.pem 证书', trigger: 'blur' }
-  ],
+  'config.keyContent': [{ required: true, message: '请上传 apiclient_cert.p12 证书', trigger: 'blur' }],
+  'config.privateKeyContent': [{ required: true, message: '请上传 apiclient_key.pem 证书', trigger: 'blur' }],
   'config.certSerialNo': [{ required: true, message: '请输入证书序列号', trigger: 'blur' }],
   'config.publicKeyId': [{ required: true, message: '请输入公钥 ID', trigger: 'blur' }],
   'config.apiV3Key': [{ required: true, message: '请上传 api V3 密钥值', trigger: 'blur' }]

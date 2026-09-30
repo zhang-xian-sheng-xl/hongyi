@@ -4,35 +4,13 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="回款编号" prop="no">
-        <el-input
-          v-model="queryParams.no"
-          class="!w-240px"
-          clearable
-          placeholder="请输入回款编号"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.no" class="!w-240px" clearable placeholder="请输入回款编号" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="客户名称" prop="customerId">
-        <el-select
-          v-model="queryParams.customerId"
-          class="!w-240px"
-          placeholder="请选择客户"
-          @keyup.enter="handleQuery"
-        >
-          <el-option
-            v-for="item in customerList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.customerId" class="!w-240px" placeholder="请选择客户" @keyup.enter="handleQuery">
+          <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -44,22 +22,11 @@
           <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
-        <el-button
-          v-hasPermi="['crm:receivable:create']"
-          plain
-          type="primary"
-          @click="openForm('create')"
-        >
+        <el-button v-hasPermi="['crm:receivable:create']" plain type="primary" @click="openForm('create')">
           <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
-        <el-button
-          v-hasPermi="['crm:receivable:export']"
-          :loading="exportLoading"
-          plain
-          type="success"
-          @click="handleExport"
-        >
+        <el-button v-hasPermi="['crm:receivable:export']" :loading="exportLoading" plain type="success" @click="handleExport">
           <Icon class="mr-5px" icon="ep:download" />
           导出
         </el-button>
@@ -84,69 +51,31 @@
       </el-table-column>
       <el-table-column align="center" label="客户名称" prop="customerName" width="120">
         <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            @click="openCustomerDetail(scope.row.customerId)"
-          >
+          <el-link :underline="false" type="primary" @click="openCustomerDetail(scope.row.customerId)">
             {{ scope.row.customerName }}
           </el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="合同编号" prop="contractNo" width="180">
         <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            @click="openContractDetail(scope.row.contractId)"
-          >
+          <el-link :underline="false" type="primary" @click="openContractDetail(scope.row.contractId)">
             {{ scope.row.contract.no }}
           </el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter2"
-        align="center"
-        label="回款日期"
-        prop="returnTime"
-        width="150px"
-      />
-      <el-table-column
-        align="center"
-        label="回款金额(元)"
-        prop="price"
-        width="140"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column :formatter="dateFormatter2" align="center" label="回款日期" prop="returnTime" width="150px" />
+      <el-table-column align="center" label="回款金额(元)" prop="price" width="140" :formatter="erpPriceTableColumnFormatter" />
       <el-table-column align="center" label="回款方式" prop="returnType" width="130px">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE" :value="scope.row.returnType" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="备注" prop="remark" width="200" />
-      <el-table-column
-        align="center"
-        label="合同金额（元）"
-        prop="contract.totalPrice"
-        width="140"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column align="center" label="合同金额（元）" prop="contract.totalPrice" width="140" :formatter="erpPriceTableColumnFormatter" />
       <el-table-column align="center" label="负责人" prop="ownerUserName" width="120" />
       <el-table-column align="center" label="所属部门" prop="ownerUserDeptName" width="100px" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="更新时间"
-        prop="updateTime"
-        width="180px"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="创建时间"
-        prop="createTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="更新时间" prop="updateTime" width="180px" />
+      <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       <el-table-column align="center" label="创建人" prop="creatorName" width="120" />
       <el-table-column align="center" fixed="right" label="回款状态" prop="auditStatus" width="120">
         <template #default="scope">
@@ -155,50 +84,15 @@
       </el-table-column>
       <el-table-column align="center" fixed="right" label="操作" width="180px">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['crm:receivable:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-if="scope.row.auditStatus === 0"
-            v-hasPermi="['crm:receivable:update']"
-            link
-            type="primary"
-            @click="handleSubmit(scope.row)"
-          >
-            提交审核
-          </el-button>
-          <el-button
-            v-else
-            v-hasPermi="['crm:receivable:update']"
-            link
-            type="primary"
-            @click="handleProcessDetail(scope.row)"
-          >
-            查看审批
-          </el-button>
-          <el-button
-            v-hasPermi="['crm:receivable:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['crm:receivable:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-if="scope.row.auditStatus === 0" v-hasPermi="['crm:receivable:update']" link type="primary" @click="handleSubmit(scope.row)"> 提交审核 </el-button>
+          <el-button v-else v-hasPermi="['crm:receivable:update']" link type="primary" @click="handleProcessDetail(scope.row)"> 查看审批 </el-button>
+          <el-button v-hasPermi="['crm:receivable:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

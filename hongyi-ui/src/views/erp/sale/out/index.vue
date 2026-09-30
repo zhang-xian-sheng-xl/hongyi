@@ -3,36 +3,13 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="出库单号" prop="no">
-        <el-input
-          v-model="queryParams.no"
-          placeholder="请输入出库单号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.no" placeholder="请输入出库单号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="产品" prop="productId">
-        <el-select
-          v-model="queryParams.productId"
-          clearable
-          filterable
-          placeholder="请选择产品"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in productList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.productId" clearable filterable placeholder="请选择产品" class="!w-240px">
+          <el-option v-for="item in productList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="出库时间" prop="outTime">
@@ -47,85 +24,30 @@
         />
       </el-form-item>
       <el-form-item label="客户" prop="customerId">
-        <el-select
-          v-model="queryParams.customerId"
-          clearable
-          filterable
-          placeholder="请选择供客户"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in customerList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.customerId" clearable filterable placeholder="请选择供客户" class="!w-240px">
+          <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="仓库" prop="warehouseId">
-        <el-select
-          v-model="queryParams.warehouseId"
-          clearable
-          filterable
-          placeholder="请选择仓库"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in warehouseList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.warehouseId" clearable filterable placeholder="请选择仓库" class="!w-240px">
+          <el-option v-for="item in warehouseList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建人" prop="creator">
-        <el-select
-          v-model="queryParams.creator"
-          clearable
-          filterable
-          placeholder="请选择创建人"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.creator" clearable filterable placeholder="请选择创建人" class="!w-240px">
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="关联订单" prop="orderNo">
-        <el-input
-          v-model="queryParams.orderNo"
-          placeholder="请输入关联订单"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.orderNo" placeholder="请输入关联订单" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="结算账户" prop="accountId">
-        <el-select
-          v-model="queryParams.accountId"
-          clearable
-          filterable
-          placeholder="请选择结算账户"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in accountList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.accountId" clearable filterable placeholder="请选择结算账户" class="!w-240px">
+          <el-option v-for="item in accountList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="收款状态" prop="receiptStatus">
-        <el-select
-          v-model="queryParams.receiptStatus"
-          placeholder="请选择有款状态"
-          clearable
-          class="!w-240px"
-        >
+        <el-select v-model="queryParams.receiptStatus" placeholder="请选择有款状态" clearable class="!w-240px">
           <el-option label="未收款" value="0" />
           <el-option label="部分收款" value="1" />
           <el-option label="全部收款" value="2" />
@@ -133,50 +55,18 @@
       </el-form-item>
       <el-form-item label="审核状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable class="!w-240px">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.ERP_AUDIT_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.ERP_AUDIT_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input
-          v-model="queryParams.remark"
-          placeholder="请输入备注"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.remark" placeholder="请输入备注" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['erp:sale-out:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['erp:sale-out:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
-        <el-button
-          type="danger"
-          plain
-          @click="handleDelete(selectionList.map((item) => item.id))"
-          v-hasPermi="['erp:sale-out:delete']"
-          :disabled="selectionList.length === 0"
-        >
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['erp:sale-out:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['erp:sale-out:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
+        <el-button type="danger" plain @click="handleDelete(selectionList.map((item) => item.id))" v-hasPermi="['erp:sale-out:delete']" :disabled="selectionList.length === 0">
           <Icon icon="ep:delete" class="mr-5px" /> 删除
         </el-button>
       </el-form-item>
@@ -185,43 +75,16 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      :stripe="true"
-      :show-overflow-tooltip="true"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleSelectionChange">
       <el-table-column width="30" label="选择" type="selection" />
       <el-table-column min-width="180" label="出库单号" align="center" prop="no" />
       <el-table-column label="产品信息" align="center" prop="productNames" min-width="200" />
       <el-table-column label="客户" align="center" prop="customerName" />
-      <el-table-column
-        label="出库时间"
-        align="center"
-        prop="outTime"
-        :formatter="dateFormatter2"
-        width="120px"
-      />
+      <el-table-column label="出库时间" align="center" prop="outTime" :formatter="dateFormatter2" width="120px" />
       <el-table-column label="创建人" align="center" prop="creatorName" />
-      <el-table-column
-        label="总数量"
-        align="center"
-        prop="totalCount"
-        :formatter="erpCountTableColumnFormatter"
-      />
-      <el-table-column
-        label="应收金额"
-        align="center"
-        prop="totalPrice"
-        :formatter="erpPriceTableColumnFormatter"
-      />
-      <el-table-column
-        label="已收金额"
-        align="center"
-        prop="receiptPrice"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column label="总数量" align="center" prop="totalCount" :formatter="erpCountTableColumnFormatter" />
+      <el-table-column label="应收金额" align="center" prop="totalPrice" :formatter="erpPriceTableColumnFormatter" />
+      <el-table-column label="已收金额" align="center" prop="receiptPrice" :formatter="erpPriceTableColumnFormatter" />
       <el-table-column label="未收金额" align="center">
         <template #default="scope">
           <span v-if="scope.row.receiptPrice === scope.row.totalPrice">0</span>
@@ -237,58 +100,16 @@
       </el-table-column>
       <el-table-column label="操作" align="center" fixed="right" width="220">
         <template #default="scope">
-          <el-button
-            link
-            @click="openForm('detail', scope.row.id)"
-            v-hasPermi="['erp:sale-out:query']"
-          >
-            详情
-          </el-button>
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['erp:sale-out:update']"
-            :disabled="scope.row.status === 20"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="primary"
-            @click="handleUpdateStatus(scope.row.id, 20)"
-            v-hasPermi="['erp:sale-out:update-status']"
-            v-if="scope.row.status === 10"
-          >
-            审批
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleUpdateStatus(scope.row.id, 10)"
-            v-hasPermi="['erp:sale-out:update-status']"
-            v-else
-          >
-            反审批
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete([scope.row.id])"
-            v-hasPermi="['erp:sale-out:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link @click="openForm('detail', scope.row.id)" v-hasPermi="['erp:sale-out:query']"> 详情 </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['erp:sale-out:update']" :disabled="scope.row.status === 20"> 编辑 </el-button>
+          <el-button link type="primary" @click="handleUpdateStatus(scope.row.id, 20)" v-hasPermi="['erp:sale-out:update-status']" v-if="scope.row.status === 10"> 审批 </el-button>
+          <el-button link type="danger" @click="handleUpdateStatus(scope.row.id, 10)" v-hasPermi="['erp:sale-out:update-status']" v-else> 反审批 </el-button>
+          <el-button link type="danger" @click="handleDelete([scope.row.id])" v-hasPermi="['erp:sale-out:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
@@ -304,11 +125,7 @@ import SaleOutForm from './SaleOutForm.vue'
 import { ProductApi, ProductVO } from '@/api/erp/product/product'
 import { UserVO } from '@/api/system/user'
 import * as UserApi from '@/api/system/user'
-import {
-  erpCountTableColumnFormatter,
-  erpPriceInputFormatter,
-  erpPriceTableColumnFormatter
-} from '@/utils'
+import { erpCountTableColumnFormatter, erpPriceInputFormatter, erpPriceTableColumnFormatter } from '@/utils'
 import { CustomerApi, CustomerVO } from '@/api/erp/sale/customer'
 import { WarehouseApi, WarehouseVO } from '@/api/erp/stock/warehouse'
 import { AccountApi, AccountVO } from '@/api/erp/finance/account'

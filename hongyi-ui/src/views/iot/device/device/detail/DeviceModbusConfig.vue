@@ -5,9 +5,7 @@
     <ContentWrap>
       <div class="flex items-center justify-between mb-4">
         <span class="text-lg font-medium">连接配置</span>
-        <el-button type="primary" @click="handleEditConfig" v-hasPermi="['iot:device:create']">
-          编辑
-        </el-button>
+        <el-button type="primary" @click="handleEditConfig" v-hasPermi="['iot:device:create']"> 编辑 </el-button>
       </div>
 
       <!-- 详情展示 -->
@@ -63,22 +61,10 @@
       <!-- 搜索栏 -->
       <el-form :model="queryParams" :inline="true" class="-mb-15px">
         <el-form-item label="属性名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            placeholder="请输入属性名称"
-            clearable
-            class="!w-200px"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.name" placeholder="请输入属性名称" clearable class="!w-200px" @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="标识符" prop="identifier">
-          <el-input
-            v-model="queryParams.identifier"
-            placeholder="请输入标识符"
-            clearable
-            class="!w-200px"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.identifier" placeholder="请输入标识符" clearable class="!w-200px" @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
           <el-button @click="handleQuery">
@@ -128,50 +114,21 @@
         </el-table-column>
         <el-table-column label="操作" align="center" fixed="right" width="120">
           <template #default="scope">
-            <el-button
-              link
-              type="primary"
-              @click="handleEditPoint(scope.row)"
-              v-hasPermi="['iot:device:update']"
-            >
-              编辑
-            </el-button>
-            <el-button
-              link
-              type="danger"
-              @click="handleDeletePoint(scope.row.id, scope.row.name)"
-              v-hasPermi="['iot:device:delete']"
-            >
-              删除
-            </el-button>
+            <el-button link type="primary" @click="handleEditPoint(scope.row)" v-hasPermi="['iot:device:update']"> 编辑 </el-button>
+            <el-button link type="danger" @click="handleDeletePoint(scope.row.id, scope.row.name)" v-hasPermi="['iot:device:delete']"> 删除 </el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 分页 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getPointPage"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getPointPage" />
     </ContentWrap>
 
     <!-- 连接配置弹窗 -->
-    <DeviceModbusConfigForm
-      ref="configFormRef"
-      :device-id="device.id"
-      :protocol-type="product.protocolType"
-      @success="getModbusConfig"
-    />
+    <DeviceModbusConfigForm ref="configFormRef" :device-id="device.id" :protocol-type="product.protocolType" @success="getModbusConfig" />
 
     <!-- 点位表单弹窗 -->
-    <DeviceModbusPointForm
-      ref="pointFormRef"
-      :device-id="device.id"
-      :thing-model-list="thingModelList"
-      @success="getPointPage"
-    />
+    <DeviceModbusPointForm ref="pointFormRef" :device-id="device.id" :thing-model-list="thingModelList" @success="getPointPage" />
   </div>
 </template>
 

@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="relative inline-block"
-    @mouseenter="showTooltipHandler"
-    @mouseleave="hideTooltipHandler"
-  >
+  <div class="relative inline-block" @mouseenter="showTooltipHandler" @mouseleave="hideTooltipHandler">
     <!-- 文件上传按钮 -->
     <el-button
       v-if="!disabled"
@@ -16,31 +12,16 @@
     >
       <Icon icon="ep:paperclip" :size="16" />
       <!-- 文件数量徽章 -->
-      <span
-        v-if="fileList.length > 0"
-        class="absolute -top-1 -right-1 bg-red-500 text-white text-10px px-1 rounded-8px min-w-4 h-4 flex items-center justify-center leading-none font-medium"
-      >
+      <span v-if="fileList.length > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-10px px-1 rounded-8px min-w-4 h-4 flex items-center justify-center leading-none font-medium">
         {{ fileList.length }}
       </span>
     </el-button>
 
     <!-- 隐藏的文件输入框 -->
-    <input
-      ref="fileInputRef"
-      type="file"
-      multiple
-      style="display: none"
-      :accept="acceptTypes"
-      @change="handleFileSelect"
-    />
+    <input ref="fileInputRef" type="file" multiple style="display: none" :accept="acceptTypes" @change="handleFileSelect" />
 
     <!-- Hover 显示的文件列表 -->
-    <div
-      v-if="fileList.length > 0 && showTooltip"
-      class="file-tooltip"
-      @mouseenter="showTooltipHandler"
-      @mouseleave="hideTooltipHandler"
-    >
+    <div v-if="fileList.length > 0 && showTooltip" class="file-tooltip" @mouseenter="showTooltipHandler" @mouseleave="hideTooltipHandler">
       <div class="tooltip-arrow"></div>
       <div class="max-h-200px overflow-y-auto file-list">
         <div
@@ -51,29 +32,12 @@
         >
           <div class="flex items-center flex-1 min-w-0">
             <Icon :icon="getFileIcon(file.name)" class="text-blue-500 mr-2 flex-shrink-0" />
-            <span
-              class="font-medium text-gray-900 mr-1 overflow-hidden text-ellipsis whitespace-nowrap flex-1"
-              >{{ file.name }}</span
-            >
-            <span class="text-gray-500 flex-shrink-0 text-11px"
-              >({{ formatFileSize(file.size) }})</span
-            >
+            <span class="font-medium text-gray-900 mr-1 overflow-hidden text-ellipsis whitespace-nowrap flex-1">{{ file.name }}</span>
+            <span class="text-gray-500 flex-shrink-0 text-11px">({{ formatFileSize(file.size) }})</span>
           </div>
           <div class="flex items-center gap-1 flex-shrink-0 ml-2">
-            <el-progress
-              v-if="file.uploading"
-              :percentage="file.progress || 0"
-              :show-text="false"
-              size="small"
-              class="w-60px"
-            />
-            <el-button
-              v-else-if="!disabled"
-              link
-              type="danger"
-              size="small"
-              @click="removeFile(index)"
-            >
+            <el-progress v-if="file.uploading" :percentage="file.progress || 0" :show-text="false" size="small" class="w-60px" />
+            <el-button v-else-if="!disabled" link type="danger" size="small" @click="removeFile(index)">
               <Icon icon="ep:close" :size="12" />
             </el-button>
           </div>

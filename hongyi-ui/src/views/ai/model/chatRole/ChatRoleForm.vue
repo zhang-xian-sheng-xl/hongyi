@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="角色名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入角色名称" />
       </el-form-item>
@@ -15,12 +9,7 @@
       </el-form-item>
       <el-form-item label="绑定模型" prop="modelId" v-if="!isUser">
         <el-select v-model="formData.modelId" placeholder="请选择模型" clearable>
-          <el-option
-            v-for="model in models"
-            :key="model.id"
-            :label="model.name"
-            :value="model.id"
-          />
+          <el-option v-for="model in models" :key="model.id" :label="model.name" :value="model.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="角色类别" prop="category" v-if="!isUser">
@@ -34,12 +23,7 @@
       </el-form-item>
       <el-form-item label="引用知识库" prop="knowledgeIds">
         <el-select v-model="formData.knowledgeIds" placeholder="请选择知识库" clearable multiple>
-          <el-option
-            v-for="item in knowledgeList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+          <el-option v-for="item in knowledgeList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="引用工具" prop="toolIds">
@@ -49,21 +33,12 @@
       </el-form-item>
       <el-form-item label="引用 MCP" prop="toolIds">
         <el-select v-model="formData.mcpClientNames" placeholder="请选择 MCP" clearable multiple>
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.AI_MCP_CLIENT_NAME)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.AI_MCP_CLIENT_NAME)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="是否公开" prop="publicStatus" v-if="!isUser">
         <el-radio-group v-model="formData.publicStatus">
-          <el-radio
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -73,11 +48,7 @@
       </el-form-item>
       <el-form-item label="开启状态" prop="status" v-if="!isUser">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

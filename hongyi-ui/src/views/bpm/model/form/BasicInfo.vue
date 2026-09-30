@@ -2,43 +2,18 @@
   <el-form ref="formRef" :model="modelData" :rules="rules" label-width="120px" class="mt-20px">
     <el-form-item label="流程标识" prop="key" class="mb-20px">
       <div class="flex items-center">
-        <el-input
-          class="!w-440px"
-          v-model="modelData.key"
-          :disabled="!!modelData.id"
-          placeholder="请输入流程标识，以字母或下划线开头"
-        />
-        <el-tooltip
-          class="item"
-          :content="modelData.id ? '流程标识不可修改！' : '新建后，流程标识不可修改！'"
-          effect="light"
-          placement="top"
-        >
+        <el-input class="!w-440px" v-model="modelData.key" :disabled="!!modelData.id" placeholder="请输入流程标识，以字母或下划线开头" />
+        <el-tooltip class="item" :content="modelData.id ? '流程标识不可修改！' : '新建后，流程标识不可修改！'" effect="light" placement="top">
           <Icon icon="ep:question-filled" class="ml-5px" />
         </el-tooltip>
       </div>
     </el-form-item>
     <el-form-item label="流程名称" prop="name" class="mb-20px">
-      <el-input
-        v-model="modelData.name"
-        :disabled="!!modelData.id"
-        clearable
-        placeholder="请输入流程名称"
-      />
+      <el-input v-model="modelData.name" :disabled="!!modelData.id" clearable placeholder="请输入流程名称" />
     </el-form-item>
     <el-form-item label="流程分类" prop="category" class="mb-20px">
-      <el-select
-        class="!w-full"
-        v-model="modelData.category"
-        clearable
-        placeholder="请选择流程分类"
-      >
-        <el-option
-          v-for="category in categoryList"
-          :key="category.code"
-          :label="category.name"
-          :value="category.code"
-        />
+      <el-select class="!w-full" v-model="modelData.category" clearable placeholder="请选择流程分类">
+        <el-option v-for="category in categoryList" :key="category.code" :label="category.name" :value="category.code" />
       </el-select>
     </el-form-item>
     <el-form-item label="流程图标" class="mb-20px">
@@ -49,97 +24,55 @@
     </el-form-item>
     <el-form-item label="流程类型" prop="type" class="mb-20px">
       <el-radio-group v-model="modelData.type">
-        <el-radio
-          v-for="dict in getIntDictOptions(DICT_TYPE.BPM_MODEL_TYPE)"
-          :key="dict.value"
-          :value="dict.value"
-        >
+        <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.BPM_MODEL_TYPE)" :key="dict.value" :value="dict.value">
           {{ dict.label }}
         </el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="是否可见" prop="visible" class="mb-20px">
       <el-radio-group v-model="modelData.visible">
-        <el-radio
-          v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-          :key="dict.value as string"
-          :value="dict.value"
-        >
+        <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value as string" :value="dict.value">
           {{ dict.label }}
         </el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="谁可以发起" prop="startUserType" class="mb-20px">
-      <el-select
-        v-model="modelData.startUserType"
-        placeholder="请选择谁可以发起"
-        @change="handleStartUserTypeChange"
-      >
+      <el-select v-model="modelData.startUserType" placeholder="请选择谁可以发起" @change="handleStartUserTypeChange">
         <el-option label="全员" :value="0" />
         <el-option label="指定人员" :value="1" />
         <el-option label="指定部门" :value="2" />
       </el-select>
       <div v-if="modelData.startUserType === 1" class="mt-2 flex flex-wrap gap-2">
-        <div
-          v-for="user in selectedStartUsers"
-          :key="user.id"
-          class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative"
-        >
+        <div v-for="user in selectedStartUsers" :key="user.id" class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative">
           <el-avatar class="!m-5px" :size="28" v-if="user.avatar" :src="user.avatar" />
           <el-avatar class="!m-5px" :size="28" v-else>
             {{ user.nickname.substring(0, 1) }}
           </el-avatar>
           {{ user.nickname }}
-          <Icon
-            icon="ep:close"
-            class="ml-2 cursor-pointer hover:text-red-500"
-            @click="handleRemoveStartUser(user)"
-          />
+          <Icon icon="ep:close" class="ml-2 cursor-pointer hover:text-red-500" @click="handleRemoveStartUser(user)" />
         </div>
-        <el-button type="primary" link @click="openStartUserSelect">
-          <Icon icon="ep:plus" /> 选择人员
-        </el-button>
+        <el-button type="primary" link @click="openStartUserSelect"> <Icon icon="ep:plus" /> 选择人员 </el-button>
       </div>
       <div v-if="modelData.startUserType === 2" class="mt-2 flex flex-wrap gap-2">
-        <div
-          v-for="dept in selectedStartDepts"
-          :key="dept.id"
-          class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative"
-        >
+        <div v-for="dept in selectedStartDepts" :key="dept.id" class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative">
           <Icon icon="ep:office-building" class="!m-5px text-20px" />
           {{ dept.name }}
-          <Icon
-            icon="ep:close"
-            class="ml-2 cursor-pointer hover:text-red-500"
-            @click="handleRemoveStartDept(dept)"
-          />
+          <Icon icon="ep:close" class="ml-2 cursor-pointer hover:text-red-500" @click="handleRemoveStartDept(dept)" />
         </div>
-        <el-button type="primary" link @click="openStartDeptSelect">
-          <Icon icon="ep:plus" /> 选择部门
-        </el-button>
+        <el-button type="primary" link @click="openStartDeptSelect"> <Icon icon="ep:plus" /> 选择部门 </el-button>
       </div>
     </el-form-item>
     <el-form-item label="流程管理员" prop="managerUserIds" class="mb-20px">
       <div class="flex flex-wrap gap-2">
-        <div
-          v-for="user in selectedManagerUsers"
-          :key="user.id"
-          class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative"
-        >
+        <div v-for="user in selectedManagerUsers" :key="user.id" class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative">
           <el-avatar class="!m-5px" :size="28" v-if="user.avatar" :src="user.avatar" />
           <el-avatar class="!m-5px" :size="28" v-else>
             {{ user.nickname.substring(0, 1) }}
           </el-avatar>
           {{ user.nickname }}
-          <Icon
-            icon="ep:close"
-            class="ml-2 cursor-pointer hover:text-red-500"
-            @click="handleRemoveManagerUser(user)"
-          />
+          <Icon icon="ep:close" class="ml-2 cursor-pointer hover:text-red-500" @click="handleRemoveManagerUser(user)" />
         </div>
-        <el-button type="primary" link @click="openManagerUserSelect">
-          <Icon icon="ep:plus" />选择人员
-        </el-button>
+        <el-button type="primary" link @click="openManagerUserSelect"> <Icon icon="ep:plus" />选择人员 </el-button>
       </div>
     </el-form-item>
   </el-form>
@@ -147,12 +80,7 @@
   <!-- 用户选择弹窗 -->
   <UserSelectForm ref="userSelectFormRef" @confirm="handleUserSelectConfirm" />
   <!-- 部门选择弹窗 -->
-  <DeptSelectForm
-    ref="deptSelectFormRef"
-    :multiple="true"
-    :check-strictly="true"
-    @confirm="handleDeptSelectConfirm"
-  />
+  <DeptSelectForm ref="deptSelectFormRef" :multiple="true" :check-strictly="true" @confirm="handleDeptSelectConfirm" />
 </template>
 
 <script lang="ts" setup>
@@ -217,23 +145,17 @@ watch(
   () => modelData.value,
   (newVal) => {
     if (newVal.startUserIds?.length) {
-      selectedStartUsers.value = props.userList.filter((user: UserVO) =>
-        newVal.startUserIds.includes(user.id)
-      ) as UserVO[]
+      selectedStartUsers.value = props.userList.filter((user: UserVO) => newVal.startUserIds.includes(user.id)) as UserVO[]
     } else {
       selectedStartUsers.value = []
     }
     if (newVal.startDeptIds?.length) {
-      selectedStartDepts.value = props.deptList.filter((dept: DeptVO) =>
-        newVal.startDeptIds.includes(dept.id)
-      ) as DeptVO[]
+      selectedStartDepts.value = props.deptList.filter((dept: DeptVO) => newVal.startDeptIds.includes(dept.id)) as DeptVO[]
     } else {
       selectedStartDepts.value = []
     }
     if (newVal.managerUserIds?.length) {
-      selectedManagerUsers.value = props.userList.filter((user: UserVO) =>
-        newVal.managerUserIds.includes(user.id)
-      ) as UserVO[]
+      selectedManagerUsers.value = props.userList.filter((user: UserVO) => newVal.managerUserIds.includes(user.id)) as UserVO[]
     } else {
       selectedManagerUsers.value = []
     }

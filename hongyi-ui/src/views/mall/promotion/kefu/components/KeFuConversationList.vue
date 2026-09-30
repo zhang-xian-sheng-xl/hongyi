@@ -1,8 +1,6 @@
 <template>
   <el-aside class="kefu pt-5px h-100%" width="260px">
-    <div class="color-[#999] font-bold my-10px">
-      会话记录({{ kefuStore.getConversationList.length }})
-    </div>
+    <div class="color-[#999] font-bold my-10px"> 会话记录({{ kefuStore.getConversationList.length }}) </div>
     <div
       v-for="item in kefuStore.getConversationList"
       :key="item.id"
@@ -14,11 +12,7 @@
       <div class="flex justify-center items-center w-100%">
         <div class="flex justify-center items-center w-50px h-50px">
           <!-- 头像 + 未读 -->
-          <el-badge
-            :hidden="item.adminUnreadMessageCount === 0"
-            :max="99"
-            :value="item.adminUnreadMessageCount"
-          >
+          <el-badge :hidden="item.adminUnreadMessageCount === 0" :max="99" :value="item.adminUnreadMessageCount">
             <el-avatar :src="item.userAvatar" alt="avatar" />
           </el-badge>
         </div>
@@ -30,32 +24,18 @@
             </span>
           </div>
           <!-- 最后聊天内容 -->
-          <div
-            v-dompurify-html="
-              getConversationDisplayText(item.lastMessageContentType, item.lastMessageContent)
-            "
-            class="last-message flex items-center color-[#999]"
-          >
-          </div>
+          <div v-dompurify-html="getConversationDisplayText(item.lastMessageContentType, item.lastMessageContent)" class="last-message flex items-center color-[#999]"> </div>
         </div>
       </div>
     </div>
 
     <!-- 右键，进行操作（类似微信） -->
     <ul v-show="showRightMenu" :style="rightMenuStyle" class="right-menu-ul">
-      <li
-        v-show="!rightClickConversation.adminPinned"
-        class="flex items-center"
-        @click.stop="updateConversationPinned(true)"
-      >
+      <li v-show="!rightClickConversation.adminPinned" class="flex items-center" @click.stop="updateConversationPinned(true)">
         <Icon class="mr-5px" icon="ep:top" />
         置顶会话
       </li>
-      <li
-        v-show="rightClickConversation.adminPinned"
-        class="flex items-center"
-        @click.stop="updateConversationPinned(false)"
-      >
+      <li v-show="rightClickConversation.adminPinned" class="flex items-center" @click.stop="updateConversationPinned(false)">
         <Icon class="mr-5px" icon="ep:bottom" />
         取消置顶
       </li>
@@ -112,28 +92,26 @@ const openRightMessage = (item: KeFuConversationRespVO) => {
 }
 
 /** 获得消息类型 */
-const getConversationDisplayText = computed(
-  () => (lastMessageContentType: number, lastMessageContent: string) => {
-    switch (lastMessageContentType) {
-      case KeFuMessageContentTypeEnum.SYSTEM:
-        return '[系统消息]'
-      case KeFuMessageContentTypeEnum.VIDEO:
-        return '[视频消息]'
-      case KeFuMessageContentTypeEnum.IMAGE:
-        return '[图片消息]'
-      case KeFuMessageContentTypeEnum.PRODUCT:
-        return '[商品消息]'
-      case KeFuMessageContentTypeEnum.ORDER:
-        return '[订单消息]'
-      case KeFuMessageContentTypeEnum.VOICE:
-        return '[语音消息]'
-      case KeFuMessageContentTypeEnum.TEXT:
-        return replaceEmoji(jsonParse(lastMessageContent).text || lastMessageContent)
-      default:
-        return ''
-    }
+const getConversationDisplayText = computed(() => (lastMessageContentType: number, lastMessageContent: string) => {
+  switch (lastMessageContentType) {
+    case KeFuMessageContentTypeEnum.SYSTEM:
+      return '[系统消息]'
+    case KeFuMessageContentTypeEnum.VIDEO:
+      return '[视频消息]'
+    case KeFuMessageContentTypeEnum.IMAGE:
+      return '[图片消息]'
+    case KeFuMessageContentTypeEnum.PRODUCT:
+      return '[商品消息]'
+    case KeFuMessageContentTypeEnum.ORDER:
+      return '[订单消息]'
+    case KeFuMessageContentTypeEnum.VOICE:
+      return '[语音消息]'
+    case KeFuMessageContentTypeEnum.TEXT:
+      return replaceEmoji(jsonParse(lastMessageContent).text || lastMessageContent)
+    default:
+      return ''
   }
-)
+})
 
 //======================= 右键菜单 =======================
 const showRightMenu = ref(false) // 显示右键菜单

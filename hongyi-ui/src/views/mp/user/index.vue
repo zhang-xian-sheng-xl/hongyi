@@ -3,46 +3,20 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="公众号" prop="accountId">
         <WxAccountSelect @change="onAccountChanged" :modelValue="queryParams.accountId" />
       </el-form-item>
       <el-form-item label="用户标识" prop="openid">
-        <el-input
-          v-model="queryParams.openid"
-          placeholder="请输入用户标识"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.openid" placeholder="请输入用户标识" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="昵称" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          placeholder="请输入昵称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.nickname" placeholder="请输入昵称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"> <Icon icon="ep:search" />搜索 </el-button>
         <el-button @click="resetQuery"> <Icon icon="ep:refresh" />重置 </el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleSync"
-          v-hasPermi="['mp:user:sync']"
-          :disabled="queryParams.accountId === 0"
-        >
-          <Icon icon="ep:refresh" class="mr-5px" /> 同步
-        </el-button>
+        <el-button type="success" plain @click="handleSync" v-hasPermi="['mp:user:sync']" :disabled="queryParams.accountId === 0"> <Icon icon="ep:refresh" class="mr-5px" /> 同步 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -50,12 +24,12 @@
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" v-if="isDialog"/>
+      <el-table-column type="selection" width="55" v-if="isDialog" />
       <el-table-column label="编号" align="center" prop="id" />
       <el-table-column label="用户标识" align="center" prop="openid" width="260" />
       <el-table-column label="用户头像" min-width="80px" prop="headImageUrl">
         <template #default="scope">
-          <el-avatar :src="scope.row.headImageUrl"/>
+          <el-avatar :src="scope.row.headImageUrl" />
         </template>
       </el-table-column>
       <el-table-column label="昵称" align="center" prop="nickname" />
@@ -73,46 +47,28 @@
           <el-tag v-else type="danger">未订阅</el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        label="订阅时间"
-        align="center"
-        prop="subscribeTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="订阅时间" align="center" prop="subscribeTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            type="primary"
-            link
-            @click="openForm(scope.row.id)"
-            v-hasPermi="['mp:user:update']"
-          >
-            修改
-          </el-button>
+          <el-button type="primary" link @click="openForm(scope.row.id)" v-hasPermi="['mp:user:update']"> 修改 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：修改 -->
   <UserForm ref="formRef" @success="getList" />
 </template>
 <script lang="ts" setup>
-import {dateFormatter} from '@/utils/formatTime'
+import { dateFormatter } from '@/utils/formatTime'
 import * as MpUserApi from '@/api/mp/user'
 import * as MpTagApi from '@/api/mp/tag'
 import WxAccountSelect from '@/views/mp/components/wx-account-select'
-import type {FormInstance} from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import UserForm from './UserForm.vue'
-import {ref} from "vue";
+import { ref } from 'vue'
 
 defineOptions({ name: 'MpUser' })
 
@@ -159,7 +115,7 @@ const getList = async () => {
 const handleQuery = () => {
   queryParams.pageNo = 1
   getList()
-  if(isDialog.value){
+  if (isDialog.value) {
     emitChange()
   }
 }
@@ -194,21 +150,24 @@ defineExpose({
     onAccountChanged(accountId)
     isDialog.value = true
   }
-});
+})
 
 /** Emits*/
 interface Emits {
-  (e: 'change', data: {
-    multipleSelection: any[]
-    total: number
-    queryParams: object
-  }): void
+  (
+    e: 'change',
+    data: {
+      multipleSelection: any[]
+      total: number
+      queryParams: object
+    }
+  ): void
   // (e: 'select', user: any): void
   // (e: 'cancel'): void
 }
 const emit = defineEmits<Emits>()
 const emitChange = () => {
-  emit('change', {multipleSelection: multipleSelection.value, total: total.value, queryParams})
+  emit('change', { multipleSelection: multipleSelection.value, total: total.value, queryParams })
 }
 
 const handleSelectionChange = (val: any[]) => {

@@ -13,20 +13,10 @@
       <Icon class="mr-5px" icon="ep:delete" />
       移除
     </el-button>
-    <el-button v-if="!validateOwnerUser && list.length > 0" type="danger" @click="handleQuit">
-      退出团队
-    </el-button>
+    <el-button v-if="!validateOwnerUser && list.length > 0" type="danger" @click="handleQuit"> 退出团队 </el-button>
   </el-row>
   <!-- 团队成员展示 -->
-  <el-table
-    ref="elTableRef"
-    v-loading="loading"
-    :data="list"
-    :show-overflow-tooltip="true"
-    :stripe="true"
-    class="mt-20px"
-    @selection-change="handleSelectionChange"
-  >
+  <el-table ref="elTableRef" v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true" class="mt-20px" @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="55" />
     <el-table-column align="center" label="姓名" prop="nickname" />
     <el-table-column align="center" label="部门" prop="deptName" />
@@ -75,11 +65,7 @@ const getList = async () => {
       bizId: props.bizId
     })
     list.value = data
-    const permission = list.value.find(
-      (item) =>
-        item.userId === userStore.getUser.id &&
-        item.level === PermissionApi.PermissionLevelEnum.OWNER
-    )
+    const permission = list.value.find((item) => item.userId === userStore.getUser.id && item.level === PermissionApi.PermissionLevelEnum.OWNER)
     if (permission) {
       formData.value.ownerUserId = userStore.getUser.id
     }
@@ -109,13 +95,7 @@ const handleUpdate = () => {
     message.warning('编辑团队成员时只能选择一个！')
     return
   }
-  formRef.value?.open0(
-    'update',
-    props.bizType,
-    props.bizId!,
-    multipleSelection.value[0].id!,
-    multipleSelection.value[0].level
-  )
+  formRef.value?.open0('update', props.bizType, props.bizId!, multipleSelection.value[0].id!, multipleSelection.value[0].level)
 }
 
 /** 移除团队成员 */
@@ -145,9 +125,7 @@ watch(
   (newArr) => {
     isPool.value = false
     if (newArr?.length > 0) {
-      isPool.value = !list.value.some(
-        (item) => item.level === PermissionApi.PermissionLevelEnum.OWNER
-      )
+      isPool.value = !list.value.some((item) => item.level === PermissionApi.PermissionLevelEnum.OWNER)
       validateOwnerUser.value = false
       validateWrite.value = false
       const userId = userStore.getUser?.id
@@ -176,10 +154,7 @@ const emits = defineEmits<{
 }>()
 /** 退出团队 */
 const handleQuit = async () => {
-  const permission = list.value.find(
-    (item) =>
-      item.userId === userStore.getUser.id && item.level === PermissionApi.PermissionLevelEnum.OWNER
-  )
+  const permission = list.value.find((item) => item.userId === userStore.getUser.id && item.level === PermissionApi.PermissionLevelEnum.OWNER)
   if (permission) {
     message.warning('负责人不能退出团队！')
     return

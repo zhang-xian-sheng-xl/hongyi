@@ -27,39 +27,15 @@
         <dict-tag :type="DICT_TYPE.TRADE_ORDER_STATUS" :value="formData.status!" />
       </el-descriptions-item>
       <el-descriptions-item v-hasPermi="['trade:order:update']" label-class-name="no-colon">
-        <el-button
-          v-if="formData.status! === TradeOrderStatusEnum.UNPAID.status"
-          type="primary"
-          @click="updatePrice"
-        >
-          调整价格
-        </el-button>
+        <el-button v-if="formData.status! === TradeOrderStatusEnum.UNPAID.status" type="primary" @click="updatePrice"> 调整价格 </el-button>
         <el-button type="primary" @click="remark">备注</el-button>
         <!-- 待发货 -->
         <template v-if="formData.status! === TradeOrderStatusEnum.UNDELIVERED.status">
           <!-- 快递发货 -->
-          <el-button
-            v-if="formData.deliveryType === DeliveryTypeEnum.EXPRESS.type"
-            type="primary"
-            @click="delivery"
-          >
-            发货
-          </el-button>
-          <el-button
-            v-if="formData.deliveryType === DeliveryTypeEnum.EXPRESS.type"
-            type="primary"
-            @click="updateAddress"
-          >
-            修改地址
-          </el-button>
+          <el-button v-if="formData.deliveryType === DeliveryTypeEnum.EXPRESS.type" type="primary" @click="delivery"> 发货 </el-button>
+          <el-button v-if="formData.deliveryType === DeliveryTypeEnum.EXPRESS.type" type="primary" @click="updateAddress"> 修改地址 </el-button>
           <!-- 到店自提 -->
-          <el-button
-            v-if="formData.deliveryType === DeliveryTypeEnum.PICK_UP.type && showPickUp"
-            type="primary"
-            @click="handlePickUp"
-          >
-            核销
-          </el-button>
+          <el-button v-if="formData.deliveryType === DeliveryTypeEnum.PICK_UP.type && showPickUp" type="primary" @click="handlePickUp"> 核销 </el-button>
         </template>
       </el-descriptions-item>
       <el-descriptions-item>
@@ -79,9 +55,7 @@
               <el-table-column label="商品" prop="spuName" width="auto">
                 <template #default="{ row }">
                   {{ row.spuName }}
-                  <el-tag v-for="property in row.properties" :key="property.propertyId">
-                    {{ property.propertyName }}: {{ property.valueName }}
-                  </el-tag>
+                  <el-tag v-for="property in row.properties" :key="property.propertyId"> {{ property.propertyName }}: {{ property.valueName }} </el-tag>
                 </template>
               </el-table-column>
               <el-table-column label="商品原价" prop="price" width="150">
@@ -93,10 +67,7 @@
               </el-table-column>
               <el-table-column label="售后状态" prop="afterSaleStatus" width="120">
                 <template #default="{ row }">
-                  <dict-tag
-                    :type="DICT_TYPE.TRADE_ORDER_ITEM_AFTER_SALE_STATUS"
-                    :value="row.afterSaleStatus"
-                  />
+                  <dict-tag :type="DICT_TYPE.TRADE_ORDER_ITEM_AFTER_SALE_STATUS" :value="row.afterSaleStatus" />
                 </template>
               </el-table-column>
             </el-table>
@@ -107,15 +78,9 @@
     </el-descriptions>
     <el-descriptions :column="4">
       <!-- 第一层 -->
-      <el-descriptions-item label="商品总额: ">
-        {{ fenToYuan(formData.totalPrice!) }} 元
-      </el-descriptions-item>
-      <el-descriptions-item label="运费金额: ">
-        {{ fenToYuan(formData.deliveryPrice!) }} 元
-      </el-descriptions-item>
-      <el-descriptions-item label="订单调价: ">
-        {{ fenToYuan(formData.adjustPrice!) }} 元
-      </el-descriptions-item>
+      <el-descriptions-item label="商品总额: "> {{ fenToYuan(formData.totalPrice!) }} 元 </el-descriptions-item>
+      <el-descriptions-item label="运费金额: "> {{ fenToYuan(formData.deliveryPrice!) }} 元 </el-descriptions-item>
+      <el-descriptions-item label="订单调价: "> {{ fenToYuan(formData.adjustPrice!) }} 元 </el-descriptions-item>
       <el-descriptions-item v-for="item in 1" :key="item" label-class-name="no-colon" />
       <!-- 第二层 -->
       <el-descriptions-item>
@@ -136,9 +101,7 @@
       </el-descriptions-item>
       <!-- 第三层 -->
       <el-descriptions-item v-for="item in 3" :key="item" label-class-name="no-colon" />
-      <el-descriptions-item label="应付金额: ">
-        {{ fenToYuan(formData.payPrice!) }} 元
-      </el-descriptions-item>
+      <el-descriptions-item label="应付金额: "> {{ fenToYuan(formData.payPrice!) }} 元 </el-descriptions-item>
     </el-descriptions>
 
     <!-- 物流信息 -->
@@ -152,12 +115,7 @@
       <div v-if="formData.deliveryType === DeliveryTypeEnum.EXPRESS.type">
         <el-descriptions-item v-if="formData.receiverDetailAddress" label="收货地址: ">
           {{ formData.receiverAreaName }} {{ formData.receiverDetailAddress }}
-          <el-link
-            v-clipboard:copy="formData.receiverAreaName + ' ' + formData.receiverDetailAddress"
-            v-clipboard:success="clipboardSuccess"
-            icon="ep:document-copy"
-            type="primary"
-          />
+          <el-link v-clipboard:copy="formData.receiverAreaName + ' ' + formData.receiverDetailAddress" v-clipboard:success="clipboardSuccess" icon="ep:document-copy" type="primary" />
         </el-descriptions-item>
         <el-descriptions-item v-if="formData.logisticsId" label="物流公司: ">
           {{ deliveryExpressList.find((item) => item.id === formData.logisticsId)?.name }}
@@ -171,11 +129,7 @@
         <el-descriptions-item v-for="item in 2" :key="item" label-class-name="no-colon" />
         <el-descriptions-item v-if="expressTrackList.length > 0" label="物流详情: ">
           <el-timeline>
-            <el-timeline-item
-              v-for="(express, index) in expressTrackList"
-              :key="index"
-              :timestamp="formatDate(express.time)"
-            >
+            <el-timeline-item v-for="(express, index) in expressTrackList" :key="index" :timestamp="formatDate(express.time)">
               {{ express.content }}
             </el-timeline-item>
           </el-timeline>
@@ -193,20 +147,12 @@
     <el-descriptions title="订单操作日志">
       <el-descriptions-item labelClassName="no-colon">
         <el-timeline>
-          <el-timeline-item
-            v-for="(log, index) in formData.logs"
-            :key="index"
-            :timestamp="formatDate(log.createTime!)"
-            placement="top"
-          >
+          <el-timeline-item v-for="(log, index) in formData.logs" :key="index" :timestamp="formatDate(log.createTime!)" placement="top">
             <div class="el-timeline-right-content">
               {{ log.content }}
             </div>
             <template #dot>
-              <span
-                :style="{ backgroundColor: getUserTypeColor(log.userType!) }"
-                class="dot-node-style"
-              >
+              <span :style="{ backgroundColor: getUserTypeColor(log.userType!) }" class="dot-node-style">
                 {{ getDictLabel(DICT_TYPE.USER_TYPE, log.userType)[0] }}
               </span>
             </template>

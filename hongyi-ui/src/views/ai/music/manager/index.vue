@@ -3,65 +3,23 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="用户编号" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          clearable
-          placeholder="请输入用户编号"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.userId" clearable placeholder="请输入用户编号" class="!w-240px">
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="音乐名称" prop="title">
-        <el-input
-          v-model="queryParams.title"
-          placeholder="请输入音乐名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.title" placeholder="请输入音乐名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="音乐状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择音乐状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.AI_MUSIC_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择音乐状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.AI_MUSIC_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="生成模式" prop="generateMode">
-        <el-select
-          v-model="queryParams.generateMode"
-          placeholder="请选择生成模式"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.AI_GENERATE_MODE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.generateMode" placeholder="请选择生成模式" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.AI_GENERATE_MODE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -76,18 +34,8 @@
         />
       </el-form-item>
       <el-form-item label="是否发布" prop="publicStatus">
-        <el-select
-          v-model="queryParams.publicStatus"
-          placeholder="请选择是否发布"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.publicStatus" placeholder="请选择是否发布" clearable class="!w-240px">
+          <el-option v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -115,32 +63,9 @@
       <el-table-column label="模型" align="center" prop="model" width="180" />
       <el-table-column label="内容" align="center" width="180">
         <template #default="{ row }">
-          <el-link
-            v-if="row.audioUrl?.length > 0"
-            type="primary"
-            :href="row.audioUrl"
-            target="_blank"
-          >
-            音乐
-          </el-link>
-          <el-link
-            v-if="row.videoUrl?.length > 0"
-            type="primary"
-            :href="row.videoUrl"
-            target="_blank"
-            class="!pl-5px"
-          >
-            视频
-          </el-link>
-          <el-link
-            v-if="row.imageUrl?.length > 0"
-            type="primary"
-            :href="row.imageUrl"
-            target="_blank"
-            class="!pl-5px"
-          >
-            封面
-          </el-link>
+          <el-link v-if="row.audioUrl?.length > 0" type="primary" :href="row.audioUrl" target="_blank"> 音乐 </el-link>
+          <el-link v-if="row.videoUrl?.length > 0" type="primary" :href="row.videoUrl" target="_blank" class="!pl-5px"> 视频 </el-link>
+          <el-link v-if="row.imageUrl?.length > 0" type="primary" :href="row.imageUrl" target="_blank" class="!pl-5px"> 封面 </el-link>
         </template>
       </el-table-column>
       <el-table-column label="时长（秒）" align="center" prop="duration" width="100" />
@@ -172,33 +97,15 @@
       </el-table-column>
       <el-table-column label="任务编号" align="center" prop="taskId" width="180" />
       <el-table-column label="错误信息" align="center" prop="errorMessage" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center" width="100" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['ai:music:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['ai:music:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

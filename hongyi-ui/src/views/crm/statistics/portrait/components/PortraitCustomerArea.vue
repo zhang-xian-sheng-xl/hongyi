@@ -20,10 +20,7 @@
 import { EChartsOption } from 'echarts'
 import china from '@/assets/map/json/china.json'
 import echarts from '@/plugins/echarts'
-import {
-  CrmStatisticCustomerAreaRespVO,
-  StatisticsPortraitApi
-} from '@/api/crm/statistics/portrait'
+import { CrmStatisticCustomerAreaRespVO, StatisticsPortraitApi } from '@/api/crm/statistics/portrait'
 import { areaReplace } from '@/utils'
 
 defineOptions({ name: 'PortraitCustomerArea' })

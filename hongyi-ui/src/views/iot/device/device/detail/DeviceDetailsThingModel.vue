@@ -6,16 +6,10 @@
         <DeviceDetailsThingModelProperty :device-id="deviceId" />
       </el-tab-pane>
       <el-tab-pane label="设备事件上报" name="event">
-        <DeviceDetailsThingModelEvent
-          :device-id="props.deviceId"
-          :thing-model-list="props.thingModelList"
-        />
+        <DeviceDetailsThingModelEvent :device-id="props.deviceId" :thing-model-list="props.thingModelList" />
       </el-tab-pane>
       <el-tab-pane label="设备服务调用" name="service">
-        <DeviceDetailsThingModelService
-          :device-id="deviceId"
-          :thing-model-list="props.thingModelList"
-        />
+        <DeviceDetailsThingModelService :device-id="deviceId" :thing-model-list="props.thingModelList" />
       </el-tab-pane>
     </el-tabs>
   </ContentWrap>

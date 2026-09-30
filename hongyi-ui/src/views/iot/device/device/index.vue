@@ -1,89 +1,31 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="产品" prop="productId">
-        <el-select
-          v-model="queryParams.productId"
-          placeholder="请选择产品"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="product in products"
-            :key="product.id"
-            :label="product.name"
-            :value="product.id"
-          />
+        <el-select v-model="queryParams.productId" placeholder="请选择产品" clearable class="!w-240px">
+          <el-option v-for="product in products" :key="product.id" :label="product.name" :value="product.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="DeviceName" prop="deviceName">
-        <el-input
-          v-model="queryParams.deviceName"
-          placeholder="请输入 DeviceName"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.deviceName" placeholder="请输入 DeviceName" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="备注名称" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          placeholder="请输入备注名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.nickname" placeholder="请输入备注名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="设备类型" prop="deviceType">
-        <el-select
-          v-model="queryParams.deviceType"
-          placeholder="请选择设备类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_PRODUCT_DEVICE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.deviceType" placeholder="请选择设备类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_PRODUCT_DEVICE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="设备状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择设备状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_DEVICE_STATE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择设备状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.IOT_DEVICE_STATE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="设备分组" prop="groupId">
-        <el-select
-          v-model="queryParams.groupId"
-          placeholder="请选择设备分组"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="group in deviceGroups"
-            :key="group.id"
-            :label="group.name"
-            :value="group.id"
-          />
+        <el-select v-model="queryParams.groupId" placeholder="请选择设备分组" clearable class="!w-240px">
+          <el-option v-for="group in deviceGroups" :key="group.id" :label="group.name" :value="group.id" />
         </el-select>
       </el-form-item>
       <el-form-item class="float-right !mr-0 !mb-0">
@@ -105,45 +47,16 @@
           <Icon icon="ep:refresh" class="mr-5px" />
           重置
         </el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['iot:device:create']"
-        >
+        <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['iot:device:create']">
           <Icon icon="ep:plus" class="mr-5px" />
           新增
         </el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['iot:device:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
-        <el-button type="warning" plain @click="handleImport" v-hasPermi="['iot:device:import']">
-          <Icon icon="ep:upload" /> 导入
-        </el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openGroupForm"
-          :disabled="selectedIds.length === 0"
-          v-hasPermi="['iot:device:update']"
-        >
+        <el-button type="success" plain @click="handleExport" :loading="exportLoading" v-hasPermi="['iot:device:export']"> <Icon icon="ep:download" class="mr-5px" /> 导出 </el-button>
+        <el-button type="warning" plain @click="handleImport" v-hasPermi="['iot:device:import']"> <Icon icon="ep:upload" /> 导入 </el-button>
+        <el-button type="primary" plain @click="openGroupForm" :disabled="selectedIds.length === 0" v-hasPermi="['iot:device:update']">
           <Icon icon="ep:folder-add" class="mr-5px" /> 添加到分组
         </el-button>
-        <el-button
-          type="danger"
-          plain
-          @click="handleDeleteList"
-          :disabled="selectedIds.length === 0"
-          v-hasPermi="['iot:device:delete']"
-        >
-          <Icon icon="ep:delete" class="mr-5px" /> 批量删除
-        </el-button>
+        <el-button type="danger" plain @click="handleDeleteList" :disabled="selectedIds.length === 0" v-hasPermi="['iot:device:delete']"> <Icon icon="ep:delete" class="mr-5px" /> 批量删除 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -153,18 +66,11 @@
     <template v-if="viewMode === 'card'">
       <el-row :gutter="16">
         <el-col v-for="item in list" :key="item.id" :xs="24" :sm="12" :md="12" :lg="6" class="mb-4">
-          <el-card
-            class="h-full transition-colors relative overflow-hidden"
-            :body-style="{ padding: '0' }"
-          >
+          <el-card class="h-full transition-colors relative overflow-hidden" :body-style="{ padding: '0' }">
             <!-- 添加渐变背景层 -->
             <div
               class="absolute top-0 left-0 right-0 h-[50px] pointer-events-none"
-              :class="[
-                item.state === DeviceStateEnum.ONLINE
-                  ? 'bg-gradient-to-b from-[#eefaff] to-transparent'
-                  : 'bg-gradient-to-b from-[#fff1f1] to-transparent'
-              ]"
+              :class="[item.state === DeviceStateEnum.ONLINE ? 'bg-gradient-to-b from-[#eefaff] to-transparent' : 'bg-gradient-to-b from-[#fff1f1] to-transparent']"
             >
             </div>
             <div class="p-4 relative">
@@ -176,19 +82,8 @@
                 <div class="text-[16px] font-600 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ item.deviceName }}</div>
                 <!-- 添加设备状态标签 -->
                 <div class="inline-flex items-center">
-                  <div
-                    class="w-1 h-1 rounded-full mr-1.5"
-                    :class="
-                      item.state === DeviceStateEnum.ONLINE
-                        ? 'bg-[var(--el-color-success)]'
-                        : 'bg-[var(--el-color-danger)]'
-                    "
-                  >
-                  </div>
-                  <el-text
-                    class="!text-xs font-bold"
-                    :type="item.state === DeviceStateEnum.ONLINE ? 'success' : 'danger'"
-                  >
+                  <div class="w-1 h-1 rounded-full mr-1.5" :class="item.state === DeviceStateEnum.ONLINE ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"> </div>
+                  <el-text class="!text-xs font-bold" :type="item.state === DeviceStateEnum.ONLINE ? 'success' : 'danger'">
                     {{ getDictLabel(DICT_TYPE.IOT_DEVICE_STATE, item.state) }}
                   </el-text>
                 </div>
@@ -209,9 +104,7 @@
                   </div>
                   <div class="mb-2.5 last:mb-0">
                     <span class="text-[#717c8e] mr-2.5">备注名称</span>
-                    <span
-                      class="text-[var(--el-text-color-primary)] inline-block align-middle overflow-hidden text-ellipsis whitespace-nowrap max-w-[130px]"
-                    >
+                    <span class="text-[var(--el-text-color-primary)] inline-block align-middle overflow-hidden text-ellipsis whitespace-nowrap max-w-[130px]">
                       {{ item.nickname || item.deviceName }}
                     </span>
                   </div>
@@ -226,42 +119,20 @@
 
               <!-- 按钮 -->
               <div class="flex items-center px-0">
-                <el-button
-                  class="flex-1 !px-2 !h-[32px] text-[13px]"
-                  type="primary"
-                  plain
-                  @click="openForm('update', item.id)"
-                  v-hasPermi="['iot:device:update']"
-                >
+                <el-button class="flex-1 !px-2 !h-[32px] text-[13px]" type="primary" plain @click="openForm('update', item.id)" v-hasPermi="['iot:device:update']">
                   <Icon icon="ep:edit-pen" class="mr-1" />
                   编辑
                 </el-button>
-                <el-button
-                  class="flex-1 !px-2 !h-[32px] !ml-[10px] text-[13px]"
-                  type="warning"
-                  plain
-                  @click="openDetail(item.id)"
-                >
+                <el-button class="flex-1 !px-2 !h-[32px] !ml-[10px] text-[13px]" type="warning" plain @click="openDetail(item.id)">
                   <Icon icon="ep:view" class="mr-1" />
                   详情
                 </el-button>
-                <el-button
-                  class="flex-1 !px-2 !h-[32px] !ml-[10px] text-[13px]"
-                  type="info"
-                  plain
-                  @click="openModel(item.id)"
-                >
+                <el-button class="flex-1 !px-2 !h-[32px] !ml-[10px] text-[13px]" type="info" plain @click="openModel(item.id)">
                   <Icon icon="ep:tickets" class="mr-1" />
                   数据
                 </el-button>
                 <div class="mx-[10px] h-[20px] w-[1px] bg-[#dcdfe6]"></div>
-                <el-button
-                  class="!px-2 !h-[32px] text-[13px]"
-                  type="danger"
-                  plain
-                  @click="handleDelete(item.id)"
-                  v-hasPermi="['iot:device:delete']"
-                >
+                <el-button class="!px-2 !h-[32px] text-[13px]" type="danger" plain @click="handleDelete(item.id)" v-hasPermi="['iot:device:delete']">
                   <Icon icon="ep:delete" />
                 </el-button>
               </div>
@@ -272,14 +143,7 @@
     </template>
 
     <!-- 列表视图 -->
-    <el-table
-      v-else
-      v-loading="loading"
-      :data="list"
-      :stripe="true"
-      :show-overflow-tooltip="true"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-else v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" />
       <el-table-column label="DeviceName" align="center" prop="deviceName">
         <template #default="scope">
@@ -313,51 +177,19 @@
           <dict-tag :type="DICT_TYPE.IOT_DEVICE_STATE" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="最后上线时间"
-        align="center"
-        prop="onlineTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="最后上线时间" align="center" prop="onlineTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="操作" align="center" min-width="120px">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openDetail(scope.row.id)"
-            v-hasPermi="['iot:product:query']"
-          >
-            查看
-          </el-button>
+          <el-button link type="primary" @click="openDetail(scope.row.id)" v-hasPermi="['iot:product:query']"> 查看 </el-button>
           <el-button link type="primary" @click="openModel(scope.row.id)"> 日志 </el-button>
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['iot:device:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['iot:device:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['iot:device:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['iot:device:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

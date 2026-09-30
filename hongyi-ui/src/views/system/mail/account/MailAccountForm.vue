@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="150px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="150px">
       <el-form-item label="邮箱" prop="mail">
         <el-input v-model="formData.mail" placeholder="请输入邮箱" />
       </el-form-item>
@@ -14,42 +8,24 @@
         <el-input v-model="formData.username" placeholder="请输入用户名" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input
-          v-model="formData.password"
-          placeholder="请输入密码"
-          type="password"
-          show-password
-        />
+        <el-input v-model="formData.password" placeholder="请输入密码" type="password" show-password />
       </el-form-item>
       <el-form-item label="SMTP 服务器域名" prop="host">
         <el-input v-model="formData.host" placeholder="请输入 SMTP 服务器域名" />
       </el-form-item>
       <el-form-item label="SMTP 服务器端口" prop="port">
-        <el-input-number
-          v-model="formData.port"
-          placeholder="请输入 SMTP 服务器端口"
-          :min="1"
-          :max="65535"
-        />
+        <el-input-number v-model="formData.port" placeholder="请输入 SMTP 服务器端口" :min="1" :max="65535" />
       </el-form-item>
       <el-form-item label="是否开启 SSL">
         <el-radio-group v-model="formData.sslEnable">
-          <el-radio
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="是否开启 STARTTLS">
         <el-radio-group v-model="formData.starttlsEnable">
-          <el-radio
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>

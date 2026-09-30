@@ -14,35 +14,14 @@
     <el-row v-else style="text-align: center" align="middle">
       <!-- 选择素材 -->
       <el-col :span="12" class="col-select">
-        <el-button type="success" @click="showDialog = true">
-          素材库选择 <Icon icon="ep:circle-check" />
-        </el-button>
-        <el-dialog
-          title="选择图片"
-          v-model="showDialog"
-          width="90%"
-          append-to-body
-          destroy-on-close
-        >
-          <WxMaterialSelect
-            type="image"
-            :account-id="reply.accountId"
-            @select-material="selectMaterial"
-          />
+        <el-button type="success" @click="showDialog = true"> 素材库选择 <Icon icon="ep:circle-check" /> </el-button>
+        <el-dialog title="选择图片" v-model="showDialog" width="90%" append-to-body destroy-on-close>
+          <WxMaterialSelect type="image" :account-id="reply.accountId" @select-material="selectMaterial" />
         </el-dialog>
       </el-col>
       <!-- 文件上传 -->
       <el-col :span="12" class="col-add">
-        <el-upload
-          :action="UPLOAD_URL"
-          :headers="HEADERS"
-          multiple
-          :limit="1"
-          :file-list="fileList"
-          :data="uploadData"
-          :before-upload="beforeImageUpload"
-          :on-success="onUploadSuccess"
-        >
+        <el-upload :action="UPLOAD_URL" :headers="HEADERS" multiple :limit="1" :file-list="fileList" :data="uploadData" :before-upload="beforeImageUpload" :on-success="onUploadSuccess">
           <el-button type="primary">上传图片</el-button>
           <template #tip>
             <span>

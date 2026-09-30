@@ -93,12 +93,10 @@ const initChart = () => {
           labelLine: {
             show: false
           },
-          data: Object.entries(props.statsData.productCategoryDeviceCounts).map(
-            ([name, value]) => ({
-              name,
-              value
-            })
-          )
+          data: Object.entries(props.statsData.productCategoryDeviceCounts).map(([name, value]) => ({
+            name,
+            value
+          }))
         }
       ]
     })

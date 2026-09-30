@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="110px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="110px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="还款期数" prop="period">
@@ -15,17 +9,8 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="负责人" prop="ownerUserId">
-            <el-select
-              v-model="formData.ownerUserId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in userOptions"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
+            <el-select v-model="formData.ownerUserId" :disabled="formType !== 'create'" class="w-1/1">
+              <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -33,38 +18,15 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="客户名称" prop="customerId">
-            <el-select
-              v-model="formData.customerId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-              filterable
-              placeholder="请选择客户"
-              @change="handleCustomerChange"
-            >
-              <el-option
-                v-for="item in customerList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="formData.customerId" :disabled="formType !== 'create'" class="w-1/1" filterable placeholder="请选择客户" @change="handleCustomerChange">
+              <el-option v-for="item in customerList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="合同名称" prop="contractId">
-            <el-select
-              v-model="formData.contractId"
-              :disabled="formType !== 'create' || !formData.customerId"
-              class="w-1/1"
-              filterable
-              placeholder="请选择合同"
-            >
-              <el-option
-                v-for="data in contractList"
-                :key="data.id"
-                :label="data.name"
-                :value="data.id!"
-              />
+            <el-select v-model="formData.contractId" :disabled="formType !== 'create' || !formData.customerId" class="w-1/1" filterable placeholder="请选择合同">
+              <el-option v-for="data in contractList" :key="data.id" :label="data.name" :value="data.id!" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -72,48 +34,25 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="计划回款金额" prop="price">
-            <el-input-number
-              v-model="formData.price"
-              :min="0.01"
-              :precision="2"
-              class="!w-100%"
-              controls-position="right"
-              placeholder="请输入计划回款金额"
-            />
+            <el-input-number v-model="formData.price" :min="0.01" :precision="2" class="!w-100%" controls-position="right" placeholder="请输入计划回款金额" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="计划回款日期" prop="returnTime">
-            <el-date-picker
-              v-model="formData.returnTime"
-              placeholder="选择计划回款日期"
-              type="date"
-              value-format="x"
-              class="!w-100%"
-            />
+            <el-date-picker v-model="formData.returnTime" placeholder="选择计划回款日期" type="date" value-format="x" class="!w-100%" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="提前几天提醒" prop="remindDays">
-            <el-input-number
-              v-model="formData.remindDays"
-              class="!w-100%"
-              controls-position="right"
-              placeholder="请输入提前几天提醒"
-            />
+            <el-input-number v-model="formData.remindDays" class="!w-100%" controls-position="right" placeholder="请输入提前几天提醒" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="回款方式" prop="returnType">
             <el-select v-model="formData.returnType" class="w-1/1" placeholder="请选择回款方式">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>

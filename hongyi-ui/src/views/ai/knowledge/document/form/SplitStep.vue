@@ -5,17 +5,12 @@
       <div class="mb-20px flex justify-between items-center">
         <div class="text-16px font-bold flex items-center">
           分段设置
-          <el-tooltip
-            content="系统会自动将文档内容分割成多个段落，您可以根据需要调整分段方式和内容。"
-            placement="top"
-          >
+          <el-tooltip content="系统会自动将文档内容分割成多个段落，您可以根据需要调整分段方式和内容。" placement="top">
             <Icon icon="ep:warning" class="ml-5px text-gray-400" />
           </el-tooltip>
         </div>
         <div>
-          <el-button type="primary" plain size="small" @click="handleAutoSegment">
-            预览分段
-          </el-button>
+          <el-button type="primary" plain size="small" @click="handleAutoSegment"> 预览分段 </el-button>
         </div>
       </div>
 
@@ -38,22 +33,14 @@
           <div class="flex items-center cursor-pointer">
             <Icon icon="ep:document" class="text-danger mr-5px" />
             <span>{{ currentFile?.name || '请选择文件' }}</span>
-            <span v-if="currentFile?.segments" class="ml-5px text-gray-500 text-12px">
-              ({{ currentFile.segments.length }}个分片)
-            </span>
+            <span v-if="currentFile?.segments" class="ml-5px text-gray-500 text-12px"> ({{ currentFile.segments.length }}个分片) </span>
             <Icon icon="ep:arrow-down" class="ml-5px" />
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item
-                v-for="(file, index) in modelData.list"
-                :key="index"
-                @click="selectFile(index)"
-              >
+              <el-dropdown-item v-for="(file, index) in modelData.list" :key="index" @click="selectFile(index)">
                 {{ file.name }}
-                <span v-if="file.segments" class="ml-5px text-gray-500 text-12px">
-                  ({{ file.segments.length }}个分片)
-                </span>
+                <span v-if="file.segments" class="ml-5px text-gray-500 text-12px"> ({{ file.segments.length }}个分片) </span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -67,14 +54,9 @@
           <Icon icon="ep:loading" class="is-loading" />
           <span class="ml-10px">正在加载分段内容...</span>
         </div>
-        <template
-          v-else-if="currentFile && currentFile.segments && currentFile.segments.length > 0"
-        >
+        <template v-else-if="currentFile && currentFile.segments && currentFile.segments.length > 0">
           <div v-for="(segment, index) in currentFile.segments" :key="index" class="mb-10px">
-            <div class="text-gray-500 text-12px mb-5px">
-              分片-{{ index + 1 }} · {{ segment.contentLength || 0 }} 字符数 ·
-              {{ segment.tokens || 0 }} Token
-            </div>
+            <div class="text-gray-500 text-12px mb-5px"> 分片-{{ index + 1 }} · {{ segment.contentLength || 0 }} 字符数 · {{ segment.tokens || 0 }} Token </div>
             <div class="bg-white p-10px rounded-md">{{ segment.content }}</div>
           </div>
         </template>
@@ -88,9 +70,7 @@
         <el-button v-if="!modelData.id" @click="handlePrevStep">上一步</el-button>
       </div>
       <div>
-        <el-button type="primary" :loading="submitLoading" @click="handleSave">
-          保存并处理
-        </el-button>
+        <el-button type="primary" :loading="submitLoading" @click="handleSave"> 保存并处理 </el-button>
       </div>
     </div>
   </div>
@@ -139,10 +119,7 @@ const splitContent = async (file: any) => {
   splitLoading.value = true
   try {
     // 调用后端分段接口，获取文档的分段内容、字符数和 Token 数
-    file.segments = await KnowledgeSegmentApi.splitContent(
-      file.url,
-      modelData.value.segmentMaxTokens
-    )
+    file.segments = await KnowledgeSegmentApi.splitContent(file.url, modelData.value.segmentMaxTokens)
   } catch (error) {
     console.error('获取分段内容失败:', file, error)
   } finally {

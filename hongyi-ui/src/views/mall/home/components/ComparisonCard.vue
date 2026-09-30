@@ -36,7 +36,5 @@ const props = defineProps({
 })
 
 // 计算环比
-const percent = computed(() =>
-  calculateRelativeRate(props.value as number, props.reference as number)
-)
+const percent = computed(() => calculateRelativeRate(props.value as number, props.reference as number))
 </script>

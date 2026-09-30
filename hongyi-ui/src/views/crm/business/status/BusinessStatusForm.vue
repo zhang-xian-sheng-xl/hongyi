@@ -1,12 +1,6 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="状态组名" prop="name">
         <el-input v-model="formData.name" placeholder="请输入状态组名" />
       </el-form-item>
@@ -14,22 +8,10 @@
         <template #label>
           <Tooltip message="不选择部门时，默认全公司生效" title="应用部门" />
         </template>
-        <el-tree
-          ref="treeRef"
-          :data="deptList"
-          :props="defaultProps"
-          :check-strictly="!checkStrictly"
-          node-key="id"
-          placeholder="请选择归属部门"
-          show-checkbox
-        />
+        <el-tree ref="treeRef" :data="deptList" :props="defaultProps" :check-strictly="!checkStrictly" node-key="id" placeholder="请选择归属部门" show-checkbox />
       </el-form-item>
       <el-form-item label="阶段设置" prop="statuses">
-        <el-table
-          border
-          style="width: 100%"
-          :data="formData.statuses.concat(BusinessStatusApi.DEFAULT_STATUSES)"
-        >
+        <el-table border style="width: 100%" :data="formData.statuses.concat(BusinessStatusApi.DEFAULT_STATUSES)">
           <el-table-column align="center" label="阶段" width="70">
             <template #default="scope">
               <el-text v-if="!scope.row.defaultStatus">阶段 {{ scope.$index + 1 }}</el-text>
@@ -44,38 +26,14 @@
           </el-table-column>
           <el-table-column width="140" align="center" label="赢单率（%）" prop="percent">
             <template #default="{ row }">
-              <el-input-number
-                v-if="!row.endStatus"
-                v-model="row.percent"
-                placeholder="请输入赢单率"
-                controls-position="right"
-                :min="0"
-                :max="100"
-                :precision="2"
-                class="!w-1/1"
-              />
+              <el-input-number v-if="!row.endStatus" v-model="row.percent" placeholder="请输入赢单率" controls-position="right" :min="0" :max="100" :precision="2" class="!w-1/1" />
               <el-text v-else>{{ row.percent }}</el-text>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="110" align="center">
             <template #default="scope">
-              <el-button
-                v-if="!scope.row.endStatus"
-                link
-                type="primary"
-                @click="addStatus(scope.$index)"
-              >
-                添加
-              </el-button>
-              <el-button
-                v-if="!scope.row.endStatus"
-                link
-                type="danger"
-                @click="deleteStatusArea(scope.$index)"
-                :disabled="formData.statuses.length <= 1"
-              >
-                删除
-              </el-button>
+              <el-button v-if="!scope.row.endStatus" link type="primary" @click="addStatus(scope.$index)"> 添加 </el-button>
+              <el-button v-if="!scope.row.endStatus" link type="danger" @click="deleteStatusArea(scope.$index)" :disabled="formData.statuses.length <= 1"> 删除 </el-button>
             </template>
           </el-table-column>
         </el-table>

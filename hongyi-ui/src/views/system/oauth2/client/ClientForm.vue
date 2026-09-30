@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" max-height="500px" scroll>
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="160px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="160px">
       <el-form-item label="客户端编号" prop="secret">
         <el-input v-model="formData.clientId" placeholder="请输入客户端编号" />
       </el-form-item>
@@ -24,11 +18,7 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -40,101 +30,37 @@
         <el-input-number v-model="formData.refreshTokenValiditySeconds" placeholder="单位：秒" />
       </el-form-item>
       <el-form-item label="授权类型" prop="authorizedGrantTypes">
-        <el-select
-          v-model="formData.authorizedGrantTypes"
-          filterable
-          multiple
-          placeholder="请输入授权类型"
-          style="width: 500px"
-        >
-          <el-option
-            v-for="dict in getDictOptions(DICT_TYPE.SYSTEM_OAUTH2_GRANT_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="formData.authorizedGrantTypes" filterable multiple placeholder="请输入授权类型" style="width: 500px">
+          <el-option v-for="dict in getDictOptions(DICT_TYPE.SYSTEM_OAUTH2_GRANT_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="授权范围" prop="scopes">
-        <el-select
-          v-model="formData.scopes"
-          filterable
-          multiple
-          allow-create
-          placeholder="请输入授权范围"
-          style="width: 500px"
-        >
+        <el-select v-model="formData.scopes" filterable multiple allow-create placeholder="请输入授权范围" style="width: 500px">
           <el-option v-for="scope in formData.scopes" :key="scope" :label="scope" :value="scope" />
         </el-select>
       </el-form-item>
       <el-form-item label="自动授权范围" prop="autoApproveScopes">
-        <el-select
-          v-model="formData.autoApproveScopes"
-          filterable
-          multiple
-          placeholder="请输入授权范围"
-          style="width: 500px"
-        >
+        <el-select v-model="formData.autoApproveScopes" filterable multiple placeholder="请输入授权范围" style="width: 500px">
           <el-option v-for="scope in formData.scopes" :key="scope" :label="scope" :value="scope" />
         </el-select>
       </el-form-item>
       <el-form-item label="可重定向的 URI 地址" prop="redirectUris">
-        <el-select
-          v-model="formData.redirectUris"
-          allow-create
-          filterable
-          multiple
-          placeholder="请输入可重定向的 URI 地址"
-          style="width: 500px"
-        >
-          <el-option
-            v-for="redirectUri in formData.redirectUris"
-            :key="redirectUri"
-            :label="redirectUri"
-            :value="redirectUri"
-          />
+        <el-select v-model="formData.redirectUris" allow-create filterable multiple placeholder="请输入可重定向的 URI 地址" style="width: 500px">
+          <el-option v-for="redirectUri in formData.redirectUris" :key="redirectUri" :label="redirectUri" :value="redirectUri" />
         </el-select>
       </el-form-item>
       <el-form-item label="权限" prop="authorities">
-        <el-select
-          v-model="formData.authorities"
-          allow-create
-          filterable
-          multiple
-          placeholder="请输入权限"
-          style="width: 500px"
-        >
-          <el-option
-            v-for="authority in formData.authorities"
-            :key="authority"
-            :label="authority"
-            :value="authority"
-          />
+        <el-select v-model="formData.authorities" allow-create filterable multiple placeholder="请输入权限" style="width: 500px">
+          <el-option v-for="authority in formData.authorities" :key="authority" :label="authority" :value="authority" />
         </el-select>
       </el-form-item>
       <el-form-item label="资源" prop="resourceIds">
-        <el-select
-          v-model="formData.resourceIds"
-          allow-create
-          filterable
-          multiple
-          placeholder="请输入资源"
-          style="width: 500px"
-        >
-          <el-option
-            v-for="resourceId in formData.resourceIds"
-            :key="resourceId"
-            :label="resourceId"
-            :value="resourceId"
-          />
+        <el-select v-model="formData.resourceIds" allow-create filterable multiple placeholder="请输入资源" style="width: 500px">
+          <el-option v-for="resourceId in formData.resourceIds" :key="resourceId" :label="resourceId" :value="resourceId" />
         </el-select>
       </el-form-item>
       <el-form-item label="附加信息" prop="additionalInformation">
-        <el-input
-          v-model="formData.additionalInformation"
-          placeholder="请输入附加信息，JSON 格式数据"
-          type="textarea"
-        />
+        <el-input v-model="formData.additionalInformation" placeholder="请输入附加信息，JSON 格式数据" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -181,12 +107,8 @@ const formRules = reactive({
   name: [{ required: true, message: '应用名不能为空', trigger: 'blur' }],
   logo: [{ required: true, message: '应用图标不能为空', trigger: 'blur' }],
   status: [{ required: true, message: '状态不能为空', trigger: 'blur' }],
-  accessTokenValiditySeconds: [
-    { required: true, message: '访问令牌的有效期不能为空', trigger: 'blur' }
-  ],
-  refreshTokenValiditySeconds: [
-    { required: true, message: '刷新令牌的有效期不能为空', trigger: 'blur' }
-  ],
+  accessTokenValiditySeconds: [{ required: true, message: '访问令牌的有效期不能为空', trigger: 'blur' }],
+  refreshTokenValiditySeconds: [{ required: true, message: '刷新令牌的有效期不能为空', trigger: 'blur' }],
   redirectUris: [{ required: true, message: '可重定向的 URI 地址不能为空', trigger: 'blur' }],
   authorizedGrantTypes: [{ required: true, message: '授权类型不能为空', trigger: 'blur' }]
 })

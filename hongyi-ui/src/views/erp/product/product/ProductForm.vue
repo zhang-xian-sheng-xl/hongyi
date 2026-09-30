@@ -1,13 +1,7 @@
 <!-- ERP 产品的新增/修改 -->
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="名称" prop="name">
@@ -21,37 +15,20 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="分类" prop="categoryId">
-            <el-tree-select
-              v-model="formData.categoryId"
-              :data="categoryList"
-              :props="defaultProps"
-              check-strictly
-              default-expand-all
-              placeholder="请选择分类"
-              class="w-1/1"
-            />
+            <el-tree-select v-model="formData.categoryId" :data="categoryList" :props="defaultProps" check-strictly default-expand-all placeholder="请选择分类" class="w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="单位" prop="unitId">
             <el-select v-model="formData.unitId" clearable placeholder="请选择单位" class="w-1/1">
-              <el-option
-                v-for="unit in unitList"
-                :key="unit.id"
-                :label="unit.name"
-                :value="unit.id"
-              />
+              <el-option v-for="unit in unitList" :key="unit.id" :label="unit.name" :value="unit.id" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="状态" prop="status">
             <el-radio-group v-model="formData.status">
-              <el-radio
-                v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -64,56 +41,27 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="保质期天数" prop="expiryDay">
-            <el-input-number
-              v-model="formData.expiryDay"
-              placeholder="请输入保质期天数"
-              :min="0"
-              :precision="0"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.expiryDay" placeholder="请输入保质期天数" :min="0" :precision="0" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="重量（kg）" prop="weight">
-            <el-input-number
-              v-model="formData.weight"
-              placeholder="请输入重量（kg）"
-              :min="0"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.weight" placeholder="请输入重量（kg）" :min="0" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="采购价格" prop="purchasePrice">
-            <el-input-number
-              v-model="formData.purchasePrice"
-              placeholder="请输入采购价格，单位：元"
-              :min="0"
-              :precision="2"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.purchasePrice" placeholder="请输入采购价格，单位：元" :min="0" :precision="2" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="销售价格" prop="salePrice">
-            <el-input-number
-              v-model="formData.salePrice"
-              placeholder="请输入销售价格，单位：元"
-              :min="0"
-              :precision="2"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.salePrice" placeholder="请输入销售价格，单位：元" :min="0" :precision="2" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="最低价格" prop="minPrice">
-            <el-input-number
-              v-model="formData.minPrice"
-              placeholder="请输入最低价格，单位：元"
-              :min="0"
-              :precision="2"
-              class="!w-1/1"
-            />
+            <el-input-number v-model="formData.minPrice" placeholder="请输入最低价格，单位：元" :min="0" :precision="2" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="24">

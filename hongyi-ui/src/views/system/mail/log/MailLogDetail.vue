@@ -7,9 +7,7 @@
       <el-descriptions-item label="邮箱账号">
         {{ accountList.find((account) => account.id === detailData.accountId)?.mail }}
       </el-descriptions-item>
-      <el-descriptions-item label="邮件模板">
-        {{ detailData.templateId }} | {{ detailData.templateCode }}
-      </el-descriptions-item>
+      <el-descriptions-item label="邮件模板"> {{ detailData.templateId }} | {{ detailData.templateCode }} </el-descriptions-item>
       <el-descriptions-item label="模版发送人名称">
         {{ detailData.templateNickname }}
       </el-descriptions-item>
@@ -24,21 +22,15 @@
         <div>
           <div v-if="detailData.toMails && detailData.toMails.length > 0">
             收件：
-            <span v-for="(mail, index) in detailData.toMails" :key="mail">
-              {{ mail }}<span v-if="index < detailData.toMails.length - 1">、</span>
-            </span>
+            <span v-for="(mail, index) in detailData.toMails" :key="mail"> {{ mail }}<span v-if="index < detailData.toMails.length - 1">、</span> </span>
           </div>
           <div v-if="detailData.ccMails && detailData.ccMails.length > 0">
             抄送：
-            <span v-for="(mail, index) in detailData.ccMails" :key="mail">
-              {{ mail }}<span v-if="index < detailData.ccMails.length - 1">、</span>
-            </span>
+            <span v-for="(mail, index) in detailData.ccMails" :key="mail"> {{ mail }}<span v-if="index < detailData.ccMails.length - 1">、</span> </span>
           </div>
           <div v-if="detailData.bccMails && detailData.bccMails.length > 0">
             密送：
-            <span v-for="(mail, index) in detailData.bccMails" :key="mail">
-              {{ mail }}<span v-if="index < detailData.bccMails.length - 1">、</span>
-            </span>
+            <span v-for="(mail, index) in detailData.bccMails" :key="mail"> {{ mail }}<span v-if="index < detailData.bccMails.length - 1">、</span> </span>
           </div>
         </div>
       </el-descriptions-item>

@@ -19,26 +19,9 @@
       </el-table-column>
       <el-table-column label="合同编号" align="center" prop="no" />
       <el-table-column label="客户名称" align="center" prop="customerName" />
-      <el-table-column
-        label="合同金额（元）"
-        align="center"
-        prop="totalPrice"
-        :formatter="erpPriceTableColumnFormatter"
-      />
-      <el-table-column
-        label="开始时间"
-        align="center"
-        prop="startTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
-      <el-table-column
-        label="结束时间"
-        align="center"
-        prop="endTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="合同金额（元）" align="center" prop="totalPrice" :formatter="erpPriceTableColumnFormatter" />
+      <el-table-column label="开始时间" align="center" prop="startTime" :formatter="dateFormatter" width="180px" />
+      <el-table-column label="结束时间" align="center" prop="endTime" :formatter="dateFormatter" width="180px" />
       <el-table-column align="center" label="状态" prop="auditStatus">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.CRM_AUDIT_STATUS" :value="scope.row.auditStatus" />
@@ -46,12 +29,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加 -->

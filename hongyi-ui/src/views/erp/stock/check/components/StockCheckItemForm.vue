@@ -1,35 +1,12 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-    :disabled="disabled"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true" :disabled="disabled">
     <el-table :data="formData" show-summary :summary-method="getSummaries" class="-mt-10px">
       <el-table-column label="序号" type="index" align="center" width="60" />
       <el-table-column label="仓库名字" min-width="125">
         <template #default="{ row, $index }">
-          <el-form-item
-            :prop="`${$index}.warehouseId`"
-            :rules="formRules.warehouseId"
-            class="mb-0px!"
-          >
-            <el-select
-              v-model="row.warehouseId"
-              clearable
-              filterable
-              placeholder="请选择仓库名字"
-              @change="onChangeWarehouse($event, row)"
-            >
-              <el-option
-                v-for="item in warehouseList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+          <el-form-item :prop="`${$index}.warehouseId`" :rules="formRules.warehouseId" class="mb-0px!">
+            <el-select v-model="row.warehouseId" clearable filterable placeholder="请选择仓库名字" @change="onChangeWarehouse($event, row)">
+              <el-option v-for="item in warehouseList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </template>
@@ -37,19 +14,8 @@
       <el-table-column label="产品名称" min-width="180">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.productId`" :rules="formRules.productId" class="mb-0px!">
-            <el-select
-              v-model="row.productId"
-              clearable
-              filterable
-              @change="onChangeProduct($event, row)"
-              placeholder="请选择产品"
-            >
-              <el-option
-                v-for="item in productList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="row.productId" clearable filterable @change="onChangeProduct($event, row)" placeholder="请选择产品">
+              <el-option v-for="item in productList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </template>
@@ -77,42 +43,22 @@
       </el-table-column>
       <el-table-column label="实际库存" fixed="right" min-width="140">
         <template #default="{ row, $index }">
-          <el-form-item
-            :prop="`${$index}.actualCount`"
-            :rules="formRules.actualCount"
-            class="mb-0px!"
-          >
-            <el-input-number
-              v-model="row.actualCount"
-              controls-position="right"
-              :precision="3"
-              class="!w-100%"
-            />
+          <el-form-item :prop="`${$index}.actualCount`" :rules="formRules.actualCount" class="mb-0px!">
+            <el-input-number v-model="row.actualCount" controls-position="right" :precision="3" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="盈亏数量" prop="count" fixed="right" min-width="110">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.count`" :rules="formRules.count" class="mb-0px!">
-            <el-input
-              disabled
-              v-model="row.count"
-              :formatter="erpCountInputFormatter"
-              class="!w-100%"
-            />
+            <el-input disabled v-model="row.count" :formatter="erpCountInputFormatter" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="产品单价" fixed="right" min-width="120">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.productPrice`" class="mb-0px!">
-            <el-input-number
-              v-model="row.productPrice"
-              controls-position="right"
-              :min="0.01"
-              :precision="2"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.productPrice" controls-position="right" :min="0.01" :precision="2" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
@@ -145,12 +91,7 @@
 import { ProductApi, ProductVO } from '@/api/erp/product/product'
 import { WarehouseApi, WarehouseVO } from '@/api/erp/stock/warehouse'
 import { StockApi } from '@/api/erp/stock/stock'
-import {
-  erpCountInputFormatter,
-  erpPriceInputFormatter,
-  erpPriceMultiply,
-  getSumValue
-} from '@/utils'
+import { erpCountInputFormatter, erpPriceInputFormatter, erpPriceMultiply, getSumValue } from '@/utils'
 
 const props = defineProps<{
   items: undefined
@@ -209,8 +150,7 @@ const getSummaries = (param: SummaryMethodProps) => {
     }
     if (['count', 'totalPrice'].includes(column.property)) {
       const sum = getSumValue(data.map((item) => Number(item[column.property])))
-      sums[index] =
-        column.property === 'count' ? erpCountInputFormatter(sum) : erpPriceInputFormatter(sum)
+      sums[index] = column.property === 'count' ? erpCountInputFormatter(sum) : erpPriceInputFormatter(sum)
     } else {
       sums[index] = ''
     }

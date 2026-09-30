@@ -16,10 +16,7 @@
           <template #label>
             <span>
               实体类名称
-              <el-tooltip
-                content="默认去除表名的前缀。如果存在重复，则需要手动添加前缀，避免 MyBatis 报 Alias 重复的问题。"
-                placement="top"
-              >
+              <el-tooltip content="默认去除表名的前缀。如果存在重复，则需要手动添加前缀，避免 MyBatis 报 Alias 重复的问题。" placement="top">
                 <Icon class="" icon="ep:question-filled" />
               </el-tooltip>
             </span>

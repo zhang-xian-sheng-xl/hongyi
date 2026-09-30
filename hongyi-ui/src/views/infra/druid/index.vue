@@ -1,6 +1,4 @@
 <template>
-
-
   <ContentWrap :bodyStyle="{ padding: '0px' }" class="!mb-0">
     <IFrame v-if="!loading" v-loading="loading" :src="url" />
   </ContentWrap>

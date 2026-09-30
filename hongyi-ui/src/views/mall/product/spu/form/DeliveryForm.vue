@@ -3,27 +3,14 @@
   <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px" :disabled="isDetail">
     <el-form-item label="配送方式" prop="deliveryTypes">
       <el-checkbox-group v-model="formData.deliveryTypes" class="w-80">
-        <el-checkbox
-          v-for="dict in getIntDictOptions(DICT_TYPE.TRADE_DELIVERY_TYPE)"
-          :key="dict.value"
-          :value="dict.value"
-        >
+        <el-checkbox v-for="dict in getIntDictOptions(DICT_TYPE.TRADE_DELIVERY_TYPE)" :key="dict.value" :value="dict.value">
           {{ dict.label }}
         </el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item
-      label="运费模板"
-      prop="deliveryTemplateId"
-      v-if="formData.deliveryTypes?.includes(DeliveryTypeEnum.EXPRESS.type)"
-    >
+    <el-form-item label="运费模板" prop="deliveryTemplateId" v-if="formData.deliveryTypes?.includes(DeliveryTypeEnum.EXPRESS.type)">
       <el-select placeholder="请选择运费模板" v-model="formData.deliveryTemplateId" class="w-80">
-        <el-option
-          v-for="item in deliveryTemplateList"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        />
+        <el-option v-for="item in deliveryTemplateList" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
     </el-form-item>
   </el-form>

@@ -2,35 +2,13 @@
   <doc-alert title="支付功能开启" url="https://doc.iocoder.cn/pay/build/" />
   <!-- 搜索 -->
   <ContentWrap>
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="应用名" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          clearable
-          placeholder="请输入应用名"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入应用名" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="开启状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          class="!w-240px"
-          clearable
-          placeholder="请选择开启状态"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择开启状态">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -68,67 +46,28 @@
       <el-table-column align="center" label="应用名" min-width="90" prop="name" />
       <el-table-column align="center" label="开启状态" prop="status">
         <template #default="scope">
-          <el-switch
-            v-model="scope.row.status"
-            :active-value="0"
-            :inactive-value="1"
-            @change="handleStatusChange(scope.row)"
-          />
+          <el-switch v-model="scope.row.status" :active-value="0" :inactive-value="1" @change="handleStatusChange(scope.row)" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="支付宝配置">
-        <el-table-column
-          v-for="channel in alipayChannels"
-          :key="channel.code"
-          :label="channel.name.replace('支付宝', '')"
-          align="center"
-        >
+        <el-table-column v-for="channel in alipayChannels" :key="channel.code" :label="channel.name.replace('支付宝', '')" align="center">
           <template #default="scope">
-            <el-button
-              v-if="isChannelExists(scope.row.channelCodes, channel.code)"
-              circle
-              size="small"
-              type="success"
-              @click="openChannelForm(scope.row, channel.code)"
-            >
+            <el-button v-if="isChannelExists(scope.row.channelCodes, channel.code)" circle size="small" type="success" @click="openChannelForm(scope.row, channel.code)">
               <Icon icon="ep:check" />
             </el-button>
-            <el-button
-              v-else
-              circle
-              size="small"
-              type="danger"
-              @click="openChannelForm(scope.row, channel.code)"
-            >
+            <el-button v-else circle size="small" type="danger" @click="openChannelForm(scope.row, channel.code)">
               <Icon icon="ep:close" />
             </el-button>
           </template>
         </el-table-column>
       </el-table-column>
       <el-table-column align="center" label="微信配置">
-        <el-table-column
-          v-for="channel in wxChannels"
-          :key="channel.code"
-          :label="channel.name.replace('微信', '')"
-          align="center"
-        >
+        <el-table-column v-for="channel in wxChannels" :key="channel.code" :label="channel.name.replace('微信', '')" align="center">
           <template #default="scope">
-            <el-button
-              v-if="isChannelExists(scope.row.channelCodes, channel.code)"
-              circle
-              size="small"
-              type="success"
-              @click="openChannelForm(scope.row, channel.code)"
-            >
+            <el-button v-if="isChannelExists(scope.row.channelCodes, channel.code)" circle size="small" type="success" @click="openChannelForm(scope.row, channel.code)">
               <Icon icon="ep:check" />
             </el-button>
-            <el-button
-              v-else
-              circle
-              size="small"
-              type="danger"
-              @click="openChannelForm(scope.row, channel.code)"
-            >
+            <el-button v-else circle size="small" type="danger" @click="openChannelForm(scope.row, channel.code)">
               <Icon icon="ep:close" />
             </el-button>
           </template>
@@ -137,22 +76,10 @@
       <el-table-column align="center" label="钱包支付配置">
         <el-table-column :label="PayChannelEnum.WALLET.name" align="center">
           <template #default="scope">
-            <el-button
-              v-if="isChannelExists(scope.row.channelCodes, PayChannelEnum.WALLET.code)"
-              circle
-              size="small"
-              type="success"
-              @click="openChannelForm(scope.row, PayChannelEnum.WALLET.code)"
-            >
+            <el-button v-if="isChannelExists(scope.row.channelCodes, PayChannelEnum.WALLET.code)" circle size="small" type="success" @click="openChannelForm(scope.row, PayChannelEnum.WALLET.code)">
               <Icon icon="ep:check" />
             </el-button>
-            <el-button
-              v-else
-              circle
-              size="small"
-              type="danger"
-              @click="openChannelForm(scope.row, PayChannelEnum.WALLET.code)"
-            >
+            <el-button v-else circle size="small" type="danger" @click="openChannelForm(scope.row, PayChannelEnum.WALLET.code)">
               <Icon icon="ep:close" />
             </el-button>
           </template>
@@ -161,22 +88,10 @@
       <el-table-column align="center" label="模拟支付配置">
         <el-table-column :label="PayChannelEnum.MOCK.name" align="center">
           <template #default="scope">
-            <el-button
-              v-if="isChannelExists(scope.row.channelCodes, PayChannelEnum.MOCK.code)"
-              circle
-              size="small"
-              type="success"
-              @click="openChannelForm(scope.row, PayChannelEnum.MOCK.code)"
-            >
+            <el-button v-if="isChannelExists(scope.row.channelCodes, PayChannelEnum.MOCK.code)" circle size="small" type="success" @click="openChannelForm(scope.row, PayChannelEnum.MOCK.code)">
               <Icon icon="ep:check" />
             </el-button>
-            <el-button
-              v-else
-              circle
-              size="small"
-              type="danger"
-              @click="openChannelForm(scope.row, PayChannelEnum.MOCK.code)"
-            >
+            <el-button v-else circle size="small" type="danger" @click="openChannelForm(scope.row, PayChannelEnum.MOCK.code)">
               <Icon icon="ep:close" />
             </el-button>
           </template>
@@ -184,32 +99,13 @@
       </el-table-column>
       <el-table-column align="center" fixed="right" label="操作" min-width="110">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['pay:app:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['pay:app:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['pay:app:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['pay:app:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
@@ -249,22 +145,9 @@ const queryParams = reactive({
 })
 const queryFormRef = ref() // 搜索的表单
 
-const alipayChannels = [
-  PayChannelEnum.ALIPAY_APP,
-  PayChannelEnum.ALIPAY_PC,
-  PayChannelEnum.ALIPAY_WAP,
-  PayChannelEnum.ALIPAY_QR,
-  PayChannelEnum.ALIPAY_BAR
-]
+const alipayChannels = [PayChannelEnum.ALIPAY_APP, PayChannelEnum.ALIPAY_PC, PayChannelEnum.ALIPAY_WAP, PayChannelEnum.ALIPAY_QR, PayChannelEnum.ALIPAY_BAR]
 
-const wxChannels = [
-  PayChannelEnum.WX_LITE,
-  PayChannelEnum.WX_PUB,
-  PayChannelEnum.WX_APP,
-  PayChannelEnum.WX_NATIVE,
-  PayChannelEnum.WX_WAP,
-  PayChannelEnum.WX_BAR
-]
+const wxChannels = [PayChannelEnum.WX_LITE, PayChannelEnum.WX_PUB, PayChannelEnum.WX_APP, PayChannelEnum.WX_NATIVE, PayChannelEnum.WX_WAP, PayChannelEnum.WX_BAR]
 
 /** 查询列表 */
 const getList = async () => {
@@ -298,8 +181,7 @@ const handleStatusChange = async (row: any) => {
     await AppApi.changeAppStatus({ id: row.id, status: row.status })
     message.success(text + '成功')
   } catch {
-    row.status =
-      row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
+    row.status = row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE
   }
 }
 

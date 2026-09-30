@@ -4,16 +4,8 @@
       <CardTitle title="快捷入口" />
     </template>
     <div class="flex flex-row flex-wrap gap-8 p-4">
-      <div
-        v-for="menu in menuList"
-        :key="menu.name"
-        class="h-20 w-20% flex flex-col cursor-pointer items-center justify-center gap-2"
-        @click="handleMenuClick(menu.routerName)"
-      >
-        <div
-          :class="menu.bgColor"
-          class="h-48px w-48px flex items-center justify-center rounded text-white"
-        >
+      <div v-for="menu in menuList" :key="menu.name" class="h-20 w-20% flex flex-col cursor-pointer items-center justify-center gap-2" @click="handleMenuClick(menu.routerName)">
+        <div :class="menu.bgColor" class="h-48px w-48px flex items-center justify-center rounded text-white">
           <Icon :icon="menu.icon" class="text-7.5!" />
         </div>
         <span>{{ menu.name }}</span>

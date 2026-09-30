@@ -2,13 +2,7 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="时间范围" prop="orderDate">
         <el-date-picker
           v-model="queryParams.times"
@@ -23,18 +17,8 @@
         />
       </el-form-item>
       <el-form-item label="时间间隔" prop="interval">
-        <el-select
-          v-model="queryParams.interval"
-          class="!w-240px"
-          placeholder="间隔类型"
-          @change="handleQuery"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.DATE_INTERVAL)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.interval" class="!w-240px" placeholder="间隔类型" @change="handleQuery">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.DATE_INTERVAL)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="归属部门" prop="deptId">
@@ -46,23 +30,12 @@
           class="!w-240px"
           node-key="id"
           placeholder="请选择归属部门"
-          @change="(queryParams.userId = undefined), handleQuery()"
+          @change="((queryParams.userId = undefined), handleQuery())"
         />
       </el-form-item>
       <el-form-item label="员工" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          class="!w-240px"
-          clearable
-          placeholder="员工"
-          @change="handleQuery"
-        >
-          <el-option
-            v-for="(user, index) in userListByDeptId"
-            :key="index"
-            :label="user.nickname"
-            :value="user.id"
-          />
+        <el-select v-model="queryParams.userId" class="!w-240px" clearable placeholder="员工" @change="handleQuery">
+          <el-option v-for="(user, index) in userListByDeptId" :key="index" :label="user.nickname" :value="user.id" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -149,11 +122,7 @@ const deptList = ref<Tree[]>([]) // 部门树形结构
 const userList = ref<UserApi.UserVO[]>([]) // 全量用户清单
 
 /** 根据选择的部门筛选员工清单 */
-const userListByDeptId = computed(() =>
-  queryParams.deptId
-    ? userList.value.filter((u: UserApi.UserVO) => u.deptId === queryParams.deptId)
-    : []
-)
+const userListByDeptId = computed(() => (queryParams.deptId ? userList.value.filter((u: UserApi.UserVO) => u.deptId === queryParams.deptId) : []))
 
 const activeTab = ref('customerSummary') // 活跃标签
 const customerSummaryRef = ref() // 1. 客户总量分析

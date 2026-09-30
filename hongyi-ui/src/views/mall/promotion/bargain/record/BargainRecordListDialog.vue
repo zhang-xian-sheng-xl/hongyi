@@ -10,27 +10,11 @@
           </template>
         </el-table-column>
         <el-table-column label="用户昵称" prop="nickname" min-width="100px" />
-        <el-table-column
-          label="砍价金额"
-          prop="reducePrice"
-          min-width="100px"
-          :formatter="fenToYuanFormat"
-        />
-        <el-table-column
-          label="助力时间"
-          align="center"
-          prop="createTime"
-          :formatter="dateFormatter"
-          width="180px"
-        />
+        <el-table-column label="砍价金额" prop="reducePrice" min-width="100px" :formatter="fenToYuanFormat" />
+        <el-table-column label="助力时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getList"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </ContentWrap>
   </Dialog>
 </template>

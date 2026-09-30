@@ -6,20 +6,8 @@
         {{ scope.row.assigneeUser?.nickname || scope.row.ownerUser?.nickname }}
       </template>
     </el-table-column>
-    <el-table-column
-      :formatter="dateFormatter"
-      align="center"
-      label="开始时间"
-      prop="createTime"
-      min-width="140"
-    />
-    <el-table-column
-      :formatter="dateFormatter"
-      align="center"
-      label="结束时间"
-      prop="endTime"
-      min-width="140"
-    />
+    <el-table-column :formatter="dateFormatter" align="center" label="开始时间" prop="createTime" min-width="140" />
+    <el-table-column :formatter="dateFormatter" align="center" label="结束时间" prop="endTime" min-width="140" />
     <el-table-column align="center" label="审批状态" prop="status" min-width="90">
       <template #default="scope">
         <dict-tag :type="DICT_TYPE.BPM_TASK_STATUS" :value="scope.row.status" />
@@ -28,14 +16,7 @@
     <el-table-column align="center" label="审批建议" prop="reason" min-width="200">
       <template #default="scope">
         {{ scope.row.reason }}
-        <el-button
-          class="ml-10px"
-          size="small"
-          v-if="scope.row.formId > 0"
-          @click="handleFormDetail(scope.row)"
-        >
-          <Icon icon="ep:document" /> 查看表单
-        </el-button>
+        <el-button class="ml-10px" size="small" v-if="scope.row.formId > 0" @click="handleFormDetail(scope.row)"> <Icon icon="ep:document" /> 查看表单 </el-button>
       </template>
     </el-table-column>
     <el-table-column align="center" label="耗时" prop="durationInMillis" min-width="100">
@@ -47,12 +28,7 @@
 
   <!-- 弹窗：表单 -->
   <Dialog title="表单详情" v-model="taskFormVisible" width="600">
-    <form-create
-      ref="fApi"
-      v-model="taskForm.value"
-      :option="taskForm.option"
-      :rule="taskForm.rule"
-    />
+    <form-create ref="fApi" v-model="taskForm.value" :option="taskForm.option" :rule="taskForm.rule" />
   </Dialog>
 </template>
 <script lang="ts" setup>

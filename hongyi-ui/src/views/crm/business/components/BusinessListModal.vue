@@ -2,41 +2,21 @@
   <Dialog title="关联商机" v-model="dialogVisible">
     <!-- 搜索工作栏 -->
     <ContentWrap>
-      <el-form
-        class="-mb-15px"
-        :model="queryParams"
-        ref="queryFormRef"
-        :inline="true"
-        label-width="68px"
-      >
+      <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
         <el-form-item label="商机名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            placeholder="请输入商机名称"
-            clearable
-            @keyup.enter="handleQuery"
-            class="!w-240px"
-          />
+          <el-input v-model="queryParams.name" placeholder="请输入商机名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
         </el-form-item>
         <el-form-item>
           <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
           <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-          <el-button type="primary" @click="openForm()" v-hasPermi="['crm:business:create']">
-            <Icon icon="ep:plus" class="mr-5px" /> 新增
-          </el-button>
+          <el-button type="primary" @click="openForm()" v-hasPermi="['crm:business:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
         </el-form-item>
       </el-form>
     </ContentWrap>
 
     <!-- 列表 -->
     <ContentWrap class="mt-10px">
-      <el-table
-        v-loading="loading"
-        ref="businessRef"
-        :data="list"
-        :stripe="true"
-        :show-overflow-tooltip="true"
-      >
+      <el-table v-loading="loading" ref="businessRef" :data="list" :stripe="true" :show-overflow-tooltip="true">
         <el-table-column type="selection" width="55" />
         <el-table-column label="商机名称" fixed="left" align="center" prop="name">
           <template #default="scope">
@@ -45,23 +25,13 @@
             </el-link>
           </template>
         </el-table-column>
-        <el-table-column
-          label="商机金额"
-          align="center"
-          prop="totalPrice"
-          :formatter="erpPriceTableColumnFormatter"
-        />
+        <el-table-column label="商机金额" align="center" prop="totalPrice" :formatter="erpPriceTableColumnFormatter" />
         <el-table-column label="客户名称" align="center" prop="customerName" />
         <el-table-column label="商机组" align="center" prop="statusTypeName" />
         <el-table-column label="商机阶段" align="center" prop="statusName" />
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        :total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="getList"
-      />
+      <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </ContentWrap>
     <template #footer>
       <el-button @click="submitForm" type="primary" :disabled="formLoading">确 定</el-button>
@@ -138,9 +108,7 @@ const openForm = () => {
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调
 const businessRef = ref()
 const submitForm = async () => {
-  const businessIds = businessRef.value
-    .getSelectionRows()
-    .map((row: BusinessApi.BusinessVO) => row.id)
+  const businessIds = businessRef.value.getSelectionRows().map((row: BusinessApi.BusinessVO) => row.id)
   if (businessIds.length === 0) {
     return message.error('未选择商机')
   }

@@ -32,9 +32,7 @@ defineExpose({ open })
 const parseFormFields = () => {
   if (!printData.value) return
 
-  const formFieldsObj = decodeFields(
-    printData.value.processInstance.processDefinition?.formFields || []
-  )
+  const formFieldsObj = decodeFields(printData.value.processInstance.processDefinition?.formFields || [])
   const processVariables = printData.value.processInstance.formVariables
   let res: any = []
   for (const item of formFieldsObj) {
@@ -79,10 +77,7 @@ const initPrintDataMap = () => {
   printDataMap.value['processNum'] = printData.value.processInstance.id
   printDataMap.value['startTime'] = formatDate(printData.value.processInstance.startTime)
   printDataMap.value['endTime'] = formatDate(printData.value.processInstance.endTime)
-  printDataMap.value['processStatus'] = getDictLabel(
-    DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS,
-    printData.value.processInstance.status
-  )
+  printDataMap.value['processStatus'] = getDictLabel(DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS, printData.value.processInstance.status)
   printDataMap.value['printUser'] = userName.value
   printDataMap.value['printTime'] = printTime.value
 }
@@ -168,12 +163,7 @@ const printObj = ref({
               <td class="p-5px w-25%">{{ printData.processInstance.startUser.deptName }}</td>
               <td class="p-5px w-25%">流程状态</td>
               <td class="p-5px w-25%">
-                {{
-                  getDictLabel(
-                    DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS,
-                    printData.processInstance.status
-                  )
-                }}
+                {{ getDictLabel(DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS, printData.processInstance.status) }}
               </td>
             </tr>
             <tr>

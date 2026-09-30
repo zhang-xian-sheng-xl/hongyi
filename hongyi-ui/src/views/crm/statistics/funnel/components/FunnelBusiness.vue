@@ -112,16 +112,9 @@ const handleActive = async (val: boolean) => {
 const loadData = async () => {
   loading.value = true
   // 1. 加载漏斗数据
-  const data = (await StatisticFunnelApi.getFunnelSummary(
-    props.queryParams
-  )) as CrmStatisticFunnelRespVO
+  const data = (await StatisticFunnelApi.getFunnelSummary(props.queryParams)) as CrmStatisticFunnelRespVO
   // 2.1 更新 Echarts 数据
-  if (
-    !!data &&
-    echartsOption.series &&
-    echartsOption.series[0] &&
-    echartsOption.series[0]['data']
-  ) {
+  if (!!data && echartsOption.series && echartsOption.series[0] && echartsOption.series[0]['data']) {
     // tips：写死 value 值是为了保持漏斗顺序不变
     const list: { value: number; name: string }[] = []
     if (active.value) {

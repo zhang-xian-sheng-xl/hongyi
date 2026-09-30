@@ -1,9 +1,6 @@
 <!--  AI 对话  -->
 <template>
-  <el-aside
-    width="260px"
-    class="h-100% relative flex flex-col justify-between px-2.5 pt-2.5 pb-0 overflow-hidden"
-  >
+  <el-aside width="260px" class="h-100% relative flex flex-col justify-between px-2.5 pt-2.5 pb-0 overflow-hidden">
     <!-- 左顶部：对话 -->
     <div class="h-100%">
       <el-button class="w-1/1 py-4.5" type="primary" @click="createConversation">
@@ -12,13 +9,7 @@
       </el-button>
 
       <!-- 左顶部：搜索对话 -->
-      <el-input
-        v-model="searchName"
-        size="large"
-        class="mt-5"
-        placeholder="搜索历史记录"
-        @keyup="searchConversation"
-      >
+      <el-input v-model="searchName" size="large" class="mt-5" placeholder="搜索历史记录" @keyup="searchConversation">
         <template #prefix>
           <Icon icon="ep:search" />
         </template>
@@ -45,37 +36,18 @@
           >
             <div
               class="flex flex-row justify-between flex-1 px-1.25 cursor-pointer rounded-1.25 items-center leading-7.5"
-              :style="
-                conversation.id === activeConversationId
-                  ? 'background-color: var(--el-color-primary-light-9); border: 1px solid var(--el-color-primary-light-7);'
-                  : ''
-              "
+              :style="conversation.id === activeConversationId ? 'background-color: var(--el-color-primary-light-9); border: 1px solid var(--el-color-primary-light-7);' : ''"
             >
               <div class="flex flex-row items-center">
-                <img
-                  class="w-6.25 h-6.25 rounded-1.25 flex flex-row justify-center"
-                  :src="conversation.roleAvatar || roleAvatarDefaultImg"
-                />
+                <img class="w-6.25 h-6.25 rounded-1.25 flex flex-row justify-center" :src="conversation.roleAvatar || roleAvatarDefaultImg" />
                 <span
                   class="py-0.5 px-2.5"
-                  style="
-                    max-width: 220px;
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: var(--el-text-color-regular);
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                  "
+                  style="max-width: 220px; font-size: 14px; font-weight: 400; color: var(--el-text-color-regular); overflow: hidden; white-space: nowrap; text-overflow: ellipsis"
                 >
                   {{ conversation.title }}
                 </span>
               </div>
-              <div
-                class="right-0.5 flex flex-row justify-center"
-                style="color: var(--el-text-color-regular)"
-                v-show="hoverConversationId === conversation.id"
-              >
+              <div class="right-0.5 flex flex-row justify-center" style="color: var(--el-text-color-regular)" v-show="hoverConversationId === conversation.id">
                 <el-button class="m-0" link @click.stop="handleTop(conversation)">
                   <el-icon title="置顶" v-if="!conversation.pinned"><Top /></el-icon>
                   <el-icon title="置顶" v-if="conversation.pinned"><Bottom /></el-icon>
@@ -102,25 +74,13 @@
     <!-- 左底部：工具栏 -->
     <div
       class="absolute bottom-0 left-0 right-0 px-5 leading-8.75 flex justify-between items-center"
-      style="
-        background-color: var(--el-fill-color-extra-light);
-        box-shadow: 0 0 1px 1px var(--el-border-color-lighter);
-        color: var(--el-text-color);
-      "
+      style="background-color: var(--el-fill-color-extra-light); box-shadow: 0 0 1px 1px var(--el-border-color-lighter); color: var(--el-text-color)"
     >
-      <div
-        class="flex items-center p-0 m-0 cursor-pointer"
-        style="color: var(--el-text-color-regular)"
-        @click="handleRoleRepository"
-      >
+      <div class="flex items-center p-0 m-0 cursor-pointer" style="color: var(--el-text-color-regular)" @click="handleRoleRepository">
         <Icon icon="ep:user" />
         <el-text class="ml-1.25" size="small">角色仓库</el-text>
       </div>
-      <div
-        class="flex items-center p-0 m-0 cursor-pointer"
-        style="color: var(--el-text-color-regular)"
-        @click="handleClearConversation"
-      >
+      <div class="flex items-center p-0 m-0 cursor-pointer" style="color: var(--el-text-color-regular)" @click="handleClearConversation">
         <Icon icon="ep:delete" />
         <el-text class="ml-1.25" size="small">清空未置顶对话</el-text>
       </div>
@@ -159,12 +119,7 @@ const props = defineProps({
 })
 
 // 定义钩子
-const emits = defineEmits([
-  'onConversationCreate',
-  'onConversationClick',
-  'onConversationClear',
-  'onConversationDelete'
-])
+const emits = defineEmits(['onConversationCreate', 'onConversationClick', 'onConversationClear', 'onConversationDelete'])
 
 /** 搜索对话 */
 const searchConversation = async (e) => {
@@ -274,9 +229,7 @@ const getConversationGroupByCreateTime = async (list: ChatConversationVO[]) => {
 /** 新建对话 */
 const createConversation = async () => {
   // 1. 新建对话
-  const conversationId = await ChatConversationApi.createChatConversationMy(
-    {} as unknown as ChatConversationVO
-  )
+  const conversationId = await ChatConversationApi.createChatConversationMy({} as unknown as ChatConversationVO)
   // 2. 获取对话内容
   await getChatConversationList()
   // 3. 选中对话

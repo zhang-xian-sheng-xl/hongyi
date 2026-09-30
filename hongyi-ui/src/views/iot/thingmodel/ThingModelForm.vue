@@ -1,20 +1,10 @@
 <!-- 产品的物模型表单 -->
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="ThingModelFormRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="ThingModelFormRules" label-width="100px">
       <el-form-item label="功能类型" prop="type">
         <el-radio-group v-model="formData.type">
-          <el-radio-button
-            v-for="dict in getIntDictOptions(DICT_TYPE.IOT_THING_MODEL_TYPE)"
-            :key="dict.value"
-            :value="dict.value"
-          >
+          <el-radio-button v-for="dict in getIntDictOptions(DICT_TYPE.IOT_THING_MODEL_TYPE)" :key="dict.value" :value="dict.value">
             {{ dict.label }}
           </el-radio-button>
         </el-radio-group>
@@ -26,28 +16,13 @@
         <el-input v-model="formData.identifier" placeholder="请输入标识符" />
       </el-form-item>
       <!-- 属性配置 -->
-      <ThingModelProperty
-        v-if="formData.type === IoTThingModelTypeEnum.PROPERTY"
-        v-model="formData.property"
-      />
+      <ThingModelProperty v-if="formData.type === IoTThingModelTypeEnum.PROPERTY" v-model="formData.property" />
       <!-- 服务配置 -->
-      <ThingModelService
-        v-if="formData.type === IoTThingModelTypeEnum.SERVICE"
-        v-model="formData.service"
-      />
+      <ThingModelService v-if="formData.type === IoTThingModelTypeEnum.SERVICE" v-model="formData.service" />
       <!-- 事件配置 -->
-      <ThingModelEvent
-        v-if="formData.type === IoTThingModelTypeEnum.EVENT"
-        v-model="formData.event"
-      />
+      <ThingModelEvent v-if="formData.type === IoTThingModelTypeEnum.EVENT" v-model="formData.event" />
       <el-form-item label="描述" prop="description">
-        <el-input
-          v-model="formData.description"
-          :maxlength="200"
-          :rows="3"
-          placeholder="请输入属性描述"
-          type="textarea"
-        />
+        <el-input v-model="formData.description" :maxlength="200" :rows="3" placeholder="请输入属性描述" type="textarea" />
       </el-form-item>
     </el-form>
 
@@ -64,11 +39,7 @@ import ThingModelProperty from './ThingModelProperty.vue'
 import ThingModelService from './ThingModelService.vue'
 import ThingModelEvent from './ThingModelEvent.vue'
 import { ThingModelApi, ThingModelData, ThingModelFormRules } from '@/api/iot/thingmodel'
-import {
-  IOT_PROVIDE_KEY,
-  IoTDataSpecsDataTypeEnum,
-  IoTThingModelTypeEnum
-} from '@/views/iot/utils/constants'
+import { IOT_PROVIDE_KEY, IoTDataSpecsDataTypeEnum, IoTThingModelTypeEnum } from '@/views/iot/utils/constants'
 import { cloneDeep } from 'lodash-es'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import { isEmpty } from '@/utils/is'

@@ -5,19 +5,8 @@
     <el-row :gutter="16">
       <el-col :span="8">
         <el-form-item label="条件类型" required>
-          <el-select
-            :model-value="condition.type"
-            @update:model-value="(value) => updateConditionField('type', value)"
-            @change="handleConditionTypeChange"
-            placeholder="请选择条件类型"
-            class="w-full"
-          >
-            <el-option
-              v-for="option in getConditionTypeOptions()"
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
-            />
+          <el-select :model-value="condition.type" @update:model-value="(value) => updateConditionField('type', value)" @change="handleConditionTypeChange" placeholder="请选择条件类型" class="w-full">
+            <el-option v-for="option in getConditionTypeOptions()" :key="option.value" :label="option.label" :value="option.value" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -27,47 +16,25 @@
     <el-row v-if="isDeviceCondition" :gutter="16">
       <el-col :span="12">
         <el-form-item label="产品" required>
-          <ProductSelector
-            :model-value="condition.productId"
-            @update:model-value="(value) => updateConditionField('productId', value)"
-            @change="handleProductChange"
-          />
+          <ProductSelector :model-value="condition.productId" @update:model-value="(value) => updateConditionField('productId', value)" @change="handleProductChange" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="设备" required>
-          <DeviceSelector
-            :model-value="condition.deviceId"
-            @update:model-value="(value) => updateConditionField('deviceId', value)"
-            :product-id="condition.productId"
-            @change="handleDeviceChange"
-          />
+          <DeviceSelector :model-value="condition.deviceId" @update:model-value="(value) => updateConditionField('deviceId', value)" :product-id="condition.productId" @change="handleDeviceChange" />
         </el-form-item>
       </el-col>
     </el-row>
 
     <!-- 设备状态条件配置 -->
-    <div
-      v-if="condition.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_STATUS"
-      class="flex flex-col gap-16px"
-    >
+    <div v-if="condition.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_STATUS" class="flex flex-col gap-16px">
       <!-- 状态和操作符选择 -->
       <el-row :gutter="16">
         <!-- 操作符选择 -->
         <el-col :span="12">
           <el-form-item label="操作符" required>
-            <el-select
-              :model-value="condition.operator"
-              @update:model-value="(value) => updateConditionField('operator', value)"
-              placeholder="请选择操作符"
-              class="w-full"
-            >
-              <el-option
-                v-for="option in statusOperatorOptions"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value"
-              />
+            <el-select :model-value="condition.operator" @update:model-value="(value) => updateConditionField('operator', value)" placeholder="请选择操作符" class="w-full">
+              <el-option v-for="option in statusOperatorOptions" :key="option.value" :label="option.label" :value="option.value" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -75,18 +42,8 @@
         <!-- 状态选择 -->
         <el-col :span="12">
           <el-form-item label="设备状态" required>
-            <el-select
-              :model-value="condition.param"
-              @update:model-value="(value) => updateConditionField('param', value)"
-              placeholder="请选择设备状态"
-              class="w-full"
-            >
-              <el-option
-                v-for="option in deviceStatusOptions"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value"
-              />
+            <el-select :model-value="condition.param" @update:model-value="(value) => updateConditionField('param', value)" placeholder="请选择设备状态" class="w-full">
+              <el-option v-for="option in deviceStatusOptions" :key="option.value" :label="option.label" :value="option.value" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -94,10 +51,7 @@
     </div>
 
     <!-- 设备属性条件配置 -->
-    <div
-      v-else-if="condition.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_PROPERTY"
-      class="space-y-16px"
-    >
+    <div v-else-if="condition.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_PROPERTY" class="space-y-16px">
       <!-- 属性配置 -->
       <el-row :gutter="16">
         <!-- 属性/事件/服务选择 -->
@@ -117,12 +71,7 @@
         <!-- 操作符选择 -->
         <el-col :span="6">
           <el-form-item label="操作符" required>
-            <OperatorSelector
-              :model-value="condition.operator"
-              @update:model-value="(value) => updateConditionField('operator', value)"
-              :property-type="propertyType"
-              @change="handleOperatorChange"
-            />
+            <OperatorSelector :model-value="condition.operator" @update:model-value="(value) => updateConditionField('operator', value)" :property-type="propertyType" @change="handleOperatorChange" />
           </el-form-item>
         </el-col>
 
@@ -142,11 +91,7 @@
     </div>
 
     <!-- 当前时间条件配置 -->
-    <CurrentTimeConditionConfig
-      v-else-if="condition.type === IotRuleSceneTriggerConditionTypeEnum.CURRENT_TIME"
-      :model-value="condition"
-      @update:model-value="updateCondition"
-    />
+    <CurrentTimeConditionConfig v-else-if="condition.type === IotRuleSceneTriggerConditionTypeEnum.CURRENT_TIME" :model-value="condition" @update:model-value="updateCondition" />
   </div>
 </template>
 
@@ -159,12 +104,7 @@ import PropertySelector from '../selectors/PropertySelector.vue'
 import OperatorSelector from '../selectors/OperatorSelector.vue'
 import ValueInput from '../inputs/ValueInput.vue'
 import type { TriggerCondition } from '@/api/iot/rule/scene'
-import {
-  IotRuleSceneTriggerConditionTypeEnum,
-  IotRuleSceneTriggerConditionParameterOperatorEnum,
-  getConditionTypeOptions,
-  IoTDeviceStatusEnum
-} from '@/views/iot/utils/constants'
+import { IotRuleSceneTriggerConditionTypeEnum, IotRuleSceneTriggerConditionParameterOperatorEnum, getConditionTypeOptions, IoTDeviceStatusEnum } from '@/views/iot/utils/constants'
 
 /** 单个条件配置组件 */
 defineOptions({ name: 'ConditionConfig' })
@@ -207,10 +147,7 @@ const condition = useVModel(props, 'modelValue', emit)
 const propertyType = ref<string>('string') // 属性类型
 const propertyConfig = ref<any>(null) // 属性配置
 const isDeviceCondition = computed(() => {
-  return (
-    condition.value.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_STATUS ||
-    condition.value.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_PROPERTY
-  )
+  return condition.value.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_STATUS || condition.value.type === IotRuleSceneTriggerConditionTypeEnum.DEVICE_PROPERTY
 }) // 计算属性：判断是否为设备相关条件
 
 /**
@@ -253,9 +190,7 @@ const handleConditionTypeChange = (type: number) => {
   }
 
   // 设置默认操作符
-  condition.value.operator = isCurrentTime
-    ? 'at_time'
-    : IotRuleSceneTriggerConditionParameterOperatorEnum.EQUALS.value
+  condition.value.operator = isCurrentTime ? 'at_time' : IotRuleSceneTriggerConditionParameterOperatorEnum.EQUALS.value
 
   // 清空参数值
   condition.value.param = ''

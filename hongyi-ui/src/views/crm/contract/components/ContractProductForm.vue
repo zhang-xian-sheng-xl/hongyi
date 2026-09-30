@@ -1,31 +1,12 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-    :disabled="disabled"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true" :disabled="disabled">
     <el-table :data="formData" class="-mt-10px">
       <el-table-column label="序号" type="index" align="center" width="60" />
       <el-table-column label="产品名称" min-width="180">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.productId`" :rules="formRules.productId" class="mb-0px!">
-            <el-select
-              v-model="row.productId"
-              clearable
-              filterable
-              @change="onChangeProduct($event, row)"
-              placeholder="请选择产品"
-            >
-              <el-option
-                v-for="item in productList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
+            <el-select v-model="row.productId" clearable filterable @change="onChangeProduct($event, row)" placeholder="请选择产品">
+              <el-option v-for="item in productList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
           </el-form-item>
         </template>
@@ -52,26 +33,14 @@
       <el-table-column label="售价（元）" fixed="right" min-width="140">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.contractPrice`" class="mb-0px!">
-            <el-input-number
-              v-model="row.contractPrice"
-              controls-position="right"
-              :min="0.001"
-              :precision="2"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.contractPrice" controls-position="right" :min="0.001" :precision="2" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="数量" prop="count" fixed="right" min-width="120">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.count`" :rules="formRules.count" class="mb-0px!">
-            <el-input-number
-              v-model="row.count"
-              controls-position="right"
-              :min="0.001"
-              :precision="3"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.count" controls-position="right" :min="0.001" :precision="3" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>

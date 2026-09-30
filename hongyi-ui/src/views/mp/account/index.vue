@@ -3,28 +3,14 @@
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.name" placeholder="请输入名称" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" />搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" />重置</el-button>
-        <el-button type="primary" @click="openForm('create')" v-hasPermi="['mp:account:create']">
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
+        <el-button type="primary" @click="openForm('create')" v-hasPermi="['mp:account:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -42,59 +28,21 @@
       </el-table-column>
       <el-table-column label="二维码" align="center" prop="qrCodeUrl">
         <template #default="scope">
-          <img
-            v-if="scope.row.qrCodeUrl"
-            :src="scope.row.qrCodeUrl"
-            alt="二维码"
-            style="display: inline-block; height: 100px"
-          />
-          <el-button
-            link
-            type="primary"
-            @click="handleGenerateQrCode(scope.row)"
-            v-hasPermi="['mp:account:qr-code']"
-          >
-            生成二维码
-          </el-button>
+          <img v-if="scope.row.qrCodeUrl" :src="scope.row.qrCodeUrl" alt="二维码" style="display: inline-block; height: 100px" />
+          <el-button link type="primary" @click="handleGenerateQrCode(scope.row)" v-hasPermi="['mp:account:qr-code']"> 生成二维码 </el-button>
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['mp:account:update']"
-          >
-            编辑
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['mp:account:delete']"
-          >
-            删除
-          </el-button>
-          <el-button
-            link
-            type="danger"
-            @click="handleCleanQuota(scope.row)"
-            v-hasPermi="['mp:account:clear-quota']"
-          >
-            清空 API 配额
-          </el-button>
+          <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['mp:account:update']"> 编辑 </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['mp:account:delete']"> 删除 </el-button>
+          <el-button link type="danger" @click="handleCleanQuota(scope.row)" v-hasPermi="['mp:account:clear-quota']"> 清空 API 配额 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 对话框(添加 / 修改) -->

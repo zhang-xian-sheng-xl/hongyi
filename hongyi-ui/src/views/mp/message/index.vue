@@ -1,34 +1,17 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="公众号" prop="accountId">
         <WxAccountSelect @change="onAccountChanged" />
       </el-form-item>
       <el-form-item label="消息类型" prop="type">
         <el-select v-model="queryParams.type" placeholder="请选择消息类型" class="!w-240px">
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.MP_MESSAGE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.MP_MESSAGE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="用户标识" prop="openid">
-        <el-input
-          v-model="queryParams.openid"
-          placeholder="请输入用户标识"
-          clearable
-          :v-on="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.openid" placeholder="请输入用户标识" clearable :v-on="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
@@ -59,23 +42,11 @@
   <!-- 列表 -->
   <ContentWrap>
     <MessageTable :list="list" :loading="loading" @send="handleSend" />
-    <Pagination
-      v-show="total > 0"
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 发送消息的弹窗 -->
-  <el-dialog
-    title="粉丝消息列表"
-    v-model="messageBox.show"
-    @click="messageBox.show = true"
-    width="50%"
-    destroy-on-close
-  >
+  <el-dialog title="粉丝消息列表" v-model="messageBox.show" @click="messageBox.show = true" width="50%" destroy-on-close>
     <WxMsg :user-id="messageBox.userId" />
   </el-dialog>
 </template>

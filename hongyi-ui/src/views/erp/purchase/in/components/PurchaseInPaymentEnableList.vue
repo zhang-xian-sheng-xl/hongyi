@@ -1,44 +1,15 @@
 <!-- 可付款的采购入库单列表 -->
 <template>
-  <Dialog
-    title="选择采购入库（仅展示可付款）"
-    v-model="dialogVisible"
-    :appendToBody="true"
-    :scroll="true"
-    width="1080"
-  >
+  <Dialog title="选择采购入库（仅展示可付款）" v-model="dialogVisible" :appendToBody="true" :scroll="true" width="1080">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        class="-mb-15px"
-        :model="queryParams"
-        ref="queryFormRef"
-        :inline="true"
-        label-width="68px"
-      >
+      <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
         <el-form-item label="入库单号" prop="no">
-          <el-input
-            v-model="queryParams.no"
-            placeholder="请输入入库单号"
-            clearable
-            @keyup.enter="handleQuery"
-            class="!w-160px"
-          />
+          <el-input v-model="queryParams.no" placeholder="请输入入库单号" clearable @keyup.enter="handleQuery" class="!w-160px" />
         </el-form-item>
         <el-form-item label="产品" prop="productId">
-          <el-select
-            v-model="queryParams.productId"
-            clearable
-            filterable
-            placeholder="请选择产品"
-            class="!w-160px"
-          >
-            <el-option
-              v-for="item in productList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="queryParams.productId" clearable filterable placeholder="请选择产品" class="!w-160px">
+            <el-option v-for="item in productList" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="入库时间" prop="orderTime">
@@ -60,37 +31,15 @@
     </ContentWrap>
 
     <ContentWrap>
-      <el-table
-        v-loading="loading"
-        :data="list"
-        :show-overflow-tooltip="true"
-        :stripe="true"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true" @selection-change="handleSelectionChange">
         <el-table-column width="30" label="选择" type="selection" />
         <el-table-column min-width="180" label="入库单号" align="center" prop="no" />
         <el-table-column label="供应商" align="center" prop="supplierName" />
         <el-table-column label="产品信息" align="center" prop="productNames" min-width="200" />
-        <el-table-column
-          label="入库时间"
-          align="center"
-          prop="inTime"
-          :formatter="dateFormatter2"
-          width="120px"
-        />
+        <el-table-column label="入库时间" align="center" prop="inTime" :formatter="dateFormatter2" width="120px" />
         <el-table-column label="创建人" align="center" prop="creatorName" />
-        <el-table-column
-          label="应付金额"
-          align="center"
-          prop="totalPrice"
-          :formatter="erpPriceTableColumnFormatter"
-        />
-        <el-table-column
-          label="已付金额"
-          align="center"
-          prop="paymentPrice"
-          :formatter="erpPriceTableColumnFormatter"
-        />
+        <el-table-column label="应付金额" align="center" prop="totalPrice" :formatter="erpPriceTableColumnFormatter" />
+        <el-table-column label="已付金额" align="center" prop="paymentPrice" :formatter="erpPriceTableColumnFormatter" />
         <el-table-column label="未付金额" align="center">
           <template #default="scope">
             <span v-if="scope.row.paymentPrice === scope.row.totalPrice">0</span>
@@ -101,17 +50,10 @@
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer>
-      <el-button :disabled="!selectionList.length" type="primary" @click="submitForm">
-        确 定
-      </el-button>
+      <el-button :disabled="!selectionList.length" type="primary" @click="submitForm"> 确 定 </el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>

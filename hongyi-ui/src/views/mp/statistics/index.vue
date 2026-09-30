@@ -76,10 +76,7 @@ defineOptions({ name: 'MpStatistics' })
 const message = useMessage() // 消息弹窗
 
 // 默认开始时间是当前日期-7，结束时间是当前日期-1
-const dateRange = ref([
-  beginOfDay(new Date(new Date().getTime() - 3600 * 1000 * 24 * 7)),
-  endOfDay(new Date(new Date().getTime() - 3600 * 1000 * 24))
-])
+const dateRange = ref([beginOfDay(new Date(new Date().getTime() - 3600 * 1000 * 24 * 7)), endOfDay(new Date(new Date().getTime() - 3600 * 1000 * 24))])
 const accountId = ref(-1) // 选中的公众号编号
 
 const xAxisDate = ref([] as any[]) // X 轴的日期范围
@@ -245,9 +242,7 @@ const getSummary = () => {
   // 横坐标加载日期数据
   const days = betweenDay(dateRange.value[0], dateRange.value[1]) // 相差天数
   for (let i = 0; i <= days; i++) {
-    xAxisDate.value.push(
-      formatDate(addTime(dateRange.value[0], 3600 * 1000 * 24 * i), 'YYYY-MM-DD')
-    )
+    xAxisDate.value.push(formatDate(addTime(dateRange.value[0], 3600 * 1000 * 24 * i), 'YYYY-MM-DD'))
   }
   // 初始化图表
   initUserSummaryChart()

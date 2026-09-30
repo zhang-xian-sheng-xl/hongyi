@@ -10,7 +10,5 @@ import { getAccessToken, getRefreshToken } from '@/utils/auth'
 
 defineOptions({ name: 'GoView' })
 
-const src = ref(
-  `${import.meta.env.VITE_GOVIEW_URL}?accessToken=${getAccessToken()}&refreshToken=${getRefreshToken()}`
-)
+const src = ref(`${import.meta.env.VITE_GOVIEW_URL}?accessToken=${getAccessToken()}&refreshToken=${getRefreshToken()}`)
 </script>

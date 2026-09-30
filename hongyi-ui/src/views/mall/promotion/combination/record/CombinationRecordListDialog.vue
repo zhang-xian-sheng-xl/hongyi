@@ -15,36 +15,16 @@
             <el-tag> {{ row.headId === 0 ? '团长' : '团员' }} </el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          :formatter="dateFormatter"
-          align="center"
-          label="参团时间"
-          prop="createTime"
-          width="180"
-        />
-        <el-table-column
-          :formatter="dateFormatter"
-          align="center"
-          label="结束时间"
-          prop="endTime"
-          width="180"
-        />
+        <el-table-column :formatter="dateFormatter" align="center" label="参团时间" prop="createTime" width="180" />
+        <el-table-column :formatter="dateFormatter" align="center" label="结束时间" prop="endTime" width="180" />
         <el-table-column align="center" label="拼团状态" prop="status" min-width="150">
           <template #default="scope">
-            <dict-tag
-              :type="DICT_TYPE.PROMOTION_COMBINATION_RECORD_STATUS"
-              :value="scope.row.status"
-            />
+            <dict-tag :type="DICT_TYPE.PROMOTION_COMBINATION_RECORD_STATUS" :value="scope.row.status" />
           </template>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
   </Dialog>
 </template>

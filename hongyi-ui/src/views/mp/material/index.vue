@@ -16,22 +16,11 @@
         <template #label>
           <el-row align="middle"> <Icon icon="ep:picture" />图片 </el-row>
         </template>
-        <UploadFile
-          v-hasPermi="['mp:material:upload-permanent']"
-          :type="UploadType.Image"
-          @uploaded="getList"
-        >
-          支持 bmp/png/jpeg/jpg/gif 格式，大小不超过 2M
-        </UploadFile>
+        <UploadFile v-hasPermi="['mp:material:upload-permanent']" :type="UploadType.Image" @uploaded="getList"> 支持 bmp/png/jpeg/jpg/gif 格式，大小不超过 2M </UploadFile>
         <!-- 列表 -->
         <ImageTable :loading="loading" :list="list" @delete="handleDelete" />
         <!-- 分页组件 -->
-        <Pagination
-          :total="total"
-          v-model:page="queryParams.pageNo"
-          v-model:limit="queryParams.pageSize"
-          @pagination="getList"
-        />
+        <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
       </el-tab-pane>
 
       <!-- tab 2：语音  -->
@@ -39,22 +28,11 @@
         <template #label>
           <el-row align="middle"> <Icon icon="ep:microphone" />语音 </el-row>
         </template>
-        <UploadFile
-          v-hasPermi="['mp:material:upload-permanent']"
-          :type="UploadType.Voice"
-          @uploaded="getList"
-        >
-          格式支持 mp3/wma/wav/amr，文件大小不超过 2M，播放长度不超过 60s
-        </UploadFile>
+        <UploadFile v-hasPermi="['mp:material:upload-permanent']" :type="UploadType.Voice" @uploaded="getList"> 格式支持 mp3/wma/wav/amr，文件大小不超过 2M，播放长度不超过 60s </UploadFile>
         <!-- 列表 -->
         <VoiceTable :list="list" :loading="loading" @delete="handleDelete" />
         <!-- 分页组件 -->
-        <Pagination
-          :total="total"
-          v-model:page="queryParams.pageNo"
-          v-model:limit="queryParams.pageSize"
-          @pagination="getList"
-        />
+        <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
       </el-tab-pane>
 
       <!-- tab 3：视频 -->
@@ -62,24 +40,13 @@
         <template #label>
           <el-row align="middle"> <Icon icon="ep:video-play" /> 视频 </el-row>
         </template>
-        <el-button
-          v-hasPermi="['mp:material:upload-permanent']"
-          type="primary"
-          plain
-          @click="showCreateVideo = true"
-          >新建视频</el-button
-        >
+        <el-button v-hasPermi="['mp:material:upload-permanent']" type="primary" plain @click="showCreateVideo = true">新建视频</el-button>
         <!-- 新建视频的弹窗 -->
         <UploadVideo v-model="showCreateVideo" />
         <!-- 列表 -->
         <VideoTable :list="list" :loading="loading" @delete="handleDelete" />
         <!-- 分页组件 -->
-        <Pagination
-          :total="total"
-          v-model:page="queryParams.pageNo"
-          v-model:limit="queryParams.pageSize"
-          @pagination="getList"
-        />
+        <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
       </el-tab-pane>
     </el-tabs>
   </ContentWrap>

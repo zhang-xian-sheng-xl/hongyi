@@ -5,9 +5,7 @@
       <el-descriptions-item label="支付单号">{{ payOrder.id }}</el-descriptions-item>
       <el-descriptions-item label="商品标题">{{ payOrder.subject }}</el-descriptions-item>
       <el-descriptions-item label="商品内容">{{ payOrder.body }}</el-descriptions-item>
-      <el-descriptions-item label="支付金额">
-        ￥{{ (payOrder.price / 100.0).toFixed(2) }}
-      </el-descriptions-item>
+      <el-descriptions-item label="支付金额"> ￥{{ (payOrder.price / 100.0).toFixed(2) }} </el-descriptions-item>
       <el-descriptions-item label="创建时间">
         {{ formatDate(payOrder.createTime) }}
       </el-descriptions-item>
@@ -22,12 +20,7 @@
     <!-- 支付宝 -->
     <el-descriptions title="选择支付宝支付" />
     <div class="pay-channel-container">
-      <div
-        class="box"
-        v-for="channel in channelsAlipay"
-        :key="channel.code"
-        @click="submit(channel.code)"
-      >
+      <div class="box" v-for="channel in channelsAlipay" :key="channel.code" @click="submit(channel.code)">
         <img :src="channel.icon" />
         <div class="title">{{ channel.name }}</div>
       </div>
@@ -35,12 +28,7 @@
     <!-- 微信支付 -->
     <el-descriptions title="选择微信支付" style="margin-top: 20px" />
     <div class="pay-channel-container">
-      <div
-        class="box"
-        v-for="channel in channelsWechat"
-        :key="channel.code"
-        @click="submit(channel.code)"
-      >
+      <div class="box" v-for="channel in channelsWechat" :key="channel.code" @click="submit(channel.code)">
         <img :src="channel.icon" />
         <div class="title">{{ channel.name }}</div>
       </div>
@@ -48,12 +36,7 @@
     <!-- 其它支付 -->
     <el-descriptions title="选择其它支付" style="margin-top: 20px" />
     <div class="pay-channel-container">
-      <div
-        class="box"
-        v-for="channel in channelsMock"
-        :key="channel.code"
-        @click="submit(channel.code)"
-      >
+      <div class="box" v-for="channel in channelsMock" :key="channel.code" @click="submit(channel.code)">
         <img :src="channel.icon" />
         <div class="title">{{ channel.name }}</div>
       </div>
@@ -61,24 +44,12 @@
   </el-card>
 
   <!-- 展示形式：二维码 URL -->
-  <Dialog
-    :title="qrCode.title"
-    v-model="qrCode.visible"
-    width="350px"
-    append-to-body
-    :close-on-press-escape="false"
-  >
+  <Dialog :title="qrCode.title" v-model="qrCode.visible" width="350px" append-to-body :close-on-press-escape="false">
     <Qrcode :text="qrCode.url" :width="310" />
   </Dialog>
 
   <!-- 展示形式：BarCode 条形码 -->
-  <Dialog
-    :title="barCode.title"
-    v-model="barCode.visible"
-    width="500px"
-    append-to-body
-    :close-on-press-escape="false"
-  >
+  <Dialog :title="barCode.title" v-model="barCode.visible" width="500px" append-to-body :close-on-press-escape="false">
     <el-form ref="form" label-width="80px">
       <el-row>
         <el-col :span="24">
@@ -89,26 +60,14 @@
         <el-col :span="24">
           <div style="text-align: right">
             或使用
-            <el-link
-              type="danger"
-              target="_blank"
-              href="https://baike.baidu.com/item/条码支付/10711903"
-            >
-              (扫码枪/扫码盒)
-            </el-link>
+            <el-link type="danger" target="_blank" href="https://baike.baidu.com/item/条码支付/10711903"> (扫码枪/扫码盒) </el-link>
             扫码
           </div>
         </el-col>
       </el-row>
     </el-form>
     <template #footer>
-      <el-button
-        type="primary"
-        @click="submit0(barCode.channelCode)"
-        :disabled="barCode.value.length === 0"
-      >
-        确认支付
-      </el-button>
+      <el-button type="primary" @click="submit0(barCode.channelCode)" :disabled="barCode.value.length === 0"> 确认支付 </el-button>
       <el-button @click="barCode.visible = false">取 消</el-button>
     </template>
   </Dialog>
@@ -437,10 +396,7 @@ const goReturnUrl = (payResult) => {
     return
   }
 
-  const url =
-    returnUrl.value.indexOf('?') >= 0
-      ? returnUrl.value + '&payResult=' + payResult
-      : returnUrl.value + '?payResult=' + payResult
+  const url = returnUrl.value.indexOf('?') >= 0 ? returnUrl.value + '&payResult=' + payResult : returnUrl.value + '?payResult=' + payResult
   // 如果有配置，且是 http 开头，则浏览器跳转
   if (returnUrl.value.indexOf('http') === 0) {
     location.href = url

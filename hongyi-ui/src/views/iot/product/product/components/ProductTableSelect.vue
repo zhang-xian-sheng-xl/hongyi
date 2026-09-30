@@ -3,30 +3,12 @@
   <Dialog :title="dialogTitle" v-model="dialogVisible" :appendToBody="true" width="60%">
     <ContentWrap>
       <!-- 搜索工作栏 -->
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="68px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
         <el-form-item label="产品名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            class="!w-240px"
-            clearable
-            placeholder="请输入产品名称"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入产品名称" @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="ProductKey" prop="productKey">
-          <el-input
-            v-model="queryParams.productKey"
-            class="!w-240px"
-            clearable
-            placeholder="请输入产品标识"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.productKey" class="!w-240px" clearable placeholder="请输入产品标识" @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
           <el-button @click="handleQuery">
@@ -43,25 +25,11 @@
 
     <!-- 列表 -->
     <ContentWrap>
-      <el-table
-        ref="tableRef"
-        v-loading="loading"
-        :data="list"
-        :show-overflow-tooltip="true"
-        :stripe="true"
-        @row-click="handleRowClick"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table ref="tableRef" v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true" @row-click="handleRowClick" @selection-change="handleSelectionChange">
         <el-table-column v-if="multiple" type="selection" width="55" />
         <el-table-column v-else width="55">
           <template #default="scope">
-            <el-radio
-              v-model="selectedId"
-              :value="scope.row.id"
-              @change="() => handleRadioChange(scope.row)"
-            >
-              &nbsp;
-            </el-radio>
+            <el-radio v-model="selectedId" :value="scope.row.id" @change="() => handleRadioChange(scope.row)"> &nbsp; </el-radio>
           </template>
         </el-table-column>
         <el-table-column align="center" label="名称" prop="name" />
@@ -74,42 +42,21 @@
         </el-table-column>
         <el-table-column align="center" label="产品图标" prop="icon">
           <template #default="scope">
-            <el-image
-              v-if="scope.row.icon"
-              :preview-src-list="[scope.row.icon]"
-              :src="scope.row.icon"
-              class="w-40px h-40px"
-            />
+            <el-image v-if="scope.row.icon" :preview-src-list="[scope.row.icon]" :src="scope.row.icon" class="w-40px h-40px" />
             <span v-else>-</span>
           </template>
         </el-table-column>
         <el-table-column align="center" label="产品图片" prop="picture">
           <template #default="scope">
-            <el-image
-              v-if="scope.row.picUrl"
-              :preview-src-list="[scope.row.picture]"
-              :src="scope.row.picUrl"
-              class="w-40px h-40px"
-            />
+            <el-image v-if="scope.row.picUrl" :preview-src-list="[scope.row.picture]" :src="scope.row.picUrl" class="w-40px h-40px" />
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column
-          :formatter="dateFormatter"
-          align="center"
-          label="创建时间"
-          prop="createTime"
-          width="180px"
-        />
+        <el-table-column :formatter="dateFormatter" align="center" label="创建时间" prop="createTime" width="180px" />
       </el-table>
 
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
 
     <template #footer>

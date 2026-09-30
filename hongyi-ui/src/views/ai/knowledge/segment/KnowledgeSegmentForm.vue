@@ -1,19 +1,8 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="切片内容" prop="content">
-        <el-input
-          v-model="formData.content"
-          type="textarea"
-          :rows="6"
-          placeholder="请输入切片内容"
-        />
+        <el-input v-model="formData.content" type="textarea" :rows="6" placeholder="请输入切片内容" />
       </el-form-item>
     </el-form>
     <template #footer>

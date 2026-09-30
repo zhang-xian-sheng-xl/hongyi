@@ -13,13 +13,7 @@
         <template #default="{ row }"> {{ floatToFixed2(row.price) }}元</template>
       </el-table-column>
       <el-table-column align="center" label="销量" min-width="90" prop="salesCount" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="收藏时间"
-        prop="createTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="收藏时间" prop="createTime" width="180" />
       <el-table-column align="center" label="状态" min-width="80">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.PRODUCT_SPU_STATUS" :value="scope.row.status" />
@@ -27,12 +21,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

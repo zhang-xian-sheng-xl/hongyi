@@ -4,32 +4,12 @@
   <div class="w-full space-y-12px">
     <!-- JSON 输入框 -->
     <div class="relative">
-      <el-input
-        v-model="paramsJson"
-        type="textarea"
-        :rows="4"
-        :placeholder="placeholder"
-        @input="handleParamsChange"
-        :class="{ 'is-error': jsonError }"
-      />
+      <el-input v-model="paramsJson" type="textarea" :rows="4" :placeholder="placeholder" @input="handleParamsChange" :class="{ 'is-error': jsonError }" />
       <!-- 查看详细示例弹出层 -->
       <div class="absolute top-8px right-8px">
-        <el-popover
-          placement="left-start"
-          :width="450"
-          trigger="click"
-          :show-arrow="true"
-          :offset="8"
-          popper-class="json-params-detail-popover"
-        >
+        <el-popover placement="left-start" :width="450" trigger="click" :show-arrow="true" :offset="8" popper-class="json-params-detail-popover">
           <template #reference>
-            <el-button
-              type="info"
-              :icon="InfoFilled"
-              circle
-              size="small"
-              :title="JSON_PARAMS_INPUT_CONSTANTS.VIEW_EXAMPLE_TITLE"
-            />
+            <el-button type="info" :icon="InfoFilled" circle size="small" :title="JSON_PARAMS_INPUT_CONSTANTS.VIEW_EXAMPLE_TITLE" />
           </template>
 
           <!-- 弹出层内容 -->
@@ -51,11 +31,7 @@
                   </span>
                 </div>
                 <div class="ml-22px space-y-8px">
-                  <div
-                    v-for="param in paramsList"
-                    :key="param.identifier"
-                    class="flex items-center justify-between p-8px bg-[var(--el-fill-color-lighter)] rounded-4px"
-                  >
+                  <div v-for="param in paramsList" :key="param.identifier" class="flex items-center justify-between p-8px bg-[var(--el-fill-color-lighter)] rounded-4px">
                     <div class="flex-1">
                       <div class="text-12px font-500 text-[var(--el-text-color-primary)]">
                         {{ param.name }}
@@ -82,9 +58,7 @@
                   <div class="text-12px text-[var(--el-text-color-secondary)] mb-6px">
                     {{ JSON_PARAMS_INPUT_CONSTANTS.COMPLETE_JSON_FORMAT }}
                   </div>
-                  <pre
-                    class="p-12px bg-[var(--el-fill-color-light)] rounded-4px text-11px text-[var(--el-text-color-primary)] overflow-x-auto border-l-3px border-[var(--el-color-primary)]"
-                  >
+                  <pre class="p-12px bg-[var(--el-fill-color-light)] rounded-4px text-11px text-[var(--el-text-color-primary)] overflow-x-auto border-l-3px border-[var(--el-color-primary)]">
                       <code>{{ generateExampleJson() }}</code>
                     </pre>
                 </div>
@@ -106,33 +80,22 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-8px">
         <Icon
-          :icon="
-            jsonError
-              ? JSON_PARAMS_INPUT_ICONS.STATUS_ICONS.ERROR
-              : JSON_PARAMS_INPUT_ICONS.STATUS_ICONS.SUCCESS
-          "
+          :icon="jsonError ? JSON_PARAMS_INPUT_ICONS.STATUS_ICONS.ERROR : JSON_PARAMS_INPUT_ICONS.STATUS_ICONS.SUCCESS"
           :class="jsonError ? 'text-[var(--el-color-danger)]' : 'text-[var(--el-color-success)]'"
           class="text-14px"
         />
-        <span
-          :class="jsonError ? 'text-[var(--el-color-danger)]' : 'text-[var(--el-color-success)]'"
-          class="text-12px"
-        >
+        <span :class="jsonError ? 'text-[var(--el-color-danger)]' : 'text-[var(--el-color-success)]'" class="text-12px">
           {{ jsonError || JSON_PARAMS_INPUT_CONSTANTS.JSON_FORMAT_CORRECT }}
         </span>
       </div>
 
       <!-- 快速填充按钮 -->
       <div v-if="paramsList.length > 0" class="flex items-center gap-8px">
-        <span class="text-12px text-[var(--el-text-color-secondary)]">{{
-          JSON_PARAMS_INPUT_CONSTANTS.QUICK_FILL_LABEL
-        }}</span>
+        <span class="text-12px text-[var(--el-text-color-secondary)]">{{ JSON_PARAMS_INPUT_CONSTANTS.QUICK_FILL_LABEL }}</span>
         <el-button size="small" type="primary" plain @click="fillExampleJson">
           {{ JSON_PARAMS_INPUT_CONSTANTS.EXAMPLE_DATA_BUTTON }}
         </el-button>
-        <el-button size="small" type="danger" plain @click="clearParams">{{
-          JSON_PARAMS_INPUT_CONSTANTS.CLEAR_BUTTON
-        }}</el-button>
+        <el-button size="small" type="danger" plain @click="clearParams">{{ JSON_PARAMS_INPUT_CONSTANTS.CLEAR_BUTTON }}</el-button>
       </div>
     </div>
   </div>
@@ -341,9 +304,7 @@ const handleParamsChange = () => {
     // 验证通过
     jsonError.value = ''
   } catch (error) {
-    jsonError.value = JSON_PARAMS_INPUT_CONSTANTS.JSON_FORMAT_ERROR(
-      error instanceof Error ? error.message : JSON_PARAMS_INPUT_CONSTANTS.UNKNOWN_ERROR
-    )
+    jsonError.value = JSON_PARAMS_INPUT_CONSTANTS.JSON_FORMAT_ERROR(error instanceof Error ? error.message : JSON_PARAMS_INPUT_CONSTANTS.UNKNOWN_ERROR)
   }
 }
 
@@ -411,8 +372,7 @@ const getParamTypeTag = (dataType: string) => {
  * @returns 示例值
  */
 const getExampleValue = (param: any) => {
-  const exampleConfig =
-    JSON_PARAMS_EXAMPLE_VALUES[param.dataType] || JSON_PARAMS_EXAMPLE_VALUES.DEFAULT
+  const exampleConfig = JSON_PARAMS_EXAMPLE_VALUES[param.dataType] || JSON_PARAMS_EXAMPLE_VALUES.DEFAULT
   return exampleConfig.display
 }
 
@@ -427,8 +387,7 @@ const generateExampleJson = () => {
 
   const example = {}
   paramsList.value.forEach((param) => {
-    const exampleConfig =
-      JSON_PARAMS_EXAMPLE_VALUES[param.dataType] || JSON_PARAMS_EXAMPLE_VALUES.DEFAULT
+    const exampleConfig = JSON_PARAMS_EXAMPLE_VALUES[param.dataType] || JSON_PARAMS_EXAMPLE_VALUES.DEFAULT
     example[param.identifier] = exampleConfig.value
   })
 

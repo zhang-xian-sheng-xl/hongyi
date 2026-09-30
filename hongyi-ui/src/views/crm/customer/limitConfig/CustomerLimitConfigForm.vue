@@ -1,49 +1,18 @@
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="200px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="200px" v-loading="formLoading">
       <el-form-item label="规则适用人群" prop="userIds">
         <el-select multiple filterable v-model="formData.userIds">
-          <el-option
-            v-for="item in userOptions"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+          <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="规则适用部门" prop="deptIds">
-        <el-tree-select
-          v-model="formData.deptIds"
-          :data="deptTree"
-          :props="defaultProps"
-          multiple
-          filterable
-          check-strictly
-          node-key="id"
-          placeholder="请选择规则适用部门"
-        />
+        <el-tree-select v-model="formData.deptIds" :data="deptTree" :props="defaultProps" multiple filterable check-strictly node-key="id" placeholder="请选择规则适用部门" />
       </el-form-item>
-      <el-form-item
-        :label="
-          formData.type === LimitConfType.CUSTOMER_QUANTITY_LIMIT
-            ? '拥有客户数上限'
-            : '锁定客户数上限'
-        "
-        prop="maxCount"
-      >
+      <el-form-item :label="formData.type === LimitConfType.CUSTOMER_QUANTITY_LIMIT ? '拥有客户数上限' : '锁定客户数上限'" prop="maxCount">
         <el-input-number v-model="formData.maxCount" placeholder="请输入数量上限" />
       </el-form-item>
-      <el-form-item
-        label="成交客户是否占用拥有客户数"
-        v-if="formData.type === LimitConfType.CUSTOMER_QUANTITY_LIMIT"
-        prop="dealCountEnabled"
-      >
+      <el-form-item label="成交客户是否占用拥有客户数" v-if="formData.type === LimitConfType.CUSTOMER_QUANTITY_LIMIT" prop="dealCountEnabled">
         <el-switch v-model="formData.dealCountEnabled" />
       </el-form-item>
     </el-form>

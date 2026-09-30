@@ -1,12 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true">
     <el-table :data="formData" class="-mt-10px">
       <el-table-column label="序号" type="index" width="100" />
       <el-table-column label="名字" min-width="150">

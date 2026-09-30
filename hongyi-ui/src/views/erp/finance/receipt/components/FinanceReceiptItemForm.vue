@@ -1,13 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="formData"
-    :rules="formRules"
-    v-loading="formLoading"
-    label-width="0px"
-    :inline-message="true"
-    :disabled="disabled"
-  >
+  <el-form ref="formRef" :model="formData" :rules="formRules" v-loading="formLoading" label-width="0px" :inline-message="true" :disabled="disabled">
     <el-table :data="formData" show-summary :summary-method="getSummaries" class="-mt-10px">
       <el-table-column label="序号" type="index" align="center" width="60" />
       <el-table-column label="销售单据编号" min-width="200">
@@ -34,12 +26,7 @@
       <el-table-column label="本次收款" prop="receiptPrice" fixed="right" min-width="115">
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.receiptPrice`" class="mb-0px!">
-            <el-input-number
-              v-model="row.receiptPrice"
-              controls-position="right"
-              :precision="2"
-              class="!w-100%"
-            />
+            <el-input-number v-model="row.receiptPrice" controls-position="right" :precision="2" class="!w-100%" />
           </el-form-item>
         </template>
       </el-table-column>

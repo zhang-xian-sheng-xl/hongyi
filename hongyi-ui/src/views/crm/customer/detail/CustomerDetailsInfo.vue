@@ -15,9 +15,7 @@
           <el-descriptions-item label="手机">{{ customer.mobile }}</el-descriptions-item>
           <el-descriptions-item label="电话">{{ customer.telephone }}</el-descriptions-item>
           <el-descriptions-item label="邮箱">{{ customer.email }}</el-descriptions-item>
-          <el-descriptions-item label="地址">
-            {{ customer.areaName }} {{ customer.detailAddress }}
-          </el-descriptions-item>
+          <el-descriptions-item label="地址"> {{ customer.areaName }} {{ customer.detailAddress }} </el-descriptions-item>
           <el-descriptions-item label="QQ">{{ customer.qq }}</el-descriptions-item>
           <el-descriptions-item label="微信">{{ customer.wechat }}</el-descriptions-item>
           <el-descriptions-item label="客户行业">

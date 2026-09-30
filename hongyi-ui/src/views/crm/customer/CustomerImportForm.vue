@@ -4,25 +4,10 @@
     <div class="flex items-center my-10px">
       <span class="mr-10px">负责人</span>
       <el-select v-model="ownerUserId" class="!w-240px" clearable>
-        <el-option
-          v-for="item in userOptions"
-          :key="item.id"
-          :label="item.nickname"
-          :value="item.id"
-        />
+        <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
       </el-select>
     </div>
-    <el-upload
-      ref="uploadRef"
-      v-model:file-list="fileList"
-      :auto-upload="false"
-      :disabled="formLoading"
-      :limit="1"
-      :on-exceed="handleExceed"
-      accept=".xlsx, .xls"
-      action="none"
-      drag
-    >
+    <el-upload ref="uploadRef" v-model:file-list="fileList" :auto-upload="false" :disabled="formLoading" :limit="1" :on-exceed="handleExceed" accept=".xlsx, .xls" action="none" drag>
       <Icon icon="ep:upload" />
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       <template #tip>
@@ -32,14 +17,7 @@
             是否更新已经存在的客户数据（“客户名称”重复）
           </div>
           <span>仅允许导入 xls、xlsx 格式文件。</span>
-          <el-link
-            :underline="false"
-            style="font-size: 12px; vertical-align: baseline"
-            type="primary"
-            @click="importTemplate"
-          >
-            下载模板
-          </el-link>
+          <el-link :underline="false" style="font-size: 12px; vertical-align: baseline" type="primary" @click="importTemplate"> 下载模板 </el-link>
         </div>
       </template>
     </el-upload>

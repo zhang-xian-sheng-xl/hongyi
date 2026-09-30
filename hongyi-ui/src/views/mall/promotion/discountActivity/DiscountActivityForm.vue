@@ -1,23 +1,10 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
-    <Form
-      ref="formRef"
-      v-loading="formLoading"
-      :isCol="true"
-      :rules="rules"
-      :schema="allSchemas.formSchema"
-    >
+    <Form ref="formRef" v-loading="formLoading" :isCol="true" :rules="rules" :schema="allSchemas.formSchema">
       <!-- 先选择 -->
       <template #spuId>
         <el-button @click="spuSelectRef.open()">选择商品</el-button>
-        <SpuAndSkuList
-          ref="spuAndSkuListRef"
-          :deletable="true"
-          :rule-config="ruleConfig"
-          :spu-list="spuList"
-          :spu-property-list-p="spuPropertyList"
-          @delete="deleteSpu"
-        >
+        <SpuAndSkuList ref="spuAndSkuListRef" :deletable="true" :rule-config="ruleConfig" :spu-list="spuList" :spu-property-list-p="spuPropertyList" @delete="deleteSpu">
           <el-table-column align="center" label="优惠金额" min-width="168">
             <template #default="{ row }">
               <el-input-number
@@ -33,15 +20,7 @@
           </el-table-column>
           <el-table-column align="center" label="折扣百分比(%)" min-width="168">
             <template #default="{ row }">
-              <el-input-number
-                v-model="row.productConfig.discountPercent"
-                :max="100"
-                :min="0"
-                :precision="2"
-                :step="0.1"
-                class="w-100%"
-                @change="handleSkuDiscountPercentChange(row)"
-              />
+              <el-input-number v-model="row.productConfig.discountPercent" :max="100" :min="0" :precision="2" :step="0.1" class="w-100%" @change="handleSkuDiscountPercentChange(row)" />
             </template>
           </el-table-column>
         </SpuAndSkuList>
@@ -94,12 +73,7 @@ const selectSpu = (spuId: number, skuIds: number[]) => {
 /**
  * 获取 SPU 详情
  */
-const getSpuDetails = async (
-  spuId: number,
-  skuIds: number[] | undefined,
-  products?: DiscountActivityApi.DiscountProductVO[],
-  type?: string
-) => {
+const getSpuDetails = async (spuId: number, skuIds: number[] | undefined, products?: DiscountActivityApi.DiscountProductVO[], type?: string) => {
   // 如果已经包含 SPU 则跳过
   if (spuIds.value.includes(spuId)) {
     if (type !== 'load') {
@@ -115,8 +89,7 @@ const getSpuDetails = async (
   //spuList.value = []
   // 因为只能选择一个
   const spu = res[0]
-  const selectSkus =
-    typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
+  const selectSkus = typeof skuIds === 'undefined' ? spu?.skus : spu?.skus?.filter((sku) => skuIds.includes(sku.id!))
   selectSkus?.forEach((sku) => {
     let config: DiscountActivityApi.DiscountProductVO = {
       skuId: sku.id!,
@@ -156,9 +129,7 @@ const open = async (type: string, id?: number) => {
   if (id) {
     formLoading.value = true
     try {
-      const data = (await DiscountActivityApi.getDiscountActivity(
-        id
-      )) as DiscountActivityApi.DiscountActivityVO
+      const data = (await DiscountActivityApi.getDiscountActivity(id)) as DiscountActivityApi.DiscountActivityVO
       for (let productsKey in data.products) {
         const supId = data.products[productsKey].spuId
         await getSpuDetails(
@@ -220,10 +191,7 @@ const handleSkuDiscountPriceChange = debounce((row: any) => {
   // 设置优惠类型：满减
   row.productConfig.discountType = PromotionDiscountTypeEnum.PRICE.type
   // 设置折扣
-  row.productConfig.discountPercent = erpCalculatePercentage(
-    row.price - yuanToFen(row.productConfig.discountPrice),
-    row.price
-  )
+  row.productConfig.discountPercent = erpCalculatePercentage(row.price - yuanToFen(row.productConfig.discountPrice), row.price)
 }, 200)
 /** 处理 sku 优惠折扣变动 */
 const handleSkuDiscountPercentChange = debounce((row: any) => {
@@ -235,9 +203,7 @@ const handleSkuDiscountPercentChange = debounce((row: any) => {
   // 设置优惠类型：折扣
   row.productConfig.discountType = PromotionDiscountTypeEnum.PERCENT.type
   // 设置满减金额
-  row.productConfig.discountPrice = fenToYuan(
-    row.price - row.price * (row.productConfig.discountPercent / 100.0 || 0)
-  )
+  row.productConfig.discountPrice = fenToYuan(row.price - row.price * (row.productConfig.discountPercent / 100.0 || 0))
 }, 200)
 
 /** 重置表单 */

@@ -13,21 +13,12 @@
       <el-table-column label="序号" align="center" type="index" width="80" />
       <el-table-column label="员工姓名" align="center" prop="ownerUserName" min-width="200" />
       <el-table-column label="跟进次数" align="right" prop="followUpRecordCount" min-width="200" />
-      <el-table-column
-        label="跟进客户数"
-        align="right"
-        prop="followUpCustomerCount"
-        min-width="200"
-      />
+      <el-table-column label="跟进客户数" align="right" prop="followUpCustomerCount" min-width="200" />
     </el-table>
   </el-card>
 </template>
 <script setup lang="ts">
-import {
-  StatisticsCustomerApi,
-  CrmStatisticsFollowUpSummaryByDateRespVO,
-  CrmStatisticsFollowUpSummaryByUserRespVO
-} from '@/api/crm/statistics/customer'
+import { StatisticsCustomerApi, CrmStatisticsFollowUpSummaryByDateRespVO, CrmStatisticsFollowUpSummaryByUserRespVO } from '@/api/crm/statistics/customer'
 import Echart from '@/components/Echart/src/Echart.vue'
 import { EChartsOption } from 'echarts'
 
@@ -112,27 +103,17 @@ const echartsOption = reactive<EChartsOption>({
 const fetchAndFill = async () => {
   // 1. 加载统计数据
   loading.value = true
-  const followUpSummaryByDate = await StatisticsCustomerApi.getFollowUpSummaryByDate(
-    props.queryParams
-  )
-  const followUpSummaryByUser = await StatisticsCustomerApi.getFollowUpSummaryByUser(
-    props.queryParams
-  )
+  const followUpSummaryByDate = await StatisticsCustomerApi.getFollowUpSummaryByDate(props.queryParams)
+  const followUpSummaryByUser = await StatisticsCustomerApi.getFollowUpSummaryByUser(props.queryParams)
   // 2.1 更新 Echarts 数据
   if (echartsOption.xAxis && echartsOption.xAxis['data']) {
-    echartsOption.xAxis['data'] = followUpSummaryByDate.map(
-      (s: CrmStatisticsFollowUpSummaryByDateRespVO) => s.time
-    )
+    echartsOption.xAxis['data'] = followUpSummaryByDate.map((s: CrmStatisticsFollowUpSummaryByDateRespVO) => s.time)
   }
   if (echartsOption.series && echartsOption.series[0] && echartsOption.series[0]['data']) {
-    echartsOption.series[0]['data'] = followUpSummaryByDate.map(
-      (s: CrmStatisticsFollowUpSummaryByDateRespVO) => s.followUpCustomerCount
-    )
+    echartsOption.series[0]['data'] = followUpSummaryByDate.map((s: CrmStatisticsFollowUpSummaryByDateRespVO) => s.followUpCustomerCount)
   }
   if (echartsOption.series && echartsOption.series[1] && echartsOption.series[1]['data']) {
-    echartsOption.series[1]['data'] = followUpSummaryByDate.map(
-      (s: CrmStatisticsFollowUpSummaryByDateRespVO) => s.followUpRecordCount
-    )
+    echartsOption.series[1]['data'] = followUpSummaryByDate.map((s: CrmStatisticsFollowUpSummaryByDateRespVO) => s.followUpRecordCount)
   }
   // 2.2 更新列表数据
   list.value = followUpSummaryByUser

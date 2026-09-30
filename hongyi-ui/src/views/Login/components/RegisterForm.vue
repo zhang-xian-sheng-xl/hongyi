@@ -1,14 +1,5 @@
 <template>
-  <el-form
-    v-show="getShow"
-    ref="formLogin"
-    :model="registerData.registerForm"
-    :rules="registerRules"
-    class="login-form"
-    label-position="top"
-    label-width="120px"
-    size="large"
-  >
+  <el-form v-show="getShow" ref="formLogin" :model="registerData.registerForm" :rules="registerRules" class="login-form" label-position="top" label-width="120px" size="large">
     <el-row class="mx-[-10px]">
       <el-col :span="24" class="px-10px">
         <el-form-item>
@@ -17,47 +8,22 @@
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item v-if="registerData.tenantEnable === 'true'" prop="tenantName">
-          <el-input
-            v-model="registerData.registerForm.tenantName"
-            :placeholder="t('login.tenantname')"
-            :prefix-icon="iconHouse"
-            link
-            type="primary"
-            size="large"
-          />
+          <el-input v-model="registerData.registerForm.tenantName" :placeholder="t('login.tenantname')" :prefix-icon="iconHouse" link type="primary" size="large" />
         </el-form-item>
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item prop="username">
-          <el-input
-            v-model="registerData.registerForm.username"
-            :placeholder="t('login.username')"
-            size="large"
-            :prefix-icon="iconAvatar"
-          />
+          <el-input v-model="registerData.registerForm.username" :placeholder="t('login.username')" size="large" :prefix-icon="iconAvatar" />
         </el-form-item>
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item prop="nickname">
-          <el-input
-            v-model="registerData.registerForm.nickname"
-            placeholder="昵称"
-            size="large"
-            :prefix-icon="iconAvatar"
-          />
+          <el-input v-model="registerData.registerForm.nickname" placeholder="昵称" size="large" :prefix-icon="iconAvatar" />
         </el-form-item>
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item prop="password">
-          <el-input
-            v-model="registerData.registerForm.password"
-            type="password"
-            auto-complete="off"
-            :placeholder="t('login.password')"
-            size="large"
-            :prefix-icon="iconLock"
-            show-password
-          />
+          <el-input v-model="registerData.registerForm.password" type="password" auto-complete="off" :placeholder="t('login.password')" size="large" :prefix-icon="iconLock" show-password />
         </el-form-item>
       </el-col>
       <el-col :span="24" class="px-10px">
@@ -75,23 +41,10 @@
       </el-col>
       <el-col :span="24" class="px-10px">
         <el-form-item>
-          <XButton
-            :loading="loginLoading"
-            :title="t('login.register')"
-            class="w-full"
-            type="primary"
-            @click="getCode()"
-          />
+          <XButton :loading="loginLoading" :title="t('login.register')" class="w-full" type="primary" @click="getCode()" />
         </el-form-item>
       </el-col>
-      <Verify
-        v-if="registerData.captchaEnable === 'true'"
-        ref="verify"
-        :captchaType="captchaType"
-        :imgSize="{ width: '400px', height: '200px' }"
-        mode="pop"
-        @success="handleRegister"
-      />
+      <Verify v-if="registerData.captchaEnable === 'true'" ref="verify" :captchaType="captchaType" :imgSize="{ width: '400px', height: '200px' }" mode="pop" @success="handleRegister" />
     </el-row>
     <XButton :title="t('login.hasUser')" class="w-full" @click="handleBackLogin()" />
   </el-form>
@@ -113,7 +66,7 @@ const iconHouse = useIcon({ icon: 'ep:house' })
 const iconAvatar = useIcon({ icon: 'ep:avatar' })
 const iconLock = useIcon({ icon: 'ep:lock' })
 const formLogin = ref()
-const {validForm} = useFormValid(formLogin)
+const { validForm } = useFormValid(formLogin)
 const { handleBackLogin, getLoginState } = useLoginState()
 const { currentRoute, push } = useRouter()
 const permissionStore = usePermissionStore()

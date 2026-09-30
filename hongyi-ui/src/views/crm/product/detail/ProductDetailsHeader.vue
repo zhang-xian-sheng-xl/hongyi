@@ -10,9 +10,7 @@
       </div>
       <div>
         <!-- 右上：按钮 -->
-        <el-button @click="openForm('update', product.id)" v-hasPermi="['crm:product:update']">
-          编辑
-        </el-button>
+        <el-button @click="openForm('update', product.id)" v-hasPermi="['crm:product:update']"> 编辑 </el-button>
       </div>
     </div>
   </div>
@@ -22,9 +20,7 @@
       <el-descriptions-item label="产品单位">
         <dict-tag :type="DICT_TYPE.CRM_PRODUCT_UNIT" :value="product.unit" />
       </el-descriptions-item>
-      <el-descriptions-item label="产品价格">
-        {{ erpPriceInputFormatter(product.price) }} 元
-      </el-descriptions-item>
+      <el-descriptions-item label="产品价格"> {{ erpPriceInputFormatter(product.price) }} 元 </el-descriptions-item>
       <el-descriptions-item label="产品编码">{{ product.no }}</el-descriptions-item>
     </el-descriptions>
   </ContentWrap>

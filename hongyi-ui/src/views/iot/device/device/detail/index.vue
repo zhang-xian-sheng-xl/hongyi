@@ -1,62 +1,27 @@
 <template>
-  <DeviceDetailsHeader
-    :loading="loading"
-    :product="product"
-    :device="device"
-    @refresh="getDeviceData"
-  />
+  <DeviceDetailsHeader :loading="loading" :product="product" :device="device" @refresh="getDeviceData" />
   <el-col>
     <el-tabs v-model="activeTab">
       <el-tab-pane label="设备信息" name="info">
         <DeviceDetailsInfo v-if="activeTab === 'info'" :product="product" :device="device" />
       </el-tab-pane>
       <el-tab-pane label="物模型数据" name="model">
-        <DeviceDetailsThingModel
-          v-if="activeTab === 'model'"
-          :device-id="device.id"
-          :thing-model-list="thingModelList"
-        />
+        <DeviceDetailsThingModel v-if="activeTab === 'model'" :device-id="device.id" :thing-model-list="thingModelList" />
       </el-tab-pane>
-      <el-tab-pane
-        label="子设备管理"
-        name="subDevice"
-        v-if="product.deviceType === DeviceTypeEnum.GATEWAY"
-      >
+      <el-tab-pane label="子设备管理" name="subDevice" v-if="product.deviceType === DeviceTypeEnum.GATEWAY">
         <DeviceDetailsSubDevice v-if="activeTab === 'subDevice'" :gateway-id="device.id" />
       </el-tab-pane>
       <el-tab-pane label="设备消息" name="log">
         <DeviceDetailsMessage v-if="activeTab === 'log'" :device-id="device.id" />
       </el-tab-pane>
       <el-tab-pane label="模拟设备" name="simulator">
-        <DeviceDetailsSimulator
-          v-if="activeTab === 'simulator'"
-          :product="product"
-          :device="device"
-          :thing-model-list="thingModelList"
-        />
+        <DeviceDetailsSimulator v-if="activeTab === 'simulator'" :product="product" :device="device" :thing-model-list="thingModelList" />
       </el-tab-pane>
       <el-tab-pane label="设备配置" name="config">
-        <DeviceDetailConfig
-          v-if="activeTab === 'config'"
-          :device="device"
-          @success="getDeviceData"
-        />
+        <DeviceDetailConfig v-if="activeTab === 'config'" :device="device" @success="getDeviceData" />
       </el-tab-pane>
-      <el-tab-pane
-        label="Modbus 配置"
-        name="modbus"
-        v-if="
-          [ProtocolTypeEnum.MODBUS_TCP_CLIENT, ProtocolTypeEnum.MODBUS_TCP_SERVER].includes(
-            product.protocolType as ProtocolTypeEnum
-          )
-        "
-      >
-        <DeviceModbusConfig
-          v-if="activeTab === 'modbus'"
-          :device="device"
-          :product="product"
-          :thing-model-list="thingModelList"
-        />
+      <el-tab-pane label="Modbus 配置" name="modbus" v-if="[ProtocolTypeEnum.MODBUS_TCP_CLIENT, ProtocolTypeEnum.MODBUS_TCP_SERVER].includes(product.protocolType as ProtocolTypeEnum)">
+        <DeviceModbusConfig v-if="activeTab === 'modbus'" :device="device" :product="product" :thing-model-list="thingModelList" />
       </el-tab-pane>
     </el-tabs>
   </el-col>

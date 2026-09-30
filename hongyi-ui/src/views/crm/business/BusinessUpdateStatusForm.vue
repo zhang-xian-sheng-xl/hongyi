@@ -1,26 +1,10 @@
 <template>
   <Dialog title="变更商机状态" v-model="dialogVisible" width="400">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="80px" v-loading="formLoading">
       <el-form-item label="商机阶段" prop="status">
         <el-select v-model="formData.status" placeholder="请选择商机阶段" class="w-1/1">
-          <el-option
-            v-for="item in statusList"
-            :key="item.id"
-            :label="item.name + '(赢单率：' + item.percent + '%)'"
-            :value="item.id"
-          />
-          <el-option
-            v-for="item in BusinessStatusApi.DEFAULT_STATUSES"
-            :key="item.endStatus"
-            :label="item.name + '(赢单率：' + item.percent + '%)'"
-            :value="-item.endStatus"
-          />
+          <el-option v-for="item in statusList" :key="item.id" :label="item.name + '(赢单率：' + item.percent + '%)'" :value="item.id" />
+          <el-option v-for="item in BusinessStatusApi.DEFAULT_STATUSES" :key="item.endStatus" :label="item.name + '(赢单率：' + item.percent + '%)'" :value="-item.endStatus" />
         </el-select>
       </el-form-item>
     </el-form>

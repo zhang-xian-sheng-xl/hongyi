@@ -2,21 +2,9 @@
   <Dialog v-model="dialogVisible" title="关联联系人">
     <!-- 搜索工作栏 -->
     <ContentWrap>
-      <el-form
-        ref="queryFormRef"
-        :inline="true"
-        :model="queryParams"
-        class="-mb-15px"
-        label-width="90px"
-      >
+      <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="90px">
         <el-form-item label="联系人名称" prop="name">
-          <el-input
-            v-model="queryParams.name"
-            class="!w-240px"
-            clearable
-            placeholder="请输入联系人名称"
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.name" class="!w-240px" clearable placeholder="请输入联系人名称" @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
           <el-button @click="handleQuery">
@@ -37,13 +25,7 @@
 
     <!-- 列表 -->
     <ContentWrap class="mt-10px">
-      <el-table
-        ref="contactRef"
-        v-loading="loading"
-        :data="list"
-        :show-overflow-tooltip="true"
-        :stripe="true"
-      >
+      <el-table ref="contactRef" v-loading="loading" :data="list" :show-overflow-tooltip="true" :stripe="true">
         <el-table-column type="selection" width="55" />
         <el-table-column align="center" fixed="left" label="姓名" prop="name">
           <template #default="scope">
@@ -62,12 +44,7 @@
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <Pagination
-        v-model:limit="queryParams.pageSize"
-        v-model:page="queryParams.pageNo"
-        :total="total"
-        @pagination="getList"
-      />
+      <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     </ContentWrap>
     <template #footer>
       <el-button :disabled="formLoading" type="primary" @click="submitForm">确 定</el-button>

@@ -1,20 +1,9 @@
 <template>
   <Dialog :title="'添加设备到分组'" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="设备分组" prop="groupIds">
         <el-select v-model="formData.groupIds" placeholder="请选择设备分组" multiple clearable>
-          <el-option
-            v-for="group in deviceGroups"
-            :key="group.id"
-            :label="group.name"
-            :value="group.id"
-          />
+          <el-option v-for="group in deviceGroups" :key="group.id" :label="group.name" :value="group.id" />
         </el-select>
       </el-form-item>
     </el-form>

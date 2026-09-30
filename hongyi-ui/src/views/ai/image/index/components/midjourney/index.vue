@@ -3,30 +3,14 @@
   <div class="prompt">
     <el-text tag="b">画面描述</el-text>
     <el-text tag="p">建议使用“形容词+动词+风格”的格式，使用“，”隔开.</el-text>
-    <el-input
-      v-model="prompt"
-      maxlength="1024"
-      :rows="5"
-      class="w-100% mt-15px"
-      input-style="border-radius: 7px;"
-      placeholder="例如：童话里的小屋应该是什么样子？"
-      show-word-limit
-      type="textarea"
-    />
+    <el-input v-model="prompt" maxlength="1024" :rows="5" class="w-100% mt-15px" input-style="border-radius: 7px;" placeholder="例如：童话里的小屋应该是什么样子？" show-word-limit type="textarea" />
   </div>
   <div class="flex flex-col mt-30px">
     <div>
       <el-text tag="b">随机热词</el-text>
     </div>
     <el-space wrap class="flex flex-row flex-wrap justify-start mt-15px">
-      <el-button
-        round
-        class="m-0"
-        :type="selectHotWord === hotWord ? 'primary' : 'default'"
-        v-for="hotWord in ImageHotWords"
-        :key="hotWord"
-        @click="handleHotWordClick(hotWord)"
-      >
+      <el-button round class="m-0" :type="selectHotWord === hotWord ? 'primary' : 'default'" v-for="hotWord in ImageHotWords" :key="hotWord" @click="handleHotWordClick(hotWord)">
         {{ hotWord }}
       </el-button>
     </el-space>
@@ -36,14 +20,13 @@
       <el-text tag="b">尺寸</el-text>
     </div>
     <el-space wrap class="flex flex-row justify-between w-full mt-20px">
-      <div
-        class="flex flex-col items-center cursor-pointer"
-        v-for="imageSize in MidjourneySizeList"
-        :key="imageSize.key"
-        @click="handleSizeClick(imageSize)"
-      >
+      <div class="flex flex-col items-center cursor-pointer" v-for="imageSize in MidjourneySizeList" :key="imageSize.key" @click="handleSizeClick(imageSize)">
         <div
-          :class="selectSize === imageSize.key ? 'flex flex-col items-center justify-center rounded-7px p-4px w-50px h-50px bg-white border-1 border-solid border-#1293ff' : 'flex flex-col items-center justify-center rounded-7px p-4px w-50px h-50px bg-white border-1 border-solid border-white'"
+          :class="
+            selectSize === imageSize.key
+              ? 'flex flex-col items-center justify-center rounded-7px p-4px w-50px h-50px bg-white border-1 border-solid border-#1293ff'
+              : 'flex flex-col items-center justify-center rounded-7px p-4px w-50px h-50px bg-white border-1 border-solid border-white'
+          "
         >
           <div :style="imageSize.style"></div>
         </div>
@@ -57,7 +40,11 @@
     </div>
     <el-space wrap class="mt-15px">
       <div
-        :class="selectModel === model.key ? 'flex flex-col items-center w-150px overflow-hidden border-3 border-solid border-#1293ff rounded-5px cursor-pointer' : 'flex flex-col items-center w-150px overflow-hidden border-3 border-solid border-transparent cursor-pointer'"
+        :class="
+          selectModel === model.key
+            ? 'flex flex-col items-center w-150px overflow-hidden border-3 border-solid border-#1293ff rounded-5px cursor-pointer'
+            : 'flex flex-col items-center w-150px overflow-hidden border-3 border-solid border-transparent cursor-pointer'
+        "
         v-for="model in MidjourneyModels"
         :key="model.key"
       >
@@ -71,18 +58,8 @@
       <el-text tag="b">版本</el-text>
     </div>
     <el-space wrap class="mt-20px w-full">
-      <el-select
-        v-model="selectVersion"
-        class="!w-350px"
-        clearable
-        placeholder="请选择版本"
-      >
-        <el-option
-          v-for="item in versionList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
+      <el-select v-model="selectVersion" class="!w-350px" clearable placeholder="请选择版本">
+        <el-option v-for="item in versionList" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
     </el-space>
   </div>
@@ -95,29 +72,14 @@
     </el-space>
   </div>
   <div class="flex justify-center mt-50px">
-    <el-button
-      type="primary"
-      size="large"
-      round
-      :disabled="prompt.length === 0"
-      @click="handleGenerateImage"
-    >
+    <el-button type="primary" size="large" round :disabled="prompt.length === 0" @click="handleGenerateImage">
       {{ drawIn ? '生成中' : '生成内容' }}
     </el-button>
   </div>
 </template>
 <script setup lang="ts">
 import { ImageApi, ImageMidjourneyImagineReqVO, ImageVO } from '@/api/ai/image'
-import {
-  AiPlatformEnum,
-  ImageHotWords,
-  ImageSizeVO,
-  ImageModelVO,
-  MidjourneyModels,
-  MidjourneySizeList,
-  MidjourneyVersions,
-  NijiVersionList
-} from '@/views/ai/utils/constants'
+import { AiPlatformEnum, ImageHotWords, ImageSizeVO, ImageModelVO, MidjourneyModels, MidjourneySizeList, MidjourneyVersions, NijiVersionList } from '@/views/ai/utils/constants'
 import { ModelVO } from '@/api/ai/model/model'
 
 const message = useMessage() // 消息弹窗
@@ -174,9 +136,7 @@ const handleModelClick = async (model: ImageModelVO) => {
 /** 图片生成 */
 const handleGenerateImage = async () => {
   // 从 models 中查找匹配的模型
-  const matchedModel = props.models.find(
-    (item) => item.model === selectModel.value && item.platform === AiPlatformEnum.MIDJOURNEY
-  )
+  const matchedModel = props.models.find((item) => item.model === selectModel.value && item.platform === AiPlatformEnum.MIDJOURNEY)
   if (!matchedModel) {
     message.error('该模型不可用，请选择其它模型')
     return
@@ -190,9 +150,7 @@ const handleGenerateImage = async () => {
     // 回调
     emits('onDrawStart', AiPlatformEnum.MIDJOURNEY)
     // 发送请求
-    const imageSize = MidjourneySizeList.find(
-      (item) => selectSize.value === item.key
-    ) as ImageSizeVO
+    const imageSize = MidjourneySizeList.find((item) => selectSize.value === item.key) as ImageSizeVO
     const req = {
       prompt: prompt.value,
       modelId: matchedModel.id,
@@ -215,17 +173,13 @@ const settingValues = async (detail: ImageVO) => {
   // 提示词
   prompt.value = detail.prompt
   // image size
-  const imageSize = MidjourneySizeList.find(
-    (item) => item.key === `${detail.width}:${detail.height}`
-  ) as ImageSizeVO
+  const imageSize = MidjourneySizeList.find((item) => item.key === `${detail.width}:${detail.height}`) as ImageSizeVO
   selectSize.value = imageSize.key
   // 选中模型
   const model = MidjourneyModels.find((item) => item.key === detail.options?.model) as ImageModelVO
   await handleModelClick(model)
   // 版本
-  selectVersion.value = versionList.value.find(
-    (item) => item.value === detail.options?.version
-  ).value
+  selectVersion.value = versionList.value.find((item) => item.value === detail.options?.version).value
   // image
   referImageUrl.value = detail.options.referImageUrl
 }
@@ -233,4 +187,3 @@ const settingValues = async (detail: ImageVO) => {
 /** 暴露组件方法 */
 defineExpose({ settingValues })
 </script>
-

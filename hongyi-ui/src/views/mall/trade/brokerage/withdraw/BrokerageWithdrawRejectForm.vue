@@ -1,12 +1,6 @@
 <template>
   <Dialog title="审核" v-model="dialogVisible">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" v-loading="formLoading">
       <el-form-item label="驳回原因" prop="auditReason">
         <el-input v-model="formData.auditReason" type="textarea" placeholder="请输入驳回原因" />
       </el-form-item>

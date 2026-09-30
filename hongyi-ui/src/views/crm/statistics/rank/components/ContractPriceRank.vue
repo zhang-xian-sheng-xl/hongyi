@@ -13,13 +13,7 @@
       <el-table-column label="公司排名" align="center" type="index" width="80" />
       <el-table-column label="签订人" align="center" prop="nickname" min-width="200" />
       <el-table-column label="部门" align="center" prop="deptName" min-width="200" />
-      <el-table-column
-        label="合同金额（元）"
-        align="center"
-        prop="count"
-        min-width="200"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column label="合同金额（元）" align="center" prop="count" min-width="200" :formatter="erpPriceTableColumnFormatter" />
     </el-table>
   </el-card>
 </template>

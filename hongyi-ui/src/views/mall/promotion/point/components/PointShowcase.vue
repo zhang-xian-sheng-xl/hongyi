@@ -1,19 +1,10 @@
 <template>
   <div class="flex flex-wrap items-center gap-8px">
-    <div
-      v-for="(pointActivity, index) in pointActivityList"
-      :key="pointActivity.id"
-      class="select-box spu-pic"
-    >
+    <div v-for="(pointActivity, index) in pointActivityList" :key="pointActivity.id" class="select-box spu-pic">
       <el-tooltip :content="pointActivity.name">
         <div class="relative h-full w-full">
           <el-image :src="pointActivity.picUrl" class="h-full w-full" />
-          <Icon
-            v-show="!disabled"
-            class="del-icon"
-            icon="ep:circle-close-filled"
-            @click="handleRemoveActivity(index)"
-          />
+          <Icon v-show="!disabled" class="del-icon" icon="ep:circle-close-filled" @click="handleRemoveActivity(index)" />
         </div>
       </el-tooltip>
     </div>
@@ -24,11 +15,7 @@
     </el-tooltip>
   </div>
   <!-- 拼团活动选择对话框（表格形式） -->
-  <PointTableSelect
-    ref="pointActivityTableSelectRef"
-    :multiple="limit != 1"
-    @change="handleActivitySelected"
-  />
+  <PointTableSelect ref="pointActivityTableSelectRef" :multiple="limit != 1" @change="handleActivitySelected" />
 </template>
 <script lang="ts" setup>
 import PointTableSelect from './PointTableSelect.vue'
@@ -77,10 +64,7 @@ watch(
       return
     }
     // 只有活动发生变化之后，才会查询活动
-    if (
-      pointActivityList.value.length === 0 ||
-      pointActivityList.value.some((pointActivity) => !ids.includes(pointActivity.id!))
-    ) {
+    if (pointActivityList.value.length === 0 || pointActivityList.value.some((pointActivity) => !ids.includes(pointActivity.id!))) {
       pointActivityList.value = await PointActivityApi.getPointActivityListByIds(ids)
     }
   },

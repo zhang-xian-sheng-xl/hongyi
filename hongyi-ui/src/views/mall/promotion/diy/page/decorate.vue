@@ -1,11 +1,5 @@
 <template>
-  <DiyEditor
-    v-if="formData && !formLoading"
-    v-model="formData.property"
-    :title="formData.name"
-    :libs="PAGE_LIBS"
-    @save="submitForm"
-  />
+  <DiyEditor v-if="formData && !formLoading" v-model="formData.property" :title="formData.name" :libs="PAGE_LIBS" @save="submitForm" />
 </template>
 <script setup lang="ts">
 import * as DiyPageApi from '@/api/mall/promotion/diy/page'

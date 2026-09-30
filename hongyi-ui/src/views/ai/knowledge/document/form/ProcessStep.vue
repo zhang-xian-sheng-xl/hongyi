@@ -15,29 +15,17 @@
 
         <!-- 处理进度 -->
         <div class="flex-1">
-          <el-progress
-            :percentage="file.progress || 0"
-            :stroke-width="10"
-            :status="isProcessComplete(file) ? 'success' : ''"
-          />
+          <el-progress :percentage="file.progress || 0" :stroke-width="10" :status="isProcessComplete(file) ? 'success' : ''" />
         </div>
 
         <!-- 分段数量 -->
-        <div class="ml-10px text-[13px] text-[#606266]">
-          分段数量：{{ file.count ? file.count : '-' }}
-        </div>
+        <div class="ml-10px text-[13px] text-[#606266]"> 分段数量：{{ file.count ? file.count : '-' }} </div>
       </div>
     </div>
 
     <!-- 底部完成按钮 -->
     <div class="flex justify-end mt-20px">
-      <el-button
-        :type="allProcessComplete ? 'success' : 'primary'"
-        :disabled="!allProcessComplete"
-        @click="handleComplete"
-      >
-        完成
-      </el-button>
+      <el-button :type="allProcessComplete ? 'success' : 'primary'" :disabled="!allProcessComplete" @click="handleComplete"> 完成 </el-button>
     </div>
   </div>
 </template>
@@ -88,10 +76,7 @@ const getProcessList = async () => {
       const processInfo = result.find((item) => item.documentId === file.id)
       if (processInfo) {
         // 计算进度百分比：已嵌入数量 / 总数量 * 100
-        const progress =
-          processInfo.embeddingCount && processInfo.count
-            ? Math.floor((processInfo.embeddingCount / processInfo.count) * 100)
-            : 0
+        const progress = processInfo.embeddingCount && processInfo.count ? Math.floor((processInfo.embeddingCount / processInfo.count) * 100) : 0
         return {
           ...file,
           progress: progress,

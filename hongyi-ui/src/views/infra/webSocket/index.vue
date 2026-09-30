@@ -24,26 +24,12 @@
       </div>
       <p class="mt-4 text-lg font-medium">消息输入框</p>
       <hr class="my-4" />
-      <el-input
-        v-model="sendText"
-        :autosize="{ minRows: 2, maxRows: 4 }"
-        :disabled="!getIsOpen"
-        clearable
-        placeholder="请输入你要发送的消息"
-        type="textarea"
-      />
+      <el-input v-model="sendText" :autosize="{ minRows: 2, maxRows: 4 }" :disabled="!getIsOpen" clearable placeholder="请输入你要发送的消息" type="textarea" />
       <el-select v-model="sendUserId" class="mt-4" placeholder="请选择发送人">
         <el-option key="" label="所有人" value="" />
-        <el-option
-          v-for="user in userList"
-          :key="user.id"
-          :label="user.nickname"
-          :value="user.id"
-        />
+        <el-option v-for="user in userList" :key="user.id" :label="user.nickname" :value="user.id" />
       </el-select>
-      <el-button :disabled="!getIsOpen" block class="ml-2 mt-4" type="primary" @click="handlerSend">
-        发送
-      </el-button>
+      <el-button :disabled="!getIsOpen" block class="ml-2 mt-4" type="primary" @click="handlerSend"> 发送 </el-button>
     </el-card>
     <!-- 右侧：消息记录 -->
     <el-card :gutter="12" class="w-1/2" shadow="always">
@@ -79,9 +65,7 @@ defineOptions({ name: 'InfraWebSocket' })
 const message = useMessage() // 消息弹窗
 
 const server = ref(
-  (import.meta.env.VITE_BASE_URL + '/infra/ws').replace('http', 'ws') +
-    '?token=' +
-    getRefreshToken() // 使用 getRefreshToken() 方法，而不使用 getAccessToken() 方法的原因：WebSocket 无法方便的刷新访问令牌
+  (import.meta.env.VITE_BASE_URL + '/infra/ws').replace('http', 'ws') + '?token=' + getRefreshToken() // 使用 getRefreshToken() 方法，而不使用 getAccessToken() 方法的原因：WebSocket 无法方便的刷新访问令牌
 ) // WebSocket 服务地址
 const getIsOpen = computed(() => status.value === 'OPEN') // WebSocket 连接是否打开
 const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red')) // WebSocket 连接的展示颜色

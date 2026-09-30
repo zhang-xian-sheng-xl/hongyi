@@ -1,22 +1,12 @@
 <template>
   <el-table ref="dragTable" :data="formData" :max-height="tableHeight" row-key="columnId">
-    <el-table-column
-      :show-overflow-tooltip="true"
-      label="字段列名"
-      min-width="10%"
-      prop="columnName"
-    />
+    <el-table-column :show-overflow-tooltip="true" label="字段列名" min-width="10%" prop="columnName" />
     <el-table-column label="字段描述" min-width="10%">
       <template #default="scope">
         <el-input v-model="scope.row.columnComment" />
       </template>
     </el-table-column>
-    <el-table-column
-      :show-overflow-tooltip="true"
-      label="物理类型"
-      min-width="10%"
-      prop="dataType"
-    />
+    <el-table-column :show-overflow-tooltip="true" label="物理类型" min-width="10%" prop="dataType" />
     <el-table-column label="Java类型" min-width="11%">
       <template #default="scope">
         <el-select v-model="scope.row.javaType">
@@ -47,11 +37,7 @@
     </el-table-column>
     <el-table-column label="列表" min-width="4%">
       <template #default="scope">
-        <el-checkbox
-          v-model="scope.row.listOperationResult"
-          false-value="false"
-          true-value="true"
-        />
+        <el-checkbox v-model="scope.row.listOperationResult" false-value="false" true-value="true" />
       </template>
     </el-table-column>
     <el-table-column label="查询" min-width="4%">
@@ -98,23 +84,14 @@
         <el-select v-model="scope.row.dictType" :value-on-clear="''" clearable filterable placeholder="请选择">
           <template #header>
             <div class="flex justify-end">
-              <el-popover
-                class="box-item"
-                content="加载最新字典"
-                placement="top-start"
-              >
+              <el-popover class="box-item" content="加载最新字典" placement="top-start">
                 <template #reference>
-                  <el-button :icon="Refresh" size="small" circle @click="getDictOptions" class=""/>
+                  <el-button :icon="Refresh" size="small" circle @click="getDictOptions" class="" />
                 </template>
               </el-popover>
             </div>
           </template>
-          <el-option
-            v-for="dict in dictOptions"
-            :key="dict.id"
-            :label="dict.name"
-            :value="dict.type"
-          />
+          <el-option v-for="dict in dictOptions" :key="dict.id" :label="dict.name" :value="dict.type" />
         </el-select>
       </template>
     </el-table-column>

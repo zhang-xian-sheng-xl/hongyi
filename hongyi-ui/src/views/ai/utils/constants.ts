@@ -86,23 +86,9 @@ export const AiWriteTypeTableRender = {
 
 // ========== 【图片 UI】相关的枚举 ==========
 
-export const ImageHotWords = [
-  '中国旗袍',
-  '古装美女',
-  '卡通头像',
-  '机甲战士',
-  '童话小屋',
-  '中国长城'
-] // 图片热词
+export const ImageHotWords = ['中国旗袍', '古装美女', '卡通头像', '机甲战士', '童话小屋', '中国长城'] // 图片热词
 
-export const ImageHotEnglishWords = [
-  'Chinese Cheongsam',
-  'Ancient Beauty',
-  'Cartoon Avatar',
-  'Mech Warrior',
-  'Fairy Tale Cottage',
-  'The Great Wall of China'
-] // 图片热词（英文）
+export const ImageHotEnglishWords = ['Chinese Cheongsam', 'Ancient Beauty', 'Cartoon Avatar', 'Mech Warrior', 'Fairy Tale Cottage', 'The Great Wall of China'] // 图片热词（英文）
 
 export interface ImageModelVO {
   key: string

@@ -1,115 +1,46 @@
 <!-- Modbus 点位表单弹窗 -->
 <template>
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="600px">
-    <el-form
-      ref="formRef"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-      v-loading="formLoading"
-    >
+    <el-form ref="formRef" :model="formData" :rules="formRules" label-width="120px" v-loading="formLoading">
       <el-form-item label="物模型属性" prop="thingModelId">
-        <el-select
-          v-model="formData.thingModelId"
-          placeholder="请选择物模型属性"
-          filterable
-          class="!w-full"
-          @change="handleThingModelChange"
-        >
-          <el-option
-            v-for="item in propertyList"
-            :key="item.id!"
-            :label="`${item.name} (${item.identifier})`"
-            :value="item.id!"
-          />
+        <el-select v-model="formData.thingModelId" placeholder="请选择物模型属性" filterable class="!w-full" @change="handleThingModelChange">
+          <el-option v-for="item in propertyList" :key="item.id!" :label="`${item.name} (${item.identifier})`" :value="item.id!" />
         </el-select>
       </el-form-item>
       <el-form-item label="功能码" prop="functionCode">
         <el-select v-model="formData.functionCode" placeholder="请选择功能码" class="!w-full">
-          <el-option
-            v-for="item in ModbusFunctionCodeOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+          <el-option v-for="item in ModbusFunctionCodeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="寄存器地址" prop="registerAddress">
-        <el-input
-          v-model.number="formData.registerAddress"
-          type="number"
-          :min="0"
-          :max="65535"
-          placeholder="请输入寄存器地址"
-          class="!w-full"
-        >
+        <el-input v-model.number="formData.registerAddress" type="number" :min="0" :max="65535" placeholder="请输入寄存器地址" class="!w-full">
           <template #suffix>
             <span class="text-gray-400">{{ registerAddressHex }}</span>
           </template>
         </el-input>
       </el-form-item>
       <el-form-item label="寄存器数量" prop="registerCount">
-        <el-input-number
-          v-model="formData.registerCount"
-          :min="1"
-          :max="125"
-          controls-position="right"
-          placeholder="请输入寄存器数量"
-          class="!w-full"
-        />
+        <el-input-number v-model="formData.registerCount" :min="1" :max="125" controls-position="right" placeholder="请输入寄存器数量" class="!w-full" />
       </el-form-item>
       <el-form-item label="原始数据类型" prop="rawDataType">
-        <el-select
-          v-model="formData.rawDataType"
-          placeholder="请选择数据类型"
-          class="!w-full"
-          @change="handleRawDataTypeChange"
-        >
-          <el-option
-            v-for="item in ModbusRawDataTypeOptions"
-            :key="item.value"
-            :label="`${item.label} - ${item.description}`"
-            :value="item.value"
-          />
+        <el-select v-model="formData.rawDataType" placeholder="请选择数据类型" class="!w-full" @change="handleRawDataTypeChange">
+          <el-option v-for="item in ModbusRawDataTypeOptions" :key="item.value" :label="`${item.label} - ${item.description}`" :value="item.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="字节序" prop="byteOrder">
         <el-select v-model="formData.byteOrder" placeholder="请选择字节序" class="!w-full">
-          <el-option
-            v-for="item in currentByteOrderOptions"
-            :key="item.value"
-            :label="`${item.label} - ${item.description}`"
-            :value="item.value"
-          />
+          <el-option v-for="item in currentByteOrderOptions" :key="item.value" :label="`${item.label} - ${item.description}`" :value="item.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="缩放因子" prop="scale">
-        <el-input-number
-          v-model="formData.scale"
-          :precision="6"
-          :step="0.1"
-          controls-position="right"
-          placeholder="请输入缩放因子"
-          class="!w-full"
-        />
+        <el-input-number v-model="formData.scale" :precision="6" :step="0.1" controls-position="right" placeholder="请输入缩放因子" class="!w-full" />
       </el-form-item>
       <el-form-item label="轮询间隔(ms)" prop="pollInterval">
-        <el-input-number
-          v-model="formData.pollInterval"
-          :min="100"
-          :step="1000"
-          controls-position="right"
-          placeholder="请输入轮询间隔"
-          class="!w-full"
-        />
+        <el-input-number v-model="formData.pollInterval" :min="100" :step="1000" controls-position="right" placeholder="请输入轮询间隔" class="!w-full" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -125,12 +56,7 @@
 <script lang="ts" setup>
 import { ThingModelData } from '@/api/iot/thingmodel'
 import { DeviceModbusPointApi, DeviceModbusPointVO } from '@/api/iot/device/modbus/point'
-import {
-  ModbusFunctionCodeOptions,
-  ModbusRawDataTypeOptions,
-  getByteOrderOptions,
-  IoTThingModelTypeEnum
-} from '@/views/iot/utils/constants'
+import { ModbusFunctionCodeOptions, ModbusRawDataTypeOptions, getByteOrderOptions, IoTThingModelTypeEnum } from '@/views/iot/utils/constants'
 import { getIntDictOptions, DICT_TYPE } from '@/utils/dict'
 import { CommonStatusEnum } from '@/utils/constants'
 

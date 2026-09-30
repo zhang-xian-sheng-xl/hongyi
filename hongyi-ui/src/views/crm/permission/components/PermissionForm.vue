@@ -1,38 +1,21 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle" width="30%">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item v-if="formType === 'create'" label="选择人员" prop="userId">
         <el-select v-model="formData.userId">
-          <el-option
-            v-for="item in userOptions"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+          <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="权限级别" prop="level">
         <el-radio-group v-model="formData.level">
-          <template
-            v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PERMISSION_LEVEL)"
-            :key="dict.value"
-          >
+          <template v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PERMISSION_LEVEL)" :key="dict.value">
             <el-radio v-if="dict.value != PermissionLevelEnum.OWNER" :value="dict.value">
               {{ dict.label }}
             </el-radio>
           </template>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="formType === 'create' && formData.bizType === BizTypeEnum.CRM_CUSTOMER"
-        label="同时添加至"
-      >
+      <el-form-item v-if="formType === 'create' && formData.bizType === BizTypeEnum.CRM_CUSTOMER" label="同时添加至">
         <el-checkbox-group v-model="formData.toBizTypes">
           <el-checkbox :value="BizTypeEnum.CRM_CONTACT">联系人</el-checkbox>
           <el-checkbox :value="BizTypeEnum.CRM_BUSINESS">商机</el-checkbox>
@@ -81,13 +64,7 @@ const open = async (type: 'create' | 'update', bizType: number, bizId: number, i
   }
 }
 /** 打开修改权限弹窗 */
-const open0 = async (
-  type: 'create' | 'update',
-  bizType: number,
-  bizId: number,
-  id: number,
-  level: number
-) => {
+const open0 = async (type: 'create' | 'update', bizType: number, bizId: number, id: number, level: number) => {
   dialogVisible.value = true
   dialogTitle.value = t('action.' + type) + '团队成员'
   formType.value = type

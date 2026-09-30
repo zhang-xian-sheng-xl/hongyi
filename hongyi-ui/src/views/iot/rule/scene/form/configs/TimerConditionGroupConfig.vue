@@ -2,27 +2,16 @@
 <template>
   <div class="space-y-16px">
     <!-- 条件组容器头部 -->
-    <div
-      class="flex items-center justify-between p-16px bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-8px"
-    >
+    <div class="flex items-center justify-between p-16px bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-8px">
       <div class="flex items-center gap-12px">
         <div class="flex items-center gap-8px text-16px font-600 text-blue-700">
-          <div
-            class="w-24px h-24px bg-blue-500 text-white rounded-full flex items-center justify-center text-12px font-bold"
-          >
-            组
-          </div>
+          <div class="w-24px h-24px bg-blue-500 text-white rounded-full flex items-center justify-center text-12px font-bold"> 组 </div>
           <span>附加条件组</span>
         </div>
         <el-tag size="small" type="info">定时触发时需满足以下条件</el-tag>
         <el-tag size="small" type="warning"> {{ conditionGroups?.length || 0 }} 个子条件组 </el-tag>
       </div>
-      <el-button
-        type="primary"
-        size="small"
-        @click="addConditionGroup"
-        :disabled="(conditionGroups?.length || 0) >= maxGroups"
-      >
+      <el-button type="primary" size="small" @click="addConditionGroup" :disabled="(conditionGroups?.length || 0) >= maxGroups">
         <Icon icon="ep:plus" />
         添加条件组
       </el-button>
@@ -30,23 +19,13 @@
 
     <!-- 条件组列表 -->
     <div v-if="conditionGroups && conditionGroups.length > 0" class="space-y-16px">
-      <div
-        v-for="(group, groupIndex) in conditionGroups"
-        :key="`group-${groupIndex}`"
-        class="relative"
-      >
+      <div v-for="(group, groupIndex) in conditionGroups" :key="`group-${groupIndex}`" class="relative">
         <!-- 条件组容器 -->
-        <div
-          class="border-2 border-orange-200 rounded-8px bg-orange-50 shadow-sm hover:shadow-md transition-shadow"
-        >
-          <div
-            class="flex items-center justify-between p-16px bg-gradient-to-r from-orange-50 to-yellow-50 border-b border-orange-200 rounded-t-6px"
-          >
+        <div class="border-2 border-orange-200 rounded-8px bg-orange-50 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center justify-between p-16px bg-gradient-to-r from-orange-50 to-yellow-50 border-b border-orange-200 rounded-t-6px">
             <div class="flex items-center gap-12px">
               <div class="flex items-center gap-8px text-16px font-600 text-orange-700">
-                <div
-                  class="w-24px h-24px bg-orange-500 text-white rounded-full flex items-center justify-center text-12px font-bold"
-                >
+                <div class="w-24px h-24px bg-orange-500 text-white rounded-full flex items-center justify-center text-12px font-bold">
                   {{ groupIndex + 1 }}
                 </div>
                 <span>子条件组 {{ groupIndex + 1 }}</span>
@@ -54,13 +33,7 @@
               <el-tag size="small" type="warning" class="font-500">组内条件为"且"关系</el-tag>
               <el-tag size="small" type="info"> {{ group?.length || 0 }}个条件 </el-tag>
             </div>
-            <el-button
-              type="danger"
-              size="small"
-              text
-              @click="removeConditionGroup(groupIndex)"
-              class="hover:bg-red-50"
-            >
+            <el-button type="danger" size="small" text @click="removeConditionGroup(groupIndex)" class="hover:bg-red-50">
               <Icon icon="ep:delete" />
               删除组
             </el-button>
@@ -75,10 +48,7 @@
         </div>
 
         <!-- 条件组间的"或"连接符 -->
-        <div
-          v-if="groupIndex < conditionGroups.length - 1"
-          class="flex items-center justify-center py-12px"
-        >
+        <div v-if="groupIndex < conditionGroups.length - 1" class="flex items-center justify-center py-12px">
           <div class="flex items-center gap-8px">
             <!-- 连接线 -->
             <div class="w-32px h-1px bg-orange-300"></div>
@@ -94,10 +64,7 @@
     </div>
 
     <!-- 空状态 -->
-    <div
-      v-else
-      class="p-24px border-2 border-dashed border-blue-200 rounded-8px text-center bg-blue-50"
-    >
+    <div v-else class="p-24px border-2 border-dashed border-blue-200 rounded-8px text-center bg-blue-50">
       <div class="flex flex-col items-center gap-12px">
         <Icon icon="ep:plus" class="text-32px text-blue-400" />
         <div class="text-blue-600">

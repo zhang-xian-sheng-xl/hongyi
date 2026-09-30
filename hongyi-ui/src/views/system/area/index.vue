@@ -1,11 +1,7 @@
 <template>
-
-
   <!-- 操作栏 -->
   <ContentWrap>
-    <el-button type="primary" plain @click="openForm()">
-      <Icon icon="ep:plus" class="mr-5px" /> IP 查询
-    </el-button>
+    <el-button type="primary" plain @click="openForm()"> <Icon icon="ep:plus" class="mr-5px" /> IP 查询 </el-button>
   </ContentWrap>
 
   <!-- 列表 -->
@@ -15,14 +11,7 @@
       <el-auto-resizer>
         <template #default="{ height, width }">
           <!-- Virtualized Table 虚拟化表格：高性能，解决表格在大数据量下的卡顿问题 -->
-          <el-table-v2
-            v-loading="loading"
-            :columns="columns"
-            :data="list"
-            :width="width"
-            :height="height"
-            expand-column-key="id"
-          />
+          <el-table-v2 v-loading="loading" :columns="columns" :data="list" :width="width" :height="height" expand-column-key="id" />
         </template>
       </el-auto-resizer>
     </div>

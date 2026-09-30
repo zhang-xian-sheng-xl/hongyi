@@ -3,26 +3,10 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="68px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="68px">
       <el-form-item label="请假类型" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          class="!w-240px"
-          clearable
-          placeholder="请选择请假类型"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.BPM_OA_LEAVE_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" class="!w-240px" clearable placeholder="请选择请假类型">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BPM_OA_LEAVE_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="申请时间" prop="createTime">
@@ -37,28 +21,12 @@
         />
       </el-form-item>
       <el-form-item label="审批结果" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          class="!w-240px"
-          clearable
-          placeholder="请选择审批结果"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" class="!w-240px" clearable placeholder="请选择审批结果">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="原因" prop="reason">
-        <el-input
-          v-model="queryParams.reason"
-          class="!w-240px"
-          clearable
-          placeholder="请输入原因"
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.reason" class="!w-240px" clearable placeholder="请输入原因" @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery">
@@ -86,79 +54,26 @@
           <dict-tag :type="DICT_TYPE.BPM_PROCESS_INSTANCE_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="开始时间"
-        prop="startTime"
-        width="180"
-      />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="结束时间"
-        prop="endTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="开始时间" prop="startTime" width="180" />
+      <el-table-column :formatter="dateFormatter" align="center" label="结束时间" prop="endTime" width="180" />
       <el-table-column align="center" label="请假类型" prop="type">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.BPM_OA_LEAVE_TYPE" :value="scope.row.type" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="原因" prop="reason" />
-      <el-table-column
-        :formatter="dateFormatter"
-        align="center"
-        label="申请时间"
-        prop="createTime"
-        width="180"
-      />
+      <el-table-column :formatter="dateFormatter" align="center" label="申请时间" prop="createTime" width="180" />
       <el-table-column align="center" label="操作" width="200">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['bpm:oa-leave:query']"
-            link
-            type="primary"
-            @click="handleDetail(scope.row)"
-          >
-            详情
-          </el-button>
-          <el-button
-            v-hasPermi="['bpm:oa-leave:query']"
-            link
-            type="primary"
-            @click="handleProcessDetail(scope.row)"
-          >
-            进度
-          </el-button>
-          <el-button
-            v-if="scope.row.result === 1"
-            v-hasPermi="['bpm:oa-leave:create']"
-            link
-            type="danger"
-            @click="cancelLeave(scope.row)"
-          >
-            取消
-          </el-button>
-          <el-button
-            v-if="scope.row.status !== 1"
-            v-hasPermi="['bpm:oa-leave:create']"
-            link
-            type="primary"
-            @click="handleReCreate(scope.row)"
-          >
-            重新发起
-          </el-button>
+          <el-button v-hasPermi="['bpm:oa-leave:query']" link type="primary" @click="handleDetail(scope.row)"> 详情 </el-button>
+          <el-button v-hasPermi="['bpm:oa-leave:query']" link type="primary" @click="handleProcessDetail(scope.row)"> 进度 </el-button>
+          <el-button v-if="scope.row.result === 1" v-hasPermi="['bpm:oa-leave:create']" link type="danger" @click="cancelLeave(scope.row)"> 取消 </el-button>
+          <el-button v-if="scope.row.status !== 1" v-hasPermi="['bpm:oa-leave:create']" link type="primary" @click="handleReCreate(scope.row)"> 重新发起 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 </template>
 <script lang="ts" setup>

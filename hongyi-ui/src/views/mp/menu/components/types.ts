@@ -5,17 +5,7 @@ export interface Replay {
   url: string
 }
 
-export type MenuType =
-  | ''
-  | 'click'
-  | 'view'
-  | 'scancode_waitmsg'
-  | 'scancode_push'
-  | 'pic_sysphoto'
-  | 'pic_photo_or_album'
-  | 'pic_weixin'
-  | 'location_select'
-  | 'article_view_limited'
+export type MenuType = '' | 'click' | 'view' | 'scancode_waitmsg' | 'scancode_push' | 'pic_sysphoto' | 'pic_photo_or_album' | 'pic_weixin' | 'location_select' | 'article_view_limited'
 
 interface _RawMenu {
   // db

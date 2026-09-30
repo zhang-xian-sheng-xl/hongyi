@@ -12,11 +12,7 @@
       <a v-if="index === 0" :href="article.url" target="_blank">
         <div class="news-main">
           <div class="news-content">
-            <el-image
-              :src="article.picUrl || article.thumbUrl"
-              class="material-img"
-              style="width: 100%; height: 120px"
-            />
+            <el-image :src="article.picUrl || article.thumbUrl" class="material-img" style="width: 100%; height: 120px" />
             <div class="news-content-title">
               <span>{{ article.title }}</span>
             </div>

@@ -3,78 +3,29 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="用户编号" prop="userId">
-        <el-input
-          v-model="queryParams.userId"
-          placeholder="请输入用户编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.userId" placeholder="请输入用户编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="提现类型" prop="type">
-        <el-select
-          v-model="queryParams.type"
-          placeholder="请选择提现类型"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.BROKERAGE_WITHDRAW_TYPE)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.type" placeholder="请选择提现类型" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BROKERAGE_WITHDRAW_TYPE)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="账号" prop="userAccount">
-        <el-input
-          v-model="queryParams.userAccount"
-          placeholder="请输入账号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.userAccount" placeholder="请输入账号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="真实名字" prop="userName">
-        <el-input
-          v-model="queryParams.userName"
-          placeholder="请输入真实名字"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.userName" placeholder="请输入真实名字" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="提现银行" prop="bankName">
-        <el-select
-          v-model="queryParams.bankName"
-          placeholder="请选择提现银行"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.BROKERAGE_BANK_NAME)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.bankName" placeholder="请选择提现银行" clearable class="!w-240px">
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.BROKERAGE_BANK_NAME)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable class="!w-240px">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.BROKERAGE_WITHDRAW_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.BROKERAGE_WITHDRAW_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="申请时间" prop="createTime">
@@ -132,83 +83,35 @@
           </template>
           <div v-if="scope.row.qrCodeUrl" class="mt-2">
             <div>收款码：</div>
-            <el-image
-              :src="scope.row.qrCodeUrl"
-              class="h-40px w-40px"
-              :preview-src-list="[scope.row.qrCodeUrl]"
-              preview-teleported
-            />
+            <el-image :src="scope.row.qrCodeUrl" class="h-40px w-40px" :preview-src-list="[scope.row.qrCodeUrl]" preview-teleported />
           </div>
         </template>
       </el-table-column>
-      <el-table-column
-        label="申请时间"
-        align="left"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="申请时间" align="left" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="备注" align="left" prop="remark" />
       <el-table-column label="状态" align="left" prop="status" min-width="120px">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.BROKERAGE_WITHDRAW_STATUS" :value="scope.row.status" />
-          <div v-if="scope.row.auditTime" class="text-xs">
-            时间：{{ formatDate(scope.row.auditTime) }}
-          </div>
-          <div v-if="scope.row.auditReason" class="text-xs">
-            审核原因：{{ scope.row.auditReason }}
-          </div>
+          <div v-if="scope.row.auditTime" class="text-xs"> 时间：{{ formatDate(scope.row.auditTime) }} </div>
+          <div v-if="scope.row.auditReason" class="text-xs"> 审核原因：{{ scope.row.auditReason }} </div>
           <!-- 提现失败原因 -->
-          <div v-if="scope.row.transferErrorMsg" class="text-xs text-red-500">
-            转账失败原因：{{ scope.row.transferErrorMsg }}
-          </div>
+          <div v-if="scope.row.transferErrorMsg" class="text-xs text-red-500"> 转账失败原因：{{ scope.row.transferErrorMsg }} </div>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="left" width="110px" fixed="right">
         <template #default="scope">
-          <template
-            v-if="
-              scope.row.status === BrokerageWithdrawStatusEnum.AUDITING.status &&
-              !scope.row.payTransferId
-            "
-          >
-            <el-button
-              link
-              type="primary"
-              @click="handleApprove(scope.row.id)"
-              v-hasPermi="['trade:brokerage-withdraw:audit']"
-            >
-              通过
-            </el-button>
-            <el-button
-              link
-              type="danger"
-              @click="openForm(scope.row.id)"
-              v-hasPermi="['trade:brokerage-withdraw:audit']"
-            >
-              驳回
-            </el-button>
+          <template v-if="scope.row.status === BrokerageWithdrawStatusEnum.AUDITING.status && !scope.row.payTransferId">
+            <el-button link type="primary" @click="handleApprove(scope.row.id)" v-hasPermi="['trade:brokerage-withdraw:audit']"> 通过 </el-button>
+            <el-button link type="danger" @click="openForm(scope.row.id)" v-hasPermi="['trade:brokerage-withdraw:audit']"> 驳回 </el-button>
           </template>
           <template v-if="scope.row.status === BrokerageWithdrawStatusEnum.WITHDRAW_FAIL.status">
-            <el-button
-              link
-              type="warning"
-              @click="handleRetryTransfer(scope.row.id)"
-              v-hasPermi="['trade:brokerage-withdraw:audit']"
-            >
-              重新转账
-            </el-button>
+            <el-button link type="warning" @click="handleRetryTransfer(scope.row.id)" v-hasPermi="['trade:brokerage-withdraw:audit']"> 重新转账 </el-button>
           </template>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->

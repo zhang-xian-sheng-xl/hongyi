@@ -10,35 +10,14 @@
         <el-row style="text-align: center" align="middle">
           <!-- 选择素材 -->
           <el-col :span="12">
-            <el-button type="success" @click="showDialog = true">
-              素材库选择 <Icon icon="ep:circle-check" />
-            </el-button>
-            <el-dialog
-              title="选择视频"
-              v-model="showDialog"
-              width="90%"
-              append-to-body
-              destroy-on-close
-            >
-              <WxMaterialSelect
-                type="video"
-                :account-id="reply.accountId"
-                @select-material="selectMaterial"
-              />
+            <el-button type="success" @click="showDialog = true"> 素材库选择 <Icon icon="ep:circle-check" /> </el-button>
+            <el-dialog title="选择视频" v-model="showDialog" width="90%" append-to-body destroy-on-close>
+              <WxMaterialSelect type="video" :account-id="reply.accountId" @select-material="selectMaterial" />
             </el-dialog>
           </el-col>
           <!-- 文件上传 -->
           <el-col :span="12">
-            <el-upload
-              :action="UPLOAD_URL"
-              :headers="HEADERS"
-              multiple
-              :limit="1"
-              :file-list="fileList"
-              :data="uploadData"
-              :before-upload="beforeVideoUpload"
-              :on-success="onUploadSuccess"
-            >
+            <el-upload :action="UPLOAD_URL" :headers="HEADERS" multiple :limit="1" :file-list="fileList" :data="uploadData" :before-upload="beforeVideoUpload" :on-success="onUploadSuccess">
               <el-button type="primary">新建视频 <Icon icon="ep:upload" /></el-button>
             </el-upload>
           </el-col>

@@ -1,13 +1,7 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="85px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="85px">
       <el-form-item label="用户类型" prop="level">
         <el-radio-group v-model="queryParams.level" @change="handleQuery">
           <el-radio-button checked>全部</el-radio-button>
@@ -49,21 +43,10 @@
           <el-tag v-else>二级</el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        label="绑定时间"
-        align="center"
-        prop="bindUserTime"
-        :formatter="dateFormatter"
-        width="170px"
-      />
+      <el-table-column label="绑定时间" align="center" prop="bindUserTime" :formatter="dateFormatter" width="170px" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

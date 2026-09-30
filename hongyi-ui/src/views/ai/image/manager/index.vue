@@ -3,66 +3,25 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="用户编号" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          clearable
-          placeholder="请输入用户编号"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.userId" clearable placeholder="请输入用户编号" class="!w-240px">
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="平台" prop="platform">
         <el-select v-model="queryParams.status" placeholder="请选择平台" clearable class="!w-240px">
-          <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="绘画状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择绘画状态"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.AI_IMAGE_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.status" placeholder="请选择绘画状态" clearable class="!w-240px">
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.AI_IMAGE_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="是否发布" prop="publicStatus">
-        <el-select
-          v-model="queryParams.publicStatus"
-          placeholder="请选择是否发布"
-          clearable
-          class="!w-240px"
-        >
-          <el-option
-            v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.publicStatus" placeholder="请选择是否发布" clearable class="!w-240px">
+          <el-option v-for="dict in getBoolDictOptions(DICT_TYPE.INFRA_BOOLEAN_STRING)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -89,15 +48,7 @@
       <el-table-column label="编号" align="center" prop="id" width="180" fixed="left" />
       <el-table-column label="图片" align="center" prop="picUrl" width="110px" fixed="left">
         <template #default="{ row }">
-          <el-image
-            class="h-80px w-80px"
-            lazy
-            :src="row.picUrl"
-            :preview-src-list="[row.picUrl]"
-            preview-teleported
-            fit="cover"
-            v-if="row.picUrl?.length > 0"
-          />
+          <el-image class="h-80px w-80px" lazy :src="row.picUrl" :preview-src-list="[row.picUrl]" preview-teleported fit="cover" v-if="row.picUrl?.length > 0" />
         </template>
       </el-table-column>
       <el-table-column label="用户" align="center" prop="userId" width="180">
@@ -128,37 +79,19 @@
         </template>
       </el-table-column>
       <el-table-column label="提示词" align="center" prop="prompt" width="180" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="宽度" align="center" prop="width" />
       <el-table-column label="高度" align="center" prop="height" />
       <el-table-column label="错误信息" align="center" prop="errorMessage" />
       <el-table-column label="任务编号" align="center" prop="taskId" />
       <el-table-column label="操作" align="center" width="100" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['ai:image:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['ai:image:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

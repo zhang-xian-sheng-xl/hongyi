@@ -3,37 +3,13 @@
   <div class="absolute inset-0 flex flex-row wh-full">
     <div class="flex flex-col p-5 w-[390px]">
       <div class="mb-[30px]">
-        <el-segmented
-          v-model="selectPlatform"
-          :options="platformOptions"
-          class="w-[350px] !bg-[#ececec] [--el-border-radius-base:16px] [--el-segmented-item-selected-color:#fff]"
-        />
+        <el-segmented v-model="selectPlatform" :options="platformOptions" class="w-[350px] !bg-[#ececec] [--el-border-radius-base:16px] [--el-segmented-item-selected-color:#fff]" />
       </div>
       <div class="h-full overflow-y-auto">
-        <Common
-          v-if="selectPlatform === 'common'"
-          ref="commonRef"
-          :models="models"
-          @on-draw-complete="handleDrawComplete"
-        />
-        <Dall3
-          v-if="selectPlatform === AiPlatformEnum.OPENAI"
-          ref="dall3Ref"
-          :models="models"
-          @on-draw-start="handleDrawStart"
-          @on-draw-complete="handleDrawComplete"
-        />
-        <Midjourney
-          v-if="selectPlatform === AiPlatformEnum.MIDJOURNEY"
-          ref="midjourneyRef"
-          :models="models"
-        />
-        <StableDiffusion
-          v-if="selectPlatform === AiPlatformEnum.STABLE_DIFFUSION"
-          ref="stableDiffusionRef"
-          :models="models"
-          @on-draw-complete="handleDrawComplete"
-        />
+        <Common v-if="selectPlatform === 'common'" ref="commonRef" :models="models" @on-draw-complete="handleDrawComplete" />
+        <Dall3 v-if="selectPlatform === AiPlatformEnum.OPENAI" ref="dall3Ref" :models="models" @on-draw-start="handleDrawStart" @on-draw-complete="handleDrawComplete" />
+        <Midjourney v-if="selectPlatform === AiPlatformEnum.MIDJOURNEY" ref="midjourneyRef" :models="models" />
+        <StableDiffusion v-if="selectPlatform === AiPlatformEnum.STABLE_DIFFUSION" ref="stableDiffusionRef" :models="models" @on-draw-complete="handleDrawComplete" />
       </div>
     </div>
     <div class="flex-1 bg-white">

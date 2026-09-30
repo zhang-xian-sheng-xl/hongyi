@@ -17,12 +17,7 @@
             {{ row.startUsers[0].nickname }}
           </el-text>
           <el-text v-else>
-            <el-tooltip
-              class="box-item"
-              effect="dark"
-              placement="top"
-              :content="row.startUsers.map((user: any) => user.nickname).join('、')"
-            >
+            <el-tooltip class="box-item" effect="dark" placement="top" :content="row.startUsers.map((user: any) => user.nickname).join('、')">
               {{ row.startUsers[0].nickname }}等 {{ row.startUsers.length }} 人可见
             </el-tooltip>
           </el-text>
@@ -35,20 +30,10 @@
       </el-table-column>
       <el-table-column label="表单信息" prop="formType" min-width="150">
         <template #default="scope">
-          <el-button
-            v-if="scope.row.formType === BpmModelFormType.NORMAL"
-            type="primary"
-            link
-            @click="handleFormDetail(scope.row)"
-          >
+          <el-button v-if="scope.row.formType === BpmModelFormType.NORMAL" type="primary" link @click="handleFormDetail(scope.row)">
             <span>{{ scope.row.formName }}</span>
           </el-button>
-          <el-button
-            v-else-if="scope.row.formType === BpmModelFormType.CUSTOM"
-            type="primary"
-            link
-            @click="handleFormDetail(scope.row)"
-          >
+          <el-button v-else-if="scope.row.formType === BpmModelFormType.CUSTOM" type="primary" link @click="handleFormDetail(scope.row)">
             <span>{{ scope.row.formCustomCreatePath }}</span>
           </el-button>
           <label v-else>暂无表单</label>
@@ -59,33 +44,15 @@
           <el-tag>v{{ scope.row.version }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        label="部署时间"
-        align="center"
-        prop="deploymentTime"
-        width="180"
-        :formatter="dateFormatter"
-      />
+      <el-table-column label="部署时间" align="center" prop="deploymentTime" width="180" :formatter="dateFormatter" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            @click="openModelForm(scope.row.id)"
-            v-hasPermi="['bpm:model:update']"
-          >
-            恢复
-          </el-button>
+          <el-button link type="primary" @click="openModelForm(scope.row.id)" v-hasPermi="['bpm:model:update']"> 恢复 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 弹窗：表单详情 -->

@@ -16,26 +16,13 @@
     <div ref="contentRef" class="hide-scroll-bar h-full box-border overflow-y-auto">
       <div class="w-full min-h-full relative flex-grow bg-white box-border p-3 sm:p-7">
         <!-- 终止生成内容的按钮 -->
-        <el-button
-          v-show="isWriting"
-          class="absolute bottom-2 sm:bottom-5 left-1/2 -translate-x-1/2 z-36"
-          @click="emits('stopStream')"
-          size="small"
-        >
+        <el-button v-show="isWriting" class="absolute bottom-2 sm:bottom-5 left-1/2 -translate-x-1/2 z-36" @click="emits('stopStream')" size="small">
           <template #icon>
             <Icon icon="material-symbols:stop" />
           </template>
           终止生成
         </el-button>
-        <el-input
-          id="inputId"
-          type="textarea"
-          v-model="compContent"
-          autosize
-          :input-style="{ boxShadow: 'none' }"
-          resize="none"
-          placeholder="生成的内容……"
-        />
+        <el-input id="inputId" type="textarea" v-model="compContent" autosize :input-style="{ boxShadow: 'none' }" resize="none" placeholder="生成的内容……" />
       </div>
     </div>
   </el-card>

@@ -1,19 +1,12 @@
 <!-- dataType：enum 数组类型 -->
 <template>
-  <el-form-item
-    :rules="[{ required: true, validator: validateEnumList, trigger: 'change' }]"
-    label="枚举项"
-  >
+  <el-form-item :rules="[{ required: true, validator: validateEnumList, trigger: 'change' }]" label="枚举项">
     <div class="flex flex-col">
       <div class="flex items-center">
         <span class="flex-1"> 参数值 </span>
         <span class="flex-1"> 参数描述 </span>
       </div>
-      <div
-        v-for="(item, index) in dataSpecsList"
-        :key="index"
-        class="flex items-center justify-between mb-5px"
-      >
+      <div v-for="(item, index) in dataSpecsList" :key="index" class="flex items-center justify-between mb-5px">
         <el-form-item
           :prop="`property.dataSpecsList[${index}].value`"
           :rules="[
@@ -125,9 +118,7 @@ const validateEnumList = (_: any, __: any, callback: any) => {
   }
 
   // 检查是否存在空值
-  const hasEmptyValue = dataSpecsList.value.some(
-    (item) => isEmpty(item.value) || isEmpty(item.name)
-  )
+  const hasEmptyValue = dataSpecsList.value.some((item) => isEmpty(item.value) || isEmpty(item.name))
   if (hasEmptyValue) {
     callback(new Error('存在未填写的枚举值或描述'))
     return

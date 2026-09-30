@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="客户名称" prop="name">
@@ -16,12 +10,7 @@
         <el-col :span="12">
           <el-form-item label="客户来源" prop="source">
             <el-select v-model="formData.source" placeholder="请选择客户来源" class="w-1/1">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_SOURCE)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_SOURCE)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -34,17 +23,8 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="负责人" prop="ownerUserId">
-            <el-select
-              v-model="formData.ownerUserId"
-              :disabled="formType !== 'create'"
-              class="w-1/1"
-            >
-              <el-option
-                v-for="item in userOptions"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
+            <el-select v-model="formData.ownerUserId" :disabled="formType !== 'create'" class="w-1/1">
+              <el-option v-for="item in userOptions" :key="item.id" :label="item.nickname" :value="item.id" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -77,24 +57,14 @@
         <el-col :span="12">
           <el-form-item label="客户行业" prop="industryId">
             <el-select v-model="formData.industryId" placeholder="请选择客户行业" class="w-1/1">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_INDUSTRY)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_INDUSTRY)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="客户级别" prop="level">
             <el-select v-model="formData.level" placeholder="请选择客户级别" class="w-1/1">
-              <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_LEVEL)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_LEVEL)" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -102,15 +72,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="地址" prop="areaId">
-            <el-cascader
-              v-model="formData.areaId"
-              :options="areaList"
-              :props="defaultProps"
-              class="w-1/1"
-              clearable
-              filterable
-              placeholder="请选择城市"
-            />
+            <el-cascader v-model="formData.areaId" :options="areaList" :props="defaultProps" class="w-1/1" clearable filterable placeholder="请选择城市" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -122,13 +84,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="下次联系时间" prop="contactNextTime">
-            <el-date-picker
-              v-model="formData.contactNextTime"
-              placeholder="选择下次联系时间"
-              type="datetime"
-              value-format="x"
-              class="!w-1/1"
-            />
+            <el-date-picker v-model="formData.contactNextTime" placeholder="选择下次联系时间" type="datetime" value-format="x" class="!w-1/1" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

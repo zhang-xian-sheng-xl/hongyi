@@ -1,35 +1,13 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form class="-mb-15px" :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="对话编号" prop="conversationId">
-        <el-input
-          v-model="queryParams.conversationId"
-          placeholder="请输入对话编号"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
+        <el-input v-model="queryParams.conversationId" placeholder="请输入对话编号" clearable @keyup.enter="handleQuery" class="!w-240px" />
       </el-form-item>
       <el-form-item label="用户编号" prop="userId">
-        <el-select
-          v-model="queryParams.userId"
-          clearable
-          placeholder="请输入用户编号"
-          class="!w-240px"
-        >
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+        <el-select v-model="queryParams.userId" clearable placeholder="请输入用户编号" class="!w-240px">
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -54,13 +32,7 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="消息编号" align="center" prop="id" width="180" fixed="left" />
-      <el-table-column
-        label="对话编号"
-        align="center"
-        prop="conversationId"
-        width="180"
-        fixed="left"
-      />
+      <el-table-column label="对话编号" align="center" prop="conversationId" width="180" fixed="left" />
       <el-table-column label="用户" align="center" prop="userId" width="180">
         <template #default="scope">
           <span>{{ userList.find((item) => item.id === scope.row.userId)?.nickname }}</span>
@@ -70,13 +42,7 @@
       <el-table-column label="消息类型" align="center" prop="type" width="100" />
       <el-table-column label="模型标识" align="center" prop="model" width="180" />
       <el-table-column label="消息内容" align="center" prop="content" width="300" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
       <el-table-column label="回复消息编号" align="center" prop="replyId" width="180" />
       <el-table-column label="携带上下文" align="center" prop="useContext" width="100">
         <template #default="scope">
@@ -85,24 +51,12 @@
       </el-table-column>
       <el-table-column label="操作" align="center" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['ai:chat-message:delete']"
-          >
-            删除
-          </el-button>
+          <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['ai:chat-message:delete']"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 </template>
 

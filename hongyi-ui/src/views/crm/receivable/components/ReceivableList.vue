@@ -13,54 +13,24 @@
       <el-table-column align="center" label="回款编号" prop="no" />
       <el-table-column align="center" label="客户" prop="customerName" />
       <el-table-column align="center" label="合同" prop="contract.no" />
-      <el-table-column
-        :formatter="dateFormatter2"
-        align="center"
-        label="回款日期"
-        prop="returnTime"
-        width="150px"
-      />
+      <el-table-column :formatter="dateFormatter2" align="center" label="回款日期" prop="returnTime" width="150px" />
       <el-table-column align="center" label="回款方式" prop="returnType" width="130px">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.CRM_RECEIVABLE_RETURN_TYPE" :value="scope.row.returnType" />
         </template>
       </el-table-column>
-      <el-table-column
-        align="center"
-        label="回款金额(元)"
-        prop="price"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column align="center" label="回款金额(元)" prop="price" :formatter="erpPriceTableColumnFormatter" />
       <el-table-column align="center" label="负责人" prop="ownerUserName" />
       <el-table-column align="center" label="备注" prop="remark" />
       <el-table-column align="center" fixed="right" label="操作" width="130px">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['crm:receivable:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['crm:receivable:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['crm:receivable:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['crm:receivable:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加 -->

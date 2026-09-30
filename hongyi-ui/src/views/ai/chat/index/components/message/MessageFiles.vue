@@ -8,18 +8,12 @@
         @click="handleFileClick(url)"
       >
         <div class="mr-3 flex-shrink-0">
-          <div
-            class="flex items-center justify-center w-8 h-8 rounded-1.5 text-white font-bold"
-            :class="getFileTypeClass(getFileNameFromUrl(url))"
-          >
+          <div class="flex items-center justify-center w-8 h-8 rounded-1.5 text-white font-bold" :class="getFileTypeClass(getFileNameFromUrl(url))">
             <Icon :icon="getFileIcon(getFileNameFromUrl(url))" :size="20" />
           </div>
         </div>
         <div class="flex-1 min-w-0">
-          <div
-            class="text-sm font-medium text-gray-8 leading-tight mb-1 overflow-hidden text-ellipsis whitespace-nowrap"
-            :title="getFileNameFromUrl(url)"
-          >
+          <div class="text-sm font-medium text-gray-8 leading-tight mb-1 overflow-hidden text-ellipsis whitespace-nowrap" :title="getFileNameFromUrl(url)">
             {{ getFileNameFromUrl(url) }}
           </div>
         </div>

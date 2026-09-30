@@ -1,22 +1,8 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="80px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="80px">
       <el-form-item label="上级部门" prop="parentId">
-        <el-tree-select
-          v-model="formData.parentId"
-          :data="deptTree"
-          :props="defaultProps"
-          check-strictly
-          default-expand-all
-          placeholder="请选择上级部门"
-          value-key="deptId"
-        />
+        <el-tree-select v-model="formData.parentId" :data="deptTree" :props="defaultProps" check-strictly default-expand-all placeholder="请选择上级部门" value-key="deptId" />
       </el-form-item>
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入部门名称" />
@@ -26,12 +12,7 @@
       </el-form-item>
       <el-form-item label="负责人" prop="leaderUserId">
         <el-select v-model="formData.leaderUserId" clearable placeholder="请输入负责人">
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item.id"
-          />
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="联系电话" prop="phone">
@@ -42,12 +23,7 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="formData.status" clearable placeholder="请选择状态">
-          <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
     </el-form>

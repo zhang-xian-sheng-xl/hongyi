@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="标题" prop="title">
@@ -31,11 +25,7 @@
         <el-col :span="24">
           <el-form-item label="状态" prop="status">
             <el-radio-group v-model="formData.status">
-              <el-radio
-                v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>
@@ -44,11 +34,7 @@
         <el-col :span="24">
           <el-form-item label="位置" prop="position">
             <el-radio-group v-model="formData.position">
-              <el-radio
-                v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_BANNER_POSITION)"
-                :key="dict.value"
-                :value="dict.value"
-              >
+              <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.PROMOTION_BANNER_POSITION)" :key="dict.value" :value="dict.value">
                 {{ dict.label }}
               </el-radio>
             </el-radio-group>

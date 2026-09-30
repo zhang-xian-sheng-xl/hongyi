@@ -5,31 +5,13 @@
       <Icon class="mr-5px" icon="ep:opportunity" />
       创建商机
     </el-button>
-    <el-button
-      @click="openBusinessModal"
-      v-hasPermi="['crm:contact:create-business']"
-      v-if="queryParams.contactId"
-    >
-      <Icon class="mr-5px" icon="ep:circle-plus" />关联
-    </el-button>
-    <el-button
-      @click="deleteContactBusinessList"
-      v-hasPermi="['crm:contact:delete-business']"
-      v-if="queryParams.contactId"
-    >
-      <Icon class="mr-5px" icon="ep:remove" />解除关联
-    </el-button>
+    <el-button @click="openBusinessModal" v-hasPermi="['crm:contact:create-business']" v-if="queryParams.contactId"> <Icon class="mr-5px" icon="ep:circle-plus" />关联 </el-button>
+    <el-button @click="deleteContactBusinessList" v-hasPermi="['crm:contact:delete-business']" v-if="queryParams.contactId"> <Icon class="mr-5px" icon="ep:remove" />解除关联 </el-button>
   </el-row>
 
   <!-- 列表 -->
   <ContentWrap class="mt-10px">
-    <el-table
-      ref="businessRef"
-      v-loading="loading"
-      :data="list"
-      :stripe="true"
-      :show-overflow-tooltip="true"
-    >
+    <el-table ref="businessRef" v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column type="selection" width="55" v-if="queryParams.contactId" />
       <el-table-column label="商机名称" fixed="left" align="center" prop="name">
         <template #default="scope">
@@ -38,33 +20,19 @@
           </el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        label="商机金额"
-        align="center"
-        prop="price"
-        :formatter="erpPriceTableColumnFormatter"
-      />
+      <el-table-column label="商机金额" align="center" prop="price" :formatter="erpPriceTableColumnFormatter" />
       <el-table-column label="客户名称" align="center" prop="customerName" />
       <el-table-column label="商机组" align="center" prop="statusTypeName" />
       <el-table-column label="商机阶段" align="center" prop="statusName" />
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      v-model:page="queryParams.pageNo"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加 -->
   <BusinessForm ref="formRef" @success="getList" />
   <!-- 关联商机选择弹框 -->
-  <BusinessListModal
-    ref="businessModalRef"
-    :customer-id="props.customerId"
-    @success="createContactBusinessList"
-  />
+  <BusinessListModal ref="businessModalRef" :customer-id="props.customerId" @success="createContactBusinessList" />
 </template>
 <script setup lang="ts">
 import * as BusinessApi from '@/api/crm/business'

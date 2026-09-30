@@ -2,44 +2,16 @@
   <!-- 第一行：统计卡片行 -->
   <el-row :gutter="16" class="mb-4">
     <el-col :span="6">
-      <ComparisonCard
-        title="分类数量"
-        :value="statsData.productCategoryCount"
-        :todayCount="statsData.productCategoryTodayCount"
-        icon="ep:menu"
-        iconColor="text-blue-400"
-        :loading="loading"
-      />
+      <ComparisonCard title="分类数量" :value="statsData.productCategoryCount" :todayCount="statsData.productCategoryTodayCount" icon="ep:menu" iconColor="text-blue-400" :loading="loading" />
     </el-col>
     <el-col :span="6">
-      <ComparisonCard
-        title="产品数量"
-        :value="statsData.productCount"
-        :todayCount="statsData.productTodayCount"
-        icon="ep:box"
-        iconColor="text-orange-400"
-        :loading="loading"
-      />
+      <ComparisonCard title="产品数量" :value="statsData.productCount" :todayCount="statsData.productTodayCount" icon="ep:box" iconColor="text-orange-400" :loading="loading" />
     </el-col>
     <el-col :span="6">
-      <ComparisonCard
-        title="设备数量"
-        :value="statsData.deviceCount"
-        :todayCount="statsData.deviceTodayCount"
-        icon="ep:cpu"
-        iconColor="text-purple-400"
-        :loading="loading"
-      />
+      <ComparisonCard title="设备数量" :value="statsData.deviceCount" :todayCount="statsData.deviceTodayCount" icon="ep:cpu" iconColor="text-purple-400" :loading="loading" />
     </el-col>
     <el-col :span="6">
-      <ComparisonCard
-        title="设备消息数"
-        :value="statsData.deviceMessageCount"
-        :todayCount="statsData.deviceMessageTodayCount"
-        icon="ep:message"
-        iconColor="text-teal-400"
-        :loading="loading"
-      />
+      <ComparisonCard title="设备消息数" :value="statsData.deviceMessageCount" :todayCount="statsData.deviceMessageTodayCount" icon="ep:message" iconColor="text-teal-400" :loading="loading" />
     </el-col>
   </el-row>
 

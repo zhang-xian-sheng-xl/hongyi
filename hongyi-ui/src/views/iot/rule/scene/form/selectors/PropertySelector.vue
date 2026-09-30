@@ -1,31 +1,14 @@
 <!-- 属性选择器组件 -->
 <template>
   <div class="flex items-center gap-8px">
-    <el-select
-      v-model="localValue"
-      placeholder="请选择监控项"
-      filterable
-      clearable
-      @change="handleChange"
-      class="!w-150px"
-      :loading="loading"
-    >
+    <el-select v-model="localValue" placeholder="请选择监控项" filterable clearable @change="handleChange" class="!w-150px" :loading="loading">
       <el-option-group v-for="group in propertyGroups" :key="group.label" :label="group.label">
-        <el-option
-          v-for="property in group.options"
-          :key="property.identifier"
-          :label="property.name"
-          :value="property.identifier"
-        >
+        <el-option v-for="property in group.options" :key="property.identifier" :label="property.name" :value="property.identifier">
           <div class="flex items-center justify-between w-full py-2px">
             <span class="text-14px font-500 text-[var(--el-text-color-primary)] flex-1 truncate">
               {{ property.name }}
             </span>
-            <el-tag
-              :type="getDataTypeTagType(property.dataType)"
-              size="small"
-              class="ml-8px flex-shrink-0"
-            >
+            <el-tag :type="getDataTypeTagType(property.dataType)" size="small" class="ml-8px flex-shrink-0">
               {{ property.identifier }}
             </el-tag>
           </div>
@@ -34,24 +17,9 @@
     </el-select>
 
     <!-- 属性详情弹出层 -->
-    <el-popover
-      v-if="selectedProperty"
-      placement="right-start"
-      :width="350"
-      trigger="click"
-      :show-arrow="true"
-      :offset="8"
-      popper-class="property-detail-popover"
-    >
+    <el-popover v-if="selectedProperty" placement="right-start" :width="350" trigger="click" :show-arrow="true" :offset="8" popper-class="property-detail-popover">
       <template #reference>
-        <el-button
-          type="info"
-          :icon="InfoFilled"
-          circle
-          size="small"
-          class="flex-shrink-0"
-          title="查看属性详情"
-        />
+        <el-button type="info" :icon="InfoFilled" circle size="small" class="flex-shrink-0" title="查看属性详情" />
       </template>
 
       <!-- 弹出层内容 -->
@@ -68,80 +36,50 @@
 
         <div class="space-y-8px ml-24px">
           <div class="flex items-start gap-8px">
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              标识符：
-            </span>
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 标识符： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ selectedProperty.identifier }}
             </span>
           </div>
 
           <div v-if="selectedProperty.description" class="flex items-start gap-8px">
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              描述：
-            </span>
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 描述： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ selectedProperty.description }}
             </span>
           </div>
 
           <div v-if="selectedProperty.unit" class="flex items-start gap-8px">
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              单位：
-            </span>
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 单位： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ selectedProperty.unit }}
             </span>
           </div>
 
           <div v-if="selectedProperty.range" class="flex items-start gap-8px">
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              取值范围：
-            </span>
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 取值范围： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ selectedProperty.range }}
             </span>
           </div>
 
           <!-- 根据属性类型显示额外信息 -->
-          <div
-            v-if="
-              selectedProperty.type === IoTThingModelTypeEnum.PROPERTY &&
-              selectedProperty.accessMode
-            "
-            class="flex items-start gap-8px"
-          >
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              访问模式：
-            </span>
+          <div v-if="selectedProperty.type === IoTThingModelTypeEnum.PROPERTY && selectedProperty.accessMode" class="flex items-start gap-8px">
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 访问模式： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ getAccessModeLabel(selectedProperty.accessMode) }}
             </span>
           </div>
 
-          <div
-            v-if="
-              selectedProperty.type === IoTThingModelTypeEnum.EVENT && selectedProperty.eventType
-            "
-            class="flex items-start gap-8px"
-          >
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              事件类型：
-            </span>
+          <div v-if="selectedProperty.type === IoTThingModelTypeEnum.EVENT && selectedProperty.eventType" class="flex items-start gap-8px">
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 事件类型： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ getEventTypeLabel(selectedProperty.eventType) }}
             </span>
           </div>
 
-          <div
-            v-if="
-              selectedProperty.type === IoTThingModelTypeEnum.SERVICE && selectedProperty.callType
-            "
-            class="flex items-start gap-8px"
-          >
-            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0">
-              调用类型：
-            </span>
+          <div v-if="selectedProperty.type === IoTThingModelTypeEnum.SERVICE && selectedProperty.callType" class="flex items-start gap-8px">
+            <span class="text-12px text-[var(--el-text-color-secondary)] min-w-60px flex-shrink-0"> 调用类型： </span>
             <span class="text-12px text-[var(--el-text-color-primary)] flex-1">
               {{ getThingModelServiceCallTypeLabel(selectedProperty.callType) }}
             </span>
@@ -165,13 +103,7 @@ import {
   getDataTypeTagType,
   THING_MODEL_GROUP_LABELS
 } from '@/views/iot/utils/constants'
-import type {
-  IotThingModelTSLResp,
-  ThingModelEvent,
-  ThingModelParam,
-  ThingModelProperty,
-  ThingModelService
-} from '@/api/iot/thingmodel'
+import type { IotThingModelTSLResp, ThingModelEvent, ThingModelParam, ThingModelProperty, ThingModelService } from '@/api/iot/thingmodel'
 import { ThingModelApi } from '@/api/iot/thingmodel'
 
 /** 属性选择器组件 */
@@ -220,13 +152,8 @@ const propertyGroups = computed(() => {
   const groups: { label: string; options: any[] }[] = []
 
   // 设备属性上报触发器、定时触发器（条件组中的设备属性条件）
-  if (
-    props.triggerType === IotRuleSceneTriggerTypeEnum.DEVICE_PROPERTY_POST ||
-    props.triggerType === IotRuleSceneTriggerTypeEnum.TIMER
-  ) {
-    const propertyOptions = propertyList.value.filter(
-      (property) => property.type === IoTThingModelTypeEnum.PROPERTY
-    )
+  if (props.triggerType === IotRuleSceneTriggerTypeEnum.DEVICE_PROPERTY_POST || props.triggerType === IotRuleSceneTriggerTypeEnum.TIMER) {
+    const propertyOptions = propertyList.value.filter((property) => property.type === IoTThingModelTypeEnum.PROPERTY)
     if (propertyOptions.length > 0) {
       groups.push({
         label: THING_MODEL_GROUP_LABELS.PROPERTY,

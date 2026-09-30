@@ -78,35 +78,15 @@ onBeforeUnmount(() => {
 <template>
   <el-dialog v-model="dialogVisible" title="自定义模板" fullscreen>
     <div style="margin: 0 10px">
-      <el-alert
-        title="输入 @ 可选择插入流程表单选项和默认选项"
-        type="info"
-        show-icon
-        :closable="false"
-      />
+      <el-alert title="输入 @ 可选择插入流程表单选项和默认选项" type="info" show-icon :closable="false" />
     </div>
     <!-- TODO @unocss 简化 style -->
-    <div style=" margin: 10px;border: 1px solid #ccc">
-      <Toolbar
-        style="border-bottom: 1px solid #ccc"
-        :editor="editorRef"
-        :editorId="editorId"
-        :defaultConfig="toolbarConfig"
-      />
-      <Editor
-        style="height: 500px; overflow-y: hidden"
-        v-model="valueHtml"
-        :defaultConfig="editorConfig"
-        :editorId="editorId"
-        @on-created="handleCreated"
-      />
-      <MentionModal
-        v-if="isShowModal"
-        @hide-mention-modal="hideModal"
-        @insert-mention="insertMention"
-      />
+    <div style="margin: 10px; border: 1px solid #ccc">
+      <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :editorId="editorId" :defaultConfig="toolbarConfig" />
+      <Editor style="height: 500px; overflow-y: hidden" v-model="valueHtml" :defaultConfig="editorConfig" :editorId="editorId" @on-created="handleCreated" />
+      <MentionModal v-if="isShowModal" @hide-mention-modal="hideModal" @insert-mention="insertMention" />
     </div>
-    <div style=" float: right;margin-right: 10px">
+    <div style="float: right; margin-right: 10px">
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="handleConfirm">确 定</el-button>
     </div>

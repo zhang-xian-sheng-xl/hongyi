@@ -1,14 +1,5 @@
 <template>
-  <el-tree-select
-    v-model="selectCategoryId"
-    :data="categoryList"
-    :props="defaultProps"
-    :multiple="multiple"
-    :show-checkbox="multiple"
-    class="w-1/1"
-    node-key="id"
-    placeholder="请选择商品分类"
-  />
+  <el-tree-select v-model="selectCategoryId" :data="categoryList" :props="defaultProps" :multiple="multiple" :show-checkbox="multiple" class="w-1/1" node-key="id" placeholder="请选择商品分类" />
 </template>
 <script lang="ts" setup>
 import { defaultProps, handleTree } from '@/utils/tree'

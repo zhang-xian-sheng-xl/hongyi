@@ -2,21 +2,8 @@
 <template>
   <div class="w-full">
     <el-form-item label="告警配置" required>
-      <el-select
-        v-model="localValue"
-        placeholder="请选择告警配置"
-        filterable
-        clearable
-        @change="handleChange"
-        class="w-full"
-        :loading="loading"
-      >
-        <el-option
-          v-for="config in alertConfigs"
-          :key="config.id"
-          :label="config.name"
-          :value="config.id"
-        >
+      <el-select v-model="localValue" placeholder="请选择告警配置" filterable clearable @change="handleChange" class="w-full" :loading="loading">
+        <el-option v-for="config in alertConfigs" :key="config.id" :label="config.name" :value="config.id">
           <div class="flex items-center justify-between">
             <span>{{ config.name }}</span>
             <el-tag :type="config.enabled ? 'success' : 'danger'" size="small">

@@ -6,21 +6,8 @@
     <el-main class="flex-1 overflow-hidden m-0 !p-0 relative">
       <div class="mx-3 mt-3 mb-0 absolute right-0 -top-1.25 z-100">
         <!-- 搜索按钮 -->
-        <el-input
-          :loading="loading"
-          v-model="search"
-          class="!w-60"
-          size="default"
-          placeholder="请输入搜索的内容"
-          :suffix-icon="Search"
-          @change="getActiveTabsRole"
-        />
-        <el-button
-          v-if="activeTab == 'my-role'"
-          type="primary"
-          @click="handlerAddRole"
-          class="ml-20px"
-        >
+        <el-input :loading="loading" v-model="search" class="!w-60" size="default" placeholder="请输入搜索的内容" :suffix-icon="Search" @change="getActiveTabsRole" />
+        <el-button v-if="activeTab == 'my-role'" type="primary" @click="handlerAddRole" class="ml-20px">
           <Icon icon="ep:user" class="mr-1.25" />
           添加角色
         </el-button>
@@ -40,21 +27,8 @@
           />
         </el-tab-pane>
         <el-tab-pane label="公共角色" name="public-role" class="!pt-2">
-          <RoleCategoryList
-            class="mx-3"
-            :category-list="categoryList"
-            :active="activeCategory"
-            @on-category-click="handlerCategoryClick"
-          />
-          <RoleList
-            :role-list="publicRoleList"
-            @on-delete="handlerCardDelete"
-            @on-edit="handlerCardEdit"
-            @on-use="handlerCardUse"
-            @on-page="handlerCardPage('public')"
-            class="mt-3"
-            loading
-          />
+          <RoleCategoryList class="mx-3" :category-list="categoryList" :active="activeCategory" @on-category-click="handlerCategoryClick" />
+          <RoleList :role-list="publicRoleList" @on-delete="handlerCardDelete" @on-edit="handlerCardEdit" @on-use="handlerCardUse" @on-page="handlerCardPage('public')" class="mt-3" loading />
         </el-tab-pane>
       </el-tabs>
     </el-main>

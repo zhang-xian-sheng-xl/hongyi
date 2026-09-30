@@ -6,14 +6,7 @@
         <CardTitle title="商品概况" />
         <!-- 查询条件 -->
         <ShortcutDateRangePicker ref="shortcutDateRangePicker" @change="getProductTrendData">
-          <el-button
-            class="ml-4"
-            @click="handleExport"
-            :loading="exportLoading"
-            v-hasPermi="['statistics:product:export']"
-          >
-            <Icon icon="ep:download" class="mr-1" />导出
-          </el-button>
+          <el-button class="ml-4" @click="handleExport" :loading="exportLoading" v-hasPermi="['statistics:product:export']"> <Icon icon="ep:download" class="mr-1" />导出 </el-button>
         </ShortcutDateRangePicker>
       </div>
     </template>
@@ -29,12 +22,7 @@
           prefix=""
           :decimals="0"
           :value="trendSummary?.value?.browseCount || 0"
-          :percent="
-            calculateRelativeRate(
-              trendSummary?.value?.browseCount,
-              trendSummary?.reference?.browseCount
-            )
-          "
+          :percent="calculateRelativeRate(trendSummary?.value?.browseCount, trendSummary?.reference?.browseCount)"
         />
       </el-col>
       <el-col :xl="4" :md="8" :sm="24">
@@ -47,12 +35,7 @@
           prefix=""
           :decimals="0"
           :value="trendSummary?.value?.browseUserCount || 0"
-          :percent="
-            calculateRelativeRate(
-              trendSummary?.value?.browseUserCount,
-              trendSummary?.reference?.browseUserCount
-            )
-          "
+          :percent="calculateRelativeRate(trendSummary?.value?.browseUserCount, trendSummary?.reference?.browseUserCount)"
         />
       </el-col>
       <el-col :xl="4" :md="8" :sm="24">
@@ -65,12 +48,7 @@
           prefix=""
           :decimals="0"
           :value="trendSummary?.value?.orderPayCount || 0"
-          :percent="
-            calculateRelativeRate(
-              trendSummary?.value?.orderPayCount,
-              trendSummary?.reference?.orderPayCount
-            )
-          "
+          :percent="calculateRelativeRate(trendSummary?.value?.orderPayCount, trendSummary?.reference?.orderPayCount)"
         />
       </el-col>
       <el-col :xl="4" :md="8" :sm="24">
@@ -83,12 +61,7 @@
           prefix="￥"
           :decimals="2"
           :value="fenToYuan(trendSummary?.value?.orderPayPrice || 0)"
-          :percent="
-            calculateRelativeRate(
-              trendSummary?.value?.orderPayPrice,
-              trendSummary?.reference?.orderPayPrice
-            )
-          "
+          :percent="calculateRelativeRate(trendSummary?.value?.orderPayPrice, trendSummary?.reference?.orderPayPrice)"
         />
       </el-col>
       <el-col :xl="4" :md="8" :sm="24">
@@ -101,12 +74,7 @@
           prefix=""
           :decimals="0"
           :value="trendSummary?.value?.afterSaleCount || 0"
-          :percent="
-            calculateRelativeRate(
-              trendSummary?.value?.afterSaleCount,
-              trendSummary?.reference?.afterSaleCount
-            )
-          "
+          :percent="calculateRelativeRate(trendSummary?.value?.afterSaleCount, trendSummary?.reference?.afterSaleCount)"
         />
       </el-col>
       <el-col :xl="4" :md="8" :sm="24">
@@ -119,12 +87,7 @@
           prefix="￥"
           :decimals="2"
           :value="fenToYuan(trendSummary?.value?.afterSaleRefundPrice || 0)"
-          :percent="
-            calculateRelativeRate(
-              trendSummary?.value?.afterSaleRefundPrice,
-              trendSummary?.reference?.afterSaleRefundPrice
-            )
-          "
+          :percent="calculateRelativeRate(trendSummary?.value?.afterSaleRefundPrice, trendSummary?.reference?.afterSaleRefundPrice)"
         />
       </el-col>
     </el-row>

@@ -10,36 +10,18 @@
           <div>
             <el-text class="text-left leading-30px">{{ formatDate(item.createTime) }}</el-text>
           </div>
-          <div
-            class="relative flex flex-col break-words bg-[var(--el-fill-color-light)] shadow-[0_0_0_1px_var(--el-border-color-light)] rounded-10px pt-10px px-10px pb-5px"
-            ref="markdownViewRef"
-          >
-            <MessageReasoning
-              :reasoning-content="item.reasoningContent || ''"
-              :content="item.content || ''"
-            />
-            <MarkdownView
-              class="text-[var(--el-text-color-primary)] text-[0.95rem]"
-              :content="item.content"
-            />
+          <div class="relative flex flex-col break-words bg-[var(--el-fill-color-light)] shadow-[0_0_0_1px_var(--el-border-color-light)] rounded-10px pt-10px px-10px pb-5px" ref="markdownViewRef">
+            <MessageReasoning :reasoning-content="item.reasoningContent || ''" :content="item.content || ''" />
+            <MarkdownView class="text-[var(--el-text-color-primary)] text-[0.95rem]" :content="item.content" />
             <MessageFiles :attachment-urls="item.attachmentUrls" />
             <MessageKnowledge v-if="item.segments" :segments="item.segments" />
             <MessageWebSearch v-if="item.webSearchPages" :web-search-pages="item.webSearchPages" />
           </div>
           <div class="flex flex-row mt-8px">
-            <el-button
-              class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]"
-              link
-              @click="copyContent(item.content)"
-            >
+            <el-button class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]" link @click="copyContent(item.content)">
               <img class="h-20px" src="@/assets/ai/copy.svg" />
             </el-button>
-            <el-button
-              v-if="item.id > 0"
-              class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]"
-              link
-              @click="onDelete(item.id)"
-            >
+            <el-button v-if="item.id > 0" class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]" link @click="onDelete(item.id)">
               <img class="h-17px" src="@/assets/ai/delete.svg" />
             </el-button>
           </div>
@@ -55,10 +37,7 @@
             <el-text class="text-left leading-30px">{{ formatDate(item.createTime) }}</el-text>
           </div>
           <!-- 附件显示行 -->
-          <div
-            v-if="item.attachmentUrls && item.attachmentUrls.length > 0"
-            class="flex flex-row-reverse mb-8px"
-          >
+          <div v-if="item.attachmentUrls && item.attachmentUrls.length > 0" class="flex flex-row-reverse mb-8px">
             <MessageFiles :attachment-urls="item.attachmentUrls" />
           </div>
           <!-- 文本内容行 -->
@@ -71,32 +50,16 @@
             </div>
           </div>
           <div class="flex flex-row-reverse mt-8px">
-            <el-button
-              class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]"
-              link
-              @click="copyContent(item.content)"
-            >
+            <el-button class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]" link @click="copyContent(item.content)">
               <img class="h-20px" src="@/assets/ai/copy.svg" />
             </el-button>
-            <el-button
-              class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]"
-              link
-              @click="onDelete(item.id)"
-            >
+            <el-button class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]" link @click="onDelete(item.id)">
               <img class="h-17px mr-12px" src="@/assets/ai/delete.svg" />
             </el-button>
-            <el-button
-              class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]"
-              link
-              @click="onRefresh(item)"
-            >
+            <el-button class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]" link @click="onRefresh(item)">
               <el-icon size="17"><RefreshRight /></el-icon>
             </el-button>
-            <el-button
-              class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]"
-              link
-              @click="onEdit(item)"
-            >
+            <el-button class="flex bg-transparent items-center hover:cursor-pointer hover:bg-[var(--el-fill-color-lighter)]" link @click="onEdit(item)">
               <el-icon size="17"><Edit /></el-icon>
             </el-button>
           </div>
@@ -159,8 +122,7 @@ const scrollToBottom = async (isIgnore?: boolean) => {
   // 注意要使用 nextTick 以免获取不到 dom
   await nextTick()
   if (isIgnore || !isScrolling.value) {
-    messageContainer.value.scrollTop =
-      messageContainer.value.scrollHeight - messageContainer.value.offsetHeight
+    messageContainer.value.scrollTop = messageContainer.value.scrollHeight - messageContainer.value.offsetHeight
   }
 }
 

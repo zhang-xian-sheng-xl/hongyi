@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" title="添加虚拟评论">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item label="商品" prop="spuId">
         <SpuShowcase v-model="formData.spuId" :limit="1" />
       </el-form-item>

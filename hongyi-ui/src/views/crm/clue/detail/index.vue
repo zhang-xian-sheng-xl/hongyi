@@ -1,23 +1,8 @@
 <template>
   <ClueDetailsHeader :clue="clue" :loading="loading">
-    <el-button
-      v-if="permissionListRef?.validateWrite"
-      v-hasPermi="['crm:clue:update']"
-      type="primary"
-      @click="openForm"
-    >
-      编辑
-    </el-button>
-    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer">
-      转移
-    </el-button>
-    <el-button
-      v-if="permissionListRef?.validateOwnerUser && !clue.transformStatus"
-      type="success"
-      @click="handleTransform"
-    >
-      转化为客户
-    </el-button>
+    <el-button v-if="permissionListRef?.validateWrite" v-hasPermi="['crm:clue:update']" type="primary" @click="openForm"> 编辑 </el-button>
+    <el-button v-if="permissionListRef?.validateOwnerUser" type="primary" @click="transfer"> 转移 </el-button>
+    <el-button v-if="permissionListRef?.validateOwnerUser && !clue.transformStatus" type="success" @click="handleTransform"> 转化为客户 </el-button>
     <el-button v-if="clue.transformStatus" disabled type="success">已转化客户</el-button>
   </ClueDetailsHeader>
   <el-col>
@@ -29,13 +14,7 @@
         <ClueDetailsInfo :clue="clue" />
       </el-tab-pane>
       <el-tab-pane label="团队成员">
-        <PermissionList
-          ref="permissionListRef"
-          :biz-id="clue.id!"
-          :biz-type="BizTypeEnum.CRM_CLUE"
-          :show-action="true"
-          @quit-team="close"
-        />
+        <PermissionList ref="permissionListRef" :biz-id="clue.id!" :biz-type="BizTypeEnum.CRM_CLUE" :show-action="true" @quit-team="close" />
       </el-tab-pane>
       <el-tab-pane label="操作日志">
         <OperateLogV2 :log-list="logList" />

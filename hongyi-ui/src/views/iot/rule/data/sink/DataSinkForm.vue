@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="120px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="120px">
       <el-form-item label="目的名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入目的名称" />
       </el-form-item>
@@ -15,44 +9,20 @@
       </el-form-item>
       <el-form-item label="目的类型" prop="type">
         <el-select v-model="formData.type" @change="handleTypeChange">
-          <el-option
-            v-for="item in getIntDictOptions(DICT_TYPE.IOT_DATA_SINK_TYPE_ENUM)"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+          <el-option v-for="item in getIntDictOptions(DICT_TYPE.IOT_DATA_SINK_TYPE_ENUM)" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
       <HttpConfigForm v-if="IotDataSinkTypeEnum.HTTP === formData.type" v-model="formData.config" />
       <TcpConfigForm v-if="IotDataSinkTypeEnum.TCP === formData.type" v-model="formData.config" />
-      <WebSocketConfigForm
-        v-if="IotDataSinkTypeEnum.WEBSOCKET === formData.type"
-        v-model="formData.config"
-      />
+      <WebSocketConfigForm v-if="IotDataSinkTypeEnum.WEBSOCKET === formData.type" v-model="formData.config" />
       <MqttConfigForm v-if="IotDataSinkTypeEnum.MQTT === formData.type" v-model="formData.config" />
-      <RocketMQConfigForm
-        v-if="IotDataSinkTypeEnum.ROCKETMQ === formData.type"
-        v-model="formData.config"
-      />
-      <KafkaMQConfigForm
-        v-if="IotDataSinkTypeEnum.KAFKA === formData.type"
-        v-model="formData.config"
-      />
-      <RabbitMQConfigForm
-        v-if="IotDataSinkTypeEnum.RABBITMQ === formData.type"
-        v-model="formData.config"
-      />
-      <RedisStreamConfigForm
-        v-if="IotDataSinkTypeEnum.REDIS_STREAM === formData.type"
-        v-model="formData.config"
-      />
+      <RocketMQConfigForm v-if="IotDataSinkTypeEnum.ROCKETMQ === formData.type" v-model="formData.config" />
+      <KafkaMQConfigForm v-if="IotDataSinkTypeEnum.KAFKA === formData.type" v-model="formData.config" />
+      <RabbitMQConfigForm v-if="IotDataSinkTypeEnum.RABBITMQ === formData.type" v-model="formData.config" />
+      <RedisStreamConfigForm v-if="IotDataSinkTypeEnum.REDIS_STREAM === formData.type" v-model="formData.config" />
       <el-form-item label="目的状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="dict.value"
-            :label="dict.value"
-          >
+          <el-radio v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
@@ -68,16 +38,7 @@
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import { CommonStatusEnum } from '@/utils/constants'
 import { DataSinkApi, DataSinkVO, IotDataSinkTypeEnum } from '@/api/iot/rule/data/sink'
-import {
-  HttpConfigForm,
-  KafkaMQConfigForm,
-  MqttConfigForm,
-  RabbitMQConfigForm,
-  RedisStreamConfigForm,
-  RocketMQConfigForm,
-  TcpConfigForm,
-  WebSocketConfigForm
-} from './config'
+import { HttpConfigForm, KafkaMQConfigForm, MqttConfigForm, RabbitMQConfigForm, RedisStreamConfigForm, RocketMQConfigForm, TcpConfigForm, WebSocketConfigForm } from './config'
 
 /** IoT 数据流转目的的表单 */
 defineOptions({ name: 'IoTDataSinkForm' })
@@ -107,9 +68,7 @@ const formRules = reactive({
   'config.readTimeoutMs': [{ required: true, message: '读取超时时间不能为空', trigger: 'blur' }],
   'config.dataFormat': [{ required: true, message: '数据格式不能为空', trigger: 'change' }],
   // WebSocket 配置
-  'config.serverUrl': [
-    { required: true, message: 'WebSocket 服务器地址不能为空', trigger: 'blur' }
-  ],
+  'config.serverUrl': [{ required: true, message: 'WebSocket 服务器地址不能为空', trigger: 'blur' }],
   'config.sendTimeoutMs': [{ required: true, message: '发送超时时间不能为空', trigger: 'blur' }],
   // MQTT 配置
   'config.username': [{ required: true, message: '用户名不能为空', trigger: 'blur' }],

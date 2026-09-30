@@ -14,10 +14,7 @@
       </a>
     </div>
 
-    <div
-      v-else-if="item.type === MsgType.Video || item.type === 'shortvideo'"
-      style="text-align: center"
-    >
+    <div v-else-if="item.type === MsgType.Video || item.type === 'shortvideo'" style="text-align: center">
       <WxVideoPlayer :url="item.mediaUrl" />
     </div>
 
@@ -37,13 +34,7 @@
     </div>
 
     <div v-else-if="item.type === MsgType.Music">
-      <WxMusic
-        :title="item.title"
-        :description="item.description"
-        :thumb-media-url="item.thumbMediaUrl"
-        :music-url="item.musicUrl"
-        :hq-music-url="item.hqMusicUrl"
-      />
+      <WxMusic :title="item.title" :description="item.description" :thumb-media-url="item.thumbMediaUrl" :music-url="item.musicUrl" :hq-music-url="item.hqMusicUrl" />
     </div>
   </div>
 </template>

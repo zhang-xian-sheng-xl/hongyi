@@ -1,12 +1,6 @@
 <template>
   <Dialog v-model="dialogVisible" title="修改用户余额" width="600">
-    <el-form
-      ref="formRef"
-      v-loading="formLoading"
-      :model="formData"
-      :rules="formRules"
-      label-width="130px"
-    >
+    <el-form ref="formRef" v-loading="formLoading" :model="formData" :rules="formRules" label-width="130px">
       <el-form-item label="用户编号" prop="id">
         <el-input v-model="formData.id" class="!w-240px" disabled />
       </el-form-item>
@@ -23,13 +17,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="变动余额(元)" prop="changeBalance">
-        <el-input-number
-          v-model="formData.changeBalance"
-          :min="0"
-          :precision="2"
-          :step="0.1"
-          class="!w-240px"
-        />
+        <el-input-number v-model="formData.changeBalance" :min="0" :precision="2" :step="0.1" class="!w-240px" />
       </el-form-item>
       <el-form-item label="变动后余额(元)">
         <el-input :model-value="balanceResult" class="!w-240px" disabled />
@@ -135,10 +123,5 @@ const resetForm = () => {
 }
 
 /** 变动后的余额 */
-const balanceResult = computed(() =>
-  formatToFraction(
-    convertToInteger(formData.value.balance) +
-      convertToInteger(formData.value.changeBalance) * formData.value.changeType
-  )
-)
+const balanceResult = computed(() => formatToFraction(convertToInteger(formData.value.balance) + convertToInteger(formData.value.changeBalance) * formData.value.changeType))
 </script>

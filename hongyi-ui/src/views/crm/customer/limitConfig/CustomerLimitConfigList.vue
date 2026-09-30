@@ -1,84 +1,26 @@
 <template>
   <el-button plain @click="handleQuery"> <Icon icon="ep:refresh" class="mr-5px" /> 刷新 </el-button>
-  <el-button
-    type="primary"
-    plain
-    @click="openForm('create')"
-    v-hasPermi="['crm:customer-limit-config:create']"
-  >
-    <Icon icon="ep:plus" class="mr-5px" /> 新增
-  </el-button>
-  <el-table
-    v-loading="loading"
-    :data="list"
-    :stripe="true"
-    :show-overflow-tooltip="true"
-    class="mt-4"
-  >
+  <el-button type="primary" plain @click="openForm('create')" v-hasPermi="['crm:customer-limit-config:create']"> <Icon icon="ep:plus" class="mr-5px" /> 新增 </el-button>
+  <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" class="mt-4">
     <el-table-column label="编号" align="center" prop="id" />
-    <el-table-column
-      label="规则适用人群"
-      align="center"
-      :formatter="(row) => row.users?.map((user: any) => user.nickname).join('，')"
-    />
-    <el-table-column
-      label="规则适用部门"
-      align="center"
-      :formatter="(row) => row.depts?.map((dept: any) => dept.name).join('，')"
-    />
-    <el-table-column
-      :label="
-        confType === LimitConfType.CUSTOMER_QUANTITY_LIMIT ? '拥有客户数上限' : '锁定客户数上限'
-      "
-      align="center"
-      prop="maxCount"
-    />
-    <el-table-column
-      v-if="confType === LimitConfType.CUSTOMER_QUANTITY_LIMIT"
-      label="成交客户是否占用拥有客户数"
-      align="center"
-      prop="dealCountEnabled"
-      min-width="100"
-    >
+    <el-table-column label="规则适用人群" align="center" :formatter="(row) => row.users?.map((user: any) => user.nickname).join('，')" />
+    <el-table-column label="规则适用部门" align="center" :formatter="(row) => row.depts?.map((dept: any) => dept.name).join('，')" />
+    <el-table-column :label="confType === LimitConfType.CUSTOMER_QUANTITY_LIMIT ? '拥有客户数上限' : '锁定客户数上限'" align="center" prop="maxCount" />
+    <el-table-column v-if="confType === LimitConfType.CUSTOMER_QUANTITY_LIMIT" label="成交客户是否占用拥有客户数" align="center" prop="dealCountEnabled" min-width="100">
       <template #default="scope">
         <dict-tag :type="DICT_TYPE.INFRA_BOOLEAN_STRING" :value="scope.row.dealCountEnabled" />
       </template>
     </el-table-column>
-    <el-table-column
-      label="创建时间"
-      align="center"
-      prop="createTime"
-      :formatter="dateFormatter"
-      width="180px"
-    />
+    <el-table-column label="创建时间" align="center" prop="createTime" :formatter="dateFormatter" width="180px" />
     <el-table-column label="操作" align="center" min-width="110" fixed="right">
       <template #default="scope">
-        <el-button
-          link
-          type="primary"
-          @click="openForm('update', scope.row.id)"
-          v-hasPermi="['crm:customer-limit-config:update']"
-        >
-          编辑
-        </el-button>
-        <el-button
-          link
-          type="danger"
-          @click="handleDelete(scope.row.id)"
-          v-hasPermi="['crm:customer-limit-config:delete']"
-        >
-          删除
-        </el-button>
+        <el-button link type="primary" @click="openForm('update', scope.row.id)" v-hasPermi="['crm:customer-limit-config:update']"> 编辑 </el-button>
+        <el-button link type="danger" @click="handleDelete(scope.row.id)" v-hasPermi="['crm:customer-limit-config:delete']"> 删除 </el-button>
       </template>
     </el-table-column>
   </el-table>
   <!-- 分页 -->
-  <Pagination
-    :total="total"
-    v-model:page="queryParams.pageNo"
-    v-model:limit="queryParams.pageSize"
-    @pagination="getList"
-  />
+  <Pagination :total="total" v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="getList" />
 
   <!-- 表单弹窗：添加/修改 -->
   <CustomerLimitConfigForm ref="formRef" @success="getList" />

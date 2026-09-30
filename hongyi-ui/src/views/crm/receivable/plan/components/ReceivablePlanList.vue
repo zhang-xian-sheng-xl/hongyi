@@ -13,67 +13,22 @@
       <el-table-column align="center" label="客户名称" prop="customerName" width="150px" />
       <el-table-column align="center" label="合同编号" prop="contractNo" width="200px" />
       <el-table-column align="center" label="期数" prop="period" />
-      <el-table-column
-        align="center"
-        label="计划回款(元)"
-        prop="price"
-        width="120"
-        :formatter="erpPriceTableColumnFormatter"
-      />
-      <el-table-column
-        :formatter="dateFormatter2"
-        align="center"
-        label="计划回款日期"
-        prop="returnTime"
-        width="180px"
-      />
+      <el-table-column align="center" label="计划回款(元)" prop="price" width="120" :formatter="erpPriceTableColumnFormatter" />
+      <el-table-column :formatter="dateFormatter2" align="center" label="计划回款日期" prop="returnTime" width="180px" />
       <el-table-column align="center" label="提前几天提醒" prop="remindDays" width="150" />
-      <el-table-column
-        :formatter="dateFormatter2"
-        align="center"
-        label="提醒日期"
-        prop="remindTime"
-        width="180px"
-      />
+      <el-table-column :formatter="dateFormatter2" align="center" label="提醒日期" prop="remindTime" width="180px" />
       <el-table-column label="负责人" prop="ownerUserName" width="120" />
       <el-table-column align="center" label="备注" prop="remark" />
       <el-table-column align="center" fixed="right" label="操作" width="200px">
         <template #default="scope">
-          <el-button
-            v-hasPermi="['crm:receivable:create']"
-            link
-            type="primary"
-            @click="createReceivable(scope.row)"
-            :disabled="scope.row.receivableId"
-          >
-            创建回款
-          </el-button>
-          <el-button
-            v-hasPermi="['crm:receivable-plan:update']"
-            link
-            type="primary"
-            @click="openForm('update', scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-hasPermi="['crm:receivable-plan:delete']"
-            link
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-          >
-            删除
-          </el-button>
+          <el-button v-hasPermi="['crm:receivable:create']" link type="primary" @click="createReceivable(scope.row)" :disabled="scope.row.receivableId"> 创建回款 </el-button>
+          <el-button v-hasPermi="['crm:receivable-plan:update']" link type="primary" @click="openForm('update', scope.row.id)"> 编辑 </el-button>
+          <el-button v-hasPermi="['crm:receivable-plan:delete']" link type="danger" @click="handleDelete(scope.row.id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
   </ContentWrap>
 
   <!-- 表单弹窗：添加 -->

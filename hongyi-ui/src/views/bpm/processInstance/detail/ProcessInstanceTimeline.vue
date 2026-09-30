@@ -10,9 +10,7 @@
       :color="getApprovalNodeColor(activity.status)"
     >
       <template #dot>
-        <div
-          class="position-absolute left--10px top--6px rounded-full border border-solid border-#dedede w-30px h-30px flex justify-center items-center bg-#3f73f7 p-5px"
-        >
+        <div class="position-absolute left--10px top--6px rounded-full border border-solid border-#dedede w-30px h-30px flex justify-center items-center bg-#3f73f7 p-5px">
           <img class="w-full h-full" :src="getApprovalNodeImg(activity.nodeType)" alt="" />
           <div
             v-if="props.showStatusIcon"
@@ -28,53 +26,31 @@
       <div class="flex flex-col items-start gap2" :id="`activity-task-${activity.id}-${index}`">
         <!-- 第一行：节点名称、时间 -->
         <div class="flex w-full">
-          <div class="font-bold">
-            {{ activity.name }} <span v-if="activity.status === TaskStatusEnum.SKIP">【跳过】</span>
-          </div>
+          <div class="font-bold"> {{ activity.name }} <span v-if="activity.status === TaskStatusEnum.SKIP">【跳过】</span> </div>
           <!-- 信息：时间 -->
-          <div
-            v-if="activity.status !== TaskStatusEnum.NOT_START"
-            class="text-#a5a5a5 text-13px mt-1 ml-auto"
-          >
+          <div v-if="activity.status !== TaskStatusEnum.NOT_START" class="text-#a5a5a5 text-13px mt-1 ml-auto">
             {{ getApprovalNodeTime(activity) }}
           </div>
         </div>
         <div v-if="activity.nodeType === NodeType.CHILD_PROCESS_NODE">
-          <el-button
-            type="primary"
-            plain
-            size="small"
-            @click="handleChildProcess(activity)"
-            :disabled="!activity.processInstanceId"
-          >
-            查看子流程
-          </el-button>
+          <el-button type="primary" plain size="small" @click="handleChildProcess(activity)" :disabled="!activity.processInstanceId"> 查看子流程 </el-button>
         </div>
         <!-- 需要自定义选择审批人 -->
         <div
           class="flex flex-wrap gap2 items-center"
           v-if="
             isEmpty(activity.tasks) &&
-            ((CandidateStrategy.START_USER_SELECT === activity.candidateStrategy &&
-              isEmpty(activity.candidateUsers)) ||
-              (props.enableApproveUserSelect &&
-                CandidateStrategy.APPROVE_USER_SELECT === activity.candidateStrategy))
+            ((CandidateStrategy.START_USER_SELECT === activity.candidateStrategy && isEmpty(activity.candidateUsers)) ||
+              (props.enableApproveUserSelect && CandidateStrategy.APPROVE_USER_SELECT === activity.candidateStrategy))
           "
         >
           <!--  && activity.nodeType === NodeType.USER_TASK_NODE -->
           <el-tooltip content="添加用户" placement="left">
-            <el-button
-              class="!px-6px"
-              @click="handleSelectUser(activity.id, customApproveUsers[activity.id])"
-            >
+            <el-button class="!px-6px" @click="handleSelectUser(activity.id, customApproveUsers[activity.id])">
               <img class="w-18px text-#ccc" src="@/assets/svgs/bpm/add-user.svg" alt="" />
             </el-button>
           </el-tooltip>
-          <div
-            v-for="(user, idx1) in customApproveUsers[activity.id]"
-            :key="idx1"
-            class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative"
-          >
+          <div v-for="(user, idx1) in customApproveUsers[activity.id]" :key="idx1" class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative">
             <el-avatar class="!m-5px" :size="28" v-if="user.avatar" :src="user.avatar" />
             <el-avatar class="!m-5px" :size="28" v-else>
               {{ user.nickname.substring(0, 1) }}
@@ -85,33 +61,18 @@
         <div v-else class="flex items-center flex-wrap mt-1 gap2">
           <!-- 情况一：遍历每个审批节点下的【进行中】task 任务 -->
           <div v-for="(task, idx) in activity.tasks" :key="idx" class="flex flex-col pr-2 gap2">
-            <div
-              class="position-relative flex flex-wrap gap2"
-              v-if="task.assigneeUser || task.ownerUser"
-            >
+            <div class="position-relative flex flex-wrap gap2" v-if="task.assigneeUser || task.ownerUser">
               <!-- 信息：头像昵称 -->
-              <div
-                class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative"
-              >
+              <div class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative">
                 <template v-if="task.assigneeUser?.avatar || task.assigneeUser?.nickname">
-                  <el-avatar
-                    class="!m-5px"
-                    :size="28"
-                    v-if="task.assigneeUser?.avatar"
-                    :src="task.assigneeUser?.avatar"
-                  />
+                  <el-avatar class="!m-5px" :size="28" v-if="task.assigneeUser?.avatar" :src="task.assigneeUser?.avatar" />
                   <el-avatar class="!m-5px" :size="28" v-else>
                     {{ task.assigneeUser?.nickname.substring(0, 1) }}
                   </el-avatar>
                   {{ task.assigneeUser?.nickname }}
                 </template>
                 <template v-else-if="task.ownerUser?.avatar || task.ownerUser?.nickname">
-                  <el-avatar
-                    class="!m-5px"
-                    :size="28"
-                    v-if="task.ownerUser?.avatar"
-                    :src="task.ownerUser?.avatar"
-                  />
+                  <el-avatar class="!m-5px" :size="28" v-if="task.ownerUser?.avatar" :src="task.ownerUser?.avatar" />
                   <el-avatar class="!m-5px" :size="28" v-else>
                     {{ task.ownerUser?.nickname.substring(0, 1) }}
                   </el-avatar>
@@ -128,35 +89,18 @@
               </div>
             </div>
             <teleport defer :to="`#activity-task-${activity.id}-${index}`">
-              <div
-                v-if="
-                  task.reason &&
-                  [NodeType.USER_TASK_NODE, NodeType.END_EVENT_NODE].includes(activity.nodeType)
-                "
-                class="text-#a5a5a5 text-13px mt-1 w-full bg-#f8f8fa p2 rounded-md"
-              >
+              <div v-if="task.reason && [NodeType.USER_TASK_NODE, NodeType.END_EVENT_NODE].includes(activity.nodeType)" class="text-#a5a5a5 text-13px mt-1 w-full bg-#f8f8fa p2 rounded-md">
                 <!-- TODO lesan：这里如果是办理，需要是办理意见 -->
                 审批意见：{{ task.reason }}
               </div>
-              <div
-                v-if="task.signPicUrl && activity.nodeType === NodeType.USER_TASK_NODE"
-                class="text-#a5a5a5 text-13px mt-1 w-full bg-#f8f8fa p2 rounded-md"
-              >
+              <div v-if="task.signPicUrl && activity.nodeType === NodeType.USER_TASK_NODE" class="text-#a5a5a5 text-13px mt-1 w-full bg-#f8f8fa p2 rounded-md">
                 签名：
-                <el-image
-                  class="w-90px h-40px ml-5px"
-                  :src="task.signPicUrl"
-                  :preview-src-list="[task.signPicUrl]"
-                />
+                <el-image class="w-90px h-40px ml-5px" :src="task.signPicUrl" :preview-src-list="[task.signPicUrl]" />
               </div>
             </teleport>
           </div>
           <!-- 情况二：遍历每个审批节点下的【候选的】task 任务。例如说，1）依次审批，2）未来的审批任务等 -->
-          <div
-            v-for="(user, idx1) in activity.candidateUsers"
-            :key="idx1"
-            class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative"
-          >
+          <div v-for="(user, idx1) in activity.candidateUsers" :key="idx1" class="bg-gray-100 h-35px rounded-3xl flex items-center pr-8px dark:color-gray-600 position-relative">
             <el-avatar class="!m-5px" :size="28" v-if="user.avatar" :src="user.avatar" />
             <el-avatar class="!m-5px" :size="28" v-else>
               {{ user.nickname.substring(0, 1) }}

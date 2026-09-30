@@ -1,49 +1,22 @@
 <template>
-  <draggable
-    v-model="menuList"
-    item-key="id"
-    ghost-class="draggable-ghost"
-    :animation="400"
-    @end="onParentDragEnd"
-  >
+  <draggable v-model="menuList" item-key="id" ghost-class="draggable-ghost" :animation="400" @end="onParentDragEnd">
     <template #item="{ element: parent, index: x }">
       <div class="menu_bottom">
         <!-- 一级菜单 -->
-        <div
-          @click="menuClicked(parent, x)"
-          class="menu_item"
-          :class="{ active: props.activeIndex === `${x}` }"
-        >
-          <Icon icon="ep:fold" color="black" />{{ parent.name }}
-        </div>
+        <div @click="menuClicked(parent, x)" class="menu_item" :class="{ active: props.activeIndex === `${x}` }"> <Icon icon="ep:fold" color="black" />{{ parent.name }} </div>
         <!-- 以下为二级菜单-->
         <div class="submenu" v-if="props.parentIndex === x && parent.children">
-          <draggable
-            v-model="parent.children"
-            item-key="id"
-            ghost-class="draggable-ghost"
-            :animation="400"
-            @end="onChildDragEnd"
-          >
+          <draggable v-model="parent.children" item-key="id" ghost-class="draggable-ghost" :animation="400" @end="onChildDragEnd">
             <template #item="{ element: child, index: y }">
               <div class="menu_bottom subtitle">
-                <div
-                  class="menu_subItem"
-                  v-if="parent.children"
-                  :class="{ active: props.activeIndex === `${x}-${y}` }"
-                  @click="subMenuClicked(child, x, y)"
-                >
+                <div class="menu_subItem" v-if="parent.children" :class="{ active: props.activeIndex === `${x}-${y}` }" @click="subMenuClicked(child, x, y)">
                   {{ child.name }}
                 </div>
               </div>
             </template>
           </draggable>
           <!-- 二级菜单加号， 当长度 小于 5 才显示二级菜单的加号  -->
-          <div
-            class="menu_bottom menu_addicon"
-            v-if="!parent.children || parent.children.length < 5"
-            @click="addSubMenu(x, parent)"
-          >
+          <div class="menu_bottom menu_addicon" v-if="!parent.children || parent.children.length < 5" @click="addSubMenu(x, parent)">
             <Icon icon="ep:plus" class="plus" />
           </div>
         </div>

@@ -1,13 +1,7 @@
 <template>
   <!-- BPMN设计器 -->
   <template v-if="modelData.type === BpmModelType.BPMN">
-    <BpmModelEditor
-      v-if="showDesigner"
-      :model-id="modelData.id"
-      :model-key="modelData.key"
-      :model-name="modelData.name"
-      @success="handleDesignSuccess"
-    />
+    <BpmModelEditor v-if="showDesigner" :model-id="modelData.id" :model-key="modelData.key" :model-name="modelData.name" @success="handleDesignSuccess" />
   </template>
 
   <!-- Simple设计器 -->

@@ -1,21 +1,9 @@
 <template>
   <Dialog v-model="dialogVisible" :appendToBody="true" title="发送优惠券" width="70%">
     <!-- 搜索工作栏 -->
-    <el-form
-      ref="queryFormRef"
-      :inline="true"
-      :model="queryParams"
-      class="-mb-15px"
-      label-width="82px"
-    >
+    <el-form ref="queryFormRef" :inline="true" :model="queryParams" class="-mb-15px" label-width="82px">
       <el-form-item label="优惠券名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          class="!w-240px"
-          placeholder="请输入优惠劵名"
-          clearable
-          @keyup="handleQuery"
-        />
+        <el-input v-model="queryParams.name" class="!w-240px" placeholder="请输入优惠劵名" clearable @keyup="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery">
@@ -32,67 +20,25 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list" show-overflow-tooltip>
       <el-table-column align="center" label="优惠券名称" prop="name" min-width="60" />
-      <el-table-column
-        label="优惠金额 / 折扣"
-        align="center"
-        prop="discount"
-        :formatter="discountFormat"
-        min-width="60"
-      />
-      <el-table-column
-        align="center"
-        label="最低消费"
-        prop="usePrice"
-        min-width="60"
-        :formatter="usePriceFormat"
-      />
-      <el-table-column
-        align="center"
-        label="有效期限"
-        prop="validityType"
-        min-width="140"
-        :formatter="validityTypeFormat"
-      />
-      <el-table-column
-        align="center"
-        label="剩余数量"
-        min-width="60"
-        :formatter="remainedCountFormat"
-      />
+      <el-table-column label="优惠金额 / 折扣" align="center" prop="discount" :formatter="discountFormat" min-width="60" />
+      <el-table-column align="center" label="最低消费" prop="usePrice" min-width="60" :formatter="usePriceFormat" />
+      <el-table-column align="center" label="有效期限" prop="validityType" min-width="140" :formatter="validityTypeFormat" />
+      <el-table-column align="center" label="剩余数量" min-width="60" :formatter="remainedCountFormat" />
       <el-table-column label="操作" align="center" min-width="60px" fixed="right">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            :disabled="sendLoading"
-            :loading="sendLoading"
-            @click="handleSendCoupon(scope.row.id)"
-            v-hasPermi="['promotion:coupon:send']"
-          >
-            发送
-          </el-button>
+          <el-button link type="primary" :disabled="sendLoading" :loading="sendLoading" @click="handleSendCoupon(scope.row.id)" v-hasPermi="['promotion:coupon:send']"> 发送 </el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <Pagination
-      v-model:limit="queryParams.pageSize"
-      v-model:page="queryParams.pageNo"
-      :total="total"
-      @pagination="getList"
-    />
+    <Pagination v-model:limit="queryParams.pageSize" v-model:page="queryParams.pageNo" :total="total" @pagination="getList" />
     <div class="clear-both"></div>
   </Dialog>
 </template>
 <script lang="ts" setup>
 import * as CouponTemplateApi from '@/api/mall/promotion/coupon/couponTemplate'
 import * as CouponApi from '@/api/mall/promotion/coupon/coupon'
-import {
-  discountFormat,
-  remainedCountFormat,
-  usePriceFormat,
-  validityTypeFormat
-} from '@/views/mall/promotion/coupon/formatter'
+import { discountFormat, remainedCountFormat, usePriceFormat, validityTypeFormat } from '@/views/mall/promotion/coupon/formatter'
 import { CouponTemplateTakeTypeEnum } from '@/utils/constants'
 
 defineOptions({ name: 'PromotionCouponSendForm' })
